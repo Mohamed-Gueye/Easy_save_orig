@@ -3,7 +3,7 @@
 		"menu.title": "Menu Principal",
 		"menu.create_backup": "Creer une sauvegarde",
 		"menu.delete_backup": "Supprimer une sauvegarde",
-		"menu.execute_backup": "Exécuter une sauvegarde",
+		"menu.execute_backup": "Executer une sauvegarde",
 		"menu.show_saves": "Afficher les sauvegardes",
 		"menu.exit": "Quitter",
 		"menu.prompt": "Votre choix : ",
