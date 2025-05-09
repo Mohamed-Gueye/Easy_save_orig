@@ -1,0 +1,34 @@
+{
+	"fr": {
+		"menu.title": "Menu Principal",
+		"menu.create_backup": "Creer une sauvegarde",
+		"menu.delete_backup": "Supprimer une sauvegarde",
+		"menu.execute_backup": "Exécuter une sauvegarde",
+		"menu.show_saves": "Afficher les sauvegardes",
+		"menu.exit": "Quitter",
+		"menu.prompt": "Votre choix : ",
+		"menu.return": "Appuyez sur une touche pour revenir...",
+		"menu.invalid": "Choix invalide.",
+		"ask.name": "Nom de la sauvegarde :",
+		"ask.source": "Chemin source :",
+		"ask.target": "Chemin de destination :",
+		"ask.type": "Type de sauvegarde (full/differential) :",
+		"no.backup": "Aucune sauvegarde existante."
+	},
+	"en": {
+		"menu.title": "Main Menu",
+		"menu.create_backup": "Create Backup",
+		"menu.delete_backup": "Delete Backup",
+		"menu.execute_backup": "Execute Backup",
+		"menu.show_saves": "Show Saves",
+		"menu.exit": "Exit",
+		"menu.prompt": "Your choice: ",
+		"menu.return": "Press any key to return...",
+		"menu.invalid": "Invalid choice.",
+		"ask.name": "Backup name:",
+		"ask.source": "Source path:",
+		"ask.target": "Target path:",
+		"ask.type": "Backup type (full/differential):",
+		"no.backup": "No backups found."
+	}
+}

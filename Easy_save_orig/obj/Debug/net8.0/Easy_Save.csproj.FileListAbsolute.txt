@@ -1,0 +1,14 @@
+C:\Users\tompe\OneDrive - Association Cesi Viacesi mail\Documents\Génie logiciel\Projet\TestProjet\Easy_save_orig-main\obj\Debug\net8.0\Easy_Save.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\tompe\OneDrive - Association Cesi Viacesi mail\Documents\Génie logiciel\Projet\TestProjet\Easy_save_orig-main\obj\Debug\net8.0\Easy_Save.AssemblyInfoInputs.cache
+C:\Users\tompe\OneDrive - Association Cesi Viacesi mail\Documents\Génie logiciel\Projet\TestProjet\Easy_save_orig-main\obj\Debug\net8.0\Easy_Save.AssemblyInfo.cs
+C:\Users\tompe\OneDrive - Association Cesi Viacesi mail\Documents\Génie logiciel\Projet\TestProjet\Easy_save_orig-main\obj\Debug\net8.0\Easy_Save.csproj.CoreCompileInputs.cache
+C:\Users\tompe\OneDrive - Association Cesi Viacesi mail\Documents\Génie logiciel\Projet\TestProjet\Easy_save_orig-main\bin\Debug\net8.0\Easy_Save.exe
+C:\Users\tompe\OneDrive - Association Cesi Viacesi mail\Documents\Génie logiciel\Projet\TestProjet\Easy_save_orig-main\bin\Debug\net8.0\Easy_Save.deps.json
+C:\Users\tompe\OneDrive - Association Cesi Viacesi mail\Documents\Génie logiciel\Projet\TestProjet\Easy_save_orig-main\bin\Debug\net8.0\Easy_Save.runtimeconfig.json
+C:\Users\tompe\OneDrive - Association Cesi Viacesi mail\Documents\Génie logiciel\Projet\TestProjet\Easy_save_orig-main\bin\Debug\net8.0\Easy_Save.dll
+C:\Users\tompe\OneDrive - Association Cesi Viacesi mail\Documents\Génie logiciel\Projet\TestProjet\Easy_save_orig-main\bin\Debug\net8.0\Easy_Save.pdb
+C:\Users\tompe\OneDrive - Association Cesi Viacesi mail\Documents\Génie logiciel\Projet\TestProjet\Easy_save_orig-main\obj\Debug\net8.0\Easy_Save.dll
+C:\Users\tompe\OneDrive - Association Cesi Viacesi mail\Documents\Génie logiciel\Projet\TestProjet\Easy_save_orig-main\obj\Debug\net8.0\refint\Easy_Save.dll
+C:\Users\tompe\OneDrive - Association Cesi Viacesi mail\Documents\Génie logiciel\Projet\TestProjet\Easy_save_orig-main\obj\Debug\net8.0\Easy_Save.pdb
+C:\Users\tompe\OneDrive - Association Cesi Viacesi mail\Documents\Génie logiciel\Projet\TestProjet\Easy_save_orig-main\obj\Debug\net8.0\Easy_Save.genruntimeconfig.cache
+C:\Users\tompe\OneDrive - Association Cesi Viacesi mail\Documents\Génie logiciel\Projet\TestProjet\Easy_save_orig-main\obj\Debug\net8.0\ref\Easy_Save.dll

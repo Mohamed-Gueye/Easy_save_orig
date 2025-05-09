@@ -1,0 +1,17 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\bin\\Release",
+    "\\bin\\Release\\net8.0",
+    "\\Model",
+    "\\obj\\Debug",
+    "\\obj\\Debug\\net8.0",
+    "\\obj\\Debug\\net8.0\\ref",
+    "\\obj\\Debug\\net8.0\\refint",
+    "\\obj\\Release",
+    "\\obj\\Release\\net8.0\\ref",
+    "\\obj\\Release\\net8.0\\refint"
+  ],
+  "SelectedNode": "\\Program.cs",
+  "PreviewInSolutionExplorer": false
+}

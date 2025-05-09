@@ -1,0 +1,326 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\tompe\\OneDrive - Association Cesi Viacesi mail\\Documents\\G\u00E9nie logiciel\\Projet\\TestProjet\\Easy_save_orig-main\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\tompe\\OneDrive - Association Cesi Viacesi mail\\Documents\\G\u00E9nie logiciel\\Projet\\TestProjet\\Easy_save_orig-main\\Program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\tompe\\OneDrive - Association Cesi Viacesi mail\\Documents\\G\u00E9nie logiciel\\Projet\\TestProjet\\Easy_save_orig-main\\Strategies\\CompleteBackupStrategy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Strategies\\CompleteBackupStrategy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\tompe\\OneDrive - Association Cesi Viacesi mail\\Documents\\G\u00E9nie logiciel\\Projet\\TestProjet\\Easy_save_orig-main\\Strategies\\IncrementalBackupStrategy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Strategies\\IncrementalBackupStrategy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\tompe\\OneDrive - Association Cesi Viacesi mail\\Documents\\G\u00E9nie logiciel\\Projet\\TestProjet\\Easy_save_orig-main\\Model\\BackupManager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Model\\BackupManager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\tompe\\OneDrive - Association Cesi Viacesi mail\\Documents\\G\u00E9nie logiciel\\Projet\\TestProjet\\Easy_save_orig-main\\Interfaces\\IBackupStrategy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Interfaces\\IBackupStrategy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\tompe\\OneDrive - Association Cesi Viacesi mail\\Documents\\G\u00E9nie logiciel\\Projet\\TestProjet\\Easy_save_orig-main\\Controller\\BackupProcess.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Controller\\BackupProcess.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\tompe\\OneDrive - Association Cesi Viacesi mail\\Documents\\G\u00E9nie logiciel\\Projet\\TestProjet\\Easy_save_orig-main\\Model\\Backup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Model\\Backup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\tompe\\OneDrive - Association Cesi Viacesi mail\\Documents\\G\u00E9nie logiciel\\Projet\\TestProjet\\Easy_save_orig-main\\bin\\Debug\\net8.0\\data\\translations.json||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:bin\\Debug\\net8.0\\data\\translations.json||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\tompe\\OneDrive - Association Cesi Viacesi mail\\Documents\\G\u00E9nie logiciel\\Projet\\TestProjet\\Easy_save_orig-main\\Model\\TranslationProcess.cs||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Model\\TranslationProcess.cs||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\tompe\\OneDrive - Association Cesi Viacesi mail\\Documents\\G\u00E9nie logiciel\\Projet\\TestProjet\\Easy_save_orig-main\\View\\Main.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:View\\Main.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\tompe\\OneDrive - Association Cesi Viacesi mail\\Documents\\G\u00E9nie logiciel\\Projet\\TestProjet\\Easy_save_orig-main\\Model\\StatusEntry.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Model\\StatusEntry.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\tompe\\OneDrive - Association Cesi Viacesi mail\\Documents\\G\u00E9nie logiciel\\Projet\\TestProjet\\Easy_save_orig-main\\Model\\StatusManager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Model\\StatusManager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\tompe\\OneDrive - Association Cesi Viacesi mail\\Documents\\G\u00E9nie logiciel\\Projet\\TestProjet\\Easy_save_orig-main\\Model\\WriterManager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Model\\WriterManager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\tompe\\OneDrive - Association Cesi Viacesi mail\\Documents\\G\u00E9nie logiciel\\Projet\\TestProjet\\Easy_save_orig-main\\Model\\LogManager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Model\\LogManager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\tompe\\OneDrive - Association Cesi Viacesi mail\\Documents\\G\u00E9nie logiciel\\Projet\\TestProjet\\Easy_save_orig-main\\Model\\LogEntry.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Model\\LogEntry.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\tompe\\OneDrive - Association Cesi Viacesi mail\\Documents\\G\u00E9nie logiciel\\Projet\\TestProjet\\Easy_save_orig-main\\Model\\Configuration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Model\\Configuration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\tompe\\OneDrive - Association Cesi Viacesi mail\\Documents\\G\u00E9nie logiciel\\Projet\\TestProjet\\Easy_save_orig-main\\Observer\\LogObserver.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Observer\\LogObserver.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\tompe\\OneDrive - Association Cesi Viacesi mail\\Documents\\G\u00E9nie logiciel\\Projet\\TestProjet\\Easy_save_orig-main\\Interfaces\\IBackupObsever.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Interfaces\\IBackupObsever.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 6,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "BackupManager.cs",
+              "DocumentMoniker": "C:\\Users\\tompe\\OneDrive - Association Cesi Viacesi mail\\Documents\\G\u00E9nie logiciel\\Projet\\TestProjet\\Easy_save_orig-main\\Model\\BackupManager.cs",
+              "RelativeDocumentMoniker": "Model\\BackupManager.cs",
+              "ToolTip": "C:\\Users\\tompe\\OneDrive - Association Cesi Viacesi mail\\Documents\\G\u00E9nie logiciel\\Projet\\TestProjet\\Easy_save_orig-main\\Model\\BackupManager.cs",
+              "RelativeToolTip": "Model\\BackupManager.cs",
+              "ViewState": "AgIAAGAAAAAAAAAAAAAAAHwAAAAqAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-08T16:54:23.847Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "IBackupStrategy.cs",
+              "DocumentMoniker": "C:\\Users\\tompe\\OneDrive - Association Cesi Viacesi mail\\Documents\\G\u00E9nie logiciel\\Projet\\TestProjet\\Easy_save_orig-main\\Interfaces\\IBackupStrategy.cs",
+              "RelativeDocumentMoniker": "Interfaces\\IBackupStrategy.cs",
+              "ToolTip": "C:\\Users\\tompe\\OneDrive - Association Cesi Viacesi mail\\Documents\\G\u00E9nie logiciel\\Projet\\TestProjet\\Easy_save_orig-main\\Interfaces\\IBackupStrategy.cs",
+              "RelativeToolTip": "Interfaces\\IBackupStrategy.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-08T20:47:45.908Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "CompleteBackupStrategy.cs",
+              "DocumentMoniker": "C:\\Users\\tompe\\OneDrive - Association Cesi Viacesi mail\\Documents\\G\u00E9nie logiciel\\Projet\\TestProjet\\Easy_save_orig-main\\Strategies\\CompleteBackupStrategy.cs",
+              "RelativeDocumentMoniker": "Strategies\\CompleteBackupStrategy.cs",
+              "ToolTip": "C:\\Users\\tompe\\OneDrive - Association Cesi Viacesi mail\\Documents\\G\u00E9nie logiciel\\Projet\\TestProjet\\Easy_save_orig-main\\Strategies\\CompleteBackupStrategy.cs",
+              "RelativeToolTip": "Strategies\\CompleteBackupStrategy.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABkAAAAcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-08T21:21:41.865Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "IncrementalBackupStrategy.cs",
+              "DocumentMoniker": "C:\\Users\\tompe\\OneDrive - Association Cesi Viacesi mail\\Documents\\G\u00E9nie logiciel\\Projet\\TestProjet\\Easy_save_orig-main\\Strategies\\IncrementalBackupStrategy.cs",
+              "RelativeDocumentMoniker": "Strategies\\IncrementalBackupStrategy.cs",
+              "ToolTip": "C:\\Users\\tompe\\OneDrive - Association Cesi Viacesi mail\\Documents\\G\u00E9nie logiciel\\Projet\\TestProjet\\Easy_save_orig-main\\Strategies\\IncrementalBackupStrategy.cs",
+              "RelativeToolTip": "Strategies\\IncrementalBackupStrategy.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB8AAAAcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-08T21:21:49.666Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "BackupProcess.cs",
+              "DocumentMoniker": "C:\\Users\\tompe\\OneDrive - Association Cesi Viacesi mail\\Documents\\G\u00E9nie logiciel\\Projet\\TestProjet\\Easy_save_orig-main\\Controller\\BackupProcess.cs",
+              "RelativeDocumentMoniker": "Controller\\BackupProcess.cs",
+              "ToolTip": "C:\\Users\\tompe\\OneDrive - Association Cesi Viacesi mail\\Documents\\G\u00E9nie logiciel\\Projet\\TestProjet\\Easy_save_orig-main\\Controller\\BackupProcess.cs",
+              "RelativeToolTip": "Controller\\BackupProcess.cs",
+              "ViewState": "AgIAABIAAAAAAAAAAAAAACkAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-08T16:55:12.032Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Backup.cs",
+              "DocumentMoniker": "C:\\Users\\tompe\\OneDrive - Association Cesi Viacesi mail\\Documents\\G\u00E9nie logiciel\\Projet\\TestProjet\\Easy_save_orig-main\\Model\\Backup.cs",
+              "RelativeDocumentMoniker": "Model\\Backup.cs",
+              "ToolTip": "C:\\Users\\tompe\\OneDrive - Association Cesi Viacesi mail\\Documents\\G\u00E9nie logiciel\\Projet\\TestProjet\\Easy_save_orig-main\\Model\\Backup.cs",
+              "RelativeToolTip": "Model\\Backup.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-08T16:43:11.042Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\tompe\\OneDrive - Association Cesi Viacesi mail\\Documents\\G\u00E9nie logiciel\\Projet\\TestProjet\\Easy_save_orig-main\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "C:\\Users\\tompe\\OneDrive - Association Cesi Viacesi mail\\Documents\\G\u00E9nie logiciel\\Projet\\TestProjet\\Easy_save_orig-main\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-08T16:56:21.257Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "translations.json",
+              "DocumentMoniker": "C:\\Users\\tompe\\OneDrive - Association Cesi Viacesi mail\\Documents\\G\u00E9nie logiciel\\Projet\\TestProjet\\Easy_save_orig-main\\bin\\Debug\\net8.0\\data\\translations.json",
+              "RelativeDocumentMoniker": "bin\\Debug\\net8.0\\data\\translations.json",
+              "ToolTip": "C:\\Users\\tompe\\OneDrive - Association Cesi Viacesi mail\\Documents\\G\u00E9nie logiciel\\Projet\\TestProjet\\Easy_save_orig-main\\bin\\Debug\\net8.0\\data\\translations.json",
+              "RelativeToolTip": "bin\\Debug\\net8.0\\data\\translations.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-05-09T09:32:28.95Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "TranslationProcess.cs",
+              "DocumentMoniker": "C:\\Users\\tompe\\OneDrive - Association Cesi Viacesi mail\\Documents\\G\u00E9nie logiciel\\Projet\\TestProjet\\Easy_save_orig-main\\Model\\TranslationProcess.cs",
+              "RelativeDocumentMoniker": "Model\\TranslationProcess.cs",
+              "ToolTip": "C:\\Users\\tompe\\OneDrive - Association Cesi Viacesi mail\\Documents\\G\u00E9nie logiciel\\Projet\\TestProjet\\Easy_save_orig-main\\Model\\TranslationProcess.cs",
+              "RelativeToolTip": "Model\\TranslationProcess.cs",
+              "ViewState": "AgIAABIAAAAAAAAAAAAswDEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-09T09:33:13.871Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "Main.cs",
+              "DocumentMoniker": "C:\\Users\\tompe\\OneDrive - Association Cesi Viacesi mail\\Documents\\G\u00E9nie logiciel\\Projet\\TestProjet\\Easy_save_orig-main\\View\\Main.cs",
+              "RelativeDocumentMoniker": "View\\Main.cs",
+              "ToolTip": "C:\\Users\\tompe\\OneDrive - Association Cesi Viacesi mail\\Documents\\G\u00E9nie logiciel\\Projet\\TestProjet\\Easy_save_orig-main\\View\\Main.cs",
+              "RelativeToolTip": "View\\Main.cs",
+              "ViewState": "AgIAAGYAAAAAAAAAAAAswIUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-09T09:29:43.519Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "WriterManager.cs",
+              "DocumentMoniker": "C:\\Users\\tompe\\OneDrive - Association Cesi Viacesi mail\\Documents\\G\u00E9nie logiciel\\Projet\\TestProjet\\Easy_save_orig-main\\Model\\WriterManager.cs",
+              "RelativeDocumentMoniker": "Model\\WriterManager.cs",
+              "ToolTip": "C:\\Users\\tompe\\OneDrive - Association Cesi Viacesi mail\\Documents\\G\u00E9nie logiciel\\Projet\\TestProjet\\Easy_save_orig-main\\Model\\WriterManager.cs",
+              "RelativeToolTip": "Model\\WriterManager.cs",
+              "ViewState": "AgIAADkAAAAAAAAAAADwv0gAAAAtAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-08T16:52:22.224Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "LogManager.cs",
+              "DocumentMoniker": "C:\\Users\\tompe\\OneDrive - Association Cesi Viacesi mail\\Documents\\G\u00E9nie logiciel\\Projet\\TestProjet\\Easy_save_orig-main\\Model\\LogManager.cs",
+              "RelativeDocumentMoniker": "Model\\LogManager.cs",
+              "ToolTip": "C:\\Users\\tompe\\OneDrive - Association Cesi Viacesi mail\\Documents\\G\u00E9nie logiciel\\Projet\\TestProjet\\Easy_save_orig-main\\Model\\LogManager.cs",
+              "RelativeToolTip": "Model\\LogManager.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACQAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-08T19:35:03.378Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "LogEntry.cs",
+              "DocumentMoniker": "C:\\Users\\tompe\\OneDrive - Association Cesi Viacesi mail\\Documents\\G\u00E9nie logiciel\\Projet\\TestProjet\\Easy_save_orig-main\\Model\\LogEntry.cs",
+              "RelativeDocumentMoniker": "Model\\LogEntry.cs",
+              "ToolTip": "C:\\Users\\tompe\\OneDrive - Association Cesi Viacesi mail\\Documents\\G\u00E9nie logiciel\\Projet\\TestProjet\\Easy_save_orig-main\\Model\\LogEntry.cs",
+              "RelativeToolTip": "Model\\LogEntry.cs",
+              "ViewState": "AgIAAA0AAAAAAAAAAADwvyYAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-08T17:02:16.524Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "StatusManager.cs",
+              "DocumentMoniker": "C:\\Users\\tompe\\OneDrive - Association Cesi Viacesi mail\\Documents\\G\u00E9nie logiciel\\Projet\\TestProjet\\Easy_save_orig-main\\Model\\StatusManager.cs",
+              "RelativeDocumentMoniker": "Model\\StatusManager.cs",
+              "ToolTip": "C:\\Users\\tompe\\OneDrive - Association Cesi Viacesi mail\\Documents\\G\u00E9nie logiciel\\Projet\\TestProjet\\Easy_save_orig-main\\Model\\StatusManager.cs",
+              "RelativeToolTip": "Model\\StatusManager.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABkAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-08T17:02:59.826Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "Configuration.cs",
+              "DocumentMoniker": "C:\\Users\\tompe\\OneDrive - Association Cesi Viacesi mail\\Documents\\G\u00E9nie logiciel\\Projet\\TestProjet\\Easy_save_orig-main\\Model\\Configuration.cs",
+              "RelativeDocumentMoniker": "Model\\Configuration.cs",
+              "ToolTip": "C:\\Users\\tompe\\OneDrive - Association Cesi Viacesi mail\\Documents\\G\u00E9nie logiciel\\Projet\\TestProjet\\Easy_save_orig-main\\Model\\Configuration.cs",
+              "RelativeToolTip": "Model\\Configuration.cs",
+              "ViewState": "AgIAAAIAAAAAAAAAAADwvw8AAAAwAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-08T17:03:10.508Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "StatusEntry.cs",
+              "DocumentMoniker": "C:\\Users\\tompe\\OneDrive - Association Cesi Viacesi mail\\Documents\\G\u00E9nie logiciel\\Projet\\TestProjet\\Easy_save_orig-main\\Model\\StatusEntry.cs",
+              "RelativeDocumentMoniker": "Model\\StatusEntry.cs",
+              "ToolTip": "C:\\Users\\tompe\\OneDrive - Association Cesi Viacesi mail\\Documents\\G\u00E9nie logiciel\\Projet\\TestProjet\\Easy_save_orig-main\\Model\\StatusEntry.cs",
+              "RelativeToolTip": "Model\\StatusEntry.cs",
+              "ViewState": "AgIAABYAAAAAAAAAAADwvywAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-08T17:03:04.984Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "LogObserver.cs",
+              "DocumentMoniker": "C:\\Users\\tompe\\OneDrive - Association Cesi Viacesi mail\\Documents\\G\u00E9nie logiciel\\Projet\\TestProjet\\Easy_save_orig-main\\Observer\\LogObserver.cs",
+              "RelativeDocumentMoniker": "Observer\\LogObserver.cs",
+              "ToolTip": "C:\\Users\\tompe\\OneDrive - Association Cesi Viacesi mail\\Documents\\G\u00E9nie logiciel\\Projet\\TestProjet\\Easy_save_orig-main\\Observer\\LogObserver.cs",
+              "RelativeToolTip": "Observer\\LogObserver.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAADwvwwAAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-08T16:51:23.489Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "IBackupObsever.cs",
+              "DocumentMoniker": "C:\\Users\\tompe\\OneDrive - Association Cesi Viacesi mail\\Documents\\G\u00E9nie logiciel\\Projet\\TestProjet\\Easy_save_orig-main\\Interfaces\\IBackupObsever.cs",
+              "RelativeDocumentMoniker": "Interfaces\\IBackupObsever.cs",
+              "ToolTip": "C:\\Users\\tompe\\OneDrive - Association Cesi Viacesi mail\\Documents\\G\u00E9nie logiciel\\Projet\\TestProjet\\Easy_save_orig-main\\Interfaces\\IBackupObsever.cs",
+              "RelativeToolTip": "Interfaces\\IBackupObsever.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAPAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-08T17:03:18.189Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

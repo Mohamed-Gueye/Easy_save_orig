@@ -1,0 +1,266 @@
+[
+  {
+    "Timestamp": "2025-05-08T19:10:53.020472+02:00",
+    "BackupName": "DemoBackup",
+    "SourcePath": "C:\\TestBackup\\Source",
+    "DestinationPath": "C:\\TestBackup\\Target",
+    "FileSize": 17,
+    "TransferTime": 1
+  },
+  {
+    "Timestamp": "2025-05-08T19:10:53.046518+02:00",
+    "BackupName": "DemoBackup",
+    "SourcePath": "C:\\TestBackup\\Source",
+    "DestinationPath": "C:\\TestBackup\\Target",
+    "FileSize": 17,
+    "TransferTime": 0
+  },
+  {
+    "Timestamp": "2025-05-08T19:10:53.0563609+02:00",
+    "BackupName": "DemoBackup",
+    "SourcePath": "C:\\TestBackup\\Source",
+    "DestinationPath": "C:\\TestBackup\\Target",
+    "FileSize": 17,
+    "TransferTime": 0
+  },
+  {
+    "Timestamp": "2025-05-08T19:11:12.9167485+02:00",
+    "BackupName": "DemoBackup",
+    "SourcePath": "C:\\TestBackup\\Source",
+    "DestinationPath": "C:\\TestBackup\\Target",
+    "FileSize": 17,
+    "TransferTime": 1
+  },
+  {
+    "Timestamp": "2025-05-08T19:11:12.9375341+02:00",
+    "BackupName": "DemoBackup",
+    "SourcePath": "C:\\TestBackup\\Source",
+    "DestinationPath": "C:\\TestBackup\\Target",
+    "FileSize": 17,
+    "TransferTime": 0
+  },
+  {
+    "Timestamp": "2025-05-08T19:11:12.9492282+02:00",
+    "BackupName": "DemoBackup",
+    "SourcePath": "C:\\TestBackup\\Source",
+    "DestinationPath": "C:\\TestBackup\\Target",
+    "FileSize": 17,
+    "TransferTime": 0
+  },
+  {
+    "Timestamp": "2025-05-08T19:21:14.1536158+02:00",
+    "BackupName": "DemoBackup",
+    "SourcePath": "C:\\TestBackup\\Source",
+    "DestinationPath": "C:\\TestBackup\\Target",
+    "FileSize": 17,
+    "TransferTime": 1
+  },
+  {
+    "Timestamp": "2025-05-08T19:21:16.1799581+02:00",
+    "BackupName": "DemoBackup",
+    "SourcePath": "C:\\TestBackup\\Source",
+    "DestinationPath": "C:\\TestBackup\\Target",
+    "FileSize": 17,
+    "TransferTime": 1
+  },
+  {
+    "Timestamp": "2025-05-08T19:21:18.1912237+02:00",
+    "BackupName": "DemoBackup",
+    "SourcePath": "C:\\TestBackup\\Source",
+    "DestinationPath": "C:\\TestBackup\\Target",
+    "FileSize": 17,
+    "TransferTime": 1
+  },
+  {
+    "Timestamp": "2025-05-08T19:21:27.936595+02:00",
+    "BackupName": "DemoBackup",
+    "SourcePath": "C:\\TestBackup\\Source",
+    "DestinationPath": "C:\\TestBackup\\Target",
+    "FileSize": 17,
+    "TransferTime": 2
+  },
+  {
+    "Timestamp": "2025-05-08T19:21:29.9657571+02:00",
+    "BackupName": "DemoBackup",
+    "SourcePath": "C:\\TestBackup\\Source",
+    "DestinationPath": "C:\\TestBackup\\Target",
+    "FileSize": 17,
+    "TransferTime": 0
+  },
+  {
+    "Timestamp": "2025-05-08T19:21:31.9752735+02:00",
+    "BackupName": "DemoBackup",
+    "SourcePath": "C:\\TestBackup\\Source",
+    "DestinationPath": "C:\\TestBackup\\Target",
+    "FileSize": 17,
+    "TransferTime": 0
+  },
+  {
+    "Timestamp": "2025-05-08T21:24:35.6436868+02:00",
+    "BackupName": "DemoBackup",
+    "SourcePath": "C:\\TestBackup\\Source",
+    "DestinationPath": "C:\\TestBackup\\Target",
+    "FileSize": 17,
+    "TransferTime": 1
+  },
+  {
+    "Timestamp": "2025-05-08T21:24:37.6834153+02:00",
+    "BackupName": "DemoBackup",
+    "SourcePath": "C:\\TestBackup\\Source",
+    "DestinationPath": "C:\\TestBackup\\Target",
+    "FileSize": 17,
+    "TransferTime": 0
+  },
+  {
+    "Timestamp": "2025-05-08T21:24:39.6966842+02:00",
+    "BackupName": "DemoBackup",
+    "SourcePath": "C:\\TestBackup\\Source",
+    "DestinationPath": "C:\\TestBackup\\Target",
+    "FileSize": 17,
+    "TransferTime": 0
+  },
+  {
+    "Timestamp": "2025-05-08T22:15:02.6616738+02:00",
+    "BackupName": "DemoBackup",
+    "SourcePath": "C:\\TestBackup\\Source",
+    "DestinationPath": "C:\\TestBackup\\Target",
+    "FileSize": 17,
+    "TransferTime": 1
+  },
+  {
+    "Timestamp": "2025-05-08T22:15:04.680592+02:00",
+    "BackupName": "DemoBackup",
+    "SourcePath": "C:\\TestBackup\\Source",
+    "DestinationPath": "C:\\TestBackup\\Target",
+    "FileSize": 17,
+    "TransferTime": 0
+  },
+  {
+    "Timestamp": "2025-05-08T22:15:06.6981786+02:00",
+    "BackupName": "DemoBackup",
+    "SourcePath": "C:\\TestBackup\\Source",
+    "DestinationPath": "C:\\TestBackup\\Target",
+    "FileSize": 17,
+    "TransferTime": 0
+  },
+  {
+    "Timestamp": "2025-05-08T22:31:02.1158322+02:00",
+    "BackupName": "DemoBackup",
+    "SourcePath": "C:\\TestBackup\\Source",
+    "DestinationPath": "C:\\TestBackup\\Target",
+    "FileSize": 17,
+    "TransferTime": 1
+  },
+  {
+    "Timestamp": "2025-05-08T22:31:04.1305127+02:00",
+    "BackupName": "DemoBackup",
+    "SourcePath": "C:\\TestBackup\\Source",
+    "DestinationPath": "C:\\TestBackup\\Target",
+    "FileSize": 17,
+    "TransferTime": 0
+  },
+  {
+    "Timestamp": "2025-05-08T22:31:06.1475616+02:00",
+    "BackupName": "DemoBackup",
+    "SourcePath": "C:\\TestBackup\\Source",
+    "DestinationPath": "C:\\TestBackup\\Target",
+    "FileSize": 17,
+    "TransferTime": 0
+  },
+  {
+    "Timestamp": "2025-05-08T22:36:56.626549+02:00",
+    "BackupName": "DemoBackup",
+    "SourcePath": "C:\\TestBackup\\Source",
+    "DestinationPath": "C:\\TestBackup\\Target",
+    "FileSize": 17,
+    "TransferTime": 2
+  },
+  {
+    "Timestamp": "2025-05-08T22:36:58.648357+02:00",
+    "BackupName": "DemoBackup",
+    "SourcePath": "C:\\TestBackup\\Source",
+    "DestinationPath": "C:\\TestBackup\\Target",
+    "FileSize": 17,
+    "TransferTime": 1
+  },
+  {
+    "Timestamp": "2025-05-08T22:37:00.6613929+02:00",
+    "BackupName": "DemoBackup",
+    "SourcePath": "C:\\TestBackup\\Source",
+    "DestinationPath": "C:\\TestBackup\\Target",
+    "FileSize": 17,
+    "TransferTime": 0
+  },
+  {
+    "Timestamp": "2025-05-08T22:41:42.146341+02:00",
+    "BackupName": "DemoBackup",
+    "SourcePath": "C:\\TestBackup\\Source",
+    "DestinationPath": "C:\\TestBackup\\Target",
+    "FileSize": 17,
+    "TransferTime": 2
+  },
+  {
+    "Timestamp": "2025-05-08T22:41:44.1602643+02:00",
+    "BackupName": "DemoBackup",
+    "SourcePath": "C:\\TestBackup\\Source",
+    "DestinationPath": "C:\\TestBackup\\Target",
+    "FileSize": 17,
+    "TransferTime": 0
+  },
+  {
+    "Timestamp": "2025-05-08T22:41:46.175321+02:00",
+    "BackupName": "DemoBackup",
+    "SourcePath": "C:\\TestBackup\\Source",
+    "DestinationPath": "C:\\TestBackup\\Target",
+    "FileSize": 17,
+    "TransferTime": 0
+  },
+  {
+    "Timestamp": "2025-05-08T22:42:46.7907302+02:00",
+    "BackupName": "DemoBackup",
+    "SourcePath": "C:\\TestBackup\\Source",
+    "DestinationPath": "C:\\TestBackup\\Target",
+    "FileSize": 17,
+    "TransferTime": 1
+  },
+  {
+    "Timestamp": "2025-05-08T22:42:48.7971455+02:00",
+    "BackupName": "DemoBackup",
+    "SourcePath": "C:\\TestBackup\\Source",
+    "DestinationPath": "C:\\TestBackup\\Target",
+    "FileSize": 17,
+    "TransferTime": 0
+  },
+  {
+    "Timestamp": "2025-05-08T22:42:50.8017144+02:00",
+    "BackupName": "DemoBackup",
+    "SourcePath": "C:\\TestBackup\\Source",
+    "DestinationPath": "C:\\TestBackup\\Target",
+    "FileSize": 17,
+    "TransferTime": 0
+  },
+  {
+    "Timestamp": "2025-05-08T22:49:56.9386385+02:00",
+    "BackupName": "DemoBackup",
+    "SourcePath": "C:\\TestBackup\\Source",
+    "DestinationPath": "C:\\TestBackup\\Target",
+    "FileSize": 17,
+    "TransferTime": 5
+  },
+  {
+    "Timestamp": "2025-05-08T22:49:58.9483479+02:00",
+    "BackupName": "DemoBackup",
+    "SourcePath": "C:\\TestBackup\\Source",
+    "DestinationPath": "C:\\TestBackup\\Target",
+    "FileSize": 17,
+    "TransferTime": 0
+  },
+  {
+    "Timestamp": "2025-05-08T22:50:00.9580909+02:00",
+    "BackupName": "DemoBackup",
+    "SourcePath": "C:\\TestBackup\\Source",
+    "DestinationPath": "C:\\TestBackup\\Target",
+    "FileSize": 17,
+    "TransferTime": 0
+  }
+]
