@@ -15,6 +15,12 @@ namespace Easy_Save.Model.IO
             _entries = WriterManager.Instance.LoadJson<List<StatusEntry>>(_filePath) ?? new List<StatusEntry>();
         }
 
+        public DateTime GetLastBackupDate(string backupName)
+        {
+            var entry = _entries.Find(e => e.Name == backupName);
+            return entry?.LastBackupDate ?? DateTime.MinValue;
+        }
+
         public void UpdateStatus(StatusEntry newEntry)
         {
             _entries.RemoveAll(e => e.Name == newEntry.Name);
@@ -25,6 +31,12 @@ namespace Easy_Save.Model.IO
         public List<StatusEntry> GetAllStatuses()
         {
             return new List<StatusEntry>(_entries);
+        }
+
+        public void RemoveStatus(string name)
+        {
+            _entries.RemoveAll(e => e.Name == name);
+            WriterManager.Instance.WriteJson(_entries, _filePath);
         }
     }
 }

@@ -50,6 +50,10 @@ namespace Easy_Save.View
                         running = false;
                         break;
 
+                    case "6":
+                        backupProcess.RunAllBackups();
+                        break;
+
                     default:
                         Console.WriteLine(translationProcess.GetTranslation("menu.invalid"));
                         break;
@@ -82,6 +86,7 @@ namespace Easy_Save.View
             Console.WriteLine("3. " + translationProcess.GetTranslation("menu.execute_backup"));
             Console.WriteLine("4. " + translationProcess.GetTranslation("menu.show_saves"));
             Console.WriteLine("5. " + translationProcess.GetTranslation("menu.exit"));
+            Console.WriteLine("6. " + translationProcess.GetTranslation("menu.execute_all_backups"));
         }
 
         private void CreateBackup()
@@ -103,6 +108,7 @@ namespace Easy_Save.View
 
         private void DeleteBackup()
         {
+            ListBackups();
             Console.WriteLine(translationProcess.GetTranslation("ask.name"));
             string name = Console.ReadLine() ?? "";
             backupProcess.DeleteBackup(name);
@@ -110,6 +116,7 @@ namespace Easy_Save.View
 
         private void ExecuteBackup()
         {
+            ListBackups();
             Console.WriteLine(translationProcess.GetTranslation("ask.name"));
             string name = Console.ReadLine() ?? "";
             backupProcess.ExecuteBackup(name);

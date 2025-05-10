@@ -1,34 +1,61 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using Easy_Save.Interfaces;
 using Easy_Save.Model;
+using Easy_Save.Model.IO;
+using Easy_Save.Model.Status;
 
-namespace Easy_Save.Strategies;
-public class IncrementalBackupStrategy : IBackupStrategy
+namespace Easy_Save.Strategies
 {
-    public void MakeBackup(Backup backup)
+    public class IncrementalBackupStrategy : IBackupStrategy
     {
-        string[] files = Directory.GetFiles(backup.SourceDirectory, "*", SearchOption.AllDirectories);
-        DateTime lastBackupTime = DateTime.Now.AddDays(-1); // TO replace with a real last backup time
-
-        foreach (string file in files)
+        public void MakeBackup(Backup backup)
         {
-            DateTime lastModified = File.GetLastWriteTime(file);
+            var statusManager = new StatusManager();
+            DateTime lastBackupTime = statusManager.GetLastBackupDate(backup.Name);
 
-            if (lastModified > lastBackupTime)
+            string[] files = Directory.GetFiles(backup.SourceDirectory, "*", SearchOption.AllDirectories);
+            List<string> copiedFiles = new();
+
+            foreach (string file in files)
             {
-                string relativePath = Path.GetRelativePath(backup.SourceDirectory, file);
-                string destinationPath = Path.Combine(backup.TargetDirectory, relativePath);
+                DateTime lastModified = File.GetLastWriteTime(file);
 
-                string? destinationDir = Path.GetDirectoryName(destinationPath);
-                if (!Directory.Exists(destinationDir))
+                if (lastModified > lastBackupTime)
                 {
-                    Directory.CreateDirectory(destinationDir);
+
+                    string relativePath = Path.GetRelativePath(backup.SourceDirectory, file);
+                    string destinationPath = Path.Combine(backup.TargetDirectory, relativePath);
+
+                    string? destinationDir = Path.GetDirectoryName(destinationPath);
+                    if (!Directory.Exists(destinationDir))
+                    {
+                        Directory.CreateDirectory(destinationDir);
+                    }
+
+                    File.Copy(file, destinationPath, overwrite: true);
+                    copiedFiles.Add(file);
                 }
-
-                File.Copy(file, destinationPath, overwrite: true);
             }
-        }
 
-        Console.WriteLine($"Copie différentielle de \"{backup.Name}\" terminée !");
+            long totalSize = copiedFiles.Sum(f => new FileInfo(f).Length);
+            int totalCopied = copiedFiles.Count;
+
+            statusManager.UpdateStatus(new StatusEntry(
+                backup.Name,
+                backup.SourceDirectory,
+                backup.TargetDirectory,
+                "END",
+                totalCopied,
+                totalSize,
+                0,
+                100,
+                DateTime.Now
+            ));
+
+            Console.WriteLine(translationProcess.GetTranslation("backup.done"));
+        }
     }
 }

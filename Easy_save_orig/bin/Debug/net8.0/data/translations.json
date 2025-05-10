@@ -6,6 +6,7 @@
 		"menu.execute_backup": "Executer une sauvegarde",
 		"menu.show_saves": "Afficher les sauvegardes",
 		"menu.exit": "Quitter",
+		"menu.execute_all_backup": "Effectuer toutes les sauvegardes",
 		"menu.prompt": "Votre choix : ",
 		"menu.return": "Appuyez sur une touche pour revenir...",
 		"menu.invalid": "Choix invalide.",
@@ -13,7 +14,8 @@
 		"ask.source": "Chemin source :",
 		"ask.target": "Chemin de destination :",
 		"ask.type": "Type de sauvegarde (full/differential) :",
-		"no.backup": "Aucune sauvegarde existante."
+		"no.backup": "Aucune sauvegarde existante.",
+		"backup.done": "Sauvegarde finie"
 	},
 	"en": {
 		"menu.title": "Main Menu",
@@ -22,6 +24,7 @@
 		"menu.execute_backup": "Execute Backup",
 		"menu.show_saves": "Show Saves",
 		"menu.exit": "Exit",
+		"menu.execute_all_backup": "Execute all backups",
 		"menu.prompt": "Your choice: ",
 		"menu.return": "Press any key to return...",
 		"menu.invalid": "Invalid choice.",
@@ -29,6 +32,7 @@
 		"ask.source": "Source path:",
 		"ask.target": "Target path:",
 		"ask.type": "Backup type (full/differential):",
-		"no.backup": "No backups found."
+		"no.backup": "No backups found.",
+		"backup.done": "Backup done"
 	}
 }

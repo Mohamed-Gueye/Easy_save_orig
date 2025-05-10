@@ -5,9 +5,6 @@ using System.Text.Json;
 
 namespace Easy_Save.Model.IO
 {
-    /// <summary>
-    /// Singleton générique pour la lecture/écriture de fichiers JSON.
-    /// </summary>
     public class WriterManager
     {
         private static WriterManager? _instance;
@@ -31,9 +28,6 @@ namespace Easy_Save.Model.IO
 
         private WriterManager() { }
 
-        /// <summary>
-        /// Écrit un objet générique dans un fichier JSON.
-        /// </summary>
         public void WriteJson<T>(T data, string path)
         {
             try
@@ -47,9 +41,6 @@ namespace Easy_Save.Model.IO
             }
         }
 
-        /// <summary>
-        /// Charge un objet JSON générique depuis un fichier.
-        /// </summary>
         public T? LoadJson<T>(string path)
         {
             try
@@ -65,9 +56,6 @@ namespace Easy_Save.Model.IO
             }
         }
 
-        /// <summary>
-        /// Écrit le fichier de configuration.
-        /// </summary>
         public void WriteLogConfig(Configuration config)
         {
             WriteJson(config, "config.json");

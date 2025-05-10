@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using Easy_Save.Model;
 
 namespace Easy_Save.Controller
@@ -15,6 +16,26 @@ namespace Easy_Save.Controller
 
         public void CreateBackup(string name, string src, string dest, string type)
         {
+            if (!Directory.Exists(src))
+            {
+                Console.WriteLine($"The folder \"{src}\" doesn't exist");
+                return;
+            }
+
+            if (!Directory.Exists(dest))
+            {
+                try
+                {
+                    Directory.CreateDirectory(dest);
+                    Console.WriteLine($"Folder \"{dest}\" created");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Impossible to create folder : {ex.Message}");
+                    return;
+                }
+            }
+
             var backup = new Backup
             {
                 Name = name,
@@ -24,8 +45,15 @@ namespace Easy_Save.Controller
                 Progress = "0%"
             };
 
-            backupManager.AddBackup(backup);
-            Console.WriteLine($"Backup créé : {name}");
+            try
+            {
+                backupManager.AddBackup(backup);
+                Console.WriteLine($"Backup created : {name}");
+            }
+            catch (InvalidOperationException ex)
+            {
+                Console.WriteLine($"Impossible to create backup : {ex.Message}");
+            }
         }
 
         public void ExecuteBackup(string name)
@@ -46,7 +74,7 @@ namespace Easy_Save.Controller
         public void DeleteBackup(string name)
         {
             backupManager.RemoveBackup(name);
-            Console.WriteLine($"Backup supprimé : {name}");
+            Console.WriteLine($"Backup deleted : {name}");
         }
     }
 }

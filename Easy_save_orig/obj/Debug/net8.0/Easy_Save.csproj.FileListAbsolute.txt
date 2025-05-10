@@ -12,3 +12,18 @@ C:\Users\tompe\OneDrive - Association Cesi Viacesi mail\Documents\Génie logicie
 C:\Users\tompe\OneDrive - Association Cesi Viacesi mail\Documents\Génie logiciel\Projet\TestProjet\Easy_save_orig-main\obj\Debug\net8.0\Easy_Save.pdb
 C:\Users\tompe\OneDrive - Association Cesi Viacesi mail\Documents\Génie logiciel\Projet\TestProjet\Easy_save_orig-main\obj\Debug\net8.0\Easy_Save.genruntimeconfig.cache
 C:\Users\tompe\OneDrive - Association Cesi Viacesi mail\Documents\Génie logiciel\Projet\TestProjet\Easy_save_orig-main\obj\Debug\net8.0\ref\Easy_Save.dll
+C:\Projet_Software\Easy_save_orig\Easy_save_orig\obj\Debug\net8.0\Easy_Save.GeneratedMSBuildEditorConfig.editorconfig
+C:\Projet_Software\Easy_save_orig\Easy_save_orig\obj\Debug\net8.0\Easy_Save.AssemblyInfoInputs.cache
+C:\Projet_Software\Easy_save_orig\Easy_save_orig\obj\Debug\net8.0\Easy_Save.AssemblyInfo.cs
+C:\Projet_Software\Easy_save_orig\Easy_save_orig\obj\Debug\net8.0\Easy_Save.csproj.CoreCompileInputs.cache
+C:\Projet_Software\Easy_save_orig\Easy_save_orig\obj\Debug\net8.0\Easy_Save.sourcelink.json
+C:\Projet_Software\Easy_save_orig\Easy_save_orig\obj\Debug\net8.0\Easy_Save.dll
+C:\Projet_Software\Easy_save_orig\Easy_save_orig\obj\Debug\net8.0\refint\Easy_Save.dll
+C:\Projet_Software\Easy_save_orig\Easy_save_orig\obj\Debug\net8.0\Easy_Save.pdb
+C:\Projet_Software\Easy_save_orig\Easy_save_orig\bin\Debug\net8.0\Easy_Save.exe
+C:\Projet_Software\Easy_save_orig\Easy_save_orig\bin\Debug\net8.0\Easy_Save.deps.json
+C:\Projet_Software\Easy_save_orig\Easy_save_orig\bin\Debug\net8.0\Easy_Save.runtimeconfig.json
+C:\Projet_Software\Easy_save_orig\Easy_save_orig\bin\Debug\net8.0\Easy_Save.dll
+C:\Projet_Software\Easy_save_orig\Easy_save_orig\bin\Debug\net8.0\Easy_Save.pdb
+C:\Projet_Software\Easy_save_orig\Easy_save_orig\obj\Debug\net8.0\Easy_Save.genruntimeconfig.cache
+C:\Projet_Software\Easy_save_orig\Easy_save_orig\obj\Debug\net8.0\ref\Easy_Save.dll

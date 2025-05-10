@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Threading;
 using Easy_Save.Interfaces;
 using Easy_Save.Model;
 using Easy_Save.Model.Observer;
@@ -23,8 +21,10 @@ namespace Easy_Save.Model
 
         public BackupManager()
         {
-            statusManager = new StatusManager();   
+            statusManager = new StatusManager();
             logObserver = new LogObserver();
+
+            CleanOrphanStatuses(); 
         }
 
         public void AddBackup(Backup backup)
@@ -45,7 +45,7 @@ namespace Easy_Save.Model
             Backup? backup = backups.FirstOrDefault(b => b.Name == name);
             if (backup == null)
             {
-                Console.WriteLine("Aucun backup trouvé avec ce nom.");
+                Console.WriteLine("No backup found");
                 return;
             }
 
@@ -54,63 +54,17 @@ namespace Easy_Save.Model
                 Directory.CreateDirectory(backup.TargetDirectory);
             }
 
-            strategy = backup.Type == "full"
-                ? new CompleteBackupStrategy()
-                : backup.Type == "differential"
-                    ? new IncrementalBackupStrategy()
-                    : throw new InvalidOperationException("Type de sauvegarde invalide.");
-
-            string[] files = Directory.GetFiles(backup.SourceDirectory, "*", SearchOption.AllDirectories);
-            long totalSize = files.Sum(f => new FileInfo(f).Length);
-            int totalFiles = files.Length;
-            int filesDone = 0;
-
-            foreach (string file in files)
+            strategy = backup.Type.Trim().ToLower() switch
             {
-                string relativePath = Path.GetRelativePath(backup.SourceDirectory, file);
-                string destFile = Path.Combine(backup.TargetDirectory, relativePath);
-                Directory.CreateDirectory(Path.GetDirectoryName(destFile)!);
+                "full" => new CompleteBackupStrategy(),
+                "differential" => new IncrementalBackupStrategy(),
+                _ => throw new InvalidOperationException("Invalid backup type.")
+            };
 
-                var statusEntry = new Model.Status.StatusEntry(
-                    backup.Name,
-                    file,
-                    destFile,
-                    "ACTIVE",
-                    totalFiles,
-                    totalSize,
-                    totalFiles - filesDone,
-                    (int)((filesDone / (double)totalFiles) * 100)
-                );
-                statusManager.UpdateStatus(statusEntry);
 
-                Stopwatch sw = Stopwatch.StartNew();
-                File.Copy(file, destFile, true);
-                sw.Stop();
+            strategy.MakeBackup(backup);
 
-                long fileSize = new FileInfo(file).Length;
-                double time = sw.Elapsed.TotalMilliseconds;
-
-         
-                logObserver.Update(backup, fileSize, time);
-
-                Thread.Sleep(2000);
-                filesDone++;
-            }
-
-           
-            var finalStatus = new Model.Status.StatusEntry(
-                backup.Name,
-                backup.SourceDirectory,
-                backup.TargetDirectory,
-                "END",
-                totalFiles,
-                totalSize,
-                0,
-                100
-            );
-            statusManager.UpdateStatus(finalStatus);
-
-            Console.WriteLine($"Sauvegarde terminée : {backup.Name}");
+            Console.WriteLine($"Backup finished : {backup.Name}");
         }
 
         public void ExecuteAllBackups()
@@ -121,10 +75,25 @@ namespace Easy_Save.Model
             }
         }
 
-
         public List<Backup> GetAllBackup()
         {
             return new List<Backup>(backups);
+        }
+
+        private void CleanOrphanStatuses()
+        {
+            var allStatuses = statusManager.GetAllStatuses();
+            var existingNames = backups.Select(b => b.Name).ToHashSet();
+
+            bool changed = false;
+            foreach (var status in allStatuses)
+            {
+                if (!existingNames.Contains(status.Name))
+                {
+                    statusManager.RemoveStatus(status.Name);
+                    changed = true;
+                }
+            }
         }
     }
 }

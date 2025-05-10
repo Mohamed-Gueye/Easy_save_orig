@@ -29,7 +29,10 @@ namespace Easy_Save.Model.Status
         [JsonPropertyName("Progression")]
         public int Progression { get; set; }
 
-        public StatusEntry(string name, string sourcePath, string destinationPath, string state, int totalFilesToCopy, long totalFilesSize, int nbFilesLeftToDo, int progression)
+        [JsonPropertyName("LastBackupDate")]
+        public DateTime LastBackupDate { get; set; }
+
+        public StatusEntry(string name, string sourcePath, string destinationPath, string state, int totalFilesToCopy, long totalFilesSize, int nbFilesLeftToDo, int progression, DateTime lastBackupDate)
         {
             Name = name;
             SourcePath = sourcePath;
@@ -39,6 +42,7 @@ namespace Easy_Save.Model.Status
             TotalFilesSize = totalFilesSize;
             NbFilesLeftToDo = nbFilesLeftToDo;
             Progression = progression;
+            LastBackupDate = lastBackupDate;
         }
     }
 }
