@@ -72,7 +72,7 @@ namespace Easy_Save.Strategies
             );
             statusManager.UpdateStatus(finalStatus);
 
-            Console.WriteLine(translationProcess.GetTranslation("backup.done"));
+            Console.WriteLine("Backup completed successfully.");
         }
     }
 }

@@ -47,11 +47,11 @@ namespace Easy_Save.View
                         break;
 
                     case "5":
-                        running = false;
+                        ExecuteAllBackups();
                         break;
 
                     case "6":
-                        backupProcess.RunAllBackups();
+                        running = false;
                         break;
 
                     default:
@@ -85,8 +85,8 @@ namespace Easy_Save.View
             Console.WriteLine("2. " + translationProcess.GetTranslation("menu.delete_backup"));
             Console.WriteLine("3. " + translationProcess.GetTranslation("menu.execute_backup"));
             Console.WriteLine("4. " + translationProcess.GetTranslation("menu.show_saves"));
-            Console.WriteLine("5. " + translationProcess.GetTranslation("menu.exit"));
-            Console.WriteLine("6. " + translationProcess.GetTranslation("menu.execute_all_backups"));
+            Console.WriteLine("5. " + translationProcess.GetTranslation("menu.execute_all_backups"));
+            Console.WriteLine("6. " + translationProcess.GetTranslation("menu.exit"));
         }
 
         private void CreateBackup()
@@ -136,5 +136,19 @@ namespace Easy_Save.View
                 Console.WriteLine($"🗂 {backup.Name} | {backup.Type} | {backup.SourceDirectory} -> {backup.TargetDirectory}");
             }
         }
+
+        private void ExecuteAllBackups()
+        {
+            List<Backup> allBackups = backupProcess.GetAllBackup();
+            if (allBackups.Count == 0)
+            {
+                Console.WriteLine(translationProcess.GetTranslation("no.backup"));
+                return;
+            }
+
+            backupProcess.RunAllBackups();
+            Console.WriteLine($"{allBackups.Count} {translationProcess.GetTranslation("backups.executed")}");
+        }
+
     }
 }

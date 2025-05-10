@@ -1,13 +1,13 @@
 [
   {
-    "Name": "test",
-    "SourcePath": "C:\\Projet_Software\\Easy_save_orig\\Easy_save_orig\\Tests\\Test",
-    "DestinationPath": "C:\\Projet_Software\\Easy_save_orig\\Easy_save_orig\\Tests\\TestDestination",
+    "Name": "TEST",
+    "SourcePath": "C:\\EasySave\\Easy_save_orig\\Tests\\TestOrigin",
+    "DestinationPath": "C:\\EasySave\\Easy_save_orig\\Tests\\TestDestination",
     "State": "END",
-    "TotalFilesToCopy": 2,
-    "TotalFilesSize": 52,
+    "TotalFilesToCopy": 4,
+    "TotalFilesSize": 74,
     "NbFilesLeftToDo": 0,
     "Progression": 100,
-    "LastBackupDate": "2025-05-10T17:13:41.9575284+02:00"
+    "LastBackupDate": "2025-05-10T18:20:55.2301548+02:00"
   }
 ]

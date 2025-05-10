@@ -25,7 +25,6 @@ namespace Easy_Save.Strategies
 
                 if (lastModified > lastBackupTime)
                 {
-
                     string relativePath = Path.GetRelativePath(backup.SourceDirectory, file);
                     string destinationPath = Path.Combine(backup.TargetDirectory, relativePath);
 
@@ -55,7 +54,7 @@ namespace Easy_Save.Strategies
                 DateTime.Now
             ));
 
-            Console.WriteLine(translationProcess.GetTranslation("backup.done"));
+            Console.WriteLine("Backup completed successfully.");
         }
     }
 }

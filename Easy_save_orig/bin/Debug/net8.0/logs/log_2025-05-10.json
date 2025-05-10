@@ -382,5 +382,37 @@
     "DestinationPath": "C:\\Projet_Software\\Easy_save_orig\\Easy_save_orig\\Tests\\TestDestination",
     "FileSize": 33,
     "TransferTime": 1
+  },
+  {
+    "Timestamp": "2025-05-10T18:20:55.1957202+02:00",
+    "BackupName": "TEST",
+    "SourcePath": "C:\\EasySave\\Easy_save_orig\\Tests\\TestOrigin",
+    "DestinationPath": "C:\\EasySave\\Easy_save_orig\\Tests\\TestDestination",
+    "FileSize": 12,
+    "TransferTime": 3
+  },
+  {
+    "Timestamp": "2025-05-10T18:20:55.2076588+02:00",
+    "BackupName": "TEST",
+    "SourcePath": "C:\\EasySave\\Easy_save_orig\\Tests\\TestOrigin",
+    "DestinationPath": "C:\\EasySave\\Easy_save_orig\\Tests\\TestDestination",
+    "FileSize": 8,
+    "TransferTime": 2
+  },
+  {
+    "Timestamp": "2025-05-10T18:20:55.2146542+02:00",
+    "BackupName": "TEST",
+    "SourcePath": "C:\\EasySave\\Easy_save_orig\\Tests\\TestOrigin",
+    "DestinationPath": "C:\\EasySave\\Easy_save_orig\\Tests\\TestDestination",
+    "FileSize": 21,
+    "TransferTime": 0
+  },
+  {
+    "Timestamp": "2025-05-10T18:20:55.2236587+02:00",
+    "BackupName": "TEST",
+    "SourcePath": "C:\\EasySave\\Easy_save_orig\\Tests\\TestOrigin",
+    "DestinationPath": "C:\\EasySave\\Easy_save_orig\\Tests\\TestDestination",
+    "FileSize": 33,
+    "TransferTime": 0
   }
 ]
