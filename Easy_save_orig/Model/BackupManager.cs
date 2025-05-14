@@ -12,10 +12,7 @@ namespace Easy_Save.Model
 {
     public class BackupManager
     {
-        private const int MAX_BACKUPS = 5;
         private List<Backup> backups = new();
-        private IBackupStrategy? strategy;
-
         private readonly StatusManager statusManager;
         private readonly LogObserver logObserver;
 
@@ -24,20 +21,28 @@ namespace Easy_Save.Model
             statusManager = new StatusManager();
             logObserver = new LogObserver();
 
-            CleanOrphanStatuses(); 
+            CleanOrphanStatuses();
         }
 
         public void AddBackup(Backup backup)
         {
-            if (backups.Count >= MAX_BACKUPS)
-                throw new InvalidOperationException("Maximum backup jobs reached.");
+            if (backup == null)
+                throw new ArgumentNullException(nameof(backup));
 
             backups.Add(backup);
         }
 
         public void RemoveBackup(string name)
         {
-            backups.RemoveAll(b => b.Name == name);
+            var backup = backups.FirstOrDefault(b => b.Name == name);
+            if (backup != null)
+            {
+                backups.Remove(backup);
+
+                // Nettoyage associé : statut et autres dépendances
+                statusManager.RemoveStatus(name);
+                // Si d'autres observateurs ou ressources sont attachés, les libérer ici
+            }
         }
 
         public void ExecuteBackup(string name)
@@ -54,16 +59,14 @@ namespace Easy_Save.Model
                 Directory.CreateDirectory(backup.TargetDirectory);
             }
 
-            strategy = backup.Type.Trim().ToLower() switch
+            IBackupStrategy strategy = backup.Type.Trim().ToLower() switch
             {
                 "full" => new CompleteBackupStrategy(),
                 "differential" => new IncrementalBackupStrategy(),
                 _ => throw new InvalidOperationException("Invalid backup type.")
             };
 
-
             strategy.MakeBackup(backup);
-
             Console.WriteLine($"Backup finished : {backup.Name}");
         }
 
@@ -77,7 +80,7 @@ namespace Easy_Save.Model
 
         public List<Backup> GetAllBackup()
         {
-            return new List<Backup>(backups);
+            return new List<Backup>(backups); // copie pour éviter modifications externes
         }
 
         private void CleanOrphanStatuses()
@@ -85,13 +88,11 @@ namespace Easy_Save.Model
             var allStatuses = statusManager.GetAllStatuses();
             var existingNames = backups.Select(b => b.Name).ToHashSet();
 
-            bool changed = false;
             foreach (var status in allStatuses)
             {
                 if (!existingNames.Contains(status.Name))
                 {
                     statusManager.RemoveStatus(status.Name);
-                    changed = true;
                 }
             }
         }

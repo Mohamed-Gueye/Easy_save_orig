@@ -1,13 +1,68 @@
 [
   {
-    "Name": "TEST",
-    "SourcePath": "C:\\EasySave\\Easy_save_orig\\Tests\\TestOrigin",
-    "DestinationPath": "C:\\EasySave\\Easy_save_orig\\Tests\\TestDestination",
+    "Name": "test_1",
+    "SourcePath": "C:\\Test\\Test",
+    "DestinationPath": "C:\\Test\\TestDestination",
     "State": "END",
-    "TotalFilesToCopy": 4,
-    "TotalFilesSize": 74,
+    "TotalFilesToCopy": 2,
+    "TotalFilesSize": 49,
     "NbFilesLeftToDo": 0,
     "Progression": 100,
-    "LastBackupDate": "2025-05-10T18:20:55.2301548+02:00"
+    "LastBackupDate": "2025-05-14T09:57:26.2658621+02:00"
+  },
+  {
+    "Name": "test_2",
+    "SourcePath": "C:\\Test\\Test",
+    "DestinationPath": "C:\\Test\\TestDestination2",
+    "State": "END",
+    "TotalFilesToCopy": 2,
+    "TotalFilesSize": 49,
+    "NbFilesLeftToDo": 0,
+    "Progression": 100,
+    "LastBackupDate": "2025-05-14T09:57:26.2845029+02:00"
+  },
+  {
+    "Name": "Test_3",
+    "SourcePath": "C:\\Test\\Test",
+    "DestinationPath": "C:\\Test\\TestDestination",
+    "State": "END",
+    "TotalFilesToCopy": 2,
+    "TotalFilesSize": 49,
+    "NbFilesLeftToDo": 0,
+    "Progression": 100,
+    "LastBackupDate": "2025-05-14T09:57:26.3083537+02:00"
+  },
+  {
+    "Name": "Test_4",
+    "SourcePath": "C:\\Test\\Test",
+    "DestinationPath": "C:\\Test\\TestDestination",
+    "State": "END",
+    "TotalFilesToCopy": 2,
+    "TotalFilesSize": 49,
+    "NbFilesLeftToDo": 0,
+    "Progression": 100,
+    "LastBackupDate": "2025-05-14T09:57:26.3312418+02:00"
+  },
+  {
+    "Name": "Test_5",
+    "SourcePath": "C:\\Test\\Test",
+    "DestinationPath": "C:\\Test\\TestDestination",
+    "State": "END",
+    "TotalFilesToCopy": 2,
+    "TotalFilesSize": 49,
+    "NbFilesLeftToDo": 0,
+    "Progression": 100,
+    "LastBackupDate": "2025-05-14T09:57:26.3495935+02:00"
+  },
+  {
+    "Name": "Test_6",
+    "SourcePath": "C:\\Test\\Test",
+    "DestinationPath": "C:\\Test\\TestDestination69",
+    "State": "END",
+    "TotalFilesToCopy": 2,
+    "TotalFilesSize": 49,
+    "NbFilesLeftToDo": 0,
+    "Progression": 100,
+    "LastBackupDate": "2025-05-14T09:57:26.3685342+02:00"
   }
 ]
