@@ -58,10 +58,15 @@ namespace Easy_Save.Strategies
                     .Any(e => e.Equals(ext, StringComparison.OrdinalIgnoreCase));
 
                 int encryptionTime = 0;
+                int transferTime = 0;
+
+                var sw = Stopwatch.StartNew();
+                File.Copy(file, destinationPath, true);
+                sw.Stop();
+                transferTime = (int)sw.Elapsed.TotalMilliseconds;
 
                 if (shouldEncrypt)
                 {
-                    File.Copy(file, destinationPath, true);
                     encryptionTime = EncryptionHelper.EncryptFile(destinationPath, encryptionConfig.key, encryptionConfig.encryptionExecutablePath);
 
                     if (encryptionTime >= 0)
@@ -75,13 +80,9 @@ namespace Easy_Save.Strategies
                         int decryptTime = EncryptionHelper.EncryptFile(decryptedPath, encryptionConfig.key, encryptionConfig.encryptionExecutablePath);
 
                         if (decryptTime >= 0)
-                        {
                             Console.WriteLine($"Déchiffrement effectué → {decryptedPath}");
-                        }
                         else
-                        {
                             Console.WriteLine($"Erreur de déchiffrement pour : {decryptedPath}");
-                        }
                     }
                     else
                     {
@@ -89,13 +90,8 @@ namespace Easy_Save.Strategies
                         continue;
                     }
                 }
-                else
-                {
-                    File.Copy(file, destinationPath, true);
-                }
 
-                long fileSize = new FileInfo(file).Length;
-                logObserver.Update(backup, fileSize, encryptionTime);
+                logObserver.Update(backup, totalSize, transferTime, shouldEncrypt ? encryptionTime : 0, totalFiles);
                 filesDone++;
             }
 

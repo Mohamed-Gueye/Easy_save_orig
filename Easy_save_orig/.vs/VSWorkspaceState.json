@@ -1,15 +1,17 @@
 {
   "ExpandedNodes": [
     "",
+    "\\CryptoSoft",
     "\\CryptoSoft\\bin",
     "\\CryptoSoft\\bin\\Debug",
     "\\CryptoSoft\\bin\\Debug\\net8.0",
     "\\CryptoSoft\\obj",
     "\\CryptoSoft\\obj\\Debug",
     "\\Model",
+    "\\Observer",
     "\\Strategies",
     "\\View"
   ],
-  "SelectedNode": "\\Strategies\\IncrementalBackupStrategy.cs",
+  "SelectedNode": "\\Easy_Save.sln",
   "PreviewInSolutionExplorer": false
 }

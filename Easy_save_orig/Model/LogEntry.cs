@@ -23,9 +23,15 @@ namespace Easy_Save.Model.Log
         [JsonPropertyName("TransferTime")]
         public long TransferTime { get; set; }
 
+        [JsonPropertyName("EncryptionTime")]
+        public long EncryptionTime { get; set; }
+
+        [JsonPropertyName("FileCount")]
+        public int FileCount { get; set; }
+
         public LogEntry() { }
 
-        public LogEntry(string backupName, string sourcePath, string destinationPath, long fileSize, double transferTime)
+        public LogEntry(string backupName, string sourcePath, string destinationPath, long fileSize, double transferTime, int encryptionTime, int fileCount)
         {
             Timestamp = DateTime.Now;
             BackupName = backupName;
@@ -33,6 +39,8 @@ namespace Easy_Save.Model.Log
             DestinationPath = destinationPath;
             FileSize = fileSize;
             TransferTime = (long)transferTime;
+            EncryptionTime = encryptionTime;
+            FileCount = fileCount;
         }
     }
 }

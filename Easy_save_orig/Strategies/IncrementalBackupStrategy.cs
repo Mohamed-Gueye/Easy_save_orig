@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using Easy_Save.Interfaces;
@@ -23,6 +24,8 @@ namespace Easy_Save.Strategies
             DateTime lastBackupTime = statusManager.GetLastBackupDate(backup.Name);
 
             string[] files = Directory.GetFiles(backup.SourceDirectory, "*", SearchOption.AllDirectories);
+            long totalSize = files.Sum(f => new FileInfo(f).Length);
+            int totalFiles = files.Length;
             List<string> copiedFiles = new();
 
             foreach (string file in files)
@@ -47,10 +50,15 @@ namespace Easy_Save.Strategies
                         .Any(e => e.Equals(ext, StringComparison.OrdinalIgnoreCase));
 
                     int encryptionTime = 0;
+                    int transferTime = 0;
+
+                    var sw = Stopwatch.StartNew();
+                    File.Copy(file, destinationPath, true);
+                    sw.Stop();
+                    transferTime = (int)sw.Elapsed.TotalMilliseconds;
 
                     if (shouldEncrypt)
                     {
-                        File.Copy(file, destinationPath, true);
                         encryptionTime = EncryptionHelper.EncryptFile(destinationPath, encryptionConfig.key, encryptionConfig.encryptionExecutablePath);
 
                         if (encryptionTime >= 0)
@@ -64,13 +72,9 @@ namespace Easy_Save.Strategies
                             int decryptTime = EncryptionHelper.EncryptFile(decryptedPath, encryptionConfig.key, encryptionConfig.encryptionExecutablePath);
 
                             if (decryptTime >= 0)
-                            {
                                 Console.WriteLine($"Déchiffrement effectué → {decryptedPath}");
-                            }
                             else
-                            {
                                 Console.WriteLine($"Erreur de déchiffrement pour : {decryptedPath}");
-                            }
                         }
                         else
                         {
@@ -78,26 +82,20 @@ namespace Easy_Save.Strategies
                             continue;
                         }
                     }
-                    else
-                    {
-                        File.Copy(file, destinationPath, true);
-                    }
 
-                    logObserver.Update(backup, new FileInfo(file).Length, encryptionTime);
+                    logObserver.Update(backup, totalSize, transferTime, shouldEncrypt ? encryptionTime : 0, totalFiles);
                     copiedFiles.Add(file);
                 }
             }
 
-            long totalSize = copiedFiles.Sum(f => new FileInfo(f).Length);
-            int totalCopied = copiedFiles.Count;
-
+            long finalSize = copiedFiles.Sum(f => new FileInfo(f).Length);
             statusManager.UpdateStatus(new StatusEntry(
                 backup.Name,
                 backup.SourceDirectory,
                 backup.TargetDirectory,
                 "END",
-                totalCopied,
-                totalSize,
+                totalFiles,
+                finalSize,
                 0,
                 100,
                 DateTime.Now

@@ -1,11 +1,11 @@
+C:\EasySave\Easy_save_orig\obj\Debug\net8.0\Easy_Save.GeneratedMSBuildEditorConfig.editorconfig
+C:\EasySave\Easy_save_orig\obj\Debug\net8.0\Easy_Save.csproj.CoreCompileInputs.cache
+C:\EasySave\Easy_save_orig\obj\Debug\net8.0\Easy_Save.sourcelink.json
 C:\EasySave\Easy_save_orig\bin\Debug\net8.0\Easy_Save.exe
 C:\EasySave\Easy_save_orig\bin\Debug\net8.0\Easy_Save.deps.json
 C:\EasySave\Easy_save_orig\bin\Debug\net8.0\Easy_Save.runtimeconfig.json
 C:\EasySave\Easy_save_orig\bin\Debug\net8.0\Easy_Save.dll
 C:\EasySave\Easy_save_orig\bin\Debug\net8.0\Easy_Save.pdb
-C:\EasySave\Easy_save_orig\obj\Debug\net8.0\Easy_Save.GeneratedMSBuildEditorConfig.editorconfig
-C:\EasySave\Easy_save_orig\obj\Debug\net8.0\Easy_Save.csproj.CoreCompileInputs.cache
-C:\EasySave\Easy_save_orig\obj\Debug\net8.0\Easy_Save.sourcelink.json
 C:\EasySave\Easy_save_orig\obj\Debug\net8.0\Easy_Save.dll
 C:\EasySave\Easy_save_orig\obj\Debug\net8.0\refint\Easy_Save.dll
 C:\EasySave\Easy_save_orig\obj\Debug\net8.0\Easy_Save.pdb
