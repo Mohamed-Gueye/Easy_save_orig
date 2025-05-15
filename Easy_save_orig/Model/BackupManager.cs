@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using Easy_Save.Interfaces;
 using Easy_Save.Model;
 using Easy_Save.Model.Observer;
@@ -38,21 +40,14 @@ namespace Easy_Save.Model
             if (backup != null)
             {
                 backups.Remove(backup);
-
-                // Nettoyage associé : statut et autres dépendances
                 statusManager.RemoveStatus(name);
-                // Si d'autres observateurs ou ressources sont attachés, les libérer ici
             }
         }
 
         public void ExecuteBackup(string name)
         {
             Backup? backup = backups.FirstOrDefault(b => b.Name == name);
-            if (backup == null)
-            {
-                Console.WriteLine("No backup found");
-                return;
-            }
+            if (backup == null) return;
 
             if (!Directory.Exists(backup.TargetDirectory))
             {
@@ -66,21 +61,46 @@ namespace Easy_Save.Model
                 _ => throw new InvalidOperationException("Invalid backup type.")
             };
 
-            strategy.MakeBackup(backup);
-            Console.WriteLine($"Backup finished : {backup.Name}");
+            strategy.MakeBackup(backup, statusManager, logObserver); 
+        }
+
+        public async Task ExecuteAllBackupsAsync(bool isConcurrent = false, int maxConcurrency = 4)
+        {
+            if (!isConcurrent)
+            {
+                foreach (var backup in backups)
+                {
+                    ExecuteBackup(backup.Name);
+                }
+            }
+            else
+            {
+                using SemaphoreSlim semaphore = new(maxConcurrency);
+                var tasks = backups.Select(async backup =>
+                {
+                    await semaphore.WaitAsync();
+                    try
+                    {
+                        await Task.Run(() => ExecuteBackup(backup.Name));
+                    }
+                    finally
+                    {
+                        semaphore.Release();
+                    }
+                });
+
+                await Task.WhenAll(tasks);
+            }
         }
 
         public void ExecuteAllBackups()
         {
-            foreach (var backup in backups)
-            {
-                ExecuteBackup(backup.Name);
-            }
+            ExecuteAllBackupsAsync(false).Wait();
         }
 
         public List<Backup> GetAllBackup()
         {
-            return new List<Backup>(backups); // copie pour éviter modifications externes
+            return new List<Backup>(backups);
         }
 
         private void CleanOrphanStatuses()

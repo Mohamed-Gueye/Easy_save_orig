@@ -1,12 +1,13 @@
 {
   "ExpandedNodes": [
     "",
-    "\\bin\\Debug",
-    "\\bin\\Debug\\net8.0",
-    "\\bin\\Debug\\net8.0\\logs",
+    "\\Controller",
+    "\\Interfaces",
     "\\Model",
-    "\\Tests",
-    "\\Tests\\Test"
+    "\\Observer",
+    "\\Strategies",
+    "\\View"
   ],
+  "SelectedNode": "\\View\\Main.cs",
   "PreviewInSolutionExplorer": false
 }

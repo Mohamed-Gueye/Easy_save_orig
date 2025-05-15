@@ -66,6 +66,11 @@ namespace Easy_Save.Controller
             backupManager.ExecuteAllBackups();
         }
 
+        public void RunAllBackups(bool isConcurrent)
+        {
+            backupManager.ExecuteAllBackupsAsync(isConcurrent).Wait();
+        }
+
         public List<Backup> GetAllBackup()
         {
             return backupManager.GetAllBackup();

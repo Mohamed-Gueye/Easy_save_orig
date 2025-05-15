@@ -101,10 +101,17 @@ namespace Easy_Save.View
             string target = Console.ReadLine() ?? "";
 
             Console.WriteLine(translationProcess.GetTranslation("ask.type"));
-            string type = Console.ReadLine()?.ToLower() ?? "full";
+            string type = Console.ReadLine()?.Trim().ToLower() ?? "full";
+
+            if (type != "full" && type != "differential")
+            {
+                Console.WriteLine("Type inconnu, utilisation de 'full' par défaut.");
+                type = "full";
+            }
 
             backupProcess.CreateBackup(name, source, target, type);
         }
+
 
         private void DeleteBackup()
         {
@@ -133,7 +140,7 @@ namespace Easy_Save.View
 
             foreach (var backup in backups)
             {
-                Console.WriteLine($"🗂 {backup.Name} | {backup.Type} | {backup.SourceDirectory} -> {backup.TargetDirectory}");
+                Console.WriteLine($" {backup.Name} | {backup.Type} | {backup.SourceDirectory} -> {backup.TargetDirectory}");
             }
         }
 
@@ -146,7 +153,13 @@ namespace Easy_Save.View
                 return;
             }
 
-            backupProcess.RunAllBackups();
+            Console.WriteLine("1. " + translationProcess.GetTranslation("execution.linear"));
+            Console.WriteLine("2. " + translationProcess.GetTranslation("execution.concurrent"));
+            Console.Write(">> ");
+            string? mode = Console.ReadLine();
+            bool isConcurrent = mode == "2";
+
+            backupProcess.RunAllBackups(isConcurrent);
             Console.WriteLine($"{allBackups.Count} {translationProcess.GetTranslation("backups.executed")}");
         }
 

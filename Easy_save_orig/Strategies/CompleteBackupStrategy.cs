@@ -13,11 +13,8 @@ namespace Easy_Save.Strategies
 {
     public class CompleteBackupStrategy : IBackupStrategy
     {
-        public void MakeBackup(Backup backup)
+        public void MakeBackup(Backup backup, StatusManager statusManager, LogObserver logObserver)
         {
-            var statusManager = new StatusManager();
-            var logObserver = new LogObserver();
-
             string[] files = Directory.GetFiles(backup.SourceDirectory, "*", SearchOption.AllDirectories);
             long totalSize = files.Sum(f => new FileInfo(f).Length);
             int totalFiles = files.Length;
@@ -71,8 +68,6 @@ namespace Easy_Save.Strategies
                 DateTime.Now
             );
             statusManager.UpdateStatus(finalStatus);
-
-            Console.WriteLine("Backup completed successfully.");
         }
     }
 }

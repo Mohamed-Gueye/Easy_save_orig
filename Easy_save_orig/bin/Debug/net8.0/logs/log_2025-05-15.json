@@ -1,0 +1,154 @@
+[
+  {
+    "Timestamp": "2025-05-15T11:18:13.99842+02:00",
+    "BackupName": "test",
+    "SourcePath": "C:\\Test\\Test",
+    "DestinationPath": "C:\\Test\\TestDestination",
+    "FileSize": 18,
+    "TransferTime": 3
+  },
+  {
+    "Timestamp": "2025-05-15T11:18:14.0067024+02:00",
+    "BackupName": "test",
+    "SourcePath": "C:\\Test\\Test",
+    "DestinationPath": "C:\\Test\\TestDestination",
+    "FileSize": 31,
+    "TransferTime": 1
+  },
+  {
+    "Timestamp": "2025-05-15T11:19:16.9897957+02:00",
+    "BackupName": "test",
+    "SourcePath": "C:\\Test\\Test",
+    "DestinationPath": "C:\\Test\\TestDestination",
+    "FileSize": 18,
+    "TransferTime": 0
+  },
+  {
+    "Timestamp": "2025-05-15T11:19:16.9995424+02:00",
+    "BackupName": "test",
+    "SourcePath": "C:\\Test\\Test",
+    "DestinationPath": "C:\\Test\\TestDestination",
+    "FileSize": 31,
+    "TransferTime": 0
+  },
+  {
+    "Timestamp": "2025-05-15T11:35:31.4406765+02:00",
+    "BackupName": "test",
+    "SourcePath": "C:\\Test\\TestOrigin",
+    "DestinationPath": "C:\\Test\\TestDestination",
+    "FileSize": 139921497,
+    "TransferTime": 84
+  },
+  {
+    "Timestamp": "2025-05-15T11:35:31.5691847+02:00",
+    "BackupName": "test_2",
+    "SourcePath": "C:\\Test\\TestOrigin2",
+    "DestinationPath": "C:\\Test\\TestDestination2",
+    "FileSize": 139921497,
+    "TransferTime": 111
+  },
+  {
+    "Timestamp": "2025-05-15T11:35:31.7191606+02:00",
+    "BackupName": "test_3",
+    "SourcePath": "C:\\Test\\TestOrigin3",
+    "DestinationPath": "C:\\Test\\TestDestination3",
+    "FileSize": 139921497,
+    "TransferTime": 136
+  },
+  {
+    "Timestamp": "2025-05-15T11:35:36.8110353+02:00",
+    "BackupName": "test_3",
+    "SourcePath": "C:\\Test\\TestOrigin3",
+    "DestinationPath": "C:\\Test\\TestDestination3",
+    "FileSize": 139921497,
+    "TransferTime": 333
+  },
+  {
+    "Timestamp": "2025-05-15T16:46:28.1988707+02:00",
+    "BackupName": "test",
+    "SourcePath": "C:\\Test\\TestOrigin",
+    "DestinationPath": "C:\\Test\\TestDestination",
+    "FileSize": 139921497,
+    "TransferTime": 142
+  },
+  {
+    "Timestamp": "2025-05-15T16:46:28.36191+02:00",
+    "BackupName": "test_2",
+    "SourcePath": "C:\\Test\\TestOrigin2",
+    "DestinationPath": "C:\\Test\\TestDestination2",
+    "FileSize": 139921497,
+    "TransferTime": 126
+  },
+  {
+    "Timestamp": "2025-05-15T16:53:17.6811085+02:00",
+    "BackupName": "test",
+    "SourcePath": "C:\\Test\\TestOrigin",
+    "DestinationPath": "C:\\Test\\TestDestination",
+    "FileSize": 139921497,
+    "TransferTime": 123
+  },
+  {
+    "Timestamp": "2025-05-15T16:53:17.8178152+02:00",
+    "BackupName": "test_2",
+    "SourcePath": "C:\\Test\\TestOrigin2",
+    "DestinationPath": "C:\\Test\\TestDestination2",
+    "FileSize": 139921497,
+    "TransferTime": 127
+  },
+  {
+    "Timestamp": "2025-05-15T16:53:18.0043422+02:00",
+    "BackupName": "test_3",
+    "SourcePath": "C:\\Test\\TestOrigin3",
+    "DestinationPath": "C:\\Test\\TestDestination3",
+    "FileSize": 139921497,
+    "TransferTime": 161
+  },
+  {
+    "Timestamp": "2025-05-15T16:53:23.9248277+02:00",
+    "BackupName": "test",
+    "SourcePath": "C:\\Test\\TestOrigin",
+    "DestinationPath": "C:\\Test\\TestDestination",
+    "FileSize": 139921497,
+    "TransferTime": 223
+  },
+  {
+    "Timestamp": "2025-05-15T16:53:23.9305723+02:00",
+    "BackupName": "test_3",
+    "SourcePath": "C:\\Test\\TestOrigin3",
+    "DestinationPath": "C:\\Test\\TestDestination3",
+    "FileSize": 139921497,
+    "TransferTime": 192
+  },
+  {
+    "Timestamp": "2025-05-15T16:53:29.2188684+02:00",
+    "BackupName": "test",
+    "SourcePath": "C:\\Test\\TestOrigin",
+    "DestinationPath": "C:\\Test\\TestDestination",
+    "FileSize": 139921497,
+    "TransferTime": 149
+  },
+  {
+    "Timestamp": "2025-05-15T16:53:29.462312+02:00",
+    "BackupName": "test_3",
+    "SourcePath": "C:\\Test\\TestOrigin3",
+    "DestinationPath": "C:\\Test\\TestDestination3",
+    "FileSize": 139921497,
+    "TransferTime": 182
+  },
+  {
+    "Timestamp": "2025-05-15T16:53:32.5506671+02:00",
+    "BackupName": "test",
+    "SourcePath": "C:\\Test\\TestOrigin",
+    "DestinationPath": "C:\\Test\\TestDestination",
+    "FileSize": 139921497,
+    "TransferTime": 164
+  },
+  {
+    "Timestamp": "2025-05-15T16:53:32.5675159+02:00",
+    "BackupName": "test_3",
+    "SourcePath": "C:\\Test\\TestOrigin3",
+    "DestinationPath": "C:\\Test\\TestDestination3",
+    "FileSize": 139921497,
+    "TransferTime": 180
+  }
+]

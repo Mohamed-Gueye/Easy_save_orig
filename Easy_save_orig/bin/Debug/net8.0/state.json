@@ -1,68 +1,35 @@
 [
   {
-    "Name": "test_1",
-    "SourcePath": "C:\\Test\\Test",
-    "DestinationPath": "C:\\Test\\TestDestination",
-    "State": "END",
-    "TotalFilesToCopy": 2,
-    "TotalFilesSize": 49,
-    "NbFilesLeftToDo": 0,
-    "Progression": 100,
-    "LastBackupDate": "2025-05-14T09:57:26.2658621+02:00"
-  },
-  {
     "Name": "test_2",
-    "SourcePath": "C:\\Test\\Test",
+    "SourcePath": "C:\\Test\\TestOrigin2",
     "DestinationPath": "C:\\Test\\TestDestination2",
     "State": "END",
-    "TotalFilesToCopy": 2,
-    "TotalFilesSize": 49,
+    "TotalFilesToCopy": 0,
+    "TotalFilesSize": 0,
     "NbFilesLeftToDo": 0,
     "Progression": 100,
-    "LastBackupDate": "2025-05-14T09:57:26.2845029+02:00"
+    "LastBackupDate": "2025-05-15T16:53:32.3843869+02:00"
   },
   {
-    "Name": "Test_3",
-    "SourcePath": "C:\\Test\\Test",
+    "Name": "test",
+    "SourcePath": "C:\\Test\\TestOrigin",
     "DestinationPath": "C:\\Test\\TestDestination",
     "State": "END",
-    "TotalFilesToCopy": 2,
-    "TotalFilesSize": 49,
+    "TotalFilesToCopy": 1,
+    "TotalFilesSize": 139921497,
     "NbFilesLeftToDo": 0,
     "Progression": 100,
-    "LastBackupDate": "2025-05-14T09:57:26.3083537+02:00"
+    "LastBackupDate": "2025-05-15T16:53:32.5527091+02:00"
   },
   {
-    "Name": "Test_4",
-    "SourcePath": "C:\\Test\\Test",
-    "DestinationPath": "C:\\Test\\TestDestination",
+    "Name": "test_3",
+    "SourcePath": "C:\\Test\\TestOrigin3",
+    "DestinationPath": "C:\\Test\\TestDestination3",
     "State": "END",
-    "TotalFilesToCopy": 2,
-    "TotalFilesSize": 49,
+    "TotalFilesToCopy": 1,
+    "TotalFilesSize": 139921497,
     "NbFilesLeftToDo": 0,
     "Progression": 100,
-    "LastBackupDate": "2025-05-14T09:57:26.3312418+02:00"
-  },
-  {
-    "Name": "Test_5",
-    "SourcePath": "C:\\Test\\Test",
-    "DestinationPath": "C:\\Test\\TestDestination",
-    "State": "END",
-    "TotalFilesToCopy": 2,
-    "TotalFilesSize": 49,
-    "NbFilesLeftToDo": 0,
-    "Progression": 100,
-    "LastBackupDate": "2025-05-14T09:57:26.3495935+02:00"
-  },
-  {
-    "Name": "Test_6",
-    "SourcePath": "C:\\Test\\Test",
-    "DestinationPath": "C:\\Test\\TestDestination69",
-    "State": "END",
-    "TotalFilesToCopy": 2,
-    "TotalFilesSize": 49,
-    "NbFilesLeftToDo": 0,
-    "Progression": 100,
-    "LastBackupDate": "2025-05-14T09:57:26.3685342+02:00"
+    "LastBackupDate": "2025-05-15T16:53:32.5716168+02:00"
   }
 ]

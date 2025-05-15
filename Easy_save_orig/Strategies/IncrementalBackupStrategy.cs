@@ -6,14 +6,14 @@ using Easy_Save.Interfaces;
 using Easy_Save.Model;
 using Easy_Save.Model.IO;
 using Easy_Save.Model.Status;
+using Easy_Save.Model.Observer;
 
 namespace Easy_Save.Strategies
 {
     public class IncrementalBackupStrategy : IBackupStrategy
     {
-        public void MakeBackup(Backup backup)
+        public void MakeBackup(Backup backup, StatusManager statusManager, LogObserver logObserver)
         {
-            var statusManager = new StatusManager();
             DateTime lastBackupTime = statusManager.GetLastBackupDate(backup.Name);
 
             string[] files = Directory.GetFiles(backup.SourceDirectory, "*", SearchOption.AllDirectories);
@@ -34,8 +34,15 @@ namespace Easy_Save.Strategies
                         Directory.CreateDirectory(destinationDir);
                     }
 
+                    var sw = System.Diagnostics.Stopwatch.StartNew();
                     File.Copy(file, destinationPath, overwrite: true);
+                    sw.Stop();
+
                     copiedFiles.Add(file);
+
+                    long fileSize = new FileInfo(file).Length;
+                    double transferTime = sw.Elapsed.TotalMilliseconds;
+                    logObserver.Update(backup, fileSize, transferTime);
                 }
             }
 
@@ -53,8 +60,6 @@ namespace Easy_Save.Strategies
                 100,
                 DateTime.Now
             ));
-
-            Console.WriteLine("Backup completed successfully.");
         }
     }
 }
