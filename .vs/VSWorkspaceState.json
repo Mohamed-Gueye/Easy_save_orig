@@ -1,0 +1,16 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\Easy_save_orig",
+    "\\Easy_save_orig\\bin",
+    "\\Easy_save_orig\\bin\\Debug",
+    "\\Easy_save_orig\\bin\\Debug\\net8.0",
+    "\\Easy_save_orig\\bin\\Debug\\net8.0\\logs",
+    "\\Easy_save_orig\\Controller",
+    "\\Easy_save_orig\\Model",
+    "\\Easy_save_orig\\Strategies",
+    "\\Easy_save_orig\\View"
+  ],
+  "SelectedNode": "\\Easy_save_orig\\View\\Main.cs",
+  "PreviewInSolutionExplorer": false
+}

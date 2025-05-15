@@ -15,6 +15,10 @@ namespace Easy_Save.Strategies
     {
         public void MakeBackup(Backup backup)
         {
+            var encryptionConfig = EncryptionSettings.Load("config.json");
+            Console.WriteLine($"[DEBUG] Extensions à chiffrer chargées : {string.Join(", ", encryptionConfig.extensionsToEncrypt)}");
+            Console.WriteLine($"[DEBUG] Chemin CryptoSoft.exe : {encryptionConfig.encryptionExecutablePath}");
+
             var statusManager = new StatusManager();
             var logObserver = new LogObserver();
 
@@ -25,6 +29,8 @@ namespace Easy_Save.Strategies
 
             foreach (string file in files)
             {
+                Console.WriteLine($"Fichier détecté : {file}");
+
                 string relativePath = Path.GetRelativePath(backup.SourceDirectory, file);
                 string destinationPath = Path.Combine(backup.TargetDirectory, relativePath);
                 string? destinationDir = Path.GetDirectoryName(destinationPath);
@@ -47,15 +53,49 @@ namespace Easy_Save.Strategies
                 );
                 statusManager.UpdateStatus(statusEntry);
 
-                Stopwatch sw = Stopwatch.StartNew();
-                File.Copy(file, destinationPath, true);
-                sw.Stop();
+                string ext = Path.GetExtension(file).ToLower();
+                bool shouldEncrypt = encryptionConfig.extensionsToEncrypt
+                    .Any(e => e.Equals(ext, StringComparison.OrdinalIgnoreCase));
+
+                int encryptionTime = 0;
+
+                if (shouldEncrypt)
+                {
+                    File.Copy(file, destinationPath, true);
+                    encryptionTime = EncryptionHelper.EncryptFile(destinationPath, encryptionConfig.key, encryptionConfig.encryptionExecutablePath);
+
+                    if (encryptionTime >= 0)
+                    {
+                        string decryptedPath = Path.Combine(
+                            Path.GetDirectoryName(destinationPath)!,
+                            Path.GetFileNameWithoutExtension(destinationPath) + "_decrypted" + Path.GetExtension(destinationPath)
+                        );
+
+                        File.Copy(destinationPath, decryptedPath, true);
+                        int decryptTime = EncryptionHelper.EncryptFile(decryptedPath, encryptionConfig.key, encryptionConfig.encryptionExecutablePath);
+
+                        if (decryptTime >= 0)
+                        {
+                            Console.WriteLine($"Déchiffrement effectué → {decryptedPath}");
+                        }
+                        else
+                        {
+                            Console.WriteLine($"Erreur de déchiffrement pour : {decryptedPath}");
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine($"Erreur de chiffrement : {destinationPath} (code {encryptionTime})");
+                        continue;
+                    }
+                }
+                else
+                {
+                    File.Copy(file, destinationPath, true);
+                }
 
                 long fileSize = new FileInfo(file).Length;
-                double transferTime = sw.Elapsed.TotalMilliseconds;
-
-                logObserver.Update(backup, fileSize, transferTime);
-
+                logObserver.Update(backup, fileSize, encryptionTime);
                 filesDone++;
             }
 

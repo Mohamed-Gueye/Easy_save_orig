@@ -1,0 +1,5 @@
+{
+  "extensionsToEncrypt": [ ".txt" ],
+  "encryptionExecutablePath": "C:\\EasySave\\Easy_save_orig\\CryptoSoft\\CryptoSoft.exe",
+  "key":  "yousk2"
+}
