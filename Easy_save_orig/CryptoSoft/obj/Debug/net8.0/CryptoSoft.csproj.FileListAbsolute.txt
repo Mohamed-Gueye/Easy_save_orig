@@ -1,0 +1,13 @@
+C:\EasySave\Easy_save_orig\CryptoSoft\obj\Debug\net8.0\CryptoSoft.GeneratedMSBuildEditorConfig.editorconfig
+C:\EasySave\Easy_save_orig\CryptoSoft\obj\Debug\net8.0\CryptoSoft.csproj.CoreCompileInputs.cache
+C:\EasySave\Easy_save_orig\CryptoSoft\obj\Debug\net8.0\CryptoSoft.sourcelink.json
+C:\EasySave\Easy_save_orig\CryptoSoft\bin\Debug\net8.0\CryptoSoft.exe
+C:\EasySave\Easy_save_orig\CryptoSoft\bin\Debug\net8.0\CryptoSoft.deps.json
+C:\EasySave\Easy_save_orig\CryptoSoft\bin\Debug\net8.0\CryptoSoft.runtimeconfig.json
+C:\EasySave\Easy_save_orig\CryptoSoft\bin\Debug\net8.0\CryptoSoft.dll
+C:\EasySave\Easy_save_orig\CryptoSoft\bin\Debug\net8.0\CryptoSoft.pdb
+C:\EasySave\Easy_save_orig\CryptoSoft\obj\Debug\net8.0\CryptoSoft.dll
+C:\EasySave\Easy_save_orig\CryptoSoft\obj\Debug\net8.0\refint\CryptoSoft.dll
+C:\EasySave\Easy_save_orig\CryptoSoft\obj\Debug\net8.0\CryptoSoft.pdb
+C:\EasySave\Easy_save_orig\CryptoSoft\obj\Debug\net8.0\CryptoSoft.genruntimeconfig.cache
+C:\EasySave\Easy_save_orig\CryptoSoft\obj\Debug\net8.0\ref\CryptoSoft.dll

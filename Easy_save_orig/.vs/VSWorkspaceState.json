@@ -1,17 +1,15 @@
 {
   "ExpandedNodes": [
     "",
-    "\\bin\\Release",
-    "\\bin\\Release\\net8.0",
+    "\\CryptoSoft\\bin",
+    "\\CryptoSoft\\bin\\Debug",
+    "\\CryptoSoft\\bin\\Debug\\net8.0",
+    "\\CryptoSoft\\obj",
+    "\\CryptoSoft\\obj\\Debug",
     "\\Model",
-    "\\obj\\Debug",
-    "\\obj\\Debug\\net8.0",
-    "\\obj\\Debug\\net8.0\\ref",
-    "\\obj\\Debug\\net8.0\\refint",
-    "\\obj\\Release",
-    "\\obj\\Release\\net8.0\\ref",
-    "\\obj\\Release\\net8.0\\refint"
+    "\\Strategies",
+    "\\View"
   ],
-  "SelectedNode": "\\Program.cs",
+  "SelectedNode": "\\Strategies\\IncrementalBackupStrategy.cs",
   "PreviewInSolutionExplorer": false
 }
