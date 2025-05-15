@@ -1,5 +1,4 @@
 using System;
-using System.IO;
 using Easy_Save.Model;
 using Easy_Save.Model.Log;
 using Easy_Save.Model.IO;
@@ -15,14 +14,16 @@ namespace Easy_Save.Model.Observer
             logManager = new LogManager();
         }
 
-        public void Update(Backup backup, long fileSize, double transferTime)
+        public void Update(Backup backup, long fileSize, double transferTime, int encryptionTime, int fileCount)
         {
             var logEntry = new LogEntry(
                 backup.Name,
                 backup.SourceDirectory,
                 backup.TargetDirectory,
                 fileSize,
-                transferTime
+                transferTime,
+                encryptionTime,
+                fileCount
             );
 
             logManager.AddLog(logEntry);
