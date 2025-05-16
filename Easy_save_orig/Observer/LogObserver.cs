@@ -8,6 +8,7 @@ namespace Easy_Save.Model.Observer
     public class LogObserver
     {
         private readonly LogManager logManager;
+        private static readonly object logLock = new();
 
         public LogObserver()
         {
@@ -26,7 +27,10 @@ namespace Easy_Save.Model.Observer
                 fileCount
             );
 
-            logManager.AddLog(logEntry);
+            lock (logLock)
+            {
+                logManager.AddLog(logEntry);
+            }
         }
     }
 }

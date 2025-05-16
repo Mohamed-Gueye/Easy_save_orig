@@ -1,9 +1,10 @@
-﻿using System;
-using Easy_Save.Model;
+﻿using Easy_Save.Model;
+using Easy_Save.Model.IO;
+using Easy_Save.Model.Observer;
 
 namespace Easy_Save.Interfaces;
 
 public interface IBackupStrategy
 {
-    void MakeBackup(Backup backup);
+    void MakeBackup(Backup backup, StatusManager statusManager, LogObserver logObserver);
 }

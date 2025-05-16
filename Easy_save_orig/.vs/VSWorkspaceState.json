@@ -1,17 +1,12 @@
 {
   "ExpandedNodes": [
     "",
-    "\\CryptoSoft",
-    "\\CryptoSoft\\bin",
-    "\\CryptoSoft\\bin\\Debug",
-    "\\CryptoSoft\\bin\\Debug\\net8.0",
-    "\\CryptoSoft\\obj",
-    "\\CryptoSoft\\obj\\Debug",
+    "\\Controller",
+    "\\Interfaces",
     "\\Model",
     "\\Observer",
-    "\\Strategies",
     "\\View"
   ],
-  "SelectedNode": "\\Easy_Save.sln",
+  "SelectedNode": "\\Observer\\LogObserver.cs",
   "PreviewInSolutionExplorer": false
 }

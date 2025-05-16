@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using Easy_Save.Interfaces;
@@ -19,8 +18,6 @@ namespace Easy_Save.Strategies
             Console.WriteLine($"[DEBUG] Extensions à chiffrer chargées : {string.Join(", ", encryptionConfig.extensionsToEncrypt)}");
             Console.WriteLine($"[DEBUG] Chemin CryptoSoft.exe : {encryptionConfig.encryptionExecutablePath}");
 
-            var statusManager = new StatusManager();
-            var logObserver = new LogObserver();
             DateTime lastBackupTime = statusManager.GetLastBackupDate(backup.Name);
 
             string[] files = Directory.GetFiles(backup.SourceDirectory, "*", SearchOption.AllDirectories);
@@ -84,6 +81,10 @@ namespace Easy_Save.Strategies
                     }
 
                     logObserver.Update(backup, totalSize, transferTime, shouldEncrypt ? encryptionTime : 0, totalFiles);
+                    var sw = System.Diagnostics.Stopwatch.StartNew();
+                    File.Copy(file, destinationPath, overwrite: true);
+                    sw.Stop();
+
                     copiedFiles.Add(file);
                 }
             }
@@ -100,8 +101,6 @@ namespace Easy_Save.Strategies
                 100,
                 DateTime.Now
             ));
-
-            Console.WriteLine("Backup completed successfully.");
         }
     }
 }

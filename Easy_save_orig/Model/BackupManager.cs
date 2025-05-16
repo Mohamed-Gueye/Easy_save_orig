@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using Easy_Save.Interfaces;
 using Easy_Save.Model;
 using Easy_Save.Model.Observer;
@@ -12,10 +14,7 @@ namespace Easy_Save.Model
 {
     public class BackupManager
     {
-        private const int MAX_BACKUPS = 5;
         private List<Backup> backups = new();
-        private IBackupStrategy? strategy;
-
         private readonly StatusManager statusManager;
         private readonly LogObserver logObserver;
 
@@ -24,55 +23,79 @@ namespace Easy_Save.Model
             statusManager = new StatusManager();
             logObserver = new LogObserver();
 
-            CleanOrphanStatuses(); 
+            CleanOrphanStatuses();
         }
 
         public void AddBackup(Backup backup)
         {
-            if (backups.Count >= MAX_BACKUPS)
-                throw new InvalidOperationException("Maximum backup jobs reached.");
+            if (backup == null)
+                throw new ArgumentNullException(nameof(backup));
 
             backups.Add(backup);
         }
 
         public void RemoveBackup(string name)
         {
-            backups.RemoveAll(b => b.Name == name);
+            var backup = backups.FirstOrDefault(b => b.Name == name);
+            if (backup != null)
+            {
+                backups.Remove(backup);
+                statusManager.RemoveStatus(name);
+            }
         }
 
         public void ExecuteBackup(string name)
         {
             Backup? backup = backups.FirstOrDefault(b => b.Name == name);
-            if (backup == null)
-            {
-                Console.WriteLine("No backup found");
-                return;
-            }
+            if (backup == null) return;
 
             if (!Directory.Exists(backup.TargetDirectory))
             {
                 Directory.CreateDirectory(backup.TargetDirectory);
             }
 
-            strategy = backup.Type.Trim().ToLower() switch
+            IBackupStrategy strategy = backup.Type.Trim().ToLower() switch
             {
                 "full" => new CompleteBackupStrategy(),
                 "differential" => new IncrementalBackupStrategy(),
                 _ => throw new InvalidOperationException("Invalid backup type.")
             };
 
+            strategy.MakeBackup(backup, statusManager, logObserver); 
+        }
 
-            strategy.MakeBackup(backup);
+        public async Task ExecuteAllBackupsAsync(bool isConcurrent = false, int maxConcurrency = 4)
+        {
+            if (!isConcurrent)
+            {
+                foreach (var backup in backups)
+                {
+                    ExecuteBackup(backup.Name);
+                }
+            }
+            else
+            {
+                using SemaphoreSlim semaphore = new(maxConcurrency);
+                var tasks = backups.Select(async backup =>
+                {
+                    await semaphore.WaitAsync();
+                    try
+                    {
+                        await Task.Run(() => ExecuteBackup(backup.Name));
+                    }
+                    finally
+                    {
+                        semaphore.Release();
+                    }
+                });
 
-            Console.WriteLine($"Backup finished : {backup.Name}");
+                await Task.WhenAll(tasks);
+            }
         }
 
         public void ExecuteAllBackups()
         {
-            foreach (var backup in backups)
-            {
-                ExecuteBackup(backup.Name);
-            }
+            ExecuteAllBackupsAsync(false).Wait();
         }
 
         public List<Backup> GetAllBackup()
@@ -85,13 +108,11 @@ namespace Easy_Save.Model
             var allStatuses = statusManager.GetAllStatuses();
             var existingNames = backups.Select(b => b.Name).ToHashSet();
 
-            bool changed = false;
             foreach (var status in allStatuses)
             {
                 if (!existingNames.Contains(status.Name))
                 {
                     statusManager.RemoveStatus(status.Name);
-                    changed = true;
                 }
             }
         }

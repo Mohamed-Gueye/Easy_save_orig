@@ -13,14 +13,12 @@ namespace Easy_Save.Strategies
 {
     public class CompleteBackupStrategy : IBackupStrategy
     {
-        public void MakeBackup(Backup backup)
+        public void MakeBackup(Backup backup, StatusManager statusManager, LogObserver logObserver)
         {
             var encryptionConfig = EncryptionSettings.Load("config.json");
             Console.WriteLine($"[DEBUG] Extensions à chiffrer chargées : {string.Join(", ", encryptionConfig.extensionsToEncrypt)}");
             Console.WriteLine($"[DEBUG] Chemin CryptoSoft.exe : {encryptionConfig.encryptionExecutablePath}");
 
-            var statusManager = new StatusManager();
-            var logObserver = new LogObserver();
 
             string[] files = Directory.GetFiles(backup.SourceDirectory, "*", SearchOption.AllDirectories);
             long totalSize = files.Sum(f => new FileInfo(f).Length);
