@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Easy_Save.View"
         mc:Ignorable="d"
-        Title="EasySave" Height="582" Width="914" Background="#002222"
+        Title="EasySave" Height="720" Width="1280" Background="#002222"
         WindowStartupLocation="CenterScreen"
         x:Name="mainWindow">
 
@@ -56,6 +56,22 @@
             <Setter Property="Margin" Value="0,5,0,5"/>
             <Setter Property="Padding" Value="10"/>
             <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#008C90"/>
+                    <Setter Property="BorderBrush" Value="#AAE0E0"/>
+                    <Setter Property="BorderThickness" Value="1"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        
+        <Style x:Key="BusinessSoftwareItemStyle" TargetType="Border">
+            <Setter Property="Background" Value="#007C80"/>
+            <Setter Property="CornerRadius" Value="5"/>
+            <Setter Property="Margin" Value="0,2,0,2"/>
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="Cursor" Value="Hand"/>
         </Style>
     </Window.Resources>
 
@@ -63,7 +79,7 @@
         <!-- Contenu principal -->
         <Grid Margin="20">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="250"/>
+                <ColumnDefinition Width="250" MinWidth="200"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             
@@ -94,7 +110,7 @@
                         
                         <TextBlock x:Name="txtListTitle" Grid.Row="0" Text="Liste des sauvegardes" FontSize="24" FontWeight="Bold" Margin="0,0,0,20"/>
                         
-                        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
                             <StackPanel x:Name="backupListPanel">
                                 <!-- Liste de backups générée dynamiquement -->
                             </StackPanel>
@@ -115,15 +131,15 @@
                             <TextBox x:Name="txtJobName" Margin="0,5,0,20" Height="30"/>
 
                             <TextBlock x:Name="txtSourcePathLabel" Text="Chemin du dossier source" FontSize="16"/>
-                            <DockPanel Margin="0,5,0,20">
-                                <TextBox x:Name="txtSourcePath" Height="30" Width="400"/>
-                                <Button Content="..." Width="30" Margin="10,0,0,0" Click="BrowseFolder_Click"/>
+                            <DockPanel Margin="0,5,0,20" LastChildFill="True">
+                                <Button Content="..." Width="30" Height="30" Margin="10,0,0,0" Click="BrowseFolder_Click" DockPanel.Dock="Right" Background="#007C80" Foreground="White" FontWeight="Bold"/>
+                                <TextBox x:Name="txtSourcePath" Height="30"/>
                             </DockPanel>
 
                             <TextBlock x:Name="txtDestinationPathLabel" Text="Chemin du dossier de destination" FontSize="16"/>
-                            <DockPanel Margin="0,5,0,20">
-                                <TextBox x:Name="txtDestinationPath" Height="30" Width="400"/>
-                                <Button Content="..." Width="30" Margin="10,0,0,0" Click="BrowseFolder_Click"/>
+                            <DockPanel Margin="0,5,0,20" LastChildFill="True">
+                                <Button Content="..." Width="30" Height="30" Margin="10,0,0,0" Click="BrowseFolder_Click" DockPanel.Dock="Right" Background="#007C80" Foreground="White" FontWeight="Bold"/>
+                                <TextBox x:Name="txtDestinationPath" Height="30"/>
                             </DockPanel>
 
                             <TextBlock x:Name="txtType" Text="Type" FontSize="16" Margin="0,10,0,5"/>
@@ -145,7 +161,7 @@
         <Grid x:Name="languageMenuOverlay" Visibility="Collapsed" Background="#33000000" Panel.ZIndex="100"
               MouseDown="LanguageMenuOverlay_MouseDown">
             <Border x:Name="languageMenu" Background="#004446" CornerRadius="10" Padding="10" 
-                    Width="200" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="70,20,0,0"
+                    Width="280" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="70,20,0,0"
                     MouseDown="LanguageMenu_MouseDown">
                 <StackPanel>
                     <TextBlock x:Name="txtLanguage" Text="Langue" FontSize="16" FontWeight="Bold" Foreground="White" Margin="0,0,0,10" HorizontalAlignment="Center"/>
@@ -159,6 +175,28 @@
                         <RadioButton x:Name="rbSequential" Content="Séquentiel" Foreground="White" GroupName="ExecutionMode" IsChecked="True" Margin="10,5,0,5" Checked="ExecutionMode_Changed"/>
                         <RadioButton x:Name="rbConcurrent" Content="Concurrent" Foreground="White" GroupName="ExecutionMode" Margin="10,5,0,5" Checked="ExecutionMode_Changed"/>
                     </StackPanel>
+                    
+                    <Separator Margin="0,10,0,10" Background="#336666" />
+                    
+                    <TextBlock x:Name="txtBusinessSettings" Text="Paramètres métier" FontSize="16" FontWeight="Bold" Foreground="White" Margin="0,0,0,10" HorizontalAlignment="Center"/>
+                    <TextBlock Text="Logiciels métier" Foreground="White" Margin="10,5,0,5"/>
+                    <DockPanel Margin="10,0,10,5">
+                        <TextBox x:Name="txtBusinessSoftware" Width="180" Height="25" VerticalContentAlignment="Center"/>
+                        <Button x:Name="btnAddBusinessSoftware" Content="+" Width="40" Height="25" Margin="5,0,0,0" 
+                                Background="#007C80" Foreground="White" Click="BtnAddBusinessSoftware_Click"/>
+                    </DockPanel>
+                    <TextBlock Foreground="#AAFFFFFF" FontSize="10" TextWrapping="Wrap" Margin="10,0,10,5">
+                        Entrez le nom du processus (ex: calc) qui bloquera l'exécution des sauvegardes.
+                    </TextBlock>
+                    
+                    <!-- Liste des logiciels métier -->
+                    <Border Background="#336666" CornerRadius="5" Margin="10,5,10,10" MaxHeight="150">
+                        <ScrollViewer VerticalScrollBarVisibility="Auto">
+                            <StackPanel x:Name="businessSoftwareListPanel" Margin="5">
+                                <!-- Liste générée dynamiquement -->
+                            </StackPanel>
+                        </ScrollViewer>
+                    </Border>
                 </StackPanel>
             </Border>
         </Grid>
@@ -166,9 +204,12 @@
         <!-- Progress Tracking Popup (en overlay) -->
         <Grid x:Name="progressOverlay" Visibility="Collapsed" Background="#66000000" Panel.ZIndex="200">
             <Border Background="#004446" CornerRadius="10" Padding="20" 
-                    Width="400" Height="200" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    Width="500" Height="280" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <Grid>
                     <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="*"/>
@@ -181,14 +222,20 @@
                     <TextBlock x:Name="txtProgressInfo" Grid.Row="1" Text="Processing..." FontSize="14" 
                                Foreground="White" Margin="0,0,0,20" HorizontalAlignment="Center"/>
                     
-                    <ProgressBar x:Name="progressBar" Grid.Row="2" Height="30" Margin="0,10" 
+                    <TextBlock x:Name="txtFileCount" Grid.Row="2" Text="Files: 0/0" FontSize="12" 
+                               Foreground="#AAE0E0" Margin="0,0,0,5" HorizontalAlignment="Center"/>
+                    
+                    <TextBlock x:Name="txtBackupState" Grid.Row="3" Text="State: PENDING" FontSize="12" 
+                               Foreground="#AAE0E0" Margin="0,0,0,15" HorizontalAlignment="Center"/>
+                    
+                    <ProgressBar x:Name="progressBar" Grid.Row="4" Height="30" Margin="0,10" 
                                  Background="#336666" Foreground="#00CCCC" BorderThickness="0"/>
                     
-                    <TextBlock x:Name="txtProgressPercentage" Grid.Row="2" Text="0%" FontSize="14" 
+                    <TextBlock x:Name="txtProgressPercentage" Grid.Row="4" Text="0%" FontSize="14" 
                                Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     
-                    <Button x:Name="btnCancelBackup" Grid.Row="3" Content="Cancel" Width="120" Height="30" 
-                            Background="#007C80" Foreground="White" Margin="0,10,0,0"
+                    <Button x:Name="btnCancelBackup" Grid.Row="6" Content="Cancel" Width="120" Height="30" 
+                            Background="#007C80" Foreground="White" Margin="0,20,0,0"
                             HorizontalAlignment="Center" Click="BtnCancelBackup_Click"/>
                 </Grid>
             </Border>
