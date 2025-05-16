@@ -34,7 +34,20 @@
     "error.target_required": "Le chemin de destination est requis",
     "error.execution": "Erreur lors de l'exécution de la sauvegarde '{0}': {1}",
     "error.delete": "Erreur lors de la suppression: {0}",
-    "error.create": "Erreur lors de la création: {0}"
+    "error.create": "Erreur lors de la création: {0}",
+    "business.settings": "Paramètres métier",
+    "business.software": "Logiciels métier",
+    "business.software.list.empty": "Aucun logiciel métier défini",
+    "business.software.hint": "Entrez le nom du processus (ex: calc) qui bloquera l'exécution des sauvegardes.",
+    "business.software.saved": "Paramètre du logiciel métier enregistré",
+    "business.software.running": "Le logiciel métier '{0}' est en cours d'exécution. Les sauvegardes sont bloquées.",
+    "business.software.cancelled": "Sauvegarde annulée : logiciel métier détecté.",
+    "business.software.name_required": "Le nom du logiciel métier est requis",
+    "business.software.added": "Logiciel métier '{0}' ajouté avec succès",
+    "business.software.already_exists": "Le logiciel métier '{0}' existe déjà dans la liste",
+    "business.software.delete_confirm": "Êtes-vous sûr de vouloir supprimer le logiciel métier '{0}' ?",
+    "business.software.removed": "Logiciel métier '{0}' supprimé avec succès",
+    "business.software.not_found": "Logiciel métier '{0}' non trouvé dans la liste"
   },
   "en": {
     "window.title": "EasySave",
@@ -71,6 +84,19 @@
     "error.target_required": "Destination path is required",
     "error.execution": "Error executing backup '{0}': {1}",
     "error.delete": "Error deleting: {0}",
-    "error.create": "Error creating: {0}"
+    "error.create": "Error creating: {0}",
+    "business.settings": "Business Settings",
+    "business.software": "Business Software",
+    "business.software.list.empty": "No business software defined",
+    "business.software.hint": "Enter the process name (e.g. calc) that will block backup execution.",
+    "business.software.saved": "Business software setting saved",
+    "business.software.running": "Business software '{0}' is running. Backups are blocked.",
+    "business.software.cancelled": "Backup cancelled: business software detected.",
+    "business.software.name_required": "Business software name is required",
+    "business.software.added": "Business software '{0}' added successfully",
+    "business.software.already_exists": "Business software '{0}' already exists in the list",
+    "business.software.delete_confirm": "Are you sure you want to delete the business software '{0}'?",
+    "business.software.removed": "Business software '{0}' removed successfully",
+    "business.software.not_found": "Business software '{0}' not found in the list"
   }
 } 

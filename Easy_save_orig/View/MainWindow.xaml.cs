@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Threading;
 using Easy_Save.Controller;
 using Easy_Save.Model;
+using Easy_Save.Model.Status;
 using System.Text.Json;
 using System.Windows.Threading;
 
@@ -80,6 +81,9 @@ namespace Easy_Save.View
                 // Actualiser l'interface utilisateur
                 UpdateUILanguage();
                 RefreshBackupList();
+                
+                // Charger les paramètres du logiciel métier
+                LoadBusinessSettings();
             }
             catch (Exception ex)
             {
@@ -157,6 +161,12 @@ namespace Easy_Save.View
             rbSequential.Content = translationManager.GetUITranslation("execution.sequential");
             rbConcurrent.Content = translationManager.GetUITranslation("execution.concurrent");
             
+            // Menu paramètres métier
+            txtBusinessSettings.Text = translationManager.GetUITranslation("business.settings");
+            
+            // Rafraîchir la liste des logiciels métier
+            RefreshBusinessSoftwareList();
+            
             // Liste des sauvegardes
             txtListTitle.Text = translationManager.GetUITranslation("list.title");
             
@@ -212,7 +222,8 @@ namespace Easy_Save.View
                     Border border = new Border
                     {
                         Style = FindResource("BackupItemStyle") as Style,
-                        Tag = backup.Name
+                        Tag = backup.Name,
+                        Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#007C80")
                     };
                     
                     border.MouseLeftButtonUp += BackupItem_Click;
@@ -244,6 +255,12 @@ namespace Easy_Save.View
             }
             
             // Désélectionner la sauvegarde actuelle
+            if (selectedBackupItem != null)
+            {
+                selectedBackupItem.BorderBrush = null;
+                selectedBackupItem.BorderThickness = new Thickness(0);
+                selectedBackupItem.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#007C80");
+            }
             selectedBackupItem = null;
             btnExecute.IsEnabled = false;
             btnDelete.IsEnabled = false;
@@ -259,12 +276,14 @@ namespace Easy_Save.View
             {
                 selectedBackupItem.BorderBrush = null;
                 selectedBackupItem.BorderThickness = new Thickness(0);
+                selectedBackupItem.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#007C80");
             }
             
             // Sélectionner le nouvel élément
             selectedBackupItem = clickedItem;
-            selectedBackupItem.BorderBrush = Brushes.White;
-            selectedBackupItem.BorderThickness = new Thickness(2);
+            selectedBackupItem.BorderBrush = Brushes.Black;
+            selectedBackupItem.BorderThickness = new Thickness(3);
+            selectedBackupItem.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#00A0A6");
             
             // Activer les boutons
             btnExecute.IsEnabled = true;
@@ -295,76 +314,97 @@ namespace Easy_Save.View
 
         private async void BtnExecute_Click(object sender, RoutedEventArgs e)
         {
-            if (selectedBackupItem != null)
+            if (selectedBackupItem == null)
+                return;
+                
+            string backupName = selectedBackupItem.Tag as string;
+            if (string.IsNullOrEmpty(backupName))
+                return;
+            
+            // Vérifier si un des logiciels métier est en cours d'exécution
+            var businessSettings = BusinessSettings.Instance;
+            if (businessSettings.IsAnyBusinessSoftwareRunning())
             {
-                string backupName = selectedBackupItem.Tag.ToString();
+                string? runningSoftware = businessSettings.GetRunningBusinessSoftware();
+                string message = translationManager.GetFormattedUITranslation("business.software.running", runningSoftware);
+                MessageBox.Show(message, "EasySave", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+            
+            // Désactiver les boutons pendant l'exécution
+            btnExecute.IsEnabled = false;
+            btnDelete.IsEnabled = false;
+            btnExecuteAll.IsEnabled = false;
+            btnCreate.IsEnabled = false;
+            
+            try
+            {
+                // Créer un nouveau jeton d'annulation
+                cancellationTokenSource = new CancellationTokenSource();
                 
-                // Désactiver les boutons pendant l'exécution
-                btnExecute.IsEnabled = false;
-                btnDelete.IsEnabled = false;
-                btnExecuteAll.IsEnabled = false;
-                btnCreate.IsEnabled = false;
+                // Afficher la fenêtre de progression
+                ShowProgressOverlay(backupName);
                 
-                try
+                // Initialiser le suivi de progression
+                var progress = new Progress<(int Current, int Total)>(progressData =>
                 {
-                    // Afficher la fenêtre de progression
-                    ShowProgressOverlay(backupName);
-                    
-                    // Créer un nouveau jeton d'annulation
-                    cancellationTokenSource = new CancellationTokenSource();
-                    
-                    // Initialiser le suivi de progression
-                    var progress = new Progress<(int Current, int Total)>(progressData =>
+                    // Utiliser le Dispatcher pour mettre à jour l'UI depuis un thread d'arrière-plan
+                    Dispatcher.Invoke(() =>
                     {
-                        // Utiliser le Dispatcher pour mettre à jour l'UI depuis un thread d'arrière-plan
-                        Dispatcher.Invoke(() =>
+                        // Mise à jour de la barre de progression
+                        int percentage = progressData.Current;
+                        progressBar.Value = percentage;
+                        txtProgressPercentage.Text = $"{percentage}%";
+                        
+                        // Mettre à jour les informations supplémentaires
+                        var statusEntry = GetCurrentBackupStatus(backupName);
+                        if (statusEntry != null)
                         {
-                            // Mettre à jour l'UI avec la progression
-                            int percentage = progressData.Total > 0 ? (int)((double)progressData.Current / progressData.Total * 100) : 0;
-                            
-                            progressBar.Value = percentage;
-                            txtProgressPercentage.Text = $"{percentage}%";
-                            txtProgressInfo.Text = translationManager.GetFormattedUITranslation("progress.files", progressData.Current, progressData.Total);
-                        });
+                            txtFileCount.Text = $"Files: {statusEntry.TotalFilesToCopy - statusEntry.NbFilesLeftToDo}/{statusEntry.TotalFilesToCopy}";
+                            txtBackupState.Text = $"State: {statusEntry.State}";
+                        }
                     });
-                    
-                    // Exécuter la sauvegarde avec le nouveau gestionnaire de progression
-                    await progressTracker.ExecuteBackupWithProgressAsync(backupName, progress, cancellationTokenSource.Token);
-                    
-                    // Masquer la fenêtre de progression
-                    HideProgressOverlay();
-                    
+                });
+                
+                // Exécuter la sauvegarde
+                await progressTracker.ExecuteBackupWithProgressAsync(backupName, progress, cancellationTokenSource.Token);
+                
+                // Masquer la fenêtre de progression
+                HideProgressOverlay();
+                
+                if (!cancellationTokenSource.Token.IsCancellationRequested)
+                {
                     // Afficher un message de succès
-                    MessageBox.Show(translationManager.GetFormattedUITranslation("backup.complete", backupName), 
-                        "EasySave", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show(
+                        translationManager.GetFormattedUITranslation("backup.complete", backupName),
+                        "EasySave",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Information);
                 }
-                catch (OperationCanceledException)
-                {
-                    // L'opération a été annulée par l'utilisateur
-                    HideProgressOverlay();
-                    MessageBox.Show($"Backup operation '{backupName}' was cancelled.", 
-                        "Operation Cancelled", MessageBoxButton.OK, MessageBoxImage.Information);
-                }
-                catch (Exception ex)
-                {
-                    // En cas d'erreur, masquer la fenêtre de progression
-                    HideProgressOverlay();
-                    
-                    MessageBox.Show(translationManager.GetFormattedUITranslation("error.execution", backupName, ex.Message), 
-                        "EasySave", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
-                finally
-                {
-                    // Réactiver les boutons
-                    btnExecute.IsEnabled = selectedBackupItem != null;
-                    btnDelete.IsEnabled = selectedBackupItem != null;
-                    btnExecuteAll.IsEnabled = true;
-                    btnCreate.IsEnabled = true;
-                    
-                    // Libérer le jeton d'annulation
-                    cancellationTokenSource?.Dispose();
-                    cancellationTokenSource = null;
-                }
+            }
+            catch (OperationCanceledException)
+            {
+                // L'utilisateur a annulé l'opération
+                HideProgressOverlay();
+                Console.WriteLine("Backup operation cancelled by user.");
+            }
+            catch (Exception ex)
+            {
+                // Une erreur s'est produite
+                HideProgressOverlay();
+                MessageBox.Show(
+                    translationManager.GetFormattedUITranslation("error.execution", backupName, ex.Message),
+                    "EasySave",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+            }
+            finally
+            {
+                // Réactiver les boutons
+                btnExecute.IsEnabled = true;
+                btnDelete.IsEnabled = true;
+                btnExecuteAll.IsEnabled = true;
+                btnCreate.IsEnabled = true;
             }
         }
 
@@ -376,6 +416,16 @@ namespace Easy_Save.View
             {
                 MessageBox.Show(translationManager.GetUITranslation("backup.no_saves"), 
                     "EasySave", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+            
+            // Vérifier si un des logiciels métier est en cours d'exécution
+            var businessSettings = BusinessSettings.Instance;
+            if (businessSettings.IsAnyBusinessSoftwareRunning())
+            {
+                string? runningSoftware = businessSettings.GetRunningBusinessSoftware();
+                string message = translationManager.GetFormattedUITranslation("business.software.running", runningSoftware);
+                MessageBox.Show(message, "EasySave", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
             
@@ -401,11 +451,19 @@ namespace Easy_Save.View
                     Dispatcher.Invoke(() =>
                     {
                         // Mettre à jour l'UI avec la progression
-                        int percentage = progressData.Total > 0 ? (int)((double)progressData.Current / progressData.Total * 100) : 0;
+                        int percentage = progressData.Current;
                         
                         progressBar.Value = percentage;
                         txtProgressPercentage.Text = $"{percentage}%";
                         txtProgressInfo.Text = translationManager.GetFormattedUITranslation("backup.start", progressData.BackupName);
+                        
+                        // Mettre à jour les informations supplémentaires
+                        var statusEntry = GetCurrentBackupStatus(progressData.BackupName);
+                        if (statusEntry != null)
+                        {
+                            txtFileCount.Text = $"Files: {statusEntry.TotalFilesToCopy - statusEntry.NbFilesLeftToDo}/{statusEntry.TotalFilesToCopy}";
+                            txtBackupState.Text = $"State: {statusEntry.State}";
+                        }
                     });
                 });
                 
@@ -432,15 +490,17 @@ namespace Easy_Save.View
                 
                 if (cancellationTokenSource.Token.IsCancellationRequested)
                 {
-                    MessageBox.Show($"Backup operations were cancelled. {successCount} of {backups.Count} completed.", 
-                        "Operation Cancelled", MessageBoxButton.OK, MessageBoxImage.Information);
+                    // L'opération a été annulée par l'utilisateur
+                    Console.WriteLine("All backup operations were cancelled by user.");
                 }
                 else
                 {
-                    // Afficher un message de succès avec le mode d'exécution utilisé
-                    MessageBox.Show(translationManager.GetUITranslation("backup.all.complete") + 
-                                    $"\n\n{successCount} of {backups.Count} backups were executed successfully in {executionMode.ToLower()} mode.", 
-                        "EasySave", MessageBoxButton.OK, MessageBoxImage.Information);
+                    // Afficher un message de réussite
+                    MessageBox.Show(
+                        translationManager.GetUITranslation("backup.all.complete"),
+                        "EasySave",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Information);
                 }
             }
             catch (Exception ex)
@@ -448,8 +508,12 @@ namespace Easy_Save.View
                 // Masquer la fenêtre de progression
                 HideProgressOverlay();
                 
-                MessageBox.Show($"Error executing all backups: {ex.Message}", 
-                    "EasySave", MessageBoxButton.OK, MessageBoxImage.Error);
+                // Afficher l'erreur
+                MessageBox.Show(
+                    $"Error executing backups: {ex.Message}",
+                    "EasySave",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
             }
             finally
             {
@@ -458,10 +522,6 @@ namespace Easy_Save.View
                 btnDelete.IsEnabled = selectedBackupItem != null;
                 btnExecuteAll.IsEnabled = true;
                 btnCreate.IsEnabled = true;
-                
-                // Libérer le jeton d'annulation
-                cancellationTokenSource?.Dispose();
-                cancellationTokenSource = null;
             }
         }
 
@@ -561,11 +621,32 @@ namespace Easy_Save.View
                     // Déterminer quel TextBox mettre à jour en fonction du bouton cliqué
                     var button = sender as Button;
                     var parent = button?.Parent as DockPanel;
-                    var textBox = parent?.Children[0] as TextBox;
+                    
+                    // Chercher le TextBox dans le DockPanel
+                    TextBox textBox = null;
+                    foreach (var child in parent.Children)
+                    {
+                        if (child is TextBox)
+                        {
+                            textBox = child as TextBox;
+                            break;
+                        }
+                    }
                     
                     if (textBox != null)
                     {
                         textBox.Text = dialog.SelectedPath;
+                    }
+                    else
+                    {
+                        // Déterminer quel TextBox mettre à jour en fonction du parent du bouton
+                        if (parent != null)
+                        {
+                            if (parent == txtSourcePath.Parent)
+                                txtSourcePath.Text = dialog.SelectedPath;
+                            else if (parent == txtDestinationPath.Parent)
+                                txtDestinationPath.Text = dialog.SelectedPath;
+                        }
                     }
                 }
             }
@@ -642,6 +723,8 @@ namespace Easy_Save.View
             txtProgressInfo.Text = translationManager.GetFormattedUITranslation("backup.start", backupName);
             progressBar.Value = 0;
             txtProgressPercentage.Text = "0%";
+            txtFileCount.Text = "Files: 0/0";
+            txtBackupState.Text = "State: PENDING";
             
             // Afficher l'overlay
             progressOverlay.Visibility = Visibility.Visible;
@@ -651,6 +734,242 @@ namespace Easy_Save.View
         {
             // Masquer l'overlay
             progressOverlay.Visibility = Visibility.Collapsed;
+        }
+
+        private void LoadBusinessSettings()
+        {
+            // Charger les paramètres du logiciel métier
+            if (File.Exists(configPath))
+            {
+                string json = File.ReadAllText(configPath);
+                var config = JsonSerializer.Deserialize<Dictionary<string, object>>(json);
+
+                if (config.TryGetValue("BusinessSettings", out var businessSettingsObj) && businessSettingsObj is Dictionary<string, object> businessSettings)
+                {
+                    if (businessSettings.TryGetValue("MaxFileSize", out var maxFileSizeObj) && maxFileSizeObj is double maxFileSize)
+                    {
+                        backupProcess.MaxFileSize = (long)maxFileSize;
+                    }
+
+                    if (businessSettings.TryGetValue("RestrictedExtensions", out var restrictedExtensionsObj) && restrictedExtensionsObj is List<object> restrictedExtensions)
+                    {
+                        backupProcess.RestrictedExtensions = restrictedExtensions.Select(e => e.ToString()).ToArray();
+                    }
+
+                    if (businessSettings.TryGetValue("CryptoSoftPath", out var cryptoSoftPathObj) && cryptoSoftPathObj is string cryptoSoftPath)
+                    {
+                        backupProcess.CryptoSoftPath = cryptoSoftPath;
+                    }
+                }
+            }
+        }
+
+        private void RefreshBusinessSoftwareList()
+        {
+            // Effacer la liste actuelle
+            businessSoftwareListPanel.Children.Clear();
+            
+            // Récupérer la liste des logiciels métier
+            var businessSoftwareList = backupProcess.GetBusinessSoftwareList();
+            
+            // Si la liste est vide, afficher un message
+            if (businessSoftwareList.Count == 0)
+            {
+                TextBlock emptyMessage = new TextBlock
+                {
+                    Text = translationManager.GetUITranslation("business.software.list.empty"),
+                    TextWrapping = TextWrapping.Wrap,
+                    HorizontalAlignment = HorizontalAlignment.Center,
+                    VerticalAlignment = VerticalAlignment.Center,
+                    FontSize = 12,
+                    Margin = new Thickness(5),
+                    Foreground = Brushes.White
+                };
+                
+                businessSoftwareListPanel.Children.Add(emptyMessage);
+            }
+            else
+            {
+                // Ajouter chaque logiciel métier à la liste
+                foreach (var software in businessSoftwareList)
+                {
+                    Grid grid = new Grid();
+                    
+                    // Définir les colonnes
+                    grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
+                    grid.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
+                    
+                    // Texte du logiciel
+                    TextBlock textBlock = new TextBlock
+                    {
+                        Text = software,
+                        Foreground = Brushes.White,
+                        VerticalAlignment = VerticalAlignment.Center
+                    };
+                    Grid.SetColumn(textBlock, 0);
+                    grid.Children.Add(textBlock);
+                    
+                    // Bouton de suppression
+                    Button deleteButton = new Button
+                    {
+                        Content = "×",
+                        Width = 20,
+                        Height = 20,
+                        Margin = new Thickness(5, 0, 0, 0),
+                        Background = Brushes.IndianRed,
+                        Foreground = Brushes.White,
+                        FontWeight = FontWeights.Bold,
+                        Tag = software
+                    };
+                    deleteButton.Click += BtnRemoveBusinessSoftware_Click;
+                    Grid.SetColumn(deleteButton, 1);
+                    grid.Children.Add(deleteButton);
+                    
+                    // Ajouter le Grid à l'intérieur d'une Border avec un style
+                    Border border = new Border
+                    {
+                        Style = FindResource("BusinessSoftwareItemStyle") as Style,
+                        Child = grid,
+                        Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#007C80")
+                    };
+                    
+                    businessSoftwareListPanel.Children.Add(border);
+                }
+            }
+            
+            // Vider le champ de texte
+            txtBusinessSoftware.Text = string.Empty;
+        }
+
+        private void BtnAddBusinessSoftware_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                // Récupérer le nom du logiciel métier
+                string softwareName = txtBusinessSoftware.Text.Trim();
+                
+                if (string.IsNullOrWhiteSpace(softwareName))
+                {
+                    MessageBox.Show(
+                        translationManager.GetUITranslation("business.software.name_required"),
+                        "EasySave",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Warning);
+                    return;
+                }
+                
+                // Ajouter le logiciel métier
+                bool added = backupProcess.AddBusinessSoftware(softwareName);
+                
+                if (added)
+                {
+                    // Rafraîchir la liste des logiciels métier
+                    RefreshBusinessSoftwareList();
+                    
+                    // Afficher un message de confirmation
+                    MessageBox.Show(
+                        translationManager.GetFormattedUITranslation("business.software.added", softwareName),
+                        "EasySave",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Information);
+                }
+                else
+                {
+                    // Afficher un message d'erreur
+                    MessageBox.Show(
+                        translationManager.GetFormattedUITranslation("business.software.already_exists", softwareName),
+                        "EasySave",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Warning);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    $"Error: {ex.Message}",
+                    "EasySave",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+            }
+        }
+        
+        private void BtnRemoveBusinessSoftware_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                // Récupérer le bouton et le nom du logiciel métier
+                Button button = sender as Button;
+                string softwareName = button?.Tag as string;
+                
+                if (string.IsNullOrEmpty(softwareName))
+                    return;
+                
+                // Demander confirmation
+                MessageBoxResult result = MessageBox.Show(
+                    translationManager.GetFormattedUITranslation("business.software.delete_confirm", softwareName),
+                    "EasySave",
+                    MessageBoxButton.YesNo,
+                    MessageBoxImage.Question);
+                
+                if (result != MessageBoxResult.Yes)
+                    return;
+                
+                // Supprimer le logiciel métier
+                bool removed = backupProcess.RemoveBusinessSoftware(softwareName);
+                
+                if (removed)
+                {
+                    // Rafraîchir la liste des logiciels métier
+                    RefreshBusinessSoftwareList();
+                    
+                    // Afficher un message de confirmation
+                    MessageBox.Show(
+                        translationManager.GetFormattedUITranslation("business.software.removed", softwareName),
+                        "EasySave",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Information);
+                }
+                else
+                {
+                    // Afficher un message d'erreur
+                    MessageBox.Show(
+                        translationManager.GetFormattedUITranslation("business.software.not_found", softwareName),
+                        "EasySave",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Warning);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    $"Error: {ex.Message}",
+                    "EasySave",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+            }
+        }
+        
+        private Model.Status.StatusEntry GetCurrentBackupStatus(string backupName)
+        {
+            try
+            {
+                if (File.Exists("state.json"))
+                {
+                    string json = File.ReadAllText("state.json");
+                    List<Model.Status.StatusEntry> statusEntries = JsonSerializer.Deserialize<List<Model.Status.StatusEntry>>(json);
+                    
+                    if (statusEntries != null)
+                    {
+                        return statusEntries.FirstOrDefault(e => e.Name == backupName);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Erreur lors de la lecture du fichier d'état: {ex.Message}");
+            }
+            
+            return null;
         }
     }
 } 

@@ -2,37 +2,66 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using System.IO;
+using System.Text.Json;
+using System.Linq;
 using Easy_Save.Controller;
+using Easy_Save.Model.Status;
+using System.Timers;
 
 namespace Easy_Save.Model
 {
     public class BackupProgressTracker
     {
         private readonly BackupProcess backupProcess;
+        private System.Timers.Timer progressTimer;
+        private string stateFilePath = "state.json";
 
         public BackupProgressTracker(BackupProcess backupProcess)
         {
             this.backupProcess = backupProcess ?? throw new ArgumentNullException(nameof(backupProcess));
+            this.progressTimer = new System.Timers.Timer(500); // Vérifier toutes les 500ms
+            this.progressTimer.AutoReset = true;
         }
 
         public async Task ExecuteBackupWithProgressAsync(string backupName, IProgress<(int Current, int Total)> progress, CancellationToken cancellationToken)
         {
-            // This is a simulated progression since we don't have direct access to the file copy details
-            // In a real implementation, you would modify the BackupManager and strategies to report progress
+            // Start progress monitoring
+            StatusEntry currentStatus = null;
             
-            // Simulate starting the backup
-            await Task.Delay(500, cancellationToken);
-            
-            // Run the backup in a background task
-            await Task.Run(() => 
+            // Configurer le timer pour suivre la progression
+            progressTimer.Elapsed += (sender, e) => 
             {
-                // Start the actual backup process
-                backupProcess.ExecuteBackup(backupName);
+                if (!cancellationToken.IsCancellationRequested)
+                {
+                    currentStatus = GetBackupStatus(backupName);
+                    if (currentStatus != null)
+                    {
+                        progress.Report((currentStatus.Progression, 100));
+                    }
+                }
+            };
+            
+            try
+            {
+                // Démarrer le timer de progression
+                progressTimer.Start();
                 
-                // For demo purposes, simulate progress
-                SimulateProgressReporting(progress, cancellationToken);
+                // Exécuter la sauvegarde dans un thread séparé
+                await Task.Run(() => backupProcess.ExecuteBackup(backupName), cancellationToken);
                 
-            }, cancellationToken);
+                // Faire une dernière vérification pour s'assurer que nous rapportons l'état final
+                currentStatus = GetBackupStatus(backupName);
+                if (currentStatus != null)
+                {
+                    progress.Report((currentStatus.Progression, 100));
+                }
+            }
+            finally
+            {
+                // Arrêter le timer de progression
+                progressTimer.Stop();
+            }
         }
         
         public async Task<int> ExecuteAllBackupsWithProgressAsync(IProgress<(string BackupName, int Current, int Total)> progress, CancellationToken cancellationToken)
@@ -49,66 +78,81 @@ namespace Easy_Save.Model
                 
                 try
                 {
-                    // Report which backup we're starting
+                    // Configurer le timer pour ce backup spécifique
+                    string currentBackupName = backup.Name;
+                    StatusEntry currentStatus = null;
+                    
+                    progressTimer.Elapsed += null; // Retirer tous les gestionnaires d'événements précédents
+                    progressTimer.Elapsed += (sender, e) => 
+                    {
+                        if (!cancellationToken.IsCancellationRequested)
+                        {
+                            currentStatus = GetBackupStatus(currentBackupName);
+                            if (currentStatus != null)
+                            {
+                                progress.Report((currentBackupName, currentStatus.Progression, 100));
+                            }
+                        }
+                    };
+                    
+                    // Démarrer le suivi de progression
+                    progressTimer.Start();
+                    
+                    // Rapport initial
                     progress.Report((backup.Name, 0, 100));
                     
-                    // Execute the backup
-                    await Task.Run(() => 
+                    // Exécuter la sauvegarde en arrière-plan
+                    await Task.Run(() => backupProcess.ExecuteBackup(backup.Name), cancellationToken);
+                    
+                    // Vérifier l'état final
+                    currentStatus = GetBackupStatus(backup.Name);
+                    if (currentStatus != null)
                     {
-                        backupProcess.ExecuteBackup(backup.Name);
-                        
-                        // Simulate progress for this specific backup
-                        SimulateProgressReporting(new Progress<(int Current, int Total)>(p => 
-                            progress.Report((backup.Name, p.Current, p.Total))), 
-                            cancellationToken);
-                        
-                    }, cancellationToken);
+                        progress.Report((backup.Name, currentStatus.Progression, 100));
+                    }
                     
                     successCount++;
                 }
                 catch (OperationCanceledException)
                 {
-                    // Propagate cancellation
+                    // Propager l'annulation
                     throw;
                 }
                 catch (Exception)
                 {
-                    // Log the error but continue with other backups
-                    // In a real implementation, you'd want to log this
+                    // Continuer avec les autres sauvegardes en cas d'erreur
+                }
+                finally
+                {
+                    // Arrêter le timer pour ce backup
+                    progressTimer.Stop();
                 }
             }
             
             return successCount;
         }
         
-        private void SimulateProgressReporting(IProgress<(int Current, int Total)> progress, CancellationToken cancellationToken)
+        private StatusEntry GetBackupStatus(string backupName)
         {
-            // This is a simulation for demonstration purposes
-            // In a real implementation, this would be based on actual file counting and copying progress
-            
-            const int totalFiles = 100; // Simulated total
-            
-            for (int i = 1; i <= totalFiles; i++)
+            try
             {
-                // Check for cancellation
-                if (cancellationToken.IsCancellationRequested)
+                if (File.Exists(stateFilePath))
                 {
-                    break;
-                }
-                
-                // Report progress
-                progress.Report((i, totalFiles));
-                
-                // Small delay to simulate work
-                try
-                {
-                    Thread.Sleep(50); // 50ms per "file"
-                }
-                catch (ThreadInterruptedException)
-                {
-                    break;
+                    string json = File.ReadAllText(stateFilePath);
+                    List<StatusEntry> statusEntries = JsonSerializer.Deserialize<List<StatusEntry>>(json);
+                    
+                    if (statusEntries != null)
+                    {
+                        return statusEntries.FirstOrDefault(e => e.Name == backupName);
+                    }
                 }
             }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Erreur lors de la lecture du fichier d'état: {ex.Message}");
+            }
+            
+            return null;
         }
     }
 } 
