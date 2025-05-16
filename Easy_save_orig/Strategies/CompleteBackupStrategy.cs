@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using Easy_Save.Interfaces;
 using Easy_Save.Model;
 using Easy_Save.Model.Status;
@@ -50,6 +51,9 @@ namespace Easy_Save.Strategies
                     DateTime.Now
                 );
                 statusManager.UpdateStatus(statusEntry);
+                
+                // Ajouter un délai de 2 secondes pour permettre de voir l'état ACTIVE
+                Thread.Sleep(2000);
 
                 string ext = Path.GetExtension(file).ToLower();
                 bool shouldEncrypt = encryptionConfig.extensionsToEncrypt

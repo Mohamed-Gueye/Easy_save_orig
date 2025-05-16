@@ -8,6 +8,7 @@ using Easy_Save.Model.IO;
 using Easy_Save.Model.Status;
 using Easy_Save.Model.Observer;
 using System.Diagnostics;
+using System.Threading;
 
 namespace Easy_Save.Strategies
 {
@@ -42,6 +43,23 @@ namespace Easy_Save.Strategies
                     {
                         Directory.CreateDirectory(destinationDir);
                     }
+
+                    // Créer une entrée de statut ACTIVE
+                    var statusEntry = new StatusEntry(
+                        backup.Name,
+                        file,
+                        destinationPath,
+                        "ACTIVE",
+                        totalFiles,
+                        totalSize,
+                        totalFiles - copiedFiles.Count,
+                        (int)((copiedFiles.Count / (double)totalFiles) * 100),
+                        DateTime.Now
+                    );
+                    statusManager.UpdateStatus(statusEntry);
+                    
+                    // Ajouter un délai de 2 secondes pour permettre de voir l'état ACTIVE
+                    Thread.Sleep(2000);
 
                     string ext = Path.GetExtension(file).ToLower();
                     bool shouldEncrypt = encryptionConfig.extensionsToEncrypt
@@ -82,10 +100,6 @@ namespace Easy_Save.Strategies
                     }
 
                     logObserver.Update(backup, totalSize, transferTime, shouldEncrypt ? encryptionTime : 0, totalFiles);
-                    var sw = System.Diagnostics.Stopwatch.StartNew();
-                    File.Copy(file, destinationPath, overwrite: true);
-                    sw.Stop();
-
                     copiedFiles.Add(file);
                 }
             }
