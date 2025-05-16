@@ -17,8 +17,6 @@ C:\projet_sauvegarde\Easy_save_orig\Easy_save_orig\bin\Debug\net8.0\Easy_Save.ru
 C:\projet_sauvegarde\Easy_save_orig\Easy_save_orig\bin\Debug\net8.0\Easy_Save.dll
 C:\projet_sauvegarde\Easy_save_orig\Easy_save_orig\bin\Debug\net8.0\Easy_Save.pdb
 C:\projet_sauvegarde\Easy_save_orig\Easy_save_orig\obj\Debug\net8.0\Easy_Save.GeneratedMSBuildEditorConfig.editorconfig
-C:\projet_sauvegarde\Easy_save_orig\Easy_save_orig\obj\Debug\net8.0\Easy_Save.AssemblyInfoInputs.cache
-C:\projet_sauvegarde\Easy_save_orig\Easy_save_orig\obj\Debug\net8.0\Easy_Save.AssemblyInfo.cs
 C:\projet_sauvegarde\Easy_save_orig\Easy_save_orig\obj\Debug\net8.0\Easy_Save.csproj.CoreCompileInputs.cache
 C:\projet_sauvegarde\Easy_save_orig\Easy_save_orig\obj\Debug\net8.0\Easy_Save.sourcelink.json
 C:\projet_sauvegarde\Easy_save_orig\Easy_save_orig\obj\Debug\net8.0\Easy_Save.dll

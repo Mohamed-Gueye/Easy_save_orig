@@ -5,8 +5,9 @@
     "\\Interfaces",
     "\\Model",
     "\\Observer",
+    "\\Strategies",
     "\\View"
   ],
-  "SelectedNode": "\\Observer\\LogObserver.cs",
+  "SelectedNode": "\\Program.cs",
   "PreviewInSolutionExplorer": false
 }

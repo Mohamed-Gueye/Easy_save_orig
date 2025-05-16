@@ -7,12 +7,13 @@ using Easy_Save.Model;
 using Easy_Save.Model.IO;
 using Easy_Save.Model.Status;
 using Easy_Save.Model.Observer;
+using System.Diagnostics;
 
 namespace Easy_Save.Strategies
 {
     public class IncrementalBackupStrategy : IBackupStrategy
     {
-        public void MakeBackup(Backup backup)
+        public void MakeBackup(Backup backup, StatusManager statusManager, LogObserver logObserver)
         {
             var encryptionConfig = EncryptionSettings.Load("config.json");
             Console.WriteLine($"[DEBUG] Extensions à chiffrer chargées : {string.Join(", ", encryptionConfig.extensionsToEncrypt)}");
@@ -49,10 +50,10 @@ namespace Easy_Save.Strategies
                     int encryptionTime = 0;
                     int transferTime = 0;
 
-                    var sw = Stopwatch.StartNew();
+                    var swa = Stopwatch.StartNew();
                     File.Copy(file, destinationPath, true);
-                    sw.Stop();
-                    transferTime = (int)sw.Elapsed.TotalMilliseconds;
+                    swa.Stop();
+                    transferTime = (int)swa.Elapsed.TotalMilliseconds;
 
                     if (shouldEncrypt)
                     {

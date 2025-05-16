@@ -1,73 +1,10 @@
 {
   "Version": 1,
-<<<<<<< HEAD
-  "WorkspaceRootPath": "C:\\EasySave\\Easy_save_orig\\",
-  "Documents": [
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\EasySave\\Easy_save_orig\\Program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\EasySave\\Easy_save_orig\\Strategies\\CompleteBackupStrategy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Strategies\\CompleteBackupStrategy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\EasySave\\Easy_save_orig\\Strategies\\IncrementalBackupStrategy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Strategies\\IncrementalBackupStrategy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\EasySave\\Easy_save_orig\\Observer\\LogObserver.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Observer\\LogObserver.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\EasySave\\Easy_save_orig\\Model\\LogEntry.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Model\\LogEntry.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\EasySave\\Easy_save_orig\\Model\\LogManager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Model\\LogManager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\EasySave\\Easy_save_orig\\CryptoSoft\\Program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:CryptoSoft\\Program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\EasySave\\Easy_save_orig\\Model\\EncryptionHelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Model\\EncryptionHelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\EasySave\\Easy_save_orig\\bin\\Debug\\net8.0\\config.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:bin\\Debug\\net8.0\\config.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\EasySave\\Easy_save_orig\\Model\\EncryptionSettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Model\\EncryptionSettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\EasySave\\Easy_save_orig\\CryptoSoft\\FileManager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:CryptoSoft\\FileManager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\EasySave\\Easy_save_orig\\View\\Main.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:View\\Main.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\EasySave\\Easy_save_orig\\Model\\TranslationProcess.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Model\\TranslationProcess.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\EasySave\\Easy_save_orig\\CryptoSoft\\CryptoSoft.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:CryptoSoft\\CryptoSoft.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\EasySave\\Easy_save_orig\\Easy_Save.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Easy_Save.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
-=======
   "WorkspaceRootPath": "C:\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\View\\Main.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:View\\Main.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\Program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\Strategies\\IncrementalBackupStrategy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -78,37 +15,68 @@
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Strategies\\CompleteBackupStrategy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\Observer\\LogObserver.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Observer\\LogObserver.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\Interfaces\\IBackupStrategy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Interfaces\\IBackupStrategy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\Model\\StatusManager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Model\\StatusManager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\obj\\Release\\net8.0\\Easy_Save.AssemblyInfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:obj\\Release\\net8.0\\Easy_Save.AssemblyInfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\obj\\Debug\\net8.0\\Easy_Save.AssemblyInfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:obj\\Debug\\net8.0\\Easy_Save.AssemblyInfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\Model\\BackupManager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Model\\BackupManager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\Interfaces\\IBackupStrategy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Interfaces\\IBackupStrategy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\Observer\\LogObserver.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Observer\\LogObserver.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\Controller\\BackupProcess.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Controller\\BackupProcess.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\Model\\LogEntry.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Model\\LogEntry.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\Program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\Model\\LogManager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Model\\LogManager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\CryptoSoft\\Program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:CryptoSoft\\Program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\Model\\EncryptionHelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Model\\EncryptionHelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\bin\\Debug\\net8.0\\config.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:bin\\Debug\\net8.0\\config.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\Model\\EncryptionSettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Model\\EncryptionSettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\CryptoSoft\\FileManager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:CryptoSoft\\FileManager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\View\\Main.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:View\\Main.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\Model\\TranslationProcess.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Model\\TranslationProcess.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\Model\\Backup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Model\\Backup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
->>>>>>> UnlimittedBackup
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\CryptoSoft\\CryptoSoft.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:CryptoSoft\\CryptoSoft.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\Easy_Save.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Easy_Save.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
     }
   ],
   "DocumentGroupContainers": [
@@ -118,22 +86,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-<<<<<<< HEAD
-          "SelectedChildIndex": 3,
-          "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "LogManager.cs",
-              "DocumentMoniker": "C:\\EasySave\\Easy_save_orig\\Model\\LogManager.cs",
-              "RelativeDocumentMoniker": "Model\\LogManager.cs",
-              "ToolTip": "C:\\EasySave\\Easy_save_orig\\Model\\LogManager.cs",
-              "RelativeToolTip": "Model\\LogManager.cs",
-              "ViewState": "AgIAAAkAAAAAAAAAAAAwwCMAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-15T09:20:37.58Z",
-=======
-          "SelectedChildIndex": 7,
+          "SelectedChildIndex": 5,
           "Children": [
             {
               "$type": "Bookmark",
@@ -141,89 +94,65 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "StatusManager.cs",
-              "DocumentMoniker": "C:\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\Model\\StatusManager.cs",
-              "RelativeDocumentMoniker": "Model\\StatusManager.cs",
-              "ToolTip": "C:\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\Model\\StatusManager.cs",
-              "RelativeToolTip": "Model\\StatusManager.cs",
-              "ViewState": "AgIAACQAAAAAAAAAAAAAADYAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-15T08:54:48.45Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 3,
               "Title": "IBackupStrategy.cs",
               "DocumentMoniker": "C:\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\Interfaces\\IBackupStrategy.cs",
               "RelativeDocumentMoniker": "Interfaces\\IBackupStrategy.cs",
               "ToolTip": "C:\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\Interfaces\\IBackupStrategy.cs",
               "RelativeToolTip": "Interfaces\\IBackupStrategy.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAABAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-15T08:54:02.491Z",
+              "WhenOpened": "2025-05-16T09:02:09.556Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "BackupManager.cs",
-              "DocumentMoniker": "C:\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\Model\\BackupManager.cs",
-              "RelativeDocumentMoniker": "Model\\BackupManager.cs",
-              "ToolTip": "C:\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\Model\\BackupManager.cs",
-              "RelativeToolTip": "Model\\BackupManager.cs",
-              "ViewState": "AgIAAFoAAAAAAAAAAAAAAD8AAABFAAAAAAAAAA==",
+              "DocumentIndex": 4,
+              "Title": "Easy_Save.AssemblyInfo.cs",
+              "DocumentMoniker": "C:\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\obj\\Release\\net8.0\\Easy_Save.AssemblyInfo.cs",
+              "RelativeDocumentMoniker": "obj\\Release\\net8.0\\Easy_Save.AssemblyInfo.cs",
+              "ToolTip": "C:\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\obj\\Release\\net8.0\\Easy_Save.AssemblyInfo.cs",
+              "RelativeToolTip": "obj\\Release\\net8.0\\Easy_Save.AssemblyInfo.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-14T07:36:21.204Z",
->>>>>>> UnlimittedBackup
+              "WhenOpened": "2025-05-16T08:38:19.762Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 7,
               "Title": "LogObserver.cs",
-<<<<<<< HEAD
-              "DocumentMoniker": "C:\\EasySave\\Easy_save_orig\\Observer\\LogObserver.cs",
-              "RelativeDocumentMoniker": "Observer\\LogObserver.cs",
-              "ToolTip": "C:\\EasySave\\Easy_save_orig\\Observer\\LogObserver.cs",
-              "RelativeToolTip": "Observer\\LogObserver.cs",
-              "ViewState": "AgIAABIAAAAAAAAAAAAAACAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-15T08:37:46.662Z",
-=======
               "DocumentMoniker": "C:\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\Observer\\LogObserver.cs",
               "RelativeDocumentMoniker": "Observer\\LogObserver.cs",
               "ToolTip": "C:\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\Observer\\LogObserver.cs",
               "RelativeToolTip": "Observer\\LogObserver.cs",
-              "ViewState": "AgIAAA8AAAAAAAAAAAAAACIAAAABAAAAAAAAAA==",
+              "ViewState": "AgIAABIAAAAAAAAAAAAAACAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-15T08:55:05.677Z",
->>>>>>> UnlimittedBackup
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-16T07:44:51.739Z"
             },
             {
               "$type": "Document",
-<<<<<<< HEAD
-              "DocumentIndex": 4,
+              "DocumentIndex": 8,
               "Title": "LogEntry.cs",
-              "DocumentMoniker": "C:\\EasySave\\Easy_save_orig\\Model\\LogEntry.cs",
+              "DocumentMoniker": "C:\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\Model\\LogEntry.cs",
               "RelativeDocumentMoniker": "Model\\LogEntry.cs",
-              "ToolTip": "C:\\EasySave\\Easy_save_orig\\Model\\LogEntry.cs",
+              "ToolTip": "C:\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\Model\\LogEntry.cs",
               "RelativeToolTip": "Model\\LogEntry.cs",
               "ViewState": "AgIAABIAAAAAAAAAAAAAAB0AAAAqAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-15T08:37:09.735Z",
-=======
-              "DocumentIndex": 2,
-              "Title": "CompleteBackupStrategy.cs",
-              "DocumentMoniker": "C:\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\Strategies\\CompleteBackupStrategy.cs",
-              "RelativeDocumentMoniker": "Strategies\\CompleteBackupStrategy.cs",
-              "ToolTip": "C:\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\Strategies\\CompleteBackupStrategy.cs",
-              "RelativeToolTip": "Strategies\\CompleteBackupStrategy.cs",
-              "ViewState": "AgIAADAAAAAAAAAAAAAAAEgAAAABAAAAAAAAAA==",
+              "WhenOpened": "2025-05-16T07:44:51.744Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "C:\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAWAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-15T09:42:13.594Z",
+              "WhenOpened": "2025-05-16T07:44:51.748Z",
               "EditorCaption": ""
             },
             {
@@ -234,217 +163,167 @@
               "RelativeDocumentMoniker": "Strategies\\IncrementalBackupStrategy.cs",
               "ToolTip": "C:\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\Strategies\\IncrementalBackupStrategy.cs",
               "RelativeToolTip": "Strategies\\IncrementalBackupStrategy.cs",
-              "ViewState": "AgIAACEAAAAAAAAAAAAAAEAAAAABAAAAAAAAAA==",
+              "ViewState": "AgIAACEAAAAAAAAAAAAAADcAAAArAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-15T08:54:30.526Z",
->>>>>>> UnlimittedBackup
+              "WhenOpened": "2025-05-16T07:44:51.772Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-<<<<<<< HEAD
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\EasySave\\Easy_save_orig\\Program.cs",
-              "RelativeDocumentMoniker": "Program.cs",
-              "ToolTip": "C:\\EasySave\\Easy_save_orig\\Program.cs",
-              "RelativeToolTip": "Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAWAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-14T07:46:09.45Z",
-=======
-              "Title": "Main.cs",
-              "DocumentMoniker": "C:\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\View\\Main.cs",
-              "RelativeDocumentMoniker": "View\\Main.cs",
-              "ToolTip": "C:\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\View\\Main.cs",
-              "RelativeToolTip": "View\\Main.cs",
-              "ViewState": "AgIAAI8AAAAAAAAAAAAuwKAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-15T09:00:22.067Z",
->>>>>>> UnlimittedBackup
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-<<<<<<< HEAD
-              "DocumentIndex": 10,
-              "Title": "FileManager.cs",
-              "DocumentMoniker": "C:\\EasySave\\Easy_save_orig\\CryptoSoft\\FileManager.cs",
-              "RelativeDocumentMoniker": "CryptoSoft\\FileManager.cs",
-              "ToolTip": "C:\\EasySave\\Easy_save_orig\\CryptoSoft\\FileManager.cs",
-              "RelativeToolTip": "CryptoSoft\\FileManager.cs",
-              "ViewState": "AgIAABUAAAAAAAAAAAAAABEAAAAnAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-14T08:19:01.703Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "CompleteBackupStrategy.cs",
-              "DocumentMoniker": "C:\\EasySave\\Easy_save_orig\\Strategies\\CompleteBackupStrategy.cs",
+              "DocumentMoniker": "C:\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\Strategies\\CompleteBackupStrategy.cs",
               "RelativeDocumentMoniker": "Strategies\\CompleteBackupStrategy.cs",
-              "ToolTip": "C:\\EasySave\\Easy_save_orig\\Strategies\\CompleteBackupStrategy.cs",
+              "ToolTip": "C:\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\Strategies\\CompleteBackupStrategy.cs",
               "RelativeToolTip": "Strategies\\CompleteBackupStrategy.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAHIAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAHAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-14T07:24:10.415Z",
-=======
-              "DocumentIndex": 7,
-              "Title": "BackupProcess.cs",
-              "DocumentMoniker": "C:\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\Controller\\BackupProcess.cs",
-              "RelativeDocumentMoniker": "Controller\\BackupProcess.cs",
-              "ToolTip": "C:\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\Controller\\BackupProcess.cs",
-              "RelativeToolTip": "Controller\\BackupProcess.cs",
-              "ViewState": "AgIAACoAAAAAAAAAAAAAAEkAAAAqAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-15T09:16:54.692Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\Program.cs",
-              "RelativeDocumentMoniker": "Program.cs",
-              "ToolTip": "C:\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\Program.cs",
-              "RelativeToolTip": "Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-14T07:23:29.613Z",
->>>>>>> UnlimittedBackup
+              "WhenOpened": "2025-05-16T07:44:51.756Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 9,
-<<<<<<< HEAD
+              "Title": "LogManager.cs",
+              "DocumentMoniker": "C:\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\Model\\LogManager.cs",
+              "RelativeDocumentMoniker": "Model\\LogManager.cs",
+              "ToolTip": "C:\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\Model\\LogManager.cs",
+              "RelativeToolTip": "Model\\LogManager.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAwwCMAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-16T07:44:51.672Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "BackupManager.cs",
+              "DocumentMoniker": "C:\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\Model\\BackupManager.cs",
+              "RelativeDocumentMoniker": "Model\\BackupManager.cs",
+              "ToolTip": "C:\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\Model\\BackupManager.cs",
+              "RelativeToolTip": "Model\\BackupManager.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAeAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-16T07:45:04.875Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Easy_Save.AssemblyInfo.cs",
+              "DocumentMoniker": "C:\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\obj\\Debug\\net8.0\\Easy_Save.AssemblyInfo.cs",
+              "RelativeDocumentMoniker": "obj\\Debug\\net8.0\\Easy_Save.AssemblyInfo.cs",
+              "ToolTip": "C:\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\obj\\Debug\\net8.0\\Easy_Save.AssemblyInfo.cs",
+              "RelativeToolTip": "obj\\Debug\\net8.0\\Easy_Save.AssemblyInfo.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-16T08:38:00.202Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "FileManager.cs",
+              "DocumentMoniker": "C:\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\CryptoSoft\\FileManager.cs",
+              "RelativeDocumentMoniker": "CryptoSoft\\FileManager.cs",
+              "ToolTip": "C:\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\CryptoSoft\\FileManager.cs",
+              "RelativeToolTip": "CryptoSoft\\FileManager.cs",
+              "ViewState": "AgIAABUAAAAAAAAAAAAAABEAAAAnAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-16T07:44:51.752Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
               "Title": "EncryptionSettings.cs",
-              "DocumentMoniker": "C:\\EasySave\\Easy_save_orig\\Model\\EncryptionSettings.cs",
+              "DocumentMoniker": "C:\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\Model\\EncryptionSettings.cs",
               "RelativeDocumentMoniker": "Model\\EncryptionSettings.cs",
-              "ToolTip": "C:\\EasySave\\Easy_save_orig\\Model\\EncryptionSettings.cs",
+              "ToolTip": "C:\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\Model\\EncryptionSettings.cs",
               "RelativeToolTip": "Model\\EncryptionSettings.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAaAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-14T07:22:44.987Z"
+              "WhenOpened": "2025-05-16T07:44:51.759Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 12,
               "Title": "config.json",
-              "DocumentMoniker": "C:\\EasySave\\Easy_save_orig\\bin\\Debug\\net8.0\\config.json",
+              "DocumentMoniker": "C:\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\bin\\Debug\\net8.0\\config.json",
               "RelativeDocumentMoniker": "bin\\Debug\\net8.0\\config.json",
-              "ToolTip": "C:\\EasySave\\Easy_save_orig\\bin\\Debug\\net8.0\\config.json",
+              "ToolTip": "C:\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\bin\\Debug\\net8.0\\config.json",
               "RelativeToolTip": "bin\\Debug\\net8.0\\config.json",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAQAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-05-14T07:20:35.263Z"
+              "WhenOpened": "2025-05-16T07:44:51.764Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 11,
               "Title": "EncryptionHelper.cs",
-              "DocumentMoniker": "C:\\EasySave\\Easy_save_orig\\Model\\EncryptionHelper.cs",
+              "DocumentMoniker": "C:\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\Model\\EncryptionHelper.cs",
               "RelativeDocumentMoniker": "Model\\EncryptionHelper.cs",
-              "ToolTip": "C:\\EasySave\\Easy_save_orig\\Model\\EncryptionHelper.cs",
+              "ToolTip": "C:\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\Model\\EncryptionHelper.cs",
               "RelativeToolTip": "Model\\EncryptionHelper.cs",
               "ViewState": "AgIAAB4AAAAAAAAAAAAAACEAAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-14T07:23:27.57Z"
+              "WhenOpened": "2025-05-16T07:44:51.769Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "IncrementalBackupStrategy.cs",
-              "DocumentMoniker": "C:\\EasySave\\Easy_save_orig\\Strategies\\IncrementalBackupStrategy.cs",
-              "RelativeDocumentMoniker": "Strategies\\IncrementalBackupStrategy.cs",
-              "ToolTip": "C:\\EasySave\\Easy_save_orig\\Strategies\\IncrementalBackupStrategy.cs",
-              "RelativeToolTip": "Strategies\\IncrementalBackupStrategy.cs",
-              "ViewState": "AgIAAFEAAAAAAAAAAAAwwGsAAAAAAAAAAAAAAA==",
+              "DocumentIndex": 15,
+              "Title": "Main.cs",
+              "DocumentMoniker": "C:\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\View\\Main.cs",
+              "RelativeDocumentMoniker": "View\\Main.cs",
+              "ToolTip": "C:\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\View\\Main.cs",
+              "RelativeToolTip": "View\\Main.cs",
+              "ViewState": "AgIAAEwAAAAAAAAAAAAwwJkAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-14T07:24:25.106Z",
-=======
+              "WhenOpened": "2025-05-16T07:44:51.774Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\CryptoSoft\\Program.cs",
+              "RelativeDocumentMoniker": "CryptoSoft\\Program.cs",
+              "ToolTip": "C:\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\CryptoSoft\\Program.cs",
+              "RelativeToolTip": "CryptoSoft\\Program.cs",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAwwBgAAAArAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-16T07:44:51.777Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
               "Title": "TranslationProcess.cs",
               "DocumentMoniker": "C:\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\Model\\TranslationProcess.cs",
               "RelativeDocumentMoniker": "Model\\TranslationProcess.cs",
               "ToolTip": "C:\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\Model\\TranslationProcess.cs",
               "RelativeToolTip": "Model\\TranslationProcess.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-15T08:54:47.642Z",
->>>>>>> UnlimittedBackup
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-<<<<<<< HEAD
-              "DocumentIndex": 11,
-              "Title": "Main.cs",
-              "DocumentMoniker": "C:\\EasySave\\Easy_save_orig\\View\\Main.cs",
-              "RelativeDocumentMoniker": "View\\Main.cs",
-              "ToolTip": "C:\\EasySave\\Easy_save_orig\\View\\Main.cs",
-              "RelativeToolTip": "View\\Main.cs",
-              "ViewState": "AgIAAEwAAAAAAAAAAAAwwJkAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-14T21:01:01.961Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\EasySave\\Easy_save_orig\\CryptoSoft\\Program.cs",
-              "RelativeDocumentMoniker": "CryptoSoft\\Program.cs",
-              "ToolTip": "C:\\EasySave\\Easy_save_orig\\CryptoSoft\\Program.cs",
-              "RelativeToolTip": "CryptoSoft\\Program.cs",
-              "ViewState": "AgIAAA8AAAAAAAAAAAAwwBgAAAArAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-14T10:08:05.974Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "TranslationProcess.cs",
-              "DocumentMoniker": "C:\\EasySave\\Easy_save_orig\\Model\\TranslationProcess.cs",
-              "RelativeDocumentMoniker": "Model\\TranslationProcess.cs",
-              "ToolTip": "C:\\EasySave\\Easy_save_orig\\Model\\TranslationProcess.cs",
-              "RelativeToolTip": "Model\\TranslationProcess.cs",
               "ViewState": "AgIAABcAAAAAAAAAAAAwwDEAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-14T21:01:28.984Z"
+              "WhenOpened": "2025-05-16T07:44:51.78Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 17,
               "Title": "CryptoSoft.csproj",
-              "DocumentMoniker": "C:\\EasySave\\Easy_save_orig\\CryptoSoft\\CryptoSoft.csproj",
+              "DocumentMoniker": "C:\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\CryptoSoft\\CryptoSoft.csproj",
               "RelativeDocumentMoniker": "CryptoSoft\\CryptoSoft.csproj",
-              "ToolTip": "C:\\EasySave\\Easy_save_orig\\CryptoSoft\\CryptoSoft.csproj",
+              "ToolTip": "C:\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\CryptoSoft\\CryptoSoft.csproj",
               "RelativeToolTip": "CryptoSoft\\CryptoSoft.csproj",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAABMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2025-05-14T07:55:41.959Z"
+              "WhenOpened": "2025-05-16T07:44:51.782Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 18,
               "Title": "Easy_Save.csproj",
-              "DocumentMoniker": "C:\\EasySave\\Easy_save_orig\\Easy_Save.csproj",
+              "DocumentMoniker": "C:\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\Easy_Save.csproj",
               "RelativeDocumentMoniker": "Easy_Save.csproj",
-              "ToolTip": "C:\\EasySave\\Easy_save_orig\\Easy_Save.csproj",
+              "ToolTip": "C:\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\Easy_Save.csproj",
               "RelativeToolTip": "Easy_Save.csproj",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2025-05-14T08:03:04.752Z"
-=======
-              "DocumentIndex": 10,
-              "Title": "Backup.cs",
-              "DocumentMoniker": "C:\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\Model\\Backup.cs",
-              "RelativeDocumentMoniker": "Model\\Backup.cs",
-              "ToolTip": "C:\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\Model\\Backup.cs",
-              "RelativeToolTip": "Model\\Backup.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-14T07:36:20.179Z"
->>>>>>> UnlimittedBackup
+              "WhenOpened": "2025-05-16T07:44:51.785Z"
             }
           ]
         }
