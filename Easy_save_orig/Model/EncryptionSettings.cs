@@ -12,6 +12,9 @@ namespace Easy_Save.Model
         public string key { get; set; } = string.Empty;
 
         public static EncryptionSettings Load(string path)
+        // In: path (string)
+        // Out: EncryptionSettings
+        // Description: Loads encryption settings from the JSON configuration file.
         {
             var json = File.ReadAllText(path);
             Console.WriteLine($"[DEBUG] Chargement de la config de chiffrement : {json}");

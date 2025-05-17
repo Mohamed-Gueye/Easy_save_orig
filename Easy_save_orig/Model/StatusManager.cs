@@ -12,11 +12,15 @@ namespace Easy_Save.Model.IO
         private static readonly object statusLock = new();
 
         public StatusManager()
+        // Description: Initializes the status manager and loads existing status entries from file.
         {
             _entries = WriterManager.Instance.LoadJson<List<StatusEntry>>(_filePath) ?? new List<StatusEntry>();
         }
 
         public DateTime GetLastBackupDate(string backupName)
+        // In: backupName (string)
+        // Out: DateTime
+        // Description: Returns the last backup time for the specified backup name.
         {
             lock (statusLock)
             {
@@ -26,6 +30,9 @@ namespace Easy_Save.Model.IO
         }
 
         public void UpdateStatus(StatusEntry newEntry)
+        // In: newEntry (StatusEntry)
+        // Out: void
+        // Description: Updates the status entry for the given backup name.
         {
             lock (statusLock)
             {
@@ -36,6 +43,8 @@ namespace Easy_Save.Model.IO
         }
 
         public List<StatusEntry> GetAllStatuses()
+        // Out: List<StatusEntry>
+        // Description: Returns all stored backup status entries.
         {
             lock (statusLock)
             {
@@ -44,6 +53,9 @@ namespace Easy_Save.Model.IO
         }
 
         public void RemoveStatus(string name)
+        // In: name (string)
+        // Out: void
+        // Description: Removes the status entry for the given backup name.
         {
             lock (statusLock)
             {

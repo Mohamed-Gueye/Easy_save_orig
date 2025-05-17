@@ -15,12 +15,15 @@ namespace Easy_Save.Model
         public event EventHandler? LanguageChanged;
 
         private TranslationManager()
+        // Description: Private constructor that loads default translations and sets language to English.
         {
             LoadTranslations();
             SetLanguage("en");
         }
 
         public static TranslationManager Instance
+        // Out: TranslationManager
+        // Description: Returns the singleton instance of the TranslationManager.
         {
             get
             {
@@ -33,10 +36,11 @@ namespace Easy_Save.Model
         }
 
         private void LoadTranslations()
+        // Out: void
+        // Description: Loads translations from file or creates default ones if file doesn't exist.
         {
             string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "translations.json");
             
-            // If the translation file doesn't exist, create a default one
             if (!File.Exists(filePath))
             {
                 CreateDefaultTranslationFile(filePath);
@@ -48,7 +52,6 @@ namespace Easy_Save.Model
                 allTranslations = JsonSerializer.Deserialize<Dictionary<string, Dictionary<string, string>>>(jsonString) 
                     ?? new Dictionary<string, Dictionary<string, string>>();
                 
-                // Ensure we have at least the required languages
                 if (!allTranslations.ContainsKey("en"))
                 {
                     allTranslations["en"] = CreateDefaultTranslations("en");
@@ -62,7 +65,6 @@ namespace Easy_Save.Model
             catch (Exception ex)
             {
                 Console.WriteLine($"Error loading translations: {ex.Message}");
-                // Load defaults if there's an error
                 allTranslations = new Dictionary<string, Dictionary<string, string>>
                 {
                     ["en"] = CreateDefaultTranslations("en"),
@@ -72,18 +74,23 @@ namespace Easy_Save.Model
         }
 
         public void LoadTranslation(string languageCode)
+        // In: languageCode (string)
+        // Out: void
+        // Description: Public method to load translations depending on the language code.
         {
             SetLanguage(languageCode);
         }
 
         private void SetLanguage(string languageCode)
+        // In: languageCode (string)
+        // Out: void
+        // Description: Sets the current language and triggers language changed event if found.
         {
             if (allTranslations.TryGetValue(languageCode, out var langTranslations))
             {
                 translations = langTranslations;
                 currentLanguage = languageCode;
                 
-                // Trigger the language changed event
                 OnLanguageChanged();
             }
             else
@@ -95,13 +102,15 @@ namespace Easy_Save.Model
                     translations = defaultTranslations;
                     currentLanguage = "en";
                     
-                    // Trigger the language changed event
                     OnLanguageChanged();
                 }
             }
         }
 
         private void CreateDefaultTranslationFile(string filePath)
+        // In: filePath (string)
+        // Out: void
+        // Description: Creates a translation file with default French and English translations.
         {
             try
             {
@@ -122,12 +131,14 @@ namespace Easy_Save.Model
         }
 
         private Dictionary<string, string> CreateDefaultTranslations(string languageCode)
+        // In: languageCode (string)
+        // Out: Dictionary<string, string>
+        // Description: Returns a dictionary of default translations for the given language code.
         {
             var defaultTranslations = new Dictionary<string, string>();
             
             if (languageCode == "fr")
             {
-                // French translations
                 defaultTranslations["window.title"] = "EasySave";
                 defaultTranslations["menu.create"] = "Créer";
                 defaultTranslations["menu.execute"] = "Exécuter";
@@ -166,7 +177,6 @@ namespace Easy_Save.Model
             }
             else
             {
-                // English translations (default)
                 defaultTranslations["window.title"] = "EasySave";
                 defaultTranslations["menu.create"] = "Create";
                 defaultTranslations["menu.execute"] = "Execute";
@@ -208,6 +218,9 @@ namespace Easy_Save.Model
         }
 
         public string GetUITranslation(string key)
+        // In: key (string)
+        // Out: string
+        // Description: Returns a translation string from the current language.
         {
             if (translations.TryGetValue(key, out string? value))
             {
@@ -218,12 +231,17 @@ namespace Easy_Save.Model
         }
 
         public string GetFormattedUITranslation(string key, params object[] args)
+        // In: key (string), args (object[])
+        // Out: string
+        // Description: Formats a translation string using provided arguments.
         {
             string formatString = GetUITranslation(key);
             return string.Format(formatString, args);
         }
 
         protected virtual void OnLanguageChanged()
+        // Out: void
+        // Description: Raises the LanguageChanged event to notify listeners.
         {
             LanguageChanged?.Invoke(this, EventArgs.Empty);
         }

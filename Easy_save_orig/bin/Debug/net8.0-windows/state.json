@@ -1,0 +1,13 @@
+[
+  {
+    "Name": "test_2",
+    "SourcePath": "C:\\TestBackup\\Source\\TestOrigin3",
+    "DestinationPath": "C:\\TestBackup\\Target\\TestOrigin3",
+    "State": "END",
+    "TotalFilesToCopy": 2,
+    "TotalFilesSize": 21,
+    "NbFilesLeftToDo": 0,
+    "Progression": 100,
+    "LastBackupDate": "2025-05-17T14:33:24.0595726+02:00"
+  }
+]

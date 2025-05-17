@@ -33,6 +33,9 @@ namespace Easy_Save.Model.Status
         public DateTime LastBackupDate { get; set; }
 
         public StatusEntry(string name, string sourcePath, string destinationPath, string state, int totalFilesToCopy, long totalFilesSize, int nbFilesLeftToDo, int progression, DateTime lastBackupDate)
+        // In: All thz status data (string, int, long, DateTime)
+        // Out: /
+        // Description: Initializes a status entry representing the state of a backup job.
         {
             Name = name;
             SourcePath = sourcePath;

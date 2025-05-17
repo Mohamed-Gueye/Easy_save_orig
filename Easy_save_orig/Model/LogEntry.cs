@@ -32,6 +32,10 @@ namespace Easy_Save.Model.Log
         public LogEntry() { }
 
         public LogEntry(string backupName, string sourcePath, string destinationPath, long fileSize, double transferTime, int encryptionTime, int fileCount)
+        // In: backupName (string), sourcePath (string), destinationPath (string), fileSize (long), transferTime (double), encryptionTime (int), fileCount (int)
+        // Out: /
+        // Description: Constructs a log entry with the provided values and current time.
+        // Description: Constructs a log entry with the provided values and current time.
         {
             Timestamp = DateTime.Now;
             BackupName = backupName;

@@ -29,6 +29,9 @@ namespace Easy_Save.Model.IO
         private WriterManager() { }
 
         public void WriteJson<T>(T data, string path)
+        // In: data (T), path (string)
+        // Out: void
+        // Description: Serializes data to JSON and writes it to the specified file path.
         {
             try
             {
@@ -42,6 +45,9 @@ namespace Easy_Save.Model.IO
         }
 
         public T? LoadJson<T>(string path)
+        // In: path (string)
+        // Out: T 
+        // Description: Reads JSON from file and deserializes it into the specified type.
         {
             try
             {
@@ -57,6 +63,9 @@ namespace Easy_Save.Model.IO
         }
 
         public void WriteLogConfig(Configuration config)
+        // In: config (Configuration)
+        // Out: void
+        // Description: Writes the configuration to the default config file.
         {
             WriteJson(config, "config.json");
         }

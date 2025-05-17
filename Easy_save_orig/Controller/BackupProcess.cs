@@ -10,19 +10,20 @@ namespace Easy_Save.Controller
     {
         private readonly BackupManager backupManager;
         
-        // Propriétés pour les paramètres métier
         public long MaxFileSize { get; set; } = 0;
         public string[] RestrictedExtensions { get; set; } = Array.Empty<string>();
         public List<string> BusinessSoftwareList { get; set; } = new List<string>();
         public string CryptoSoftPath { get; set; } = string.Empty;
 
         public BackupProcess()
+        // Description: Constructor and loads business settings.
         {
             backupManager = new BackupManager();
             LoadBusinessSettings();
         }
         
         private void LoadBusinessSettings()
+        // Description: Loads the business settings into the local variables from the singleton instance.
         {
             var settings = BusinessSettings.Instance;
             BusinessSoftwareList = new List<string>(settings.BusinessSoftwareList);
@@ -32,17 +33,18 @@ namespace Easy_Save.Controller
         }
         
         public bool AddBusinessSoftware(string softwareName)
+        // In: softwareName (string)
+        // Out: bool (true if software added successfully)
+        // Description: Adds a software package to the settings and updates the local list.
         {
             if (string.IsNullOrWhiteSpace(softwareName))
                 return false;
                 
-            // Utiliser la méthode de la classe BusinessSettings
             var settings = BusinessSettings.Instance;
             bool added = settings.AddBusinessSoftware(softwareName);
             
             if (added)
             {
-                // Mettre à jour la liste locale
                 BusinessSoftwareList = new List<string>(settings.BusinessSoftwareList);
             }
             
@@ -50,17 +52,18 @@ namespace Easy_Save.Controller
         }
         
         public bool RemoveBusinessSoftware(string softwareName)
+        // In: softwareName (string)
+        // Out: bool (true if software removed successfully)
+        // Description: Removes a softawre package from the settings and updates the local list.
         {
             if (string.IsNullOrWhiteSpace(softwareName))
                 return false;
                 
-            // Utiliser la méthode de la classe BusinessSettings
             var settings = BusinessSettings.Instance;
             bool removed = settings.RemoveBusinessSoftware(softwareName);
             
             if (removed)
             {
-                // Mettre à jour la liste locale
                 BusinessSoftwareList = new List<string>(settings.BusinessSoftwareList);
             }
             
@@ -68,11 +71,16 @@ namespace Easy_Save.Controller
         }
         
         public List<string> GetBusinessSoftwareList()
+        // Out: List<string> 
+        // Description: Returns a copy of the current list of software packages.
         {
             return new List<string>(BusinessSoftwareList);
         }
 
         public void CreateBackup(string name, string src, string dest, string type)
+        // In: name (string), src (string), dest (string), type (string)
+        // Out: void
+        // Description: Creates a new backup with the specified parameters and adds it to the manager.
         {
             if (!Directory.Exists(src))
             {
@@ -115,8 +123,10 @@ namespace Easy_Save.Controller
         }
 
         public void ExecuteBackup(string name)
+        // In: name (string)
+        // Out: void
+        // Description: Executes the specified backup if no software packages is running.
         {
-            // Vérifier si un des logiciels métier est en cours d'exécution
             var settings = BusinessSettings.Instance;
             if (settings.IsAnyBusinessSoftwareRunning())
             {
@@ -129,21 +139,31 @@ namespace Easy_Save.Controller
         }
 
         public void RunAllBackups()
+        // Out: void
+        // Description: Executes all backups sequentially.
         {
             backupManager.ExecuteAllBackups();
         }
 
         public void RunAllBackups(bool isConcurrent)
+        // In: isConcurrent (bool)
+        // Out: void
+        // Description: Executes all backups, either concurrently or sequentially based on the boolean.
         {
             backupManager.ExecuteAllBackupsAsync(isConcurrent).Wait();
         }
 
         public List<Backup> GetAllBackup()
+        // Out: List<Backup> 
+        // Description: Returns a list of all backups.
         {
             return backupManager.GetAllBackup();
         }
 
         public void DeleteBackup(string name)
+        // In: name (string)
+        // Out: void
+        // Description: Deletes a backup by its name
         {
             backupManager.RemoveBackup(name);
             Console.WriteLine($"Backup deleted : {name}");

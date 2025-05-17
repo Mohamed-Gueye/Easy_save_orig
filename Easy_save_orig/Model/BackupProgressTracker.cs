@@ -18,18 +18,22 @@ namespace Easy_Save.Model
         private string stateFilePath = "state.json";
 
         public BackupProgressTracker(BackupProcess backupProcess)
+        // In: backupProcess (BackupProcess)
+        // Out: /
+        // Description: Initializes the progress tracker with the backup process and sets the timer.
         {
             this.backupProcess = backupProcess ?? throw new ArgumentNullException(nameof(backupProcess));
-            this.progressTimer = new System.Timers.Timer(500); // Vérifier toutes les 500ms
+            this.progressTimer = new System.Timers.Timer(500);
             this.progressTimer.AutoReset = true;
         }
 
         public async Task ExecuteBackupWithProgressAsync(string backupName, IProgress<(int Current, int Total)> progress, CancellationToken cancellationToken)
+        // In: backupName (string), progress (IProgress), cancellationToken (CancellationToken)
+        // Out: Task
+        // Description: Executes a backup while reporting progress asynchronously.
         {
-            // Start progress monitoring
             StatusEntry currentStatus = null;
             
-            // Configurer le timer pour suivre la progression
             progressTimer.Elapsed += (sender, e) => 
             {
                 if (!cancellationToken.IsCancellationRequested)
@@ -44,13 +48,10 @@ namespace Easy_Save.Model
             
             try
             {
-                // Démarrer le timer de progression
                 progressTimer.Start();
                 
-                // Exécuter la sauvegarde dans un thread séparé
                 await Task.Run(() => backupProcess.ExecuteBackup(backupName), cancellationToken);
                 
-                // Faire une dernière vérification pour s'assurer que nous rapportons l'état final
                 currentStatus = GetBackupStatus(backupName);
                 if (currentStatus != null)
                 {
@@ -59,12 +60,14 @@ namespace Easy_Save.Model
             }
             finally
             {
-                // Arrêter le timer de progression
                 progressTimer.Stop();
             }
         }
         
         public async Task<int> ExecuteAllBackupsWithProgressAsync(IProgress<(string BackupName, int Current, int Total)> progress, CancellationToken cancellationToken)
+        // In: progress (IProgress), cancellationToken (CancellationToken)
+        // Out: Task<int>
+        // Description: Executes all backups while tracking and reporting progress.
         {
             var backups = backupProcess.GetAllBackup();
             int successCount = 0;
@@ -78,11 +81,10 @@ namespace Easy_Save.Model
                 
                 try
                 {
-                    // Configurer le timer pour ce backup spécifique
                     string currentBackupName = backup.Name;
                     StatusEntry currentStatus = null;
                     
-                    progressTimer.Elapsed += null; // Retirer tous les gestionnaires d'événements précédents
+                    progressTimer.Elapsed += null; 
                     progressTimer.Elapsed += (sender, e) => 
                     {
                         if (!cancellationToken.IsCancellationRequested)
@@ -95,16 +97,12 @@ namespace Easy_Save.Model
                         }
                     };
                     
-                    // Démarrer le suivi de progression
                     progressTimer.Start();
                     
-                    // Rapport initial
                     progress.Report((backup.Name, 0, 100));
                     
-                    // Exécuter la sauvegarde en arrière-plan
                     await Task.Run(() => backupProcess.ExecuteBackup(backup.Name), cancellationToken);
                     
-                    // Vérifier l'état final
                     currentStatus = GetBackupStatus(backup.Name);
                     if (currentStatus != null)
                     {
@@ -115,16 +113,13 @@ namespace Easy_Save.Model
                 }
                 catch (OperationCanceledException)
                 {
-                    // Propager l'annulation
                     throw;
                 }
                 catch (Exception)
                 {
-                    // Continuer avec les autres sauvegardes en cas d'erreur
                 }
                 finally
                 {
-                    // Arrêter le timer pour ce backup
                     progressTimer.Stop();
                 }
             }
@@ -133,6 +128,9 @@ namespace Easy_Save.Model
         }
         
         private StatusEntry GetBackupStatus(string backupName)
+        // In: backupName (string)
+        // Out: StatusEntry 
+        // Description: Retrieves the backup status from the state file by name.
         {
             try
             {

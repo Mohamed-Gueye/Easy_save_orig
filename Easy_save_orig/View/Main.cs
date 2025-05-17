@@ -11,12 +11,17 @@ namespace Easy_Save.View
         private readonly BackupProcess backupProcess;
 
         public Main(TranslationProcess translation, BackupProcess backup)
+        // In: translation (TranslationProcess), backup (BackupProcess)
+        // Out: /
+        // Description: Initializes the Main class with translation and backup processes.
         {
             translationProcess = translation;
             backupProcess = backup;
         }
 
         public void Run()
+        // Out: void
+        // Description: Main execution loop displaying menu and handling user input.
         {
             ChooseLanguage();
 
@@ -65,6 +70,8 @@ namespace Easy_Save.View
         }
 
         private void ChooseLanguage()
+        // Out: void
+        // Description: Prompts the user to choose a language and applies it.
         {
             Console.WriteLine("1. English");
             Console.WriteLine("2. Français");
@@ -78,6 +85,8 @@ namespace Easy_Save.View
         }
 
         private void DisplayMenu()
+        // Out: void
+        // Description: Clears the screen and displays the main menu with translated options.
         {
             Console.Clear();
             Console.WriteLine(translationProcess.GetTranslation("menu.title"));
@@ -90,6 +99,8 @@ namespace Easy_Save.View
         }
 
         private void CreateBackup()
+        // Out: void
+        // Description: Prompts user for backup details and creates a new backup.
         {
             Console.WriteLine(translationProcess.GetTranslation("ask.name"));
             string name = Console.ReadLine() ?? "";
@@ -114,6 +125,8 @@ namespace Easy_Save.View
 
 
         private void DeleteBackup()
+        // Out: void
+        // Description: Prompts for backup name and deletes it.
         {
             ListBackups();
             Console.WriteLine(translationProcess.GetTranslation("ask.name"));
@@ -122,6 +135,8 @@ namespace Easy_Save.View
         }
 
         private void ExecuteBackup()
+        // Out: void
+        // Description: Prompts for backup name and executes the selected backup.
         {
             ListBackups();
             Console.WriteLine(translationProcess.GetTranslation("ask.name"));
@@ -130,6 +145,8 @@ namespace Easy_Save.View
         }
 
         private void ListBackups()
+        // Out: void
+        // Description: Displays all existing backups.
         {
             List<Backup> backups = backupProcess.GetAllBackup();
             if (backups.Count == 0)
@@ -145,6 +162,8 @@ namespace Easy_Save.View
         }
 
         private void ExecuteAllBackups()
+        // Out: void
+        // Description: Prompts for execution mode and runs all backups accordingly.
         {
             List<Backup> allBackups = backupProcess.GetAllBackup();
             if (allBackups.Count == 0)

@@ -11,11 +11,15 @@ namespace Easy_Save.Controller
         private string currentLanguage = "en";
 
         public TranslationProcess()
+        // Description: Initializes with English translation by default.
         {
             LoadTranslation("en");
         }
 
         public void LoadTranslation(string languageCode)
+        // In: languageCode (string)
+        // Out: void
+        // Description: Loads translation from the JSON file based on the provided language code.
         {
             string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, $"translations_{languageCode}.json");
             
@@ -38,6 +42,9 @@ namespace Easy_Save.Controller
         }
 
         private void CreateDefaultTranslation(string languageCode, string filePath)
+        // In: languageCode (string), filePath (string)
+        // Out: void
+        // Description: Creates a translation file if none exists.
         {
             try
             {
@@ -53,6 +60,9 @@ namespace Easy_Save.Controller
         }
 
         private void LoadDefaultTranslations(string languageCode)
+        // In: languageCode (string)
+        // Out: void
+        // Description: Loads default translations for usage in the application.
         {
             translations.Clear();
             
@@ -67,11 +77,10 @@ namespace Easy_Save.Controller
                 translations["menu.language"] = "5. Changer de langue (fr/en)";
                 translations["menu.exit"] = "6. Quitter";
                 translations["prompt.choice"] = "Votre choix: ";
-                // Add more translations as needed
             }
             else
             {
-                // English console app translations (default)
+                // English console app translations (default setting)
                 translations["menu.title"] = "EasySave Menu";
                 translations["menu.create"] = "1. Create new backup";
                 translations["menu.execute"] = "2. Execute a backup";
@@ -80,11 +89,13 @@ namespace Easy_Save.Controller
                 translations["menu.language"] = "5. Change language (fr/en)";
                 translations["menu.exit"] = "6. Exit";
                 translations["prompt.choice"] = "Your choice: ";
-                // Add more translations as needed
             }
         }
 
         public string GetTranslation(string key)
+        // In: key (string)
+        // Out: string (translation or fallback key)
+        // Description: Returns the translation string for a given key.
         {
             if (translations.TryGetValue(key, out string? value))
             {
@@ -95,6 +106,8 @@ namespace Easy_Save.Controller
         }
 
         public string GetCurrentLanguage()
+        // Out: string (current language code)
+        // Description: Returns the code of the currently loaded language.
         {
             return currentLanguage;
         }

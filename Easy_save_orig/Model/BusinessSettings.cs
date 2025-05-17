@@ -9,22 +9,20 @@ namespace Easy_Save.Model
 {
     public class BusinessSettings
     {
-        // Propriétés pour la taille maximale de fichier
         public long MaxFileSize { get; set; } = 0;
         
-        // Liste des extensions de fichiers à traiter différemment
         public List<string> RestrictedExtensions { get; set; } = new List<string>();
         
-        // Liste des logiciels métier qui bloquent l'exécution des sauvegardes quand ils sont actifs
         public List<string> BusinessSoftwareList { get; set; } = new List<string>();
         
-        // Chemin vers l'outil CryptoSoft
         public string CryptoSoftPath { get; set; } = "";
 
         private static BusinessSettings? _instance;
         private static readonly object _lockObject = new object();
 
         public static BusinessSettings Instance
+        // Out: BusinessSettings
+        // Description: Singleton instance accessor with lazy loading and thread safety.
         {
             get
             {
@@ -42,10 +40,9 @@ namespace Easy_Save.Model
             }
         }
 
-        /// <summary>
-        /// Charge les paramètres métier depuis le fichier de configuration
-        /// </summary>
         public static BusinessSettings Load()
+        // Out: BusinessSettings
+        // Description: Loads business settings from the config.json file or returns defaults.
         {
             try
             {
@@ -74,7 +71,6 @@ namespace Easy_Save.Model
                         }
                     }
 
-                    // Chargement de la liste des logiciels métier
                     if (businessElement.TryGetProperty("BusinessSoftwareList", out JsonElement softwareList))
                     {
                         settings.BusinessSoftwareList = new List<string>();
@@ -87,7 +83,6 @@ namespace Easy_Save.Model
                             }
                         }
                     }
-                    // Compatibilité avec l'ancienne version qui utilisait une seule chaîne
                     else if (businessElement.TryGetProperty("BusinessSoftware", out JsonElement softwareElement))
                     {
                         string? software = softwareElement.GetString();
@@ -111,41 +106,36 @@ namespace Easy_Save.Model
             return new BusinessSettings();
         }
 
-        /// <summary>
-        /// Vérifie si un des logiciels métier est en cours d'exécution
-        /// </summary>
         public bool IsAnyBusinessSoftwareRunning()
+        // Out: bool
+        // Description: Checks if any defined software package is currently running.
         {
-            // Si la liste est vide, aucun logiciel ne peut être en cours d'exécution
             if (BusinessSoftwareList.Count == 0)
                 return false;
             
-            // Vérifie si au moins un des logiciels métier est en cours d'exécution
             return BusinessSoftwareList.Any(software => 
                 !string.IsNullOrWhiteSpace(software) && ProcessMonitor.IsProcessRunning(software));
         }
-        
-        /// <summary>
-        /// Retourne le nom du premier logiciel métier en cours d'exécution, ou null si aucun n'est en cours d'exécution
-        /// </summary>
+
         public string? GetRunningBusinessSoftware()
+        // Out: string? 
+        // Description: Returns the name of the first running software package found.
         {
             return BusinessSoftwareList.FirstOrDefault(software => 
                 !string.IsNullOrWhiteSpace(software) && ProcessMonitor.IsProcessRunning(software));
         }
         
-        /// <summary>
-        /// Ajoute un logiciel métier à la liste s'il n'est pas déjà présent
-        /// </summary>
+
         public bool AddBusinessSoftware(string softwareName)
+        // In: softwareName (string)
+        // Out: bool
+        // Description: Adds a software to the business list if not already present.
         {
             if (string.IsNullOrWhiteSpace(softwareName))
                 return false;
                 
-            // Normalisation du nom (suppression des espaces en début/fin)
             softwareName = softwareName.Trim();
             
-            // Vérifier si le logiciel n'est pas déjà dans la liste (insensible à la casse)
             if (BusinessSoftwareList.Any(s => s.Equals(softwareName, StringComparison.OrdinalIgnoreCase)))
                 return false;
                 
@@ -154,15 +144,15 @@ namespace Easy_Save.Model
             return true;
         }
         
-        /// <summary>
-        /// Supprime un logiciel métier de la liste
-        /// </summary>
+
         public bool RemoveBusinessSoftware(string softwareName)
+        // In: softwareName (string)
+        // Out: bool
+        // Description: Removes a software from the business list if it exists.
         {
             if (string.IsNullOrWhiteSpace(softwareName))
                 return false;
                 
-            // Trouver le logiciel à supprimer (insensible à la casse)
             string? softwareToRemove = BusinessSoftwareList.FirstOrDefault(
                 s => s.Equals(softwareName, StringComparison.OrdinalIgnoreCase));
                 
@@ -174,16 +164,14 @@ namespace Easy_Save.Model
             return true;
         }
 
-        /// <summary>
-        /// Sauvegarde les paramètres métier dans le fichier de configuration
-        /// </summary>
         public void Save()
+        // Out: void
+        // Description: Saves the current business settings to config.json.
         {
             try
             {
                 string configPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "config.json");
                 
-                // Si le fichier n'existe pas, créez un nouvel objet JSON
                 JsonDocument existingDoc;
                 if (File.Exists(configPath))
                 {
@@ -195,14 +183,12 @@ namespace Easy_Save.Model
                     existingDoc = JsonDocument.Parse("{}");
                 }
 
-                // Créer un nouvel objet JSON avec les paramètres mis à jour
                 using (var stream = new MemoryStream())
                 {
                     using (var writer = new Utf8JsonWriter(stream, new JsonWriterOptions { Indented = true }))
                     {
                         writer.WriteStartObject();
 
-                        // Copier toutes les propriétés existantes sauf BusinessSettings
                         using (JsonDocument doc = existingDoc)
                         {
                             foreach (var property in doc.RootElement.EnumerateObject())
@@ -214,7 +200,6 @@ namespace Easy_Save.Model
                             }
                         }
 
-                        // Écrire les paramètres métier mis à jour
                         writer.WritePropertyName("BusinessSettings");
                         writer.WriteStartObject();
                         
@@ -228,7 +213,6 @@ namespace Easy_Save.Model
                         }
                         writer.WriteEndArray();
                         
-                        // Écrire la liste des logiciels métier
                         writer.WritePropertyName("BusinessSoftwareList");
                         writer.WriteStartArray();
                         foreach (var software in BusinessSoftwareList)
@@ -239,9 +223,9 @@ namespace Easy_Save.Model
                         
                         writer.WriteString("CryptoSoftPath", CryptoSoftPath);
                         
-                        writer.WriteEndObject(); // BusinessSettings
+                        writer.WriteEndObject(); 
                         
-                        writer.WriteEndObject(); // Root
+                        writer.WriteEndObject(); 
                     }
 
                     var json = Encoding.UTF8.GetString(stream.ToArray());
@@ -254,10 +238,9 @@ namespace Easy_Save.Model
             }
         }
 
-        /// <summary>
-        /// Retourne la liste des logiciels métier
-        /// </summary>
         public List<string> GetBusinessSoftwareList()
+        // Out: List<string>
+        // Description: Returns a copy of the list of software packages.
         {
             return new List<string>(BusinessSoftwareList);
         }

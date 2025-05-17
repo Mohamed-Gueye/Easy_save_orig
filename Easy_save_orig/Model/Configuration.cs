@@ -14,6 +14,8 @@ namespace Easy_Save.Model
         private static readonly string defaultBasePath = Path.Combine(AppContext.BaseDirectory, "data");
 
         public static Configuration LoadConfig()
+        // Out: Configuration
+        // Description: Loads the configuration from config.json or creates a default one if not present.
         {
             string configPath = Path.Combine(AppContext.BaseDirectory, configFileName);
 
@@ -37,6 +39,8 @@ namespace Easy_Save.Model
         }
 
         public void BackupConfig()
+        // Out: void
+        // Description: Saves the current configuration values into config.json file.
         {
             string configPath = Path.Combine(AppContext.BaseDirectory, configFileName);
             File.WriteAllText(configPath, JsonSerializer.Serialize(this, new JsonSerializerOptions { WriteIndented = true }));

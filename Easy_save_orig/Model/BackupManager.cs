@@ -22,6 +22,7 @@ namespace Easy_Save.Model
         private readonly ConcurrentDictionary<string, bool> runningJobs = new ConcurrentDictionary<string, bool>();
 
         public BackupManager()
+        // Description: Initializes the BackupManager and loads status/log observers.
         {
             statusManager = new StatusManager();
             logObserver = new LogObserver();
@@ -30,6 +31,9 @@ namespace Easy_Save.Model
         }
 
         public void AddBackup(Backup backup)
+        // In: backup (Backup)
+        // Out: void
+        // Description: Adds a new backup to the internal backup list.
         {
             if (backup == null)
                 throw new ArgumentNullException(nameof(backup));
@@ -38,6 +42,9 @@ namespace Easy_Save.Model
         }
 
         public void RemoveBackup(string name)
+        // In: name (string)
+        // Out: void
+        // Description: Removes a backup by name and deletes its status entry.
         {
             var backup = backups.FirstOrDefault(b => b.Name == name);
             if (backup != null)
@@ -47,11 +54,9 @@ namespace Easy_Save.Model
             }
         }
 
-        /// <summary>
-        /// Vérifie si un logiciel métier est en cours d'exécution et bloque le démarrage des sauvegardes
-        /// </summary>
-        /// <returns>True si l'exécution de la sauvegarde est autorisée, False sinon</returns>
         private bool CanExecuteBackup()
+        // Out: bool
+        // Description: Checks whether any software package is running that would block execution.
         {
             var settings = BusinessSettings.Instance;
             bool isSoftwareRunning = settings.IsAnyBusinessSoftwareRunning();
@@ -67,26 +72,25 @@ namespace Easy_Save.Model
         }
 
         public void ExecuteBackup(string name)
+        // In: name (string)
+        // Out: void
+        // Description: Executes a single backup by name if it is valid and not currently running.
         {
-            // Vérifier si une sauvegarde avec ce nom existe
             Backup? backup = backups.FirstOrDefault(b => b.Name == name);
             if (backup == null) return;
 
-            // Si le job est déjà en cours d'exécution, ne pas le relancer
             if (runningJobs.TryGetValue(name, out bool isRunning) && isRunning)
             {
                 Console.WriteLine($"La sauvegarde '{name}' est déjà en cours d'exécution.");
                 return;
             }
 
-            // Vérifier si le logiciel métier est en cours d'exécution
             if (!currentJobAllowedToComplete && !CanExecuteBackup())
             {
                 Console.WriteLine($"Sauvegarde '{name}' annulée : logiciel métier détecté.");
                 return;
             }
 
-            // Marquer le job comme en cours d'exécution
             runningJobs[name] = true;
             
             try
@@ -107,24 +111,23 @@ namespace Easy_Save.Model
             }
             finally
             {
-                // Marquer le job comme terminé
                 runningJobs.TryRemove(name, out _);
             }
         }
 
         public async Task ExecuteAllBackupsAsync(bool isConcurrent = false, int maxConcurrency = 4)
+        // In: isConcurrent (bool), maxConcurrency (int)
+        // Out: Task
+        // Description: Executes all backups concurrently with optional concurrency limit.
         {
-            // Vérifier si le logiciel métier est en cours d'exécution avant de commencer
             if (!CanExecuteBackup())
             {
                 Console.WriteLine("Toutes les sauvegardes ont été annulées : logiciel métier détecté.");
                 return;
             }
 
-            // Autoriser la poursuite des sauvegardes actuelles même si le logiciel est démarré pendant l'exécution
             currentJobAllowedToComplete = true;
 
-            // Créer une file d'attente pour les sauvegardes
             var backupQueue = new Queue<Backup>(backups);
 
             if (!isConcurrent)
@@ -133,7 +136,6 @@ namespace Easy_Save.Model
                 {
                     var backup = backupQueue.Dequeue();
                     
-                    // Pour le mode séquentiel, vérifier le logiciel métier entre chaque sauvegarde
                     if (backupQueue.Count > 0 && !CanExecuteBackup())
                     {
                         Console.WriteLine("Les sauvegardes restantes ont été annulées : logiciel métier détecté.");
@@ -162,21 +164,26 @@ namespace Easy_Save.Model
                 await Task.WhenAll(tasks);
             }
             
-            // Désactiver l'autorisation de poursuite après la fin de toutes les sauvegardes
             currentJobAllowedToComplete = false;
         }
 
         public void ExecuteAllBackups()
+        // Out: void
+        // Description: Executes all backups sequentially.
         {
             ExecuteAllBackupsAsync(false).Wait();
         }
 
         public List<Backup> GetAllBackup()
+        // Out: List<Backup>
+        // Description: Returns all current backup definitions.
         {
             return new List<Backup>(backups);
         }
 
         private void CleanOrphanStatuses()
+        // Out: void
+        // Description: Removes status entries that do not match any existing backup.
         {
             var allStatuses = statusManager.GetAllStatuses();
             var existingNames = backups.Select(b => b.Name).ToHashSet();
