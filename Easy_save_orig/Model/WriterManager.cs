@@ -40,7 +40,7 @@ namespace Easy_Save.Model.IO
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Erreur d'écriture JSON : {ex.Message}");
+                Console.WriteLine($"Erreur d'Ã©criture JSON : {ex.Message}");
             }
         }
 
@@ -62,8 +62,8 @@ namespace Easy_Save.Model.IO
             }
         }
 
-        public void WriteLogConfig(Configuration config)
-        // In: config (Configuration)
+        public void WriteLogConfig(AppConfiguration config)
+        // In: config (AppConfiguration)
         // Out: void
         // Description: Writes the configuration to the default config file.
         {

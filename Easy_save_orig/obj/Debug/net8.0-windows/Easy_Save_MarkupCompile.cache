@@ -4,7 +4,7 @@
 winexe
 C#
 .cs
-C:\Projet_Software\Easy_save_orig\Easy_save_orig\obj\Debug\net8.0-windows\
+C:\EasySave\Easy_save_orig-2\Easy_save_orig\obj\Debug\net8.0-windows\
 Easy_Save
 none
 false
@@ -12,9 +12,9 @@ TRACE;DEBUG;NET;NET8_0;NETCOREAPP
 
 1-487866684
 
-27-1408952755
+261666080472
 207-1476244305
 View\MainWindow.xaml;
 
-True
+False
 

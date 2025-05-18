@@ -1,0 +1,24 @@
+{
+  "BackupSettings": {
+    "LogDirectory": "logs",
+    "BackupDirectory": "backups",
+    "StateDirectory": "states",
+    "StatusFilePath": "states/status.json",
+    "LogFilePath": "logs/log.json",
+    "SaveListFilePath": "backups/saves.json"
+  },
+  "BusinessSettings": {
+    "MaxFileSize": 0,
+    "RestrictedExtensions": [],
+    "BusinessSoftware": "",
+    "CryptoSoftPath": "C:\\EasySave\\Easy_save_orig-2\\Easy_save_orig\\CryptoSoft\\CryptoSoft.exe"
+  },
+  "EncryptionSettings": {
+    "EncryptionEnabled": false,
+    "EncryptExtensions": [".txt", ".doc", ".docx", ".pdf", ".xls", ".xlsx", ".ppt", ".pptx"],
+    "EncryptionKey": "defaultkey"
+  },
+  "extensionsToEncrypt": [".txt", ".doc", ".docx", ".pdf", ".xls", ".xlsx", ".ppt", ".pptx"],
+  "encryptionExecutablePath": "C:\\EasySave\\Easy_save_orig-2\\Easy_save_orig\\CryptoSoft\\CryptoSoft.exe",
+  "key": "defaultkey"
+} 

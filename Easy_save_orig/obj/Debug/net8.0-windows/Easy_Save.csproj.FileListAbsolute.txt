@@ -18,3 +18,10 @@ C:\EasySave\Easy_save_orig-2\Easy_save_orig\obj\Debug\net8.0-windows\Easy_Save.g
 C:\EasySave\Easy_save_orig-2\Easy_save_orig\obj\Debug\net8.0-windows\ref\Easy_Save.dll
 C:\EasySave\Easy_save_orig-2\Easy_save_orig\bin\Debug\net8.0-windows\config.json
 C:\EasySave\Easy_save_orig-2\Easy_save_orig\bin\Debug\net8.0-windows\translations.json
+C:\EasySave\Easy_save_orig-2\bin\Easy_Save.exe
+C:\EasySave\Easy_save_orig-2\bin\config.json
+C:\EasySave\Easy_save_orig-2\bin\translations.json
+C:\EasySave\Easy_save_orig-2\bin\Easy_Save.deps.json
+C:\EasySave\Easy_save_orig-2\bin\Easy_Save.runtimeconfig.json
+C:\EasySave\Easy_save_orig-2\bin\Easy_Save.dll
+C:\EasySave\Easy_save_orig-2\bin\Easy_Save.pdb

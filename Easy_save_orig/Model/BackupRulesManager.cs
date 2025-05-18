@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace Easy_Save.Model
 {
-    public class BusinessSettings
+    public class BackupRulesManager
     {
         public long MaxFileSize { get; set; } = 0;
         
@@ -17,11 +17,11 @@ namespace Easy_Save.Model
         
         public string CryptoSoftPath { get; set; } = "";
 
-        private static BusinessSettings? _instance;
+        private static BackupRulesManager? _instance;
         private static readonly object _lockObject = new object();
 
-        public static BusinessSettings Instance
-        // Out: BusinessSettings
+        public static BackupRulesManager Instance
+        // Out: BackupRulesManager
         // Description: Singleton instance accessor with lazy loading and thread safety.
         {
             get
@@ -40,8 +40,8 @@ namespace Easy_Save.Model
             }
         }
 
-        public static BusinessSettings Load()
-        // Out: BusinessSettings
+        public static BackupRulesManager Load()
+        // Out: BackupRulesManager
         // Description: Loads business settings from the config.json file or returns defaults.
         {
             try
@@ -49,7 +49,7 @@ namespace Easy_Save.Model
                 string configPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "config.json");
                 if (!File.Exists(configPath))
                 {
-                    return new BusinessSettings();
+                    return new BackupRulesManager();
                 }
 
                 string jsonContent = File.ReadAllText(configPath);
@@ -57,7 +57,7 @@ namespace Easy_Save.Model
 
                 if (doc.RootElement.TryGetProperty("BusinessSettings", out JsonElement businessElement))
                 {
-                    var settings = new BusinessSettings();
+                    var settings = new BackupRulesManager();
 
                     if (businessElement.TryGetProperty("MaxFileSize", out JsonElement maxFileSize))
                         settings.MaxFileSize = maxFileSize.GetInt64();
@@ -100,10 +100,10 @@ namespace Easy_Save.Model
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Erreur lors du chargement des paramètres métier : {ex.Message}");
+                Console.WriteLine($"Error loading backup rules settings: {ex.Message}");
             }
 
-            return new BusinessSettings();
+            return new BackupRulesManager();
         }
 
         public bool IsAnyBusinessSoftwareRunning()
@@ -166,7 +166,7 @@ namespace Easy_Save.Model
 
         public void Save()
         // Out: void
-        // Description: Saves the current business settings to config.json.
+        // Description: Saves the current backup rules settings to config.json.
         {
             try
             {
@@ -234,7 +234,7 @@ namespace Easy_Save.Model
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Erreur lors de la sauvegarde des paramètres métier : {ex.Message}");
+                Console.WriteLine($"Error saving backup rules settings: {ex.Message}");
             }
         }
 

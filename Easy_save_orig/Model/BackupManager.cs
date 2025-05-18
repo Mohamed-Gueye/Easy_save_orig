@@ -58,7 +58,7 @@ namespace Easy_Save.Model
         // Out: bool
         // Description: Checks whether any software package is running that would block execution.
         {
-            var settings = BusinessSettings.Instance;
+            var settings = BackupRulesManager.Instance;
             bool isSoftwareRunning = settings.IsAnyBusinessSoftwareRunning();
             
             if (isSoftwareRunning)

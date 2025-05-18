@@ -61,7 +61,7 @@ namespace Easy_Save.View
             {
                 // Configurer les chemins des fichiers
                 Console.WriteLine("Setting up configuration...");
-                CustomConfiguration.SetupConfiguration();
+                AppConfiguration.Instance.SetupDirectoryPaths();
                 
                 // Ensure config.json exists in the output directory
                 EnsureConfigFileExists();
@@ -83,7 +83,7 @@ namespace Easy_Save.View
                 RefreshBackupList();
                 
                 // Charger les paramètres du logiciel métier
-                LoadBusinessSettings();
+                LoadBackupRules();
             }
             catch (Exception ex)
             {
@@ -322,10 +322,10 @@ namespace Easy_Save.View
                 return;
             
             // Vérifier si un des logiciels métier est en cours d'exécution
-            var businessSettings = BusinessSettings.Instance;
-            if (businessSettings.IsAnyBusinessSoftwareRunning())
+            var backupRulesManager = BackupRulesManager.Instance;
+            if (backupRulesManager.IsAnyBusinessSoftwareRunning())
             {
-                string? runningSoftware = businessSettings.GetRunningBusinessSoftware();
+                string? runningSoftware = backupRulesManager.GetRunningBusinessSoftware();
                 string message = translationManager.GetFormattedUITranslation("business.software.running", runningSoftware);
                 MessageBox.Show(message, "EasySave", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
@@ -420,10 +420,10 @@ namespace Easy_Save.View
             }
             
             // Vérifier si un des logiciels métier est en cours d'exécution
-            var businessSettings = BusinessSettings.Instance;
-            if (businessSettings.IsAnyBusinessSoftwareRunning())
+            var backupRulesManager = BackupRulesManager.Instance;
+            if (backupRulesManager.IsAnyBusinessSoftwareRunning())
             {
-                string? runningSoftware = businessSettings.GetRunningBusinessSoftware();
+                string? runningSoftware = backupRulesManager.GetRunningBusinessSoftware();
                 string message = translationManager.GetFormattedUITranslation("business.software.running", runningSoftware);
                 MessageBox.Show(message, "EasySave", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
@@ -736,14 +736,19 @@ namespace Easy_Save.View
             progressOverlay.Visibility = Visibility.Collapsed;
         }
 
-        private void LoadBusinessSettings()
+        private void LoadBackupRules()
         {
-            // Charger les paramètres du logiciel métier
-            if (File.Exists(configPath))
+            try
             {
+                if (!File.Exists(configPath))
+                    return;
+                    
                 string json = File.ReadAllText(configPath);
                 var config = JsonSerializer.Deserialize<Dictionary<string, object>>(json);
-
+                
+                if (config == null)
+                    return;
+                    
                 if (config.TryGetValue("BusinessSettings", out var businessSettingsObj) && businessSettingsObj is Dictionary<string, object> businessSettings)
                 {
                     if (businessSettings.TryGetValue("MaxFileSize", out var maxFileSizeObj) && maxFileSizeObj is double maxFileSize)
@@ -761,6 +766,10 @@ namespace Easy_Save.View
                         backupProcess.CryptoSoftPath = cryptoSoftPath;
                     }
                 }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error loading backup rules: {ex.Message}");
             }
         }
 

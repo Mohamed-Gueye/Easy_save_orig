@@ -15,10 +15,13 @@ namespace Easy_Save.Strategies
     public class CompleteBackupStrategy : IBackupStrategy
     {
         public void MakeBackup(Backup backup, StatusManager statusManager, LogObserver logObserver)
+        // In: backup (Backup), statusManager (StatusManager), logObserver (LogObserver)
+        // Out: void
+        // Description: Executes a full backup by copying all files from source to destination.
         {
-            var encryptionConfig = EncryptionSettings.Load("config.json");
-            Console.WriteLine($"[DEBUG] Extensions à chiffrer chargées : {string.Join(", ", encryptionConfig.extensionsToEncrypt)}");
-            Console.WriteLine($"[DEBUG] Chemin CryptoSoft.exe : {encryptionConfig.encryptionExecutablePath}");
+            var encryptionManager = EncryptionManager.Instance;
+            Console.WriteLine($"[DEBUG] Extensions à chiffrer chargées : {string.Join(", ", encryptionManager.ExtensionsToEncrypt)}");
+            Console.WriteLine($"[DEBUG] Chemin CryptoSoft.exe : {encryptionManager.EncryptionExecutablePath}");
 
 
             string[] files = Directory.GetFiles(backup.SourceDirectory, "*", SearchOption.AllDirectories);
@@ -56,8 +59,7 @@ namespace Easy_Save.Strategies
                 Thread.Sleep(2000);
 
                 string ext = Path.GetExtension(file).ToLower();
-                bool shouldEncrypt = encryptionConfig.extensionsToEncrypt
-                    .Any(e => e.Equals(ext, StringComparison.OrdinalIgnoreCase));
+                bool shouldEncrypt = encryptionManager.ShouldEncryptFile(file);
 
                 int encryptionTime = 0;
                 int transferTime = 0;
@@ -69,7 +71,7 @@ namespace Easy_Save.Strategies
 
                 if (shouldEncrypt)
                 {
-                    encryptionTime = EncryptionHelper.EncryptFile(destinationPath, encryptionConfig.key, encryptionConfig.encryptionExecutablePath);
+                    encryptionTime = encryptionManager.EncryptFile(destinationPath);
 
                     if (encryptionTime >= 0)
                     {
@@ -79,7 +81,7 @@ namespace Easy_Save.Strategies
                         );
 
                         File.Copy(destinationPath, decryptedPath, true);
-                        int decryptTime = EncryptionHelper.EncryptFile(decryptedPath, encryptionConfig.key, encryptionConfig.encryptionExecutablePath);
+                        int decryptTime = encryptionManager.EncryptFile(decryptedPath);
 
                         if (decryptTime >= 0)
                             Console.WriteLine($"Déchiffrement effectué → {decryptedPath}");

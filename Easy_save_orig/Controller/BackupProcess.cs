@@ -16,16 +16,20 @@ namespace Easy_Save.Controller
         public string CryptoSoftPath { get; set; } = string.Empty;
 
         public BackupProcess()
+        // In: none
+        // Out: none
         // Description: Constructor and loads business settings.
         {
             backupManager = new BackupManager();
-            LoadBusinessSettings();
+            LoadBackupRules();
         }
         
-        private void LoadBusinessSettings()
-        // Description: Loads the business settings into the local variables from the singleton instance.
+        private void LoadBackupRules()
+        // In: none
+        // Out: void
+        // Description: Loads the backup rules into the local variables from the singleton instance.
         {
-            var settings = BusinessSettings.Instance;
+            var settings = BackupRulesManager.Instance;
             BusinessSoftwareList = new List<string>(settings.BusinessSoftwareList);
             MaxFileSize = settings.MaxFileSize;
             RestrictedExtensions = settings.RestrictedExtensions.ToArray();
@@ -40,7 +44,7 @@ namespace Easy_Save.Controller
             if (string.IsNullOrWhiteSpace(softwareName))
                 return false;
                 
-            var settings = BusinessSettings.Instance;
+            var settings = BackupRulesManager.Instance;
             bool added = settings.AddBusinessSoftware(softwareName);
             
             if (added)
@@ -59,7 +63,7 @@ namespace Easy_Save.Controller
             if (string.IsNullOrWhiteSpace(softwareName))
                 return false;
                 
-            var settings = BusinessSettings.Instance;
+            var settings = BackupRulesManager.Instance;
             bool removed = settings.RemoveBusinessSoftware(softwareName);
             
             if (removed)
@@ -127,7 +131,7 @@ namespace Easy_Save.Controller
         // Out: void
         // Description: Executes the specified backup if no software packages is running.
         {
-            var settings = BusinessSettings.Instance;
+            var settings = BackupRulesManager.Instance;
             if (settings.IsAnyBusinessSoftwareRunning())
             {
                 string? runningSoftware = settings.GetRunningBusinessSoftware();
@@ -139,6 +143,7 @@ namespace Easy_Save.Controller
         }
 
         public void RunAllBackups()
+        // In: none
         // Out: void
         // Description: Executes all backups sequentially.
         {
@@ -154,6 +159,7 @@ namespace Easy_Save.Controller
         }
 
         public List<Backup> GetAllBackup()
+        // In: none
         // Out: List<Backup> 
         // Description: Returns a list of all backups.
         {
