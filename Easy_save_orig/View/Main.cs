@@ -7,15 +7,15 @@ namespace Easy_Save.View
 {
     public class Main
     {
-        private readonly TranslationProcess translationProcess;
+        private readonly TranslationManager translationManager;
         private readonly BackupProcess backupProcess;
 
-        public Main(TranslationProcess translation, BackupProcess backup)
-        // In: translation (TranslationProcess), backup (BackupProcess)
+        public Main(BackupProcess backup)
+        // In: backup (BackupProcess)
         // Out: /
-        // Description: Initializes the Main class with translation and backup processes.
+        // Description: Initializes the Main class with translation manager and backup process.
         {
-            translationProcess = translation;
+            translationManager = TranslationManager.Instance;
             backupProcess = backup;
         }
 
@@ -30,7 +30,7 @@ namespace Easy_Save.View
             while (running)
             {
                 DisplayMenu();
-                Console.Write(translationProcess.GetTranslation("menu.prompt"));
+                Console.Write(translationManager.GetUITranslation("menu.prompt"));
                 string? choice = Console.ReadLine();
 
                 switch (choice)
@@ -60,11 +60,11 @@ namespace Easy_Save.View
                         break;
 
                     default:
-                        Console.WriteLine(translationProcess.GetTranslation("menu.invalid"));
+                        Console.WriteLine(translationManager.GetUITranslation("menu.invalid"));
                         break;
                 }
 
-                Console.WriteLine(translationProcess.GetTranslation("menu.return"));
+                Console.WriteLine(translationManager.GetUITranslation("menu.return"));
                 Console.ReadKey();
             }
         }
@@ -79,9 +79,9 @@ namespace Easy_Save.View
             string? lang = Console.ReadLine();
 
             if (lang == "2")
-                translationProcess.LoadTranslation("fr");
+                translationManager.LoadTranslation("fr");
             else
-                translationProcess.LoadTranslation("en");
+                translationManager.LoadTranslation("en");
         }
 
         private void DisplayMenu()
@@ -89,29 +89,29 @@ namespace Easy_Save.View
         // Description: Clears the screen and displays the main menu with translated options.
         {
             Console.Clear();
-            Console.WriteLine(translationProcess.GetTranslation("menu.title"));
-            Console.WriteLine("1. " + translationProcess.GetTranslation("menu.create_backup"));
-            Console.WriteLine("2. " + translationProcess.GetTranslation("menu.delete_backup"));
-            Console.WriteLine("3. " + translationProcess.GetTranslation("menu.execute_backup"));
-            Console.WriteLine("4. " + translationProcess.GetTranslation("menu.show_saves"));
-            Console.WriteLine("5. " + translationProcess.GetTranslation("menu.execute_all_backups"));
-            Console.WriteLine("6. " + translationProcess.GetTranslation("menu.exit"));
+            Console.WriteLine(translationManager.GetUITranslation("menu.title"));
+            Console.WriteLine("1. " + translationManager.GetUITranslation("menu.create_backup"));
+            Console.WriteLine("2. " + translationManager.GetUITranslation("menu.delete_backup"));
+            Console.WriteLine("3. " + translationManager.GetUITranslation("menu.execute_backup"));
+            Console.WriteLine("4. " + translationManager.GetUITranslation("menu.show_saves"));
+            Console.WriteLine("5. " + translationManager.GetUITranslation("menu.execute_all_backups"));
+            Console.WriteLine("6. " + translationManager.GetUITranslation("menu.exit"));
         }
 
         private void CreateBackup()
         // Out: void
         // Description: Prompts user for backup details and creates a new backup.
         {
-            Console.WriteLine(translationProcess.GetTranslation("ask.name"));
+            Console.WriteLine(translationManager.GetUITranslation("ask.name"));
             string name = Console.ReadLine() ?? "";
 
-            Console.WriteLine(translationProcess.GetTranslation("ask.source"));
+            Console.WriteLine(translationManager.GetUITranslation("ask.source"));
             string source = Console.ReadLine() ?? "";
 
-            Console.WriteLine(translationProcess.GetTranslation("ask.target"));
+            Console.WriteLine(translationManager.GetUITranslation("ask.target"));
             string target = Console.ReadLine() ?? "";
 
-            Console.WriteLine(translationProcess.GetTranslation("ask.type"));
+            Console.WriteLine(translationManager.GetUITranslation("ask.type"));
             string type = Console.ReadLine()?.Trim().ToLower() ?? "full";
 
             if (type != "full" && type != "differential")
@@ -123,13 +123,12 @@ namespace Easy_Save.View
             backupProcess.CreateBackup(name, source, target, type);
         }
 
-
         private void DeleteBackup()
         // Out: void
         // Description: Prompts for backup name and deletes it.
         {
             ListBackups();
-            Console.WriteLine(translationProcess.GetTranslation("ask.name"));
+            Console.WriteLine(translationManager.GetUITranslation("ask.name"));
             string name = Console.ReadLine() ?? "";
             backupProcess.DeleteBackup(name);
         }
@@ -139,7 +138,7 @@ namespace Easy_Save.View
         // Description: Prompts for backup name and executes the selected backup.
         {
             ListBackups();
-            Console.WriteLine(translationProcess.GetTranslation("ask.name"));
+            Console.WriteLine(translationManager.GetUITranslation("ask.name"));
             string name = Console.ReadLine() ?? "";
             backupProcess.ExecuteBackup(name);
         }
@@ -151,7 +150,7 @@ namespace Easy_Save.View
             List<Backup> backups = backupProcess.GetAllBackup();
             if (backups.Count == 0)
             {
-                Console.WriteLine(translationProcess.GetTranslation("no.backup"));
+                Console.WriteLine(translationManager.GetUITranslation("no.backup"));
                 return;
             }
 
@@ -168,18 +167,18 @@ namespace Easy_Save.View
             List<Backup> allBackups = backupProcess.GetAllBackup();
             if (allBackups.Count == 0)
             {
-                Console.WriteLine(translationProcess.GetTranslation("no.backup"));
+                Console.WriteLine(translationManager.GetUITranslation("no.backup"));
                 return;
             }
 
-            Console.WriteLine("1. " + translationProcess.GetTranslation("execution.linear"));
-            Console.WriteLine("2. " + translationProcess.GetTranslation("execution.concurrent"));
+            Console.WriteLine("1. " + translationManager.GetUITranslation("execution.linear"));
+            Console.WriteLine("2. " + translationManager.GetUITranslation("execution.concurrent"));
             Console.Write(">> ");
             string? mode = Console.ReadLine();
             bool isConcurrent = mode == "2";
 
             backupProcess.RunAllBackups(isConcurrent);
-            Console.WriteLine($"{allBackups.Count} {translationProcess.GetTranslation("backups.executed")}");
+            Console.WriteLine($"{allBackups.Count} {translationManager.GetUITranslation("backups.executed")}");
         }
 
     }

@@ -19,9 +19,8 @@ class Program
         }
         else
         {
-            var translation = new TranslationProcess();
             var backup = new BackupProcess();
-            var app = new Main(translation, backup);
+            var app = new Main(backup);
             app.Run();
         }
     }
