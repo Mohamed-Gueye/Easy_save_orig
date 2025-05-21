@@ -14,7 +14,7 @@
     "CryptoSoftPath": "C:\\EasySave\\Easy_save_orig-2\\Easy_save_orig\\CryptoSoft\\CryptoSoft.exe"
   },
   "EncryptionSettings": {
-    "EncryptionEnabled": false,
+    "EncryptionEnabled": true,
     "EncryptExtensions": [".txt", ".doc", ".docx", ".pdf", ".xls", ".xlsx", ".ppt", ".pptx"],
     "EncryptionKey": "defaultkey"
   },
