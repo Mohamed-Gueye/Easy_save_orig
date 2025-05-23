@@ -50,6 +50,24 @@ public class FileManager(string path, string key)
     }
 
     /// <summary>
+    /// Encrypts the file with xor encryption
+    /// </summary>
+    /// <returns>Time taken to encrypt in milliseconds, or negative value if error</returns>
+    public int Encrypt()
+    {
+        try 
+        {
+            long time = TransformFile();
+            return (int)time;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Encryption error: {ex.Message}");
+            return -1;
+        }
+    }
+
+    /// <summary>
     /// Convert a string in byte array
     /// </summary>
     /// <param name="text"></param>

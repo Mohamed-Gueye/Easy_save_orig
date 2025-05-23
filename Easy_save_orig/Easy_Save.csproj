@@ -19,4 +19,8 @@
 		</None>
 	</ItemGroup>
 
+	<ItemGroup>
+		<ProjectReference Include="CryptoSoft\CryptoSoft.csproj" />
+	</ItemGroup>
+
 </Project>

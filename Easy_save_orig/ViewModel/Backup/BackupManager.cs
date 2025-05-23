@@ -60,17 +60,16 @@ namespace Easy_Save.Model
         {
             var settings = BackupRulesManager.Instance;
             bool isSoftwareRunning = settings.IsAnyBusinessSoftwareRunning();
-            
+
             if (isSoftwareRunning)
             {
                 string? runningSoftware = settings.GetRunningBusinessSoftware();
                 Console.WriteLine($"Le logiciel métier '{runningSoftware}' est en cours d'exécution. La sauvegarde ne peut pas être lancée.");
                 return false;
             }
-            
+
             return true;
         }
-
         public void ExecuteBackup(string name)
         // In: name (string)
         // Out: void
@@ -91,8 +90,21 @@ namespace Easy_Save.Model
                 return;
             }
 
+            // Réinitialiser l'état de la sauvegarde dans le StatusManager avant de commencer
+            var existingStatus = statusManager.GetAllStatuses().FirstOrDefault(s => s.Name == name);
+            if (existingStatus != null)
+            {
+                existingStatus.State = "READY";
+                existingStatus.Progression = 0;
+                existingStatus.NbFilesLeftToDo = existingStatus.TotalFilesToCopy;
+                statusManager.UpdateStatus(existingStatus);
+            }
+
+            // Réinitialiser l'état de l'objet Backup également
+            backup.Reset();
+
             runningJobs[name] = true;
-            
+
             try
             {
                 if (!Directory.Exists(backup.TargetDirectory))
@@ -107,7 +119,7 @@ namespace Easy_Save.Model
                     _ => throw new InvalidOperationException("Invalid backup type.")
                 };
 
-                strategy.MakeBackup(backup, statusManager, logObserver); 
+                strategy.MakeBackup(backup, statusManager, logObserver);
             }
             finally
             {
@@ -135,13 +147,13 @@ namespace Easy_Save.Model
                 while (backupQueue.Count > 0)
                 {
                     var backup = backupQueue.Dequeue();
-                    
+
                     if (backupQueue.Count > 0 && !CanExecuteBackup())
                     {
                         Console.WriteLine("Les sauvegardes restantes ont été annulées : logiciel métier détecté.");
                         break;
                     }
-                    
+
                     ExecuteBackup(backup.Name);
                 }
             }
@@ -163,7 +175,7 @@ namespace Easy_Save.Model
 
                 await Task.WhenAll(tasks);
             }
-            
+
             currentJobAllowedToComplete = false;
         }
 

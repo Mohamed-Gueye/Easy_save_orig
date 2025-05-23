@@ -19,100 +19,147 @@ namespace Easy_Save.Strategies
         // Out: void
         // Description: Executes a full backup by copying all files from source to destination.
         {
-            var encryptionManager = EncryptionManager.Instance;
-            Console.WriteLine($"[DEBUG] Extensions à chiffrer chargées : {string.Join(", ", encryptionManager.ExtensionsToEncrypt)}");
-            Console.WriteLine($"[DEBUG] Chemin CryptoSoft.exe : {encryptionManager.EncryptionExecutablePath}");
+            // Set the backup state to RUNNING at the start
+            backup.State = Easy_Save.Model.Enum.BackupJobState.RUNNING;
 
-
-            string[] files = Directory.GetFiles(backup.SourceDirectory, "*", SearchOption.AllDirectories);
-            long totalSize = files.Sum(f => new FileInfo(f).Length);
-            int totalFiles = files.Length;
-            int filesDone = 0;
-
-            foreach (string file in files)
+            try
             {
-                Console.WriteLine($"Fichier détecté : {file}");
+                var encryptionManager = EncryptionManager.Instance;
+                Console.WriteLine($"[DEBUG] Extensions à chiffrer chargées : {string.Join(", ", encryptionManager.ExtensionsToEncrypt)}");
+                Console.WriteLine($"[DEBUG] Chemin CryptoSoft.exe : {encryptionManager.EncryptionExecutablePath}");
 
-                string relativePath = Path.GetRelativePath(backup.SourceDirectory, file);
-                string destinationPath = Path.Combine(backup.TargetDirectory, relativePath);
-                string? destinationDir = Path.GetDirectoryName(destinationPath);
+                // Check for cancellation before starting
+                backup.CheckPauseAndCancellation();
 
-                if (!Directory.Exists(destinationDir))
+                string[] files = Directory.GetFiles(backup.SourceDirectory, "*", SearchOption.AllDirectories);
+                long totalSize = files.Sum(f => new FileInfo(f).Length);
+                int totalFiles = files.Length;
+                int filesDone = 0;
+
+                foreach (string file in files)
                 {
-                    Directory.CreateDirectory(destinationDir);
-                }
+                    // Check if paused or cancelled before processing each file
+                    backup.CheckPauseAndCancellation();
 
-                var statusEntry = new StatusEntry(
-                    backup.Name,
-                    file,
-                    destinationPath,
-                    "ACTIVE",
-                    totalFiles,
-                    totalSize,
-                    totalFiles - filesDone,
-                    (int)((filesDone / (double)totalFiles) * 100),
-                    DateTime.Now
-                );
-                statusManager.UpdateStatus(statusEntry);
-                
-                // Ajouter un délai de 2 secondes pour permettre de voir l'état ACTIVE
-                Thread.Sleep(2000);
+                    Console.WriteLine($"Fichier détecté : {file}");
 
-                string ext = Path.GetExtension(file).ToLower();
-                bool shouldEncrypt = encryptionManager.ShouldEncryptFile(file);
+                    string relativePath = Path.GetRelativePath(backup.SourceDirectory, file);
+                    string destinationPath = Path.Combine(backup.TargetDirectory, relativePath);
+                    string? destinationDir = Path.GetDirectoryName(destinationPath);
 
-                int encryptionTime = 0;
-                int transferTime = 0;
-
-                var sw = Stopwatch.StartNew();
-                File.Copy(file, destinationPath, true);
-                sw.Stop();
-                transferTime = (int)sw.Elapsed.TotalMilliseconds;
-
-                if (shouldEncrypt)
-                {
-                    encryptionTime = encryptionManager.EncryptFile(destinationPath);
-
-                    if (encryptionTime >= 0)
+                    if (!Directory.Exists(destinationDir))
                     {
-                        string decryptedPath = Path.Combine(
-                            Path.GetDirectoryName(destinationPath)!,
-                            Path.GetFileNameWithoutExtension(destinationPath) + "_decrypted" + Path.GetExtension(destinationPath)
-                        );
+                        Directory.CreateDirectory(destinationDir);
+                    }
 
-                        File.Copy(destinationPath, decryptedPath, true);
-                        int decryptTime = encryptionManager.EncryptFile(decryptedPath);
+                    var statusEntry = new StatusEntry(
+                        backup.Name,
+                        file,
+                        destinationPath,
+                        "ACTIVE",
+                        totalFiles,
+                        totalSize,
+                        totalFiles - filesDone,
+                        (int)((filesDone / (double)totalFiles) * 100),
+                        DateTime.Now
+                    );
+                    statusManager.UpdateStatus(statusEntry);
 
-                        if (decryptTime >= 0)
-                            Console.WriteLine($"Déchiffrement effectué → {decryptedPath}");
+                    // Update backup progress
+                    backup.Progress = $"{(int)((filesDone / (double)totalFiles) * 100)}%";
+
+                    // Ajouter un délai de 2 secondes pour permettre de voir l'état ACTIVE
+                    Thread.Sleep(2000);
+
+                    // Check again for pause/cancel after the delay
+                    backup.CheckPauseAndCancellation();
+
+                    string ext = Path.GetExtension(file).ToLower();
+                    bool shouldEncrypt = encryptionManager.ShouldEncryptFile(file);
+
+                    int encryptionTime = 0;
+                    int transferTime = 0;
+
+                    var sw = Stopwatch.StartNew();
+                    File.Copy(file, destinationPath, true);
+                    sw.Stop();
+                    transferTime = (int)sw.Elapsed.TotalMilliseconds;
+
+                    // Check for pause/cancel after file copy
+                    backup.CheckPauseAndCancellation();
+
+                    if (shouldEncrypt)
+                    {
+                        encryptionTime = encryptionManager.EncryptFile(destinationPath);
+
+                        if (encryptionTime >= 0)
+                        {
+                            string decryptedPath = Path.Combine(
+                                Path.GetDirectoryName(destinationPath)!,
+                                Path.GetFileNameWithoutExtension(destinationPath) + "_decrypted" + Path.GetExtension(destinationPath)
+                            );
+
+                            File.Copy(destinationPath, decryptedPath, true);
+                            int decryptTime = encryptionManager.EncryptFile(decryptedPath);
+
+                            if (decryptTime >= 0)
+                                Console.WriteLine($"Déchiffrement effectué → {decryptedPath}");
+                            else
+                                Console.WriteLine($"Erreur de déchiffrement pour : {decryptedPath}");
+                        }
                         else
-                            Console.WriteLine($"Erreur de déchiffrement pour : {decryptedPath}");
+                        {
+                            Console.WriteLine($"Erreur de chiffrement : {destinationPath} (code {encryptionTime})");
+                            continue;
+                        }
                     }
-                    else
-                    {
-                        Console.WriteLine($"Erreur de chiffrement : {destinationPath} (code {encryptionTime})");
-                        continue;
-                    }
+
+                    logObserver.Update(backup, totalSize, transferTime, shouldEncrypt ? encryptionTime : 0, totalFiles);
+                    filesDone++;
+                }                // Set final state to COMPLETED if we get here without cancellation
+                backup.State = Easy_Save.Model.Enum.BackupJobState.COMPLETED;
+                backup.Progress = "100%";
+
+                // Mise à jour du statut dans le fichier state.json
+                var finalStatus = statusManager.GetAllStatuses().FirstOrDefault(s => s.Name == backup.Name);
+                if (finalStatus != null)
+                {
+                    finalStatus.State = "COMPLETED";
+                    finalStatus.Progression = 100;
+                    finalStatus.NbFilesLeftToDo = 0;
+                    statusManager.UpdateStatus(finalStatus);
+                }
+            }
+            catch (OperationCanceledException)
+            {
+                // Handle cancellation gracefully
+                Console.WriteLine($"Backup job '{backup.Name}' was stopped by the user.");
+                backup.State = Easy_Save.Model.Enum.BackupJobState.STOPPED;
+
+                // Mise à jour du statut dans le fichier state.json pour l'annulation
+                var cancelStatus = statusManager.GetAllStatuses().FirstOrDefault(s => s.Name == backup.Name);
+                if (cancelStatus != null)
+                {
+                    cancelStatus.State = "STOPPED";
+                    statusManager.UpdateStatus(cancelStatus);
+                }
+            }
+            catch (Exception ex)
+            {
+                // Handle other errors
+                Console.WriteLine($"Error during backup: {ex.Message}");
+                backup.State = Easy_Save.Model.Enum.BackupJobState.ERROR;
+
+                // Mise à jour du statut dans le fichier state.json pour l'erreur
+                var errorStatus = statusManager.GetAllStatuses().FirstOrDefault(s => s.Name == backup.Name);
+                if (errorStatus != null)
+                {
+                    errorStatus.State = "ERROR";
+                    statusManager.UpdateStatus(errorStatus);
                 }
 
-                logObserver.Update(backup, totalSize, transferTime, shouldEncrypt ? encryptionTime : 0, totalFiles);
-                filesDone++;
+                throw;
             }
-
-            var finalStatus = new StatusEntry(
-                backup.Name,
-                backup.SourceDirectory,
-                backup.TargetDirectory,
-                "END",
-                totalFiles,
-                totalSize,
-                0,
-                100,
-                DateTime.Now
-            );
-            statusManager.UpdateStatus(finalStatus);
-
-            Console.WriteLine("Backup completed successfully.");
         }
     }
 }

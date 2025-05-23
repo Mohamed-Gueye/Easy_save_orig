@@ -165,6 +165,18 @@ namespace Easy_Save.Controller
         {
             return backupManager.GetAllBackup();
         }
+        
+        public Backup? GetBackup(string name)
+        // In: name (string)
+        // Out: Backup?
+        // Description: Returns a specific backup by its name or null if not found.
+        {
+            if (string.IsNullOrEmpty(name))
+                return null;
+                
+            var allBackups = GetAllBackup();
+            return allBackups.FirstOrDefault(b => b.Name == name);
+        }
 
         public void DeleteBackup(string name)
         // In: name (string)

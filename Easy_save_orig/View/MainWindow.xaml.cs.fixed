@@ -183,10 +183,12 @@ namespace Easy_Save.View
 
             // Mettre à jour les types de sauvegarde
             rbFull.Content = translationManager.GetUITranslation("backup.type_full");
-            rbDifferential.Content = translationManager.GetUITranslation("backup.type_differential");            // Mettre à jour les textes de la fenêtre de progression
+            rbDifferential.Content = translationManager.GetUITranslation("backup.type_differential");
+
+            // Mettre à jour les textes de la fenêtre de progression
             txtProgressTitle.Text = translationManager.GetUITranslation("progress.title");
             txtProgressInfo.Text = translationManager.GetUITranslation("progress.info");
-            btnStopBackup.Content = translationManager.GetUITranslation("progress.cancel");
+            btnCancelBackup.Content = translationManager.GetUITranslation("progress.cancel");
 
             // Rafraîchir la liste des backups
             RefreshBackupList();
@@ -374,22 +376,19 @@ namespace Easy_Save.View
                 });
 
                 // Exécuter la sauvegarde
-                await progressTracker.ExecuteBackupWithProgressAsync(backupName, progress, cancellationTokenSource.Token);                // Masquer la fenêtre de progression
+                await progressTracker.ExecuteBackupWithProgressAsync(backupName, progress, cancellationTokenSource.Token);
+
+                // Masquer la fenêtre de progression
                 HideProgressOverlay();
 
                 if (!cancellationTokenSource.Token.IsCancellationRequested)
                 {
-                    // Vérifier l'état final de la sauvegarde dans le fichier state.json
-                    var statusEntry = GetCurrentBackupStatus(backupName);
-                    if (statusEntry != null && statusEntry.State == "COMPLETED")
-                    {
-                        // Afficher un message de succès uniquement si la sauvegarde est bien marquée comme terminée
-                        MessageBox.Show(
-                            translationManager.GetFormattedUITranslation("backup.complete", backupName),
-                            "EasySave",
-                            MessageBoxButton.OK,
-                            MessageBoxImage.Information);
-                    }
+                    // Afficher un message de succès
+                    MessageBox.Show(
+                        translationManager.GetFormattedUITranslation("backup.complete", backupName),
+                        "EasySave",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Information);
                 }
             }
             catch (OperationCanceledException)
@@ -397,29 +396,6 @@ namespace Easy_Save.View
                 // L'utilisateur a annulé l'opération
                 HideProgressOverlay();
                 Console.WriteLine("Backup operation cancelled by user.");
-
-                // Informer l'utilisateur que la sauvegarde a été annulée
-                MessageBox.Show(
-                    translationManager.GetFormattedUITranslation("backup.cancelled", backupName),
-                    "EasySave",
-                    MessageBoxButton.OK,
-                    MessageBoxImage.Information);                // Réinitialiser l'état de la sauvegarde pour permettre une nouvelle exécution
-                var backup = backupProcess.GetBackup(backupName);
-                if (backup != null)
-                {
-                    backup.Reset();
-
-                    // Mettre à jour le statut dans le fichier state.json pour réinitialiser l'état
-                    var statusManager = new Easy_Save.Model.IO.StatusManager();
-                    var statusEntry = GetCurrentBackupStatus(backupName);
-                    if (statusEntry != null)
-                    {
-                        statusEntry.State = "READY";
-                        statusEntry.Progression = 0;
-                        statusEntry.NbFilesLeftToDo = statusEntry.TotalFilesToCopy;
-                        statusManager.UpdateStatus(statusEntry);
-                    }
-                }
             }
             catch (Exception ex)
             {
@@ -440,18 +416,18 @@ namespace Easy_Save.View
                 btnCreate.IsEnabled = true;
             }
         }
-
+        
         private async void BtnExecuteAll_Click(object sender, RoutedEventArgs e)
         {
             var backups = backupProcess.GetAllBackup();
-
+            
             if (backups.Count == 0)
             {
                 MessageBox.Show(translationManager.GetUITranslation("backup.no_saves"),
                     "EasySave", MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
-
+            
             // Vérifier si un des logiciels métier est en cours d'exécution
             var backupRulesManager = BackupRulesManager.Instance;
             if (backupRulesManager.IsAnyBusinessSoftwareRunning())
@@ -520,32 +496,12 @@ namespace Easy_Save.View
                 }
 
                 // Masquer la fenêtre de progression
-                HideProgressOverlay(); if (cancellationTokenSource.Token.IsCancellationRequested)
+                HideProgressOverlay();
+
+                if (cancellationTokenSource.Token.IsCancellationRequested)
                 {
                     // L'opération a été annulée par l'utilisateur
                     Console.WriteLine("All backup operations were cancelled by user.");
-
-                    // Informer l'utilisateur que les sauvegardes ont été annulées
-                    MessageBox.Show(
-                        translationManager.GetUITranslation("backup.all.cancelled"),
-                        "EasySave",
-                        MessageBoxButton.OK,
-                        MessageBoxImage.Information);                    // Réinitialiser l'état des sauvegardes pour permettre une nouvelle exécution
-                    var statusManager = new Easy_Save.Model.IO.StatusManager();
-                    foreach (var backup in backups)
-                    {
-                        backup.Reset();
-
-                        // Mettre à jour également le statut dans le fichier state.json
-                        var statusEntry = GetCurrentBackupStatus(backup.Name);
-                        if (statusEntry != null)
-                        {
-                            statusEntry.State = "READY";
-                            statusEntry.Progression = 0;
-                            statusEntry.NbFilesLeftToDo = statusEntry.TotalFilesToCopy;
-                            statusManager.UpdateStatus(statusEntry);
-                        }
-                    }
                 }
                 else
                 {
@@ -754,6 +710,7 @@ namespace Easy_Save.View
             translationManager.LoadTranslation("en");
             languageMenuOverlay.Visibility = Visibility.Collapsed;
         }
+
         private void ExecutionMode_Changed(object sender, RoutedEventArgs e)
         {
             if (sender is RadioButton radioButton)
@@ -761,6 +718,12 @@ namespace Easy_Save.View
                 isConcurrentExecution = radioButton.Name == "rbConcurrent";
                 Console.WriteLine($"Execution mode changed to: {(isConcurrentExecution ? "Concurrent" : "Sequential")}");
             }
+        }
+
+        private void BtnCancelBackup_Click(object sender, RoutedEventArgs e)
+        {
+            // Annuler l'opération de sauvegarde en cours
+            cancellationTokenSource?.Cancel();
         }
 
         private void ShowProgressOverlay(string backupName)
@@ -1100,6 +1063,7 @@ namespace Easy_Save.View
                     MessageBoxImage.Error);
             }
         }
+
         private void BtnStopBackup_Click(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrEmpty(currentRunningBackup))
@@ -1118,15 +1082,6 @@ namespace Easy_Save.View
 
                     // Mettre à jour l'état affiché
                     txtBackupState.Text = $"State: STOPPED";
-
-                    // Mettre à jour immédiatement le statut dans le fichier state.json
-                    var statusManager = new Easy_Save.Model.IO.StatusManager();
-                    var statusEntry = GetCurrentBackupStatus(currentRunningBackup);
-                    if (statusEntry != null)
-                    {
-                        statusEntry.State = "STOPPED";
-                        statusManager.UpdateStatus(statusEntry);
-                    }
                 }
             }
             catch (Exception ex)
