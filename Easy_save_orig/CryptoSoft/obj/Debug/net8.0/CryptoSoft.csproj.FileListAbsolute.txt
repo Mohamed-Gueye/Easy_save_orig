@@ -21,3 +21,13 @@ C:\EasySave\Easy_save_orig-3\Easy_save_orig\Easy_save_orig\CryptoSoft\bin\Debug\
 C:\EasySave\Easy_save_orig-3\Easy_save_orig\Easy_save_orig\CryptoSoft\bin\Debug\net8.0\CryptoSoft.dll
 C:\EasySave\Easy_save_orig-3\Easy_save_orig\Easy_save_orig\CryptoSoft\bin\Debug\net8.0\CryptoSoft.pdb
 C:\EasySave\Easy_save_orig-3\Easy_save_orig\Easy_save_orig\CryptoSoft\obj\Debug\net8.0\ref\CryptoSoft.dll
+C:\Users\DELL\Desktop\Easy_save_orig\Easy_save_orig\CryptoSoft\bin\Debug\net8.0\CryptoSoft.deps.json
+C:\Users\DELL\Desktop\Easy_save_orig\Easy_save_orig\CryptoSoft\bin\Debug\net8.0\CryptoSoft.dll
+C:\Users\DELL\Desktop\Easy_save_orig\Easy_save_orig\CryptoSoft\bin\Debug\net8.0\CryptoSoft.pdb
+C:\Users\DELL\Desktop\Easy_save_orig\Easy_save_orig\CryptoSoft\obj\Debug\net8.0\CryptoSoft.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\DELL\Desktop\Easy_save_orig\Easy_save_orig\CryptoSoft\obj\Debug\net8.0\CryptoSoft.csproj.CoreCompileInputs.cache
+C:\Users\DELL\Desktop\Easy_save_orig\Easy_save_orig\CryptoSoft\obj\Debug\net8.0\CryptoSoft.sourcelink.json
+C:\Users\DELL\Desktop\Easy_save_orig\Easy_save_orig\CryptoSoft\obj\Debug\net8.0\CryptoSoft.dll
+C:\Users\DELL\Desktop\Easy_save_orig\Easy_save_orig\CryptoSoft\obj\Debug\net8.0\refint\CryptoSoft.dll
+C:\Users\DELL\Desktop\Easy_save_orig\Easy_save_orig\CryptoSoft\obj\Debug\net8.0\CryptoSoft.pdb
+C:\Users\DELL\Desktop\Easy_save_orig\Easy_save_orig\CryptoSoft\obj\Debug\net8.0\ref\CryptoSoft.dll

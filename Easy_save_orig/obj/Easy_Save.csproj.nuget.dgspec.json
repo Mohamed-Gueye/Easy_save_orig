@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Easy_Save.csproj": {}
+    "C:\\Users\\DELL\\Desktop\\Easy_save_orig\\Easy_save_orig\\Easy_Save.csproj": {}
   },
   "projects": {
-    "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\CryptoSoft\\CryptoSoft.csproj": {
+    "C:\\Users\\DELL\\Desktop\\Easy_save_orig\\Easy_save_orig\\CryptoSoft\\CryptoSoft.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\CryptoSoft\\CryptoSoft.csproj",
+        "projectUniqueName": "C:\\Users\\DELL\\Desktop\\Easy_save_orig\\Easy_save_orig\\CryptoSoft\\CryptoSoft.csproj",
         "projectName": "CryptoSoft",
-        "projectPath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\CryptoSoft\\CryptoSoft.csproj",
-        "packagesPath": "C:\\Users\\tompe\\.nuget\\packages\\",
-        "outputPath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\CryptoSoft\\obj\\",
+        "projectPath": "C:\\Users\\DELL\\Desktop\\Easy_save_orig\\Easy_save_orig\\CryptoSoft\\CryptoSoft.csproj",
+        "packagesPath": "C:\\Users\\DELL\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\DELL\\Desktop\\Easy_save_orig\\Easy_save_orig\\CryptoSoft\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\tompe\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\DELL\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -26,7 +26,6 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -70,20 +69,20 @@
         }
       }
     },
-    "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Easy_Save.csproj": {
+    "C:\\Users\\DELL\\Desktop\\Easy_save_orig\\Easy_save_orig\\Easy_Save.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Easy_Save.csproj",
+        "projectUniqueName": "C:\\Users\\DELL\\Desktop\\Easy_save_orig\\Easy_save_orig\\Easy_Save.csproj",
         "projectName": "Easy_Save",
-        "projectPath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Easy_Save.csproj",
-        "packagesPath": "C:\\Users\\tompe\\.nuget\\packages\\",
-        "outputPath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\obj\\",
+        "projectPath": "C:\\Users\\DELL\\Desktop\\Easy_save_orig\\Easy_save_orig\\Easy_Save.csproj",
+        "packagesPath": "C:\\Users\\DELL\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\DELL\\Desktop\\Easy_save_orig\\Easy_save_orig\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\tompe\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\DELL\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -92,15 +91,14 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net8.0-windows7.0": {
             "targetAlias": "net8.0-windows",
             "projectReferences": {
-              "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\CryptoSoft\\CryptoSoft.csproj": {
-                "projectPath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\CryptoSoft\\CryptoSoft.csproj"
+              "C:\\Users\\DELL\\Desktop\\Easy_save_orig\\Easy_save_orig\\CryptoSoft\\CryptoSoft.csproj": {
+                "projectPath": "C:\\Users\\DELL\\Desktop\\Easy_save_orig\\Easy_save_orig\\CryptoSoft\\CryptoSoft.csproj"
               }
             }
           }
