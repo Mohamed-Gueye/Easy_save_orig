@@ -1096,3 +1096,21 @@ namespace Easy_Save.View
         #endregion
     }
 }
+//test
+static void BroadcastProgress()
+    {
+        TcpListener progressListener = new TcpListener(IPAddress.Any, 12346);
+        progressListener.Start();
+
+        while (true)
+        {
+            using TcpClient client = progressListener.AcceptTcpClient();
+            using NetworkStream stream = client.GetStream();
+            foreach (var job in jobs)
+            {
+                string update = $"{job.JobName}|{job.Progress}|{(job.IsPaused ? "Paused" : job.IsStopped ? "Stopped" : "Running")}";
+                byte[] data = Encoding.UTF8.GetBytes(update);
+                stream.Write(data, 0, data.Length);
+            }
+        }
+    }

@@ -1,12 +1,99 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Users\\DELL\\Desktop\\Easy_save_orig\\Easy_save_orig\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{D027B833-4B9A-4777-AAC9-B25A7CF4CAA5}|..\\EasySaveClient\\EasySaveClient.csproj|c:\\users\\dell\\desktop\\easy_save_orig\\easysaveclient\\app.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D027B833-4B9A-4777-AAC9-B25A7CF4CAA5}|..\\EasySaveClient\\EasySaveClient.csproj|c:\\users\\dell\\desktop\\easy_save_orig\\easysaveclient\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D027B833-4B9A-4777-AAC9-B25A7CF4CAA5}|..\\EasySaveClient\\EasySaveClient.csproj|c:\\users\\dell\\desktop\\easy_save_orig\\easysaveclient\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D027B833-4B9A-4777-AAC9-B25A7CF4CAA5}|..\\EasySaveClient\\EasySaveClient.csproj|c:\\users\\dell\\desktop\\easy_save_orig\\easysaveclient\\app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9DBAEB9C-D95B-40FB-B727-4DB8818B9652}|Easy_Save.csproj|c:\\users\\dell\\desktop\\easy_save_orig\\easy_save_orig\\view\\mainwindow.xaml.cs.fixed||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{9DBAEB9C-D95B-40FB-B727-4DB8818B9652}|Easy_Save.csproj|solutionrelative:view\\mainwindow.xaml.cs.fixed||{8B382828-6202-11D1-8870-0000F87579D2}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
       "VerticalTabListWidth": 256,
-      "DocumentGroups": []
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "App.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\DELL\\Desktop\\Easy_save_orig\\EasySaveClient\\App.xaml.cs",
+              "RelativeDocumentMoniker": "..\\EasySaveClient\\App.xaml.cs",
+              "ToolTip": "C:\\Users\\DELL\\Desktop\\Easy_save_orig\\EasySaveClient\\App.xaml.cs",
+              "RelativeToolTip": "..\\EasySaveClient\\App.xaml.cs",
+              "ViewState": "AgIAAAcAAAAAAAAAAAAiwBcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-24T13:52:03.77Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "App.xaml",
+              "DocumentMoniker": "C:\\Users\\DELL\\Desktop\\Easy_save_orig\\EasySaveClient\\App.xaml",
+              "RelativeDocumentMoniker": "..\\EasySaveClient\\App.xaml",
+              "ToolTip": "C:\\Users\\DELL\\Desktop\\Easy_save_orig\\EasySaveClient\\App.xaml",
+              "RelativeToolTip": "..\\EasySaveClient\\App.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-05-24T13:51:50.575Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "MainWindow.xaml",
+              "DocumentMoniker": "C:\\Users\\DELL\\Desktop\\Easy_save_orig\\EasySaveClient\\MainWindow.xaml",
+              "RelativeDocumentMoniker": "..\\EasySaveClient\\MainWindow.xaml",
+              "ToolTip": "C:\\Users\\DELL\\Desktop\\Easy_save_orig\\EasySaveClient\\MainWindow.xaml",
+              "RelativeToolTip": "..\\EasySaveClient\\MainWindow.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-05-24T13:43:29.953Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "MainWindow.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\DELL\\Desktop\\Easy_save_orig\\EasySaveClient\\MainWindow.xaml.cs",
+              "RelativeDocumentMoniker": "..\\EasySaveClient\\MainWindow.xaml.cs",
+              "ToolTip": "C:\\Users\\DELL\\Desktop\\Easy_save_orig\\EasySaveClient\\MainWindow.xaml.cs",
+              "RelativeToolTip": "..\\EasySaveClient\\MainWindow.xaml.cs",
+              "ViewState": "AgIAAFIAAAAAAAAAAADwv14AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-24T13:43:27.943Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "MainWindow.xaml.cs.fixed",
+              "DocumentMoniker": "C:\\Users\\DELL\\Desktop\\Easy_save_orig\\Easy_save_orig\\View\\MainWindow.xaml.cs.fixed",
+              "RelativeDocumentMoniker": "View\\MainWindow.xaml.cs.fixed",
+              "ToolTip": "C:\\Users\\DELL\\Desktop\\Easy_save_orig\\Easy_save_orig\\View\\MainWindow.xaml.cs.fixed",
+              "RelativeToolTip": "View\\MainWindow.xaml.cs.fixed",
+              "ViewState": "AgIAADUEAAAAAAAAAAAIwEsEAAAfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2025-05-24T01:21:11.664Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
     }
   ]
 }

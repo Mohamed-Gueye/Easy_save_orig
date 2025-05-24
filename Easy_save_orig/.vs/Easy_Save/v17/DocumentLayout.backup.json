@@ -1,12 +1,37 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Users\\DELL\\Desktop\\Easy_save_orig\\Easy_save_orig\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{9DBAEB9C-D95B-40FB-B727-4DB8818B9652}|Easy_Save.csproj|c:\\users\\dell\\desktop\\easy_save_orig\\easy_save_orig\\view\\mainwindow.xaml.cs.fixed||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{9DBAEB9C-D95B-40FB-B727-4DB8818B9652}|Easy_Save.csproj|solutionrelative:view\\mainwindow.xaml.cs.fixed||{8B382828-6202-11D1-8870-0000F87579D2}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
       "VerticalTabListWidth": 256,
-      "DocumentGroups": []
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "MainWindow.xaml.cs.fixed",
+              "DocumentMoniker": "C:\\Users\\DELL\\Desktop\\Easy_save_orig\\Easy_save_orig\\View\\MainWindow.xaml.cs.fixed",
+              "RelativeDocumentMoniker": "View\\MainWindow.xaml.cs.fixed",
+              "ToolTip": "C:\\Users\\DELL\\Desktop\\Easy_save_orig\\Easy_save_orig\\View\\MainWindow.xaml.cs.fixed",
+              "RelativeToolTip": "View\\MainWindow.xaml.cs.fixed",
+              "ViewState": "AgIAADUEAAAAAAAAAAAIwEsEAAAfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2025-05-24T01:21:11.664Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
     }
   ]
 }
