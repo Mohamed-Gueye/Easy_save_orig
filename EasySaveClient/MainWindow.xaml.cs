@@ -40,9 +40,17 @@ namespace EasySaveClient
 
         private void SendCommand(string command)
         {
-            if (stream == null || !stream.CanWrite) return;
-            var data = Encoding.UTF8.GetBytes(command);
-            stream.Write(data, 0, data.Length);
+            try
+            {
+                using TcpClient client = new TcpClient("127.0.0.1", 12345);
+                using NetworkStream stream = client.GetStream();
+                byte[] data = Encoding.UTF8.GetBytes(command);
+                stream.Write(data, 0, data.Length);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erreur lors de l'envoi de la commande : " + ex.Message);
+            }
         }
 
         private void Pause_Click(object sender, RoutedEventArgs e) => SendCommand("PAUSE");
