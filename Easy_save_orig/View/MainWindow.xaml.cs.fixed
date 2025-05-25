@@ -90,13 +90,8 @@ namespace Easy_Save.View
                 // Charger les paramètres du logiciel métier
                 LoadBackupRules();
                 // Ajouter un job fictif pour test ou charger tes vrais jobs ici#
-                _backupJobs.Add(new Backup
-                {
-                    Name = "TestJob",
-                    SourceDirectory = @"C:\Users\DELL\Desktop\Source",
-                    TargetDirectory = @"C:\Users\DELL\Desktop\Target",
-                    Type = "Full"
-                });
+                _backupJobs = backupProcess.GetAllBackup();
+                
 
                 // Démarrer le serveur de communication TCP
                 var server = new BackupServer(_backupJobs);
