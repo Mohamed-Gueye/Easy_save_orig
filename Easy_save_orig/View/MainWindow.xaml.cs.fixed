@@ -23,6 +23,9 @@ namespace Easy_Save.View
         // Pour garder une trace de la sauvegarde sélectionnée
         private Border? selectedBackupItem = null;
 
+        // Ajout de liste backups #
+        //private List<Backup> _backupJobs = new();
+
         // Contrôleur pour gérer les sauvegardes
         private readonly BackupProcess backupProcess;
 
