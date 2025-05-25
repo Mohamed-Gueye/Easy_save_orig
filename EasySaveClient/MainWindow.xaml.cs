@@ -5,14 +5,16 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using Easy_Save.Model;
+using Easy_Save.Model.Enum;
 
-namespace EasySave3Orig
+namespace EasySaveClient
 {
     public partial class MainWindow : Window
     {
         private TcpClient? client;
         private NetworkStream? stream;
-        public ObservableCollection<BackupJob> Jobs { get; set; } = new();
+        public ObservableCollection<Backup> Jobs { get; set; } = new();
 
         public MainWindow()
         {
@@ -68,12 +70,19 @@ namespace EasySave3Orig
 
                         Application.Current.Dispatcher.Invoke(() =>
                         {
-                            var job = this.Jobs.FirstOrDefault(j => j.JobName == jobName);
+                            var job = this.Jobs.FirstOrDefault(j => j.Name == jobName);
                             if (job != null)
                             {
-                                job.Progress = progress;
-                                job.Status = status;
+                                job.Progress = $"{progress}%";
+                                job.State = status switch
+                                {
+                                    "Paused" => BackupJobState.PAUSED,
+                                    "Running" => BackupJobState.RUNNING,
+                                    "Stopped" => BackupJobState.STOPPED,
+                                    _ => BackupJobState.READY
+                                };
                             }
+
                         });
                     }
                 }
@@ -85,10 +94,4 @@ namespace EasySave3Orig
         }
     }
 
-    public class BackupJob
-    {
-        public string? JobName { get; set; }
-        public string? Status { get; set; }
-        public int Progress { get; set; }
-    }
 }

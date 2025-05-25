@@ -2,7 +2,8 @@
 using System.Threading;
 using System.Windows;
 
-namespace EasySave3Orig
+
+namespace EasySaveClient
 {
     public partial class App : Application
     {

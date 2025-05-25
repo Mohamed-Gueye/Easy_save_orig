@@ -1,4 +1,4 @@
-﻿<Window x:Class="EasySave3Orig.MainWindow"
+﻿<Window x:Class="EasySaveClient.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Console de sauvegarde distante" Height="450" Width="800">
