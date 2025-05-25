@@ -1,13 +1,24 @@
 [
   {
+    "Name": "test_2",
+    "SourcePath": "C:\\TestBackup\\Source\\TestOrigin2\\test_2.txt",
+    "DestinationPath": "C:\\TestBackup\\Target\\TestOrigin3\\test_2.txt",
+    "State": "READY",
+    "TotalFilesToCopy": 2,
+    "TotalFilesSize": 21,
+    "NbFilesLeftToDo": 2,
+    "Progression": 0,
+    "LastBackupDate": "2025-05-25T18:41:02.570032+02:00"
+  },
+  {
     "Name": "test",
     "SourcePath": "C:\\TestBackup\\Source\\TestOrigin\\test_4.txt",
     "DestinationPath": "C:\\TestBackup\\Target\\TestOrigin2\\test_4.txt",
-    "State": "READY",
-    "TotalFilesToCopy": 4,
-    "TotalFilesSize": 63,
-    "NbFilesLeftToDo": 4,
-    "Progression": 0,
-    "LastBackupDate": "2025-05-25T17:58:03.0560634+02:00"
+    "State": "COMPLETED",
+    "TotalFilesToCopy": 5,
+    "TotalFilesSize": 287217,
+    "NbFilesLeftToDo": 0,
+    "Progression": 100,
+    "LastBackupDate": "2025-05-25T18:42:16.8322947+02:00"
   }
 ]

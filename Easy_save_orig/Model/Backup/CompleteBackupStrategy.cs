@@ -15,30 +15,30 @@ namespace Easy_Save.Strategies
     public class CompleteBackupStrategy : IBackupStrategy
     {
         public void MakeBackup(Backup backup, StatusManager statusManager, LogObserver logObserver)
-        // In: backup (Backup), statusManager (StatusManager), logObserver (LogObserver)
-        // Out: void
-        // Description: Executes a full backup by copying all files from source to destination.
         {
-            // Set the backup state to RUNNING at the start
             backup.State = Easy_Save.Model.Enum.BackupJobState.RUNNING;
 
             try
             {
                 var encryptionManager = EncryptionManager.Instance;
-                Console.WriteLine($"[DEBUG] Extensions à chiffrer chargées : {string.Join(", ", encryptionManager.ExtensionsToEncrypt)}");
-                Console.WriteLine($"[DEBUG] Chemin CryptoSoft.exe : {encryptionManager.EncryptionExecutablePath}");
+                var priorityExtensions = BackupRulesManager.Instance.PriorityExtensions.Select(ext => ext.ToLower()).ToList();
 
-                // Check for cancellation before starting
+                Console.WriteLine($"[DEBUG] Extensions à chiffrer chargées : {string.Join(", ", encryptionManager.ExtensionsToEncrypt)}");
+                Console.WriteLine($"[DEBUG] Extensions prioritaires : {string.Join(", ", priorityExtensions)}");
+
                 backup.CheckPauseAndCancellation();
 
-                string[] files = Directory.GetFiles(backup.SourceDirectory, "*", SearchOption.AllDirectories);
-                long totalSize = files.Sum(f => new FileInfo(f).Length);
-                int totalFiles = files.Length;
+                string[] allFiles = Directory.GetFiles(backup.SourceDirectory, "*", SearchOption.AllDirectories);
+                long totalSize = allFiles.Sum(f => new FileInfo(f).Length);
+                int totalFiles = allFiles.Length;
                 int filesDone = 0;
 
-                foreach (string file in files)
+                // Première passe : fichiers prioritaires
+                var priorityFiles = allFiles.Where(f => priorityExtensions.Contains(Path.GetExtension(f).ToLower())).ToList();
+                var nonPriorityFiles = allFiles.Except(priorityFiles).ToList();
+
+                void ProcessFile(string file)
                 {
-                    // Check if paused or cancelled before processing each file
                     backup.CheckPauseAndCancellation();
 
                     Console.WriteLine($"Fichier détecté : {file}");
@@ -49,7 +49,7 @@ namespace Easy_Save.Strategies
 
                     if (!Directory.Exists(destinationDir))
                     {
-                        Directory.CreateDirectory(destinationDir);
+                        Directory.CreateDirectory(destinationDir!);
                     }
 
                     var statusEntry = new StatusEntry(
@@ -65,16 +65,12 @@ namespace Easy_Save.Strategies
                     );
                     statusManager.UpdateStatus(statusEntry);
 
-                    // Update backup progress
                     backup.Progress = $"{(int)((filesDone / (double)totalFiles) * 100)}%";
 
-                    // Ajouter un délai de 2 secondes pour permettre de voir l'état ACTIVE
                     Thread.Sleep(2000);
 
-                    // Check again for pause/cancel after the delay
                     backup.CheckPauseAndCancellation();
 
-                    string ext = Path.GetExtension(file).ToLower();
                     bool shouldEncrypt = encryptionManager.ShouldEncryptFile(file);
 
                     int encryptionTime = 0;
@@ -85,7 +81,6 @@ namespace Easy_Save.Strategies
                     sw.Stop();
                     transferTime = (int)sw.Elapsed.TotalMilliseconds;
 
-                    // Check for pause/cancel after file copy
                     backup.CheckPauseAndCancellation();
 
                     if (shouldEncrypt)
@@ -110,17 +105,29 @@ namespace Easy_Save.Strategies
                         else
                         {
                             Console.WriteLine($"Erreur de chiffrement : {destinationPath} (code {encryptionTime})");
-                            continue;
+                            return;
                         }
                     }
 
                     logObserver.Update(backup, totalSize, transferTime, shouldEncrypt ? encryptionTime : 0, totalFiles);
                     filesDone++;
-                }                // Set final state to COMPLETED if we get here without cancellation
+                }
+
+                // Traitement des fichiers prioritaires
+                foreach (var file in priorityFiles)
+                {
+                    ProcessFile(file);
+                }
+
+                // Traitement des fichiers non-prioritaires
+                foreach (var file in nonPriorityFiles)
+                {
+                    ProcessFile(file);
+                }
+
                 backup.State = Easy_Save.Model.Enum.BackupJobState.COMPLETED;
                 backup.Progress = "100%";
 
-                // Mise à jour du statut dans le fichier state.json
                 var finalStatus = statusManager.GetAllStatuses().FirstOrDefault(s => s.Name == backup.Name);
                 if (finalStatus != null)
                 {
@@ -132,11 +139,9 @@ namespace Easy_Save.Strategies
             }
             catch (OperationCanceledException)
             {
-                // Handle cancellation gracefully
                 Console.WriteLine($"Backup job '{backup.Name}' was stopped by the user.");
                 backup.State = Easy_Save.Model.Enum.BackupJobState.STOPPED;
 
-                // Mise à jour du statut dans le fichier state.json pour l'annulation
                 var cancelStatus = statusManager.GetAllStatuses().FirstOrDefault(s => s.Name == backup.Name);
                 if (cancelStatus != null)
                 {
@@ -146,11 +151,9 @@ namespace Easy_Save.Strategies
             }
             catch (Exception ex)
             {
-                // Handle other errors
                 Console.WriteLine($"Error during backup: {ex.Message}");
                 backup.State = Easy_Save.Model.Enum.BackupJobState.ERROR;
 
-                // Mise à jour du statut dans le fichier state.json pour l'erreur
                 var errorStatus = statusManager.GetAllStatuses().FirstOrDefault(s => s.Name == backup.Name);
                 if (errorStatus != null)
                 {

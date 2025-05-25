@@ -15,6 +15,7 @@ namespace Easy_Save.Controller
         public string[] RestrictedExtensions { get; set; } = Array.Empty<string>();
         public List<string> BusinessSoftwareList { get; set; } = new List<string>();
         public string CryptoSoftPath { get; set; } = string.Empty;
+        public List<string> PriorityExtensions { get; set; } = new(); // ✅ Ajout
 
         public BackupProcess()
         // In: none
@@ -35,6 +36,11 @@ namespace Easy_Save.Controller
             MaxFileSize = settings.MaxFileSize;
             RestrictedExtensions = settings.RestrictedExtensions.ToArray();
             CryptoSoftPath = settings.CryptoSoftPath;
+
+            if (settings.PriorityExtensions != null)
+            {
+                PriorityExtensions = new List<string>(settings.PriorityExtensions); // ✅ Lecture des extensions prioritaires
+            }
         }
 
         public bool AddBusinessSoftware(string softwareName)
