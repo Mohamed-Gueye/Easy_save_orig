@@ -16,19 +16,15 @@ namespace Easy_Save.Strategies
     {
         public void MakeBackup(Backup backup, StatusManager statusManager, LogObserver logObserver)
         {
-            // Set the backup state to RUNNING at the start
             backup.State = Easy_Save.Model.Enum.BackupJobState.RUNNING;
-            
+
             try
             {
                 var encryptionManager = EncryptionManager.Instance;
                 Console.WriteLine($"[DEBUG] Extensions à chiffrer chargées : {string.Join(", ", encryptionManager.ExtensionsToEncrypt)}");
                 Console.WriteLine($"[DEBUG] Chemin CryptoSoft.exe : {encryptionManager.EncryptionExecutablePath}");
-                
-                // Check for cancellation before starting
-                backup.CheckPauseAndCancellation();
 
-                DateTime lastBackupTime = statusManager.GetLastBackupDate(backup.Name);
+                backup.CheckPauseAndCancellation();
 
                 string[] files = Directory.GetFiles(backup.SourceDirectory, "*", SearchOption.AllDirectories);
                 long totalSize = files.Sum(f => new FileInfo(f).Length);
@@ -37,25 +33,21 @@ namespace Easy_Save.Strategies
 
                 foreach (string file in files)
                 {
-                    // Check if paused or cancelled before processing each file
                     backup.CheckPauseAndCancellation();
-                    
-                    DateTime lastModified = File.GetLastWriteTime(file);
 
-                    if (lastModified > lastBackupTime)
+                    string relativePath = Path.GetRelativePath(backup.SourceDirectory, file);
+                    string destinationPath = Path.Combine(backup.TargetDirectory, relativePath);
+                    string? destinationDir = Path.GetDirectoryName(destinationPath);
+
+                    bool destinationFileExists = File.Exists(destinationPath);
+                    bool fileModified = destinationFileExists &&
+                        File.GetLastWriteTime(file) > File.GetLastWriteTime(destinationPath);
+
+                    if (!destinationFileExists || fileModified)
                     {
-                        Console.WriteLine($"Fichier détecté : {file}");
-
-                        string relativePath = Path.GetRelativePath(backup.SourceDirectory, file);
-                        string destinationPath = Path.Combine(backup.TargetDirectory, relativePath);
-                        string? destinationDir = Path.GetDirectoryName(destinationPath);
-
                         if (!Directory.Exists(destinationDir))
-                        {
                             Directory.CreateDirectory(destinationDir);
-                        }
 
-                        // Créer une entrée de statut ACTIVE
                         var statusEntry = new StatusEntry(
                             backup.Name,
                             file,
@@ -68,14 +60,11 @@ namespace Easy_Save.Strategies
                             DateTime.Now
                         );
                         statusManager.UpdateStatus(statusEntry);
-                        
-                        // Update backup progress
+
                         backup.Progress = $"{(int)((copiedFiles.Count / (double)totalFiles) * 100)}%";
-                        
-                        // Ajouter un délai de 2 secondes pour permettre de voir l'état ACTIVE
+
                         Thread.Sleep(2000);
-                        
-                        // Check again for pause/cancel after the delay
+
                         backup.CheckPauseAndCancellation();
 
                         string ext = Path.GetExtension(file).ToLower();
@@ -88,8 +77,7 @@ namespace Easy_Save.Strategies
                         File.Copy(file, destinationPath, true);
                         swa.Stop();
                         transferTime = (int)swa.Elapsed.TotalMilliseconds;
-                        
-                        // Check for pause/cancel after file copy
+
                         backup.CheckPauseAndCancellation();
 
                         if (shouldEncrypt)
@@ -122,20 +110,17 @@ namespace Easy_Save.Strategies
                         copiedFiles.Add(file);
                     }
                 }
-                
-                // Set final state to COMPLETED if we get here without cancellation
+
                 backup.State = Easy_Save.Model.Enum.BackupJobState.COMPLETED;
                 backup.Progress = "100%";
             }
             catch (OperationCanceledException)
             {
-                // Handle cancellation gracefully
                 Console.WriteLine($"Backup job '{backup.Name}' was stopped by the user.");
                 backup.State = Easy_Save.Model.Enum.BackupJobState.STOPPED;
             }
             catch (Exception ex)
             {
-                // Handle other errors
                 Console.WriteLine($"Error during backup: {ex.Message}");
                 backup.State = Easy_Save.Model.Enum.BackupJobState.ERROR;
                 throw;

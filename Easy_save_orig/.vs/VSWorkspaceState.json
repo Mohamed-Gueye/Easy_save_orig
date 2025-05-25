@@ -1,13 +1,16 @@
 {
   "ExpandedNodes": [
     "",
-    "\\Controller",
-    "\\Interfaces",
     "\\Model",
-    "\\Observer",
-    "\\Strategies",
-    "\\View"
+    "\\Model\\Backup",
+    "\\Model\\Encryption",
+    "\\Model\\Enum",
+    "\\Model\\IO",
+    "\\Model\\Log",
+    "\\ViewModel",
+    "\\ViewModel\\Backup",
+    "\\ViewModel\\Observer"
   ],
-  "SelectedNode": "\\Model\\EncryptionHelper.cs",
+  "SelectedNode": "\\Program.cs",
   "PreviewInSolutionExplorer": false
 }

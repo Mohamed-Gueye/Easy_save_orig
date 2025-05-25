@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using Easy_Save.Model;
 
 namespace Easy_Save.Controller
@@ -9,7 +10,7 @@ namespace Easy_Save.Controller
     public class BackupProcess
     {
         private readonly BackupManager backupManager;
-        
+
         public long MaxFileSize { get; set; } = 0;
         public string[] RestrictedExtensions { get; set; } = Array.Empty<string>();
         public List<string> BusinessSoftwareList { get; set; } = new List<string>();
@@ -23,7 +24,7 @@ namespace Easy_Save.Controller
             backupManager = new BackupManager();
             LoadBackupRules();
         }
-        
+
         private void LoadBackupRules()
         // In: none
         // Out: void
@@ -35,7 +36,7 @@ namespace Easy_Save.Controller
             RestrictedExtensions = settings.RestrictedExtensions.ToArray();
             CryptoSoftPath = settings.CryptoSoftPath;
         }
-        
+
         public bool AddBusinessSoftware(string softwareName)
         // In: softwareName (string)
         // Out: bool (true if software added successfully)
@@ -43,18 +44,18 @@ namespace Easy_Save.Controller
         {
             if (string.IsNullOrWhiteSpace(softwareName))
                 return false;
-                
+
             var settings = BackupRulesManager.Instance;
             bool added = settings.AddBusinessSoftware(softwareName);
-            
+
             if (added)
             {
                 BusinessSoftwareList = new List<string>(settings.BusinessSoftwareList);
             }
-            
+
             return added;
         }
-        
+
         public bool RemoveBusinessSoftware(string softwareName)
         // In: softwareName (string)
         // Out: bool (true if software removed successfully)
@@ -62,18 +63,18 @@ namespace Easy_Save.Controller
         {
             if (string.IsNullOrWhiteSpace(softwareName))
                 return false;
-                
+
             var settings = BackupRulesManager.Instance;
             bool removed = settings.RemoveBusinessSoftware(softwareName);
-            
+
             if (removed)
             {
                 BusinessSoftwareList = new List<string>(settings.BusinessSoftwareList);
             }
-            
+
             return removed;
         }
-        
+
         public List<string> GetBusinessSoftwareList()
         // Out: List<string> 
         // Description: Returns a copy of the current list of software packages.
@@ -138,8 +139,8 @@ namespace Easy_Save.Controller
                 Console.WriteLine($"The business software '{runningSoftware}' is running. Backup execution is blocked.");
                 return;
             }
-            
-            backupManager.ExecuteBackup(name);
+
+            Task.Run(() => backupManager.ExecuteBackup(name));
         }
 
         public void RunAllBackups()
@@ -147,7 +148,7 @@ namespace Easy_Save.Controller
         // Out: void
         // Description: Executes all backups sequentially.
         {
-            backupManager.ExecuteAllBackups();
+            _ = backupManager.ExecuteAllBackupsAsync(false);
         }
 
         public void RunAllBackups(bool isConcurrent)
@@ -155,7 +156,7 @@ namespace Easy_Save.Controller
         // Out: void
         // Description: Executes all backups, either concurrently or sequentially based on the boolean.
         {
-            backupManager.ExecuteAllBackupsAsync(isConcurrent).Wait();
+            _ = backupManager.ExecuteAllBackupsAsync(isConcurrent);
         }
 
         public List<Backup> GetAllBackup()
@@ -165,7 +166,7 @@ namespace Easy_Save.Controller
         {
             return backupManager.GetAllBackup();
         }
-        
+
         public Backup? GetBackup(string name)
         // In: name (string)
         // Out: Backup?
@@ -173,9 +174,8 @@ namespace Easy_Save.Controller
         {
             if (string.IsNullOrEmpty(name))
                 return null;
-                
-            var allBackups = GetAllBackup();
-            return allBackups.FirstOrDefault(b => b.Name == name);
+
+            return backupManager.GetAllBackup().FirstOrDefault(b => b.Name == name);
         }
 
         public void DeleteBackup(string name)
