@@ -179,19 +179,13 @@ namespace Easy_Save.View
             txtDestinationPathLabel.Text = translationManager.GetUITranslation("backup.target");
             txtType.Text = translationManager.GetUITranslation("backup.type");
             btnFormCreate.Content = translationManager.GetUITranslation("menu.create");
-            btnBack.Content = "←"; // Pas de traduction pour ce bouton
-
-            // Mettre à jour les types de sauvegarde
+            btnBack.Content = "←"; // Pas de traduction pour ce bouton            // Mettre à jour les types de sauvegarde
             rbFull.Content = translationManager.GetUITranslation("backup.type_full");
-            rbDifferential.Content = translationManager.GetUITranslation("backup.type_differential");            // Mettre à jour les textes de la fenêtre de progression
-            txtProgressTitle.Text = translationManager.GetUITranslation("progress.title");
-            txtProgressInfo.Text = translationManager.GetUITranslation("progress.info");
-            btnStopBackup.Content = translationManager.GetUITranslation("progress.cancel");
+            rbDifferential.Content = translationManager.GetUITranslation("backup.type_differential");
 
             // Rafraîchir la liste des backups
             RefreshBackupList();
         }
-
         private void RefreshBackupList()
         {
             // Effacer la liste actuelle
@@ -229,28 +223,153 @@ namespace Easy_Save.View
 
                     border.MouseLeftButtonUp += BackupItem_Click;
 
-                    StackPanel panel = new StackPanel();
+                    // Grid principal pour organiser le contenu
+                    Grid mainGrid = new Grid();
+                    mainGrid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+                    mainGrid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+                    mainGrid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+                    mainGrid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
 
-                    panel.Children.Add(new TextBlock
+                    // Informations de base de la sauvegarde
+                    StackPanel infoPanel = new StackPanel { Margin = new Thickness(0, 0, 0, 10) };
+
+                    infoPanel.Children.Add(new TextBlock
                     {
                         Text = $"{translationManager.GetUITranslation("backup.name_label")} {backup.Name}",
-                        Foreground = Brushes.White
+                        Foreground = Brushes.White,
+                        FontWeight = FontWeights.Bold,
+                        FontSize = 14
                     });
 
-                    panel.Children.Add(new TextBlock
+                    infoPanel.Children.Add(new TextBlock
                     {
                         Text = $"{translationManager.GetUITranslation("backup.type")}: {backup.Type}",
-                        Foreground = Brushes.White
-                    });
-
-                    panel.Children.Add(new TextBlock
-                    {
-                        Text = $"{translationManager.GetUITranslation("backup.source")}: {backup.SourceDirectory} → {backup.TargetDirectory}",
                         Foreground = Brushes.White,
-                        TextWrapping = TextWrapping.Wrap
+                        FontSize = 12,
+                        Margin = new Thickness(0, 2, 0, 0)
                     });
 
-                    border.Child = panel;
+                    Grid.SetRow(infoPanel, 0);
+                    mainGrid.Children.Add(infoPanel);
+
+                    // Chemins source et destination
+                    StackPanel pathsPanel = new StackPanel { Margin = new Thickness(0, 0, 0, 10) };
+
+                    pathsPanel.Children.Add(new TextBlock
+                    {
+                        Text = $"{translationManager.GetUITranslation("backup.source")}: {backup.SourceDirectory}",
+                        Foreground = Brushes.LightGray,
+                        FontSize = 11,
+                        TextWrapping = TextWrapping.Wrap,
+                        Margin = new Thickness(0, 2, 0, 0)
+                    });
+
+                    pathsPanel.Children.Add(new TextBlock
+                    {
+                        Text = $"{translationManager.GetUITranslation("backup.target")}: {backup.TargetDirectory}",
+                        Foreground = Brushes.LightGray,
+                        FontSize = 11,
+                        TextWrapping = TextWrapping.Wrap,
+                        Margin = new Thickness(0, 2, 0, 0)
+                    });
+
+                    Grid.SetRow(pathsPanel, 1);
+                    mainGrid.Children.Add(pathsPanel);                    // Grid pour la barre de progression et les boutons (caché par défaut)
+                    Grid progressGrid = new Grid
+                    {
+                        Name = $"progressGrid_{backup.Name}",
+                        Margin = new Thickness(0, 5, 0, 0),
+                        Visibility = Visibility.Collapsed  // Caché par défaut
+                    };
+                    progressGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
+                    progressGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
+                    progressGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
+
+                    // Barre de progression avec pourcentage intégré
+                    Border progressBorder = new Border
+                    {
+                        Background = new SolidColorBrush(Color.FromRgb(51, 102, 102)),
+                        CornerRadius = new CornerRadius(10),
+                        Height = 25,
+                        Margin = new Thickness(0, 0, 10, 0)
+                    };
+
+                    Grid progressBarGrid = new Grid();
+
+                    // Barre de progression réelle
+                    ProgressBar progressBar = new ProgressBar
+                    {
+                        Name = $"progressBar_{backup.Name}",
+                        Value = 0,
+                        Maximum = 100,
+                        Background = Brushes.Transparent,
+                        Foreground = new SolidColorBrush(Color.FromRgb(0, 204, 204)),
+                        BorderThickness = new Thickness(0),
+                        Height = 25
+                    };
+
+                    // Texte du pourcentage au centre
+                    TextBlock percentageText = new TextBlock
+                    {
+                        Name = $"percentageText_{backup.Name}",
+                        Text = "0%",
+                        Foreground = Brushes.White,
+                        HorizontalAlignment = HorizontalAlignment.Center,
+                        VerticalAlignment = VerticalAlignment.Center,
+                        FontSize = 11,
+                        FontWeight = FontWeights.Bold
+                    };
+
+                    progressBarGrid.Children.Add(progressBar);
+                    progressBarGrid.Children.Add(percentageText);
+                    progressBorder.Child = progressBarGrid;
+
+                    Grid.SetColumn(progressBorder, 0);
+                    progressGrid.Children.Add(progressBorder);
+
+                    // Bouton Pause/Play
+                    Button pausePlayButton = new Button
+                    {
+                        Name = $"btnPausePlay_{backup.Name}",
+                        Width = 35,
+                        Height = 25,
+                        Background = new SolidColorBrush(Color.FromRgb(0, 124, 128)),
+                        Foreground = Brushes.White,
+                        BorderThickness = new Thickness(0),
+                        Content = "⏸", // Icône Pause par défaut
+                        FontSize = 12,
+                        Margin = new Thickness(0, 0, 5, 0),
+                        IsEnabled = false,
+                        Tag = backup.Name
+                    };
+                    pausePlayButton.Click += PausePlayButton_Click;
+
+                    Grid.SetColumn(pausePlayButton, 1);
+                    progressGrid.Children.Add(pausePlayButton);
+
+                    // Bouton Stop
+                    Button stopButton = new Button
+                    {
+                        Name = $"btnStop_{backup.Name}",
+                        Width = 35,
+                        Height = 25,
+                        Background = new SolidColorBrush(Color.FromRgb(0, 124, 128)),
+                        Foreground = Brushes.White,
+                        BorderThickness = new Thickness(0),
+                        Content = "⏹", // Icône Stop
+                        FontSize = 12,
+                        IsEnabled = false,
+                        Tag = backup.Name
+                    };
+                    stopButton.Click += StopButton_Click;
+
+                    Grid.SetColumn(stopButton, 2);
+                    progressGrid.Children.Add(stopButton);
+
+                    Grid.SetRow(progressGrid, 2);
+                    mainGrid.Children.Add(progressGrid);
+
+                    border.Child = mainGrid;
                     backupListPanel.Children.Add(border);
                 }
             }
@@ -312,7 +431,6 @@ namespace Easy_Save.View
             createView.Visibility = Visibility.Collapsed;
             listView.Visibility = Visibility.Visible;
         }
-
         private async void BtnExecute_Click(object sender, RoutedEventArgs e)
         {
             if (selectedBackupItem == null)
@@ -330,21 +448,22 @@ namespace Easy_Save.View
                 string message = translationManager.GetFormattedUITranslation("business.software.running", runningSoftware);
                 MessageBox.Show(message, "EasySave", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
-            }
-
-            // Désactiver les boutons pendant l'exécution
+            }            // Désactiver les boutons pendant l'exécution
             btnExecute.IsEnabled = false;
             btnDelete.IsEnabled = false;
             btnExecuteAll.IsEnabled = false;
             btnCreate.IsEnabled = false;
 
+            // Afficher la barre de progression et les boutons de contrôle
+            ShowHideBackupProgress(backupName, true);
+
+            // Activer les boutons de contrôle de la sauvegarde
+            EnableBackupControls(backupName, true);
+
             try
             {
                 // Créer un nouveau jeton d'annulation
                 cancellationTokenSource = new CancellationTokenSource();
-
-                // Afficher la fenêtre de progression
-                ShowProgressOverlay(backupName);
 
                 // Initialiser le suivi de progression
                 var progress = new Progress<(int Current, int Total)>(progressData =>
@@ -352,30 +471,13 @@ namespace Easy_Save.View
                     // Utiliser le Dispatcher pour mettre à jour l'UI depuis un thread d'arrière-plan
                     Dispatcher.Invoke(() =>
                     {
-                        // Mise à jour de la barre de progression
-                        int percentage = progressData.Current;
-                        progressBar.Value = percentage;
-                        txtProgressPercentage.Text = $"{percentage}%";
-
-                        // Mettre à jour les informations supplémentaires
-                        var statusEntry = GetCurrentBackupStatus(backupName);
-                        if (statusEntry != null)
-                        {
-                            txtFileCount.Text = $"Files: {statusEntry.TotalFilesToCopy - statusEntry.NbFilesLeftToDo}/{statusEntry.TotalFilesToCopy}";
-
-                            // Ne mettre à jour le statut que si nous ne sommes pas en PAUSED
-                            var backup = backupProcess.GetBackup(backupName);
-                            if (backup == null || backup.State != Easy_Save.Model.Enum.BackupJobState.PAUSED)
-                            {
-                                txtBackupState.Text = $"State: {statusEntry.State}";
-                            }
-                        }
+                        // Mise à jour de la barre de progression intégrée
+                        UpdateBackupProgress(backupName, progressData.Current);
                     });
                 });
 
                 // Exécuter la sauvegarde
-                await progressTracker.ExecuteBackupWithProgressAsync(backupName, progress, cancellationTokenSource.Token);                // Masquer la fenêtre de progression
-                HideProgressOverlay();
+                await progressTracker.ExecuteBackupWithProgressAsync(backupName, progress, cancellationTokenSource.Token);
 
                 if (!cancellationTokenSource.Token.IsCancellationRequested)
                 {
@@ -395,7 +497,6 @@ namespace Easy_Save.View
             catch (OperationCanceledException)
             {
                 // L'utilisateur a annulé l'opération
-                HideProgressOverlay();
                 Console.WriteLine("Backup operation cancelled by user.");
 
                 // Informer l'utilisateur que la sauvegarde a été annulée
@@ -403,7 +504,9 @@ namespace Easy_Save.View
                     translationManager.GetFormattedUITranslation("backup.cancelled", backupName),
                     "EasySave",
                     MessageBoxButton.OK,
-                    MessageBoxImage.Information);                // Réinitialiser l'état de la sauvegarde pour permettre une nouvelle exécution
+                    MessageBoxImage.Information);
+
+                // Réinitialiser l'état de la sauvegarde pour permettre une nouvelle exécution
                 var backup = backupProcess.GetBackup(backupName);
                 if (backup != null)
                 {
@@ -424,7 +527,6 @@ namespace Easy_Save.View
             catch (Exception ex)
             {
                 // Une erreur s'est produite
-                HideProgressOverlay();
                 MessageBox.Show(
                     translationManager.GetFormattedUITranslation("error.execution", backupName, ex.Message),
                     "EasySave",
@@ -438,6 +540,15 @@ namespace Easy_Save.View
                 btnDelete.IsEnabled = true;
                 btnExecuteAll.IsEnabled = true;
                 btnCreate.IsEnabled = true;
+
+                // Cacher la barre de progression et les boutons de contrôle
+                ShowHideBackupProgress(backupName, false);
+
+                // Désactiver les boutons de contrôle de la sauvegarde
+                EnableBackupControls(backupName, false);
+
+                // Réinitialiser la barre de progression
+                UpdateBackupProgress(backupName, 0);
             }
         }
 
@@ -466,16 +577,18 @@ namespace Easy_Save.View
             btnExecute.IsEnabled = false;
             btnDelete.IsEnabled = false;
             btnExecuteAll.IsEnabled = false;
-            btnCreate.IsEnabled = false;
-
-            try
-            {
-                // Créer un nouveau jeton d'annulation
+            btnCreate.IsEnabled = false; try
+            {                // Créer un nouveau jeton d'annulation
                 cancellationTokenSource = new CancellationTokenSource();
 
-                // Afficher un message de progression
-                string executionMode = isConcurrentExecution ? "Concurrent" : "Sequential";
-                ShowProgressOverlay($"All Backups ({backups.Count}) - {executionMode} Mode");
+                Console.WriteLine($"Executing all backups in {(isConcurrentExecution ? "concurrent" : "sequential")} mode");
+
+                // Afficher les barres de progression pour toutes les sauvegardes
+                foreach (var backup in backups)
+                {
+                    ShowHideBackupProgress(backup.Name, true);
+                    EnableBackupControls(backup.Name, true);
+                }
 
                 // Initialiser le suivi de progression pour toutes les sauvegardes
                 var progress = new Progress<(string BackupName, int Current, int Total)>(progressData =>
@@ -483,24 +596,10 @@ namespace Easy_Save.View
                     // Utiliser le Dispatcher pour mettre à jour l'UI depuis un thread d'arrière-plan
                     Dispatcher.Invoke(() =>
                     {
-                        // Mettre à jour l'UI avec la progression
-                        int percentage = progressData.Current;
-
-                        progressBar.Value = percentage;
-                        txtProgressPercentage.Text = $"{percentage}%";
-                        txtProgressInfo.Text = translationManager.GetFormattedUITranslation("backup.start", progressData.BackupName);
-
-                        // Mettre à jour les informations supplémentaires
-                        var statusEntry = GetCurrentBackupStatus(progressData.BackupName);
-                        if (statusEntry != null)
-                        {
-                            txtFileCount.Text = $"Files: {statusEntry.TotalFilesToCopy - statusEntry.NbFilesLeftToDo}/{statusEntry.TotalFilesToCopy}";
-                            txtBackupState.Text = $"State: {statusEntry.State}";
-                        }
+                        // Mettre à jour la barre de progression intégrée pour chaque backup
+                        UpdateBackupProgress(progressData.BackupName, progressData.Current);
                     });
                 });
-
-                Console.WriteLine($"Executing all backups in {(isConcurrentExecution ? "concurrent" : "sequential")} mode");
 
                 // Exécuter toutes les sauvegardes avec le mode choisi par l'utilisateur
                 int successCount;
@@ -518,9 +617,7 @@ namespace Easy_Save.View
                     // Utiliser le mode séquentiel avec suivi de la progression
                     successCount = await progressTracker.ExecuteAllBackupsWithProgressAsync(progress, cancellationTokenSource.Token);
                 }
-
-                // Masquer la fenêtre de progression
-                HideProgressOverlay(); if (cancellationTokenSource.Token.IsCancellationRequested)
+                if (cancellationTokenSource.Token.IsCancellationRequested)
                 {
                     // L'opération a été annulée par l'utilisateur
                     Console.WriteLine("All backup operations were cancelled by user.");
@@ -559,9 +656,6 @@ namespace Easy_Save.View
             }
             catch (Exception ex)
             {
-                // Masquer la fenêtre de progression
-                HideProgressOverlay();
-
                 // Afficher l'erreur
                 MessageBox.Show(
                     $"Error executing backups: {ex.Message}",
@@ -571,6 +665,14 @@ namespace Easy_Save.View
             }
             finally
             {
+                // Cacher les barres de progression pour toutes les sauvegardes
+                foreach (var backup in backups)
+                {
+                    ShowHideBackupProgress(backup.Name, false);
+                    EnableBackupControls(backup.Name, false);
+                    UpdateBackupProgress(backup.Name, 0);
+                }
+
                 // Réactiver les boutons
                 btnExecute.IsEnabled = selectedBackupItem != null;
                 btnDelete.IsEnabled = selectedBackupItem != null;
@@ -761,36 +863,6 @@ namespace Easy_Save.View
                 isConcurrentExecution = radioButton.Name == "rbConcurrent";
                 Console.WriteLine($"Execution mode changed to: {(isConcurrentExecution ? "Concurrent" : "Sequential")}");
             }
-        }
-
-        private void ShowProgressOverlay(string backupName)
-        {
-            // Stocker le nom de la sauvegarde en cours
-            currentRunningBackup = backupName;
-
-            // Mettre à jour les textes
-            txtProgressTitle.Text = translationManager.GetUITranslation("progress.title");
-            txtProgressInfo.Text = translationManager.GetFormattedUITranslation("backup.start", backupName);
-            progressBar.Value = 0;
-            txtProgressPercentage.Text = "0%";
-            txtFileCount.Text = "Files: 0/0";
-            txtBackupState.Text = "State: PENDING";
-            // Afficher l'overlay
-            progressOverlay.Visibility = Visibility.Visible;
-
-            // Activer/désactiver les boutons en fonction de l'état initial
-            btnPlayBackup.IsEnabled = false; // Le bouton Play est désactivé au début, car la sauvegarde est déjà en cours
-            btnPauseBackup.IsEnabled = true; // Le bouton Pause est actif pour permettre la mise en pause
-            btnStopBackup.IsEnabled = true;  // Le bouton Stop est actif pour permettre l'arrêt
-        }
-
-        private void HideProgressOverlay()
-        {
-            // Réinitialiser le nom de la sauvegarde en cours
-            currentRunningBackup = null;
-
-            // Masquer l'overlay
-            progressOverlay.Visibility = Visibility.Collapsed;
         }
 
         private void LoadBackupRules()
@@ -1038,106 +1110,210 @@ namespace Easy_Save.View
             return null;
         }
 
-        #region Méthodes contrôle de sauvegarde (Play/Pause/Stop)
-        private void BtnPlayBackup_Click(object sender, RoutedEventArgs e)
+        #region Nouvelles méthodes pour la progression intégrée
+
+        private void PausePlayButton_Click(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrEmpty(currentRunningBackup))
-                return;
-
-            try
+            if (sender is Button button && button.Tag is string backupName)
             {
-                var backup = backupProcess.GetBackup(currentRunningBackup);
-                if (backup != null)
+                try
                 {
-                    // Reprendre la sauvegarde
-                    backup.Play();
-
-                    // Mettre à jour l'état affiché
-                    txtBackupState.Text = $"State: RUNNING";
-
-                    // Désactiver le bouton Play et activer le bouton Pause
-                    btnPlayBackup.IsEnabled = false;
-                    btnPauseBackup.IsEnabled = true;
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(
-                    $"Error resuming backup: {ex.Message}",
-                    "EasySave",
-                    MessageBoxButton.OK,
-                    MessageBoxImage.Error);
-            }
-        }
-
-        private void BtnPauseBackup_Click(object sender, RoutedEventArgs e)
-        {
-            if (string.IsNullOrEmpty(currentRunningBackup))
-                return;
-
-            try
-            {
-                var backup = backupProcess.GetBackup(currentRunningBackup);
-                if (backup != null)
-                {
-                    // Mettre en pause la sauvegarde
-                    backup.Pause();
-
-                    // Mettre à jour l'état affiché
-                    txtBackupState.Text = $"State: PAUSED";
-
-                    // Activer le bouton Play et désactiver le bouton Pause
-                    btnPlayBackup.IsEnabled = true;
-                    btnPauseBackup.IsEnabled = false;
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(
-                    $"Error pausing backup: {ex.Message}",
-                    "EasySave",
-                    MessageBoxButton.OK,
-                    MessageBoxImage.Error);
-            }
-        }
-        private void BtnStopBackup_Click(object sender, RoutedEventArgs e)
-        {
-            if (string.IsNullOrEmpty(currentRunningBackup))
-                return;
-
-            try
-            {
-                var backup = backupProcess.GetBackup(currentRunningBackup);
-                if (backup != null)
-                {
-                    // Arrêter la sauvegarde
-                    backup.Stop();
-
-                    // Annuler également l'opération via le token de cancellation
-                    cancellationTokenSource?.Cancel();
-
-                    // Mettre à jour l'état affiché
-                    txtBackupState.Text = $"State: STOPPED";
-
-                    // Mettre à jour immédiatement le statut dans le fichier state.json
-                    var statusManager = new Easy_Save.Model.IO.StatusManager();
-                    var statusEntry = GetCurrentBackupStatus(currentRunningBackup);
-                    if (statusEntry != null)
+                    var backup = backupProcess.GetBackup(backupName);
+                    if (backup != null)
                     {
-                        statusEntry.State = "STOPPED";
-                        statusManager.UpdateStatus(statusEntry);
+                        if (backup.State == Easy_Save.Model.Enum.BackupJobState.RUNNING)
+                        {
+                            // Mettre en pause
+                            backup.Pause();
+                            button.Content = "▶"; // Icône Play
+                        }
+                        else if (backup.State == Easy_Save.Model.Enum.BackupJobState.PAUSED)
+                        {
+                            // Reprendre
+                            backup.Play();
+                            button.Content = "⏸"; // Icône Pause
+                        }
                     }
                 }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(
+                        $"Error controlling backup: {ex.Message}",
+                        "EasySave",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Error);
+                }
+            }
+        }
+
+        private void StopButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is Button button && button.Tag is string backupName)
+            {
+                try
+                {
+                    var backup = backupProcess.GetBackup(backupName);
+                    if (backup != null)
+                    {
+                        // Arrêter la sauvegarde
+                        backup.Stop();
+
+                        // Annuler également l'opération via le token de cancellation si c'est la sauvegarde courante
+                        if (currentRunningBackup == backupName)
+                        {
+                            cancellationTokenSource?.Cancel();
+                        }
+
+                        // Mettre à jour immédiatement le statut dans le fichier state.json
+                        var statusManager = new Easy_Save.Model.IO.StatusManager();
+                        var statusEntry = GetCurrentBackupStatus(backupName);
+                        if (statusEntry != null)
+                        {
+                            statusEntry.State = "STOPPED";
+                            statusManager.UpdateStatus(statusEntry);
+                        }                        // Cacher la barre de progression et désactiver les boutons de contrôle
+                        ShowHideBackupProgress(backupName, false);
+                        EnableBackupControls(backupName, false);
+
+                        // Réinitialiser la barre de progression
+                        UpdateBackupProgress(backupName, 0);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(
+                        $"Error stopping backup: {ex.Message}",
+                        "EasySave",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Error);
+                }
+            }
+        }
+
+        private void UpdateBackupProgress(string backupName, int percentage)
+        {
+            try
+            {
+                // Trouver la barre de progression correspondante
+                var progressBar = FindProgressBar(backupName);
+                var percentageText = FindPercentageText(backupName);
+
+                if (progressBar != null)
+                {
+                    progressBar.Value = percentage;
+                }
+
+                if (percentageText != null)
+                {
+                    percentageText.Text = $"{percentage}%";
+                }
             }
             catch (Exception ex)
             {
-                MessageBox.Show(
-                    $"Error stopping backup: {ex.Message}",
-                    "EasySave",
-                    MessageBoxButton.OK,
-                    MessageBoxImage.Error);
+                Console.WriteLine($"Error updating progress for {backupName}: {ex.Message}");
             }
         }
+
+        private void EnableBackupControls(string backupName, bool enabled)
+        {
+            try
+            {
+                var pausePlayButton = FindPausePlayButton(backupName);
+                var stopButton = FindStopButton(backupName);
+
+                if (pausePlayButton != null)
+                {
+                    pausePlayButton.IsEnabled = enabled;
+                    if (enabled)
+                    {
+                        pausePlayButton.Content = "⏸"; // Icône Pause par défaut quand on démarre
+                    }
+                }
+
+                if (stopButton != null)
+                {
+                    stopButton.IsEnabled = enabled;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error enabling controls for {backupName}: {ex.Message}");
+            }
+        }
+
+        private ProgressBar FindProgressBar(string backupName)
+        {
+            return FindNamedElement<ProgressBar>($"progressBar_{backupName}");
+        }
+
+        private TextBlock FindPercentageText(string backupName)
+        {
+            return FindNamedElement<TextBlock>($"percentageText_{backupName}");
+        }
+
+        private Button FindPausePlayButton(string backupName)
+        {
+            return FindNamedElement<Button>($"btnPausePlay_{backupName}");
+        }
+
+        private Button FindStopButton(string backupName)
+        {
+            return FindNamedElement<Button>($"btnStop_{backupName}");
+        }
+
+        private T FindNamedElement<T>(string name) where T : FrameworkElement
+        {
+            foreach (Border border in backupListPanel.Children.OfType<Border>())
+            {
+                var element = FindElementInVisualTree<T>(border, name);
+                if (element != null)
+                    return element;
+            }
+            return null;
+        }
+
+        private T FindElementInVisualTree<T>(DependencyObject parent, string name) where T : FrameworkElement
+        {
+            if (parent == null) return null;
+
+            var childCount = VisualTreeHelper.GetChildrenCount(parent);
+            for (int i = 0; i < childCount; i++)
+            {
+                var child = VisualTreeHelper.GetChild(parent, i);
+
+                if (child is T element && element.Name == name)
+                {
+                    return element;
+                }
+
+                var result = FindElementInVisualTree<T>(child, name);
+                if (result != null)
+                    return result;
+            }
+            return null;
+        }
+
+        private void ShowHideBackupProgress(string backupName, bool show)
+        {
+            try
+            {
+                var progressGrid = FindProgressGrid(backupName);
+                if (progressGrid != null)
+                {
+                    progressGrid.Visibility = show ? Visibility.Visible : Visibility.Collapsed;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error showing/hiding progress for {backupName}: {ex.Message}");
+            }
+        }
+
+        private Grid FindProgressGrid(string backupName)
+        {
+            return FindNamedElement<Grid>($"progressGrid_{backupName}");
+        }
+
         #endregion
     }
 }

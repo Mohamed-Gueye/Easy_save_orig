@@ -12,535 +12,406 @@
         WindowStartupLocation="CenterScreen"
         x:Name="mainWindow">
 
-    <Window.Resources>
-        <Style x:Key="MenuButtonStyle"
-                TargetType="Button">
-            <Setter Property="Width"
-                    Value="180"/>
-            <Setter Property="Height"
-                    Value="50"/>
-            <Setter Property="Margin"
-                    Value="0,10,0,0"/>
-            <Setter Property="Background"
-                    Value="#007C80"/>
-            <Setter Property="Foreground"
-                    Value="White"/>
-            <Setter Property="FontWeight"
-                    Value="Bold"/>
-            <Setter Property="FontSize"
-                    Value="16"/>
-            <Setter Property="Cursor"
-                    Value="Hand"/>
-        </Style>
+        <Window.Resources>
+                <Style x:Key="MenuButtonStyle"
+                       TargetType="Button">
+                        <Setter Property="Width"
+                                Value="180"/>
+                        <Setter Property="Height"
+                                Value="50"/>
+                        <Setter Property="Margin"
+                                Value="0,10,0,0"/>
+                        <Setter Property="Background"
+                                Value="#007C80"/>
+                        <Setter Property="Foreground"
+                                Value="White"/>
+                        <Setter Property="FontWeight"
+                                Value="Bold"/>
+                        <Setter Property="FontSize"
+                                Value="16"/>
+                        <Setter Property="Cursor"
+                                Value="Hand"/>
+                </Style>
 
-        <Style x:Key="SettingsButtonStyle"
-                TargetType="Button">
-            <Setter Property="Width"
-                    Value="40"/>
-            <Setter Property="Height"
-                    Value="40"/>
-            <Setter Property="Background"
-                    Value="#007C80"/>
-            <Setter Property="Foreground"
-                    Value="White"/>
-            <Setter Property="FontWeight"
-                    Value="Bold"/>
-            <Setter Property="Cursor"
-                    Value="Hand"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type Button}">
-                        <Border Background="{TemplateBinding Background}"
-                                CornerRadius="20">
-                            <ContentPresenter HorizontalAlignment="Center"
-                                    VerticalAlignment="Center"/>
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
+                <Style x:Key="SettingsButtonStyle"
+                       TargetType="Button">
+                        <Setter Property="Width"
+                                Value="40"/>
+                        <Setter Property="Height"
+                                Value="40"/>
+                        <Setter Property="Background"
+                                Value="#007C80"/>
+                        <Setter Property="Foreground"
+                                Value="White"/>
+                        <Setter Property="FontWeight"
+                                Value="Bold"/>
+                        <Setter Property="Cursor"
+                                Value="Hand"/>
+                        <Setter Property="Template">
+                                <Setter.Value>
+                                        <ControlTemplate TargetType="{x:Type Button}">
+                                                <Border Background="{TemplateBinding Background}"
+                                                        CornerRadius="20">
+                                                        <ContentPresenter HorizontalAlignment="Center"
+                                                                          VerticalAlignment="Center"/>
+                                                </Border>
+                                        </ControlTemplate>
+                                </Setter.Value>
+                        </Setter>
+                </Style>
 
-        <Style x:Key="LanguageButtonStyle"
-                TargetType="Button">
-            <Setter Property="Width"
-                    Value="120"/>
-            <Setter Property="Height"
-                    Value="35"/>
-            <Setter Property="Margin"
-                    Value="0,5,0,5"/>
-            <Setter Property="Background"
-                    Value="#007C80"/>
-            <Setter Property="Foreground"
-                    Value="White"/>
-            <Setter Property="FontWeight"
-                    Value="Bold"/>
-            <Setter Property="FontSize"
-                    Value="14"/>
-            <Setter Property="Cursor"
-                    Value="Hand"/>
-        </Style>
+                <Style x:Key="LanguageButtonStyle"
+                       TargetType="Button">
+                        <Setter Property="Width"
+                                Value="120"/>
+                        <Setter Property="Height"
+                                Value="35"/>
+                        <Setter Property="Margin"
+                                Value="0,5,0,5"/>
+                        <Setter Property="Background"
+                                Value="#007C80"/>
+                        <Setter Property="Foreground"
+                                Value="White"/>
+                        <Setter Property="FontWeight"
+                                Value="Bold"/>
+                        <Setter Property="FontSize"
+                                Value="14"/>
+                        <Setter Property="Cursor"
+                                Value="Hand"/>
+                </Style>
 
-        <Style x:Key="BackupItemStyle"
-                TargetType="Border">
-            <Setter Property="Background"
-                    Value="#007C80"/>
-            <Setter Property="CornerRadius"
-                    Value="5"/>
-            <Setter Property="Margin"
-                    Value="0,5,0,5"/>
-            <Setter Property="Padding"
-                    Value="10"/>
-            <Setter Property="Cursor"
-                    Value="Hand"/>
-            <Setter Property="BorderThickness"
-                    Value="0"/>
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver"
-                        Value="True">
-                    <Setter Property="Background"
-                            Value="#008C90"/>
-                    <Setter Property="BorderBrush"
-                            Value="#AAE0E0"/>
-                    <Setter Property="BorderThickness"
-                            Value="1"/>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
+                <Style x:Key="BackupItemStyle"
+                       TargetType="Border">
+                        <Setter Property="Background"
+                                Value="#007C80"/>
+                        <Setter Property="CornerRadius"
+                                Value="5"/>
+                        <Setter Property="Margin"
+                                Value="0,5,0,5"/>
+                        <Setter Property="Padding"
+                                Value="10"/>
+                        <Setter Property="Cursor"
+                                Value="Hand"/>
+                        <Setter Property="BorderThickness"
+                                Value="0"/>
+                        <Style.Triggers>
+                                <Trigger Property="IsMouseOver"
+                                         Value="True">
+                                        <Setter Property="Background"
+                                                Value="#008C90"/>
+                                        <Setter Property="BorderBrush"
+                                                Value="#AAE0E0"/>
+                                        <Setter Property="BorderThickness"
+                                                Value="1"/>
+                                </Trigger>
+                        </Style.Triggers>
+                </Style>
 
-        <Style x:Key="BusinessSoftwareItemStyle"
-                TargetType="Border">
-            <Setter Property="Background"
-                    Value="#007C80"/>
-            <Setter Property="CornerRadius"
-                    Value="5"/>
-            <Setter Property="Margin"
-                    Value="0,2,0,2"/>
-            <Setter Property="Padding"
-                    Value="5"/>
-            <Setter Property="Cursor"
-                    Value="Hand"/>
-        </Style>
-    </Window.Resources>
+                <Style x:Key="BusinessSoftwareItemStyle"
+                       TargetType="Border">
+                        <Setter Property="Background"
+                                Value="#007C80"/>
+                        <Setter Property="CornerRadius"
+                                Value="5"/>
+                        <Setter Property="Margin"
+                                Value="0,2,0,2"/>
+                        <Setter Property="Padding"
+                                Value="5"/>
+                        <Setter Property="Cursor"
+                                Value="Hand"/>
+                </Style>
+        </Window.Resources>
 
-    <Grid>
-        <!-- Contenu principal -->
-        <Grid Margin="20">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="250"
-                        MinWidth="200"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
+        <Grid>
+                <!-- Contenu principal -->
+                <Grid Margin="20">
+                        <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="250"
+                                                  MinWidth="200"/>
+                                <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
 
-            <!-- Bouton Paramètres en haut à gauche -->
-            <Button x:Name="btnSettings"
-                    Content="⚙"
-                    Style="{StaticResource SettingsButtonStyle}"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Top"
-                    Margin="0,0,0,20"
-                    Click="BtnSettings_Click"
-                    FontSize="20"/>
-
-            <!-- Menu latéral avec les boutons -->
-            <StackPanel Grid.Column="0"
-                    VerticalAlignment="Center"
-                    HorizontalAlignment="Center">
-                <TextBlock Text="EasySave"
-                        FontSize="36"
-                        FontFamily="Consolas"
-                        Foreground="White"
-                        HorizontalAlignment="Center"
-                        Margin="0,0,0,30"/>
-                <Button x:Name="btnCreate"
-                        Content="Create"
-                        Style="{StaticResource MenuButtonStyle}"
-                        Click="BtnCreate_Click"/>
-                <Button x:Name="btnExecute"
-                        Content="Execute"
-                        Style="{StaticResource MenuButtonStyle}"
-                        Click="BtnExecute_Click"
-                        IsEnabled="False"/>
-                <Button x:Name="btnExecuteAll"
-                        Content="Execute All"
-                        Style="{StaticResource MenuButtonStyle}"
-                        Click="BtnExecuteAll_Click"/>
-                <Button x:Name="btnDelete"
-                        Content="Delete"
-                        Style="{StaticResource MenuButtonStyle}"
-                        Click="BtnDelete_Click"
-                        IsEnabled="False"/>
-                <Button x:Name="btnQuit"
-                        Content="Quitter"
-                        Style="{StaticResource MenuButtonStyle}"
-                        Margin="0,60,0,0"
-                        Click="BtnQuit_Click"/>
-            </StackPanel>
-
-            <!-- Conteneur principal pour les différentes vues -->
-            <Grid Grid.Column="1">
-                <!-- Vue Liste (par défaut) -->
-                <Border x:Name="listView"
-                        Background="#EFFFFF"
-                        CornerRadius="20"
-                        Padding="20"
-                        Margin="40"
-                        Visibility="Visible">
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="*"/>
-                        </Grid.RowDefinitions>
-
-                        <TextBlock x:Name="txtListTitle"
-                                Grid.Row="0"
-                                Text="Liste des sauvegardes"
-                                FontSize="24"
-                                FontWeight="Bold"
-                                Margin="0,0,0,20"/>
-
-                        <ScrollViewer Grid.Row="1"
-                                VerticalScrollBarVisibility="Auto"
-                                HorizontalScrollBarVisibility="Auto">
-                            <StackPanel x:Name="backupListPanel">
-                                <!-- Liste de backups générée dynamiquement -->
-                            </StackPanel>
-                        </ScrollViewer>
-                    </Grid>
-                </Border>
-
-                <!-- Vue Création (masquée par défaut) -->
-                <Border x:Name="createView"
-                        Background="#EFFFFF"
-                        CornerRadius="20"
-                        Padding="40"
-                        Margin="40"
-                        Visibility="Collapsed">
-                    <Grid>
-                        <Button x:Name="btnBack"
-                                Content="←"
-                                Width="40"
-                                Height="40"
+                        <!-- Bouton Paramètres en haut à gauche -->
+                        <Button x:Name="btnSettings"
+                                Content="⚙"
+                                Style="{StaticResource SettingsButtonStyle}"
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Top"
-                                Background="#007C80"
-                                Foreground="White"
-                                FontWeight="Bold"
-                                Click="BtnBack_Click"
-                                Margin="0,0,0,20"/>
+                                Margin="0,0,0,20"
+                                Click="BtnSettings_Click"
+                                FontSize="20"/>
 
-                        <StackPanel Margin="0,50,0,0">
-                            <TextBlock x:Name="txtBackupName"
-                                    Text="Nom de la sauvegarde"
-                                    FontSize="16"/>
-                            <TextBox x:Name="txtJobName"
-                                    Margin="0,5,0,20"
-                                    Height="30"/>
-
-                            <TextBlock x:Name="txtSourcePathLabel"
-                                    Text="Chemin du dossier source"
-                                    FontSize="16"/>
-                            <DockPanel Margin="0,5,0,20"
-                                    LastChildFill="True">
-                                <Button Content="..."
-                                        Width="30"
-                                        Height="30"
-                                        Margin="10,0,0,0"
-                                        Click="BrowseFolder_Click"
-                                        DockPanel.Dock="Right"
-                                        Background="#007C80"
-                                        Foreground="White"
-                                        FontWeight="Bold"/>
-                                <TextBox x:Name="txtSourcePath"
-                                        Height="30"/>
-                            </DockPanel>
-
-                            <TextBlock x:Name="txtDestinationPathLabel"
-                                    Text="Chemin du dossier de destination"
-                                    FontSize="16"/>
-                            <DockPanel Margin="0,5,0,20"
-                                    LastChildFill="True">
-                                <Button Content="..."
-                                        Width="30"
-                                        Height="30"
-                                        Margin="10,0,0,0"
-                                        Click="BrowseFolder_Click"
-                                        DockPanel.Dock="Right"
-                                        Background="#007C80"
-                                        Foreground="White"
-                                        FontWeight="Bold"/>
-                                <TextBox x:Name="txtDestinationPath"
-                                        Height="30"/>
-                            </DockPanel>
-
-                            <TextBlock x:Name="txtType"
-                                    Text="Type"
-                                    FontSize="16"
-                                    Margin="0,10,0,5"/>
-                            <StackPanel x:Name="BackupTypeRadioButtons"
-                                    Orientation="Horizontal"
-                                    Margin="0,0,0,20">
-                                <RadioButton x:Name="rbFull"
-                                        Content="FULL"
-                                        GroupName="BackupType"
-                                        IsChecked="True"
-                                        Margin="0,0,40,0"/>
-                                <RadioButton x:Name="rbDifferential"
-                                        Content="DIFFERENTIAL"
-                                        GroupName="BackupType"/>
-                            </StackPanel>
-
-                            <Button x:Name="btnFormCreate"
-                                    Content="Create"
-                                    Width="150"
-                                    Height="40"
-                                    Background="#007C80"
-                                    Foreground="White"
-                                    FontWeight="Bold"
-                                    FontSize="16"
-                                    HorizontalAlignment="Center"
-                                    Margin="0,30,0,0"
-                                    Click="BtnFormCreate_Click"/>
+                        <!-- Menu latéral avec les boutons -->
+                        <StackPanel Grid.Column="0"
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Center">
+                                <TextBlock Text="EasySave"
+                                           FontSize="36"
+                                           FontFamily="Consolas"
+                                           Foreground="White"
+                                           HorizontalAlignment="Center"
+                                           Margin="0,0,0,30"/>
+                                <Button x:Name="btnCreate"
+                                        Content="Create"
+                                        Style="{StaticResource MenuButtonStyle}"
+                                        Click="BtnCreate_Click"/>
+                                <Button x:Name="btnExecute"
+                                        Content="Execute"
+                                        Style="{StaticResource MenuButtonStyle}"
+                                        Click="BtnExecute_Click"
+                                        IsEnabled="False"/>
+                                <Button x:Name="btnExecuteAll"
+                                        Content="Execute All"
+                                        Style="{StaticResource MenuButtonStyle}"
+                                        Click="BtnExecuteAll_Click"/>
+                                <Button x:Name="btnDelete"
+                                        Content="Delete"
+                                        Style="{StaticResource MenuButtonStyle}"
+                                        Click="BtnDelete_Click"
+                                        IsEnabled="False"/>
+                                <Button x:Name="btnQuit"
+                                        Content="Quitter"
+                                        Style="{StaticResource MenuButtonStyle}"
+                                        Margin="0,60,0,0"
+                                        Click="BtnQuit_Click"/>
                         </StackPanel>
-                    </Grid>
-                </Border>
-            </Grid>
-        </Grid>
 
-        <!-- Menu de sélection de langue (en overlay) -->
-        <Grid x:Name="languageMenuOverlay"
-                Visibility="Collapsed"
-                Background="#33000000"
-                Panel.ZIndex="100"
-              MouseDown="LanguageMenuOverlay_MouseDown">
-            <Border x:Name="languageMenu"
-                    Background="#004446"
-                    CornerRadius="10"
-                    Padding="10"
-                    Width="280"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Top"
-                    Margin="70,20,0,0"
-                    MouseDown="LanguageMenu_MouseDown">
-                <StackPanel>
-                    <TextBlock x:Name="txtLanguage"
-                            Text="Langue"
-                            FontSize="16"
-                            FontWeight="Bold"
-                            Foreground="White"
-                            Margin="0,0,0,10"
-                            HorizontalAlignment="Center"/>
-                    <Button x:Name="btnFrench"
-                            Content="Français"
-                            Style="{StaticResource LanguageButtonStyle}"
-                            Click="BtnFrench_Click"/>
-                    <Button x:Name="btnEnglish"
-                            Content="English"
-                            Style="{StaticResource LanguageButtonStyle}"
-                            Click="BtnEnglish_Click"/>
+                        <!-- Conteneur principal pour les différentes vues -->
+                        <Grid Grid.Column="1">
+                                <!-- Vue Liste (par défaut) -->
+                                <Border x:Name="listView"
+                                        Background="#EFFFFF"
+                                        CornerRadius="20"
+                                        Padding="20"
+                                        Margin="40"
+                                        Visibility="Visible">
+                                        <Grid>
+                                                <Grid.RowDefinitions>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition Height="*"/>
+                                                </Grid.RowDefinitions>
 
-                    <Separator Margin="0,10,0,10"
-                            Background="#336666"/>
+                                                <TextBlock x:Name="txtListTitle"
+                                                           Grid.Row="0"
+                                                           Text="Liste des sauvegardes"
+                                                           FontSize="24"
+                                                           FontWeight="Bold"
+                                                           Margin="0,0,0,20"/>
 
-                    <TextBlock x:Name="txtExecutionMode"
-                            Text="Mode d'exécution"
-                            FontSize="16"
-                            FontWeight="Bold"
-                            Foreground="White"
-                            Margin="0,0,0,10"
-                            HorizontalAlignment="Center"/>
-                    <StackPanel Orientation="Vertical">
-                        <RadioButton x:Name="rbSequential"
-                                Content="Séquentiel"
-                                Foreground="White"
-                                GroupName="ExecutionMode"
-                                IsChecked="True"
-                                Margin="10,5,0,5"
-                                Checked="ExecutionMode_Changed"/>
-                        <RadioButton x:Name="rbConcurrent"
-                                Content="Concurrent"
-                                Foreground="White"
-                                GroupName="ExecutionMode"
-                                Margin="10,5,0,5"
-                                Checked="ExecutionMode_Changed"/>
-                    </StackPanel>
+                                                <ScrollViewer Grid.Row="1"
+                                                              VerticalScrollBarVisibility="Auto"
+                                                              HorizontalScrollBarVisibility="Auto">
+                                                        <StackPanel x:Name="backupListPanel">
+                                                                <!-- Liste de backups générée dynamiquement -->
+                                                        </StackPanel>
+                                                </ScrollViewer>
+                                        </Grid>
+                                </Border>
 
-                    <Separator Margin="0,10,0,10"
-                            Background="#336666"/>
+                                <!-- Vue Création (masquée par défaut) -->
+                                <Border x:Name="createView"
+                                        Background="#EFFFFF"
+                                        CornerRadius="20"
+                                        Padding="40"
+                                        Margin="40"
+                                        Visibility="Collapsed">
+                                        <Grid>
+                                                <Button x:Name="btnBack"
+                                                        Content="←"
+                                                        Width="40"
+                                                        Height="40"
+                                                        HorizontalAlignment="Left"
+                                                        VerticalAlignment="Top"
+                                                        Background="#007C80"
+                                                        Foreground="White"
+                                                        FontWeight="Bold"
+                                                        Click="BtnBack_Click"
+                                                        Margin="0,0,0,20"/>
 
-                    <TextBlock x:Name="txtBusinessSettings"
-                            Text="Paramètres métier"
-                            FontSize="16"
-                            FontWeight="Bold"
-                            Foreground="White"
-                            Margin="0,0,0,10"
-                            HorizontalAlignment="Center"/>
-                    <TextBlock Text="Logiciels métier"
-                            Foreground="White"
-                            Margin="10,5,0,5"/>
-                    <DockPanel Margin="10,0,10,5">
-                        <TextBox x:Name="txtBusinessSoftware"
-                                Width="180"
-                                Height="25"
-                                VerticalContentAlignment="Center"/>
-                        <Button x:Name="btnAddBusinessSoftware"
-                                Content="+"
-                                Width="40"
-                                Height="25"
-                                Margin="5,0,0,0"
-                                Background="#007C80"
-                                Foreground="White"
-                                Click="BtnAddBusinessSoftware_Click"/>
-                    </DockPanel>
-                    <TextBlock Foreground="#AAFFFFFF"
-                            FontSize="10"
-                            TextWrapping="Wrap"
-                            Margin="10,0,10,5">
-                        Entrez le nom du processus (ex: calc) qui bloquera l'exécution des sauvegardes.
-                    </TextBlock>
+                                                <StackPanel Margin="0,50,0,0">
+                                                        <TextBlock x:Name="txtBackupName"
+                                                                   Text="Nom de la sauvegarde"
+                                                                   FontSize="16"/>
+                                                        <TextBox x:Name="txtJobName"
+                                                                 Margin="0,5,0,20"
+                                                                 Height="30"/>
 
-                    <!-- Liste des logiciels métier -->
-                    <Border Background="#336666"
-                            CornerRadius="5"
-                            Margin="10,5,10,10"
-                            MaxHeight="150">
-                        <ScrollViewer VerticalScrollBarVisibility="Auto">
-                            <StackPanel x:Name="businessSoftwareListPanel"
-                                    Margin="5">
-                                <!-- Liste générée dynamiquement -->
-                            </StackPanel>
-                        </ScrollViewer>
-                    </Border>
-                </StackPanel>
-            </Border>
-        </Grid>
+                                                        <TextBlock x:Name="txtSourcePathLabel"
+                                                                   Text="Chemin du dossier source"
+                                                                   FontSize="16"/>
+                                                        <DockPanel Margin="0,5,0,20"
+                                                                   LastChildFill="True">
+                                                                <Button Content="..."
+                                                                        Width="30"
+                                                                        Height="30"
+                                                                        Margin="10,0,0,0"
+                                                                        Click="BrowseFolder_Click"
+                                                                        DockPanel.Dock="Right"
+                                                                        Background="#007C80"
+                                                                        Foreground="White"
+                                                                        FontWeight="Bold"/>
+                                                                <TextBox x:Name="txtSourcePath"
+                                                                         Height="30"/>
+                                                        </DockPanel>
 
-        <!-- Progress Tracking Popup (en overlay) -->
-        <Grid x:Name="progressOverlay"
-                Visibility="Collapsed"
-                Background="#66000000"
-                Panel.ZIndex="200">
-            <Border Background="#004446"
-                    CornerRadius="10"
-                    Padding="20"
-                    Width="500"
-                    Height="280"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
+                                                        <TextBlock x:Name="txtDestinationPathLabel"
+                                                                   Text="Chemin du dossier de destination"
+                                                                   FontSize="16"/>
+                                                        <DockPanel Margin="0,5,0,20"
+                                                                   LastChildFill="True">
+                                                                <Button Content="..."
+                                                                        Width="30"
+                                                                        Height="30"
+                                                                        Margin="10,0,0,0"
+                                                                        Click="BrowseFolder_Click"
+                                                                        DockPanel.Dock="Right"
+                                                                        Background="#007C80"
+                                                                        Foreground="White"
+                                                                        FontWeight="Bold"/>
+                                                                <TextBox x:Name="txtDestinationPath"
+                                                                         Height="30"/>
+                                                        </DockPanel>
 
-                    <TextBlock x:Name="txtProgressTitle"
-                            Text="Backup in Progress"
-                            FontSize="18"
-                               FontWeight="Bold"
-                            Foreground="White"
-                            Margin="0,0,0,20"
-                            HorizontalAlignment="Center"/>
+                                                        <TextBlock x:Name="txtType"
+                                                                   Text="Type"
+                                                                   FontSize="16"
+                                                                   Margin="0,10,0,5"/>
+                                                        <StackPanel x:Name="BackupTypeRadioButtons"
+                                                                    Orientation="Horizontal"
+                                                                    Margin="0,0,0,20">
+                                                                <RadioButton x:Name="rbFull"
+                                                                             Content="FULL"
+                                                                             GroupName="BackupType"
+                                                                             IsChecked="True"
+                                                                             Margin="0,0,40,0"/>
+                                                                <RadioButton x:Name="rbDifferential"
+                                                                             Content="DIFFERENTIAL"
+                                                                             GroupName="BackupType"/>
+                                                        </StackPanel>
 
-                    <TextBlock x:Name="txtProgressInfo"
-                            Grid.Row="1"
-                            Text="Processing..."
-                            FontSize="14"
-                               Foreground="White"
-                            Margin="0,0,0,20"
-                            HorizontalAlignment="Center"/>
-
-                    <TextBlock x:Name="txtFileCount"
-                            Grid.Row="2"
-                            Text="Files: 0/0"
-                            FontSize="12"
-                               Foreground="#AAE0E0"
-                            Margin="0,0,0,5"
-                            HorizontalAlignment="Center"/>
-                    <TextBlock x:Name="txtBackupState"
-                            Grid.Row="3"
-                            Text="State: PENDING"
-                            FontSize="12"
-                               Foreground="#AAE0E0"
-                            Margin="0,0,0,15"
-                            HorizontalAlignment="Center"/>
-
-                    <ProgressBar x:Name="progressBar"
-                            Grid.Row="4"
-                            Height="30"
-                            Margin="0,10"
-                                 Background="#336666"
-                            Foreground="#00CCCC"
-                            BorderThickness="0"/>
-
-                    <TextBlock x:Name="txtProgressPercentage"
-                            Grid.Row="4"
-                            Text="0%"
-                            FontSize="14"
-                               Foreground="White"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"/>
-                    <!-- Controls Panel (Play, Pause, Stop buttons) -->
-                    <StackPanel Orientation="Horizontal"
-                            Grid.Row="6"
-                            HorizontalAlignment="Center"
-                            Margin="0,15,0,0">
-                        <Button x:Name="btnPlayBackup"
-                                Width="80"
-                                Height="30"
-                                Margin="0,0,10,0"
-                                Background="#007C80"
-                                Foreground="White"
-                                Click="BtnPlayBackup_Click">
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="&#xE768;"
-                                        FontFamily="Segoe MDL2 Assets"
-                                        FontSize="14"
-                                        VerticalAlignment="Center"/>
-                                <TextBlock Text="Play"
-                                        Margin="5,0,0,0"
-                                        VerticalAlignment="Center"/>
-                            </StackPanel>
-                        </Button>
-                        <Button x:Name="btnPauseBackup"
-                                Width="80"
-                                Height="30"
-                                Margin="0,0,10,0"
-                                Background="#007C80"
-                                Foreground="White"
-                                Click="BtnPauseBackup_Click">
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="&#xE769;"
-                                        FontFamily="Segoe MDL2 Assets"
-                                        FontSize="14"
-                                        VerticalAlignment="Center"/>
-                                <TextBlock Text="Pause"
-                                        Margin="5,0,0,0"
-                                        VerticalAlignment="Center"/>
-                            </StackPanel>
-                        </Button>
-                        <Button x:Name="btnStopBackup"
-                                Width="80"
-                                Height="30"
-                                Background="#007C80"
-                                Foreground="White"
-                                Click="BtnStopBackup_Click">
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="&#xE71A;"
-                                        FontFamily="Segoe MDL2 Assets"
-                                        FontSize="14"
-                                        VerticalAlignment="Center"/>
-                                <TextBlock Text="Stop"
-                                        Margin="5,0,0,0"
-                                        VerticalAlignment="Center"/>
-                            </StackPanel>
-                        </Button>
-                    </StackPanel>
+                                                        <Button x:Name="btnFormCreate"
+                                                                Content="Create"
+                                                                Width="150"
+                                                                Height="40"
+                                                                Background="#007C80"
+                                                                Foreground="White"
+                                                                FontWeight="Bold"
+                                                                FontSize="16"
+                                                                HorizontalAlignment="Center"
+                                                                Margin="0,30,0,0"
+                                                                Click="BtnFormCreate_Click"/>
+                                                </StackPanel>
+                                        </Grid>
+                                </Border>
+                        </Grid>
                 </Grid>
-            </Border>
+
+                <!-- Menu de sélection de langue (en overlay) -->
+                <Grid x:Name="languageMenuOverlay"
+                      Visibility="Collapsed"
+                      Background="#33000000"
+                      Panel.ZIndex="100"
+                      MouseDown="LanguageMenuOverlay_MouseDown">
+                        <Border x:Name="languageMenu"
+                                Background="#004446"
+                                CornerRadius="10"
+                                Padding="10"
+                                Width="280"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Top"
+                                Margin="70,20,0,0"
+                                MouseDown="LanguageMenu_MouseDown">
+                                <StackPanel>
+                                        <TextBlock x:Name="txtLanguage"
+                                                   Text="Langue"
+                                                   FontSize="16"
+                                                   FontWeight="Bold"
+                                                   Foreground="White"
+                                                   Margin="0,0,0,10"
+                                                   HorizontalAlignment="Center"/>
+                                        <Button x:Name="btnFrench"
+                                                Content="Français"
+                                                Style="{StaticResource LanguageButtonStyle}"
+                                                Click="BtnFrench_Click"/>
+                                        <Button x:Name="btnEnglish"
+                                                Content="English"
+                                                Style="{StaticResource LanguageButtonStyle}"
+                                                Click="BtnEnglish_Click"/>
+
+                                        <Separator Margin="0,10,0,10"
+                                                   Background="#336666"/>
+
+                                        <TextBlock x:Name="txtExecutionMode"
+                                                   Text="Mode d'exécution"
+                                                   FontSize="16"
+                                                   FontWeight="Bold"
+                                                   Foreground="White"
+                                                   Margin="0,0,0,10"
+                                                   HorizontalAlignment="Center"/>
+                                        <StackPanel Orientation="Vertical">
+                                                <RadioButton x:Name="rbSequential"
+                                                             Content="Séquentiel"
+                                                             Foreground="White"
+                                                             GroupName="ExecutionMode"
+                                                             IsChecked="True"
+                                                             Margin="10,5,0,5"
+                                                             Checked="ExecutionMode_Changed"/>
+                                                <RadioButton x:Name="rbConcurrent"
+                                                             Content="Concurrent"
+                                                             Foreground="White"
+                                                             GroupName="ExecutionMode"
+                                                             Margin="10,5,0,5"
+                                                             Checked="ExecutionMode_Changed"/>
+                                        </StackPanel>
+
+                                        <Separator Margin="0,10,0,10"
+                                                   Background="#336666"/>
+
+                                        <TextBlock x:Name="txtBusinessSettings"
+                                                   Text="Paramètres métier"
+                                                   FontSize="16"
+                                                   FontWeight="Bold"
+                                                   Foreground="White"
+                                                   Margin="0,0,0,10"
+                                                   HorizontalAlignment="Center"/>
+                                        <TextBlock Text="Logiciels métier"
+                                                   Foreground="White"
+                                                   Margin="10,5,0,5"/>
+                                        <DockPanel Margin="10,0,10,5">
+                                                <TextBox x:Name="txtBusinessSoftware"
+                                                         Width="180"
+                                                         Height="25"
+                                                         VerticalContentAlignment="Center"/>
+                                                <Button x:Name="btnAddBusinessSoftware"
+                                                        Content="+"
+                                                        Width="40"
+                                                        Height="25"
+                                                        Margin="5,0,0,0"
+                                                        Background="#007C80"
+                                                        Foreground="White"
+                                                        Click="BtnAddBusinessSoftware_Click"/>
+                                        </DockPanel>
+                                        <TextBlock Foreground="#AAFFFFFF"
+                                                   FontSize="10"
+                                                   TextWrapping="Wrap"
+                                                   Margin="10,0,10,5">
+                        Entrez le nom du processus (ex: calc) qui bloquera l'exécution des sauvegardes.
+                                        </TextBlock>
+
+                                        <!-- Liste des logiciels métier -->
+                                        <Border Background="#336666"
+                                                CornerRadius="5"
+                                                Margin="10,5,10,10"
+                                                MaxHeight="150">
+                                                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                                                        <StackPanel x:Name="businessSoftwareListPanel"
+                                                                    Margin="5">
+                                                                <!-- Liste générée dynamiquement -->
+                                                        </StackPanel>
+                                                </ScrollViewer>
+                                        </Border>
+                                </StackPanel>
+                        </Border>
+                </Grid>
         </Grid>
-    </Grid>
 </Window> 
