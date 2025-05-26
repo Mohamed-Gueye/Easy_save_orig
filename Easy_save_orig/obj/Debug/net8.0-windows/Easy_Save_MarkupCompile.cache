@@ -12,8 +12,13 @@ TRACE;DEBUG;NET;NET8_0;NETCOREAPP
 
 1-487866684
 
+<<<<<<< HEAD
 26631531719
 2081913666345
+=======
+281627333554
+208-340774257
+>>>>>>> 7cef8fd (Add of the large file manager)
 View\MainWindow.xaml;
 
 False

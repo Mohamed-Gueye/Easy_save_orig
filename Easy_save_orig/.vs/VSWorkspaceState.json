@@ -8,6 +8,10 @@
     "\\Strategies",
     "\\View"
   ],
+<<<<<<< HEAD
   "SelectedNode": "\\Model\\EncryptionHelper.cs",
+=======
+  "SelectedNode": "\\Model\\BackupRulesManager.cs",
+>>>>>>> 7cef8fd (Add of the large file manager)
   "PreviewInSolutionExplorer": false
 }

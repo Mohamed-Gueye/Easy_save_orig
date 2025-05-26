@@ -12,8 +12,13 @@ TRACE;RELEASE;NET;NET8_0;NETCOREAPP
 
 1-487866684
 
+<<<<<<< HEAD
 24-1133873363
 207-1476244305
+=======
+281627333554
+2081456711920
+>>>>>>> 7cef8fd (Add of the large file manager)
 View\MainWindow.xaml;
 
 False

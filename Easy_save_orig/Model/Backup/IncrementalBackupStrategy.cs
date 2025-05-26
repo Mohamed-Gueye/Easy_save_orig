@@ -40,9 +40,13 @@ namespace Easy_Save.Strategies
                     // Check if paused or cancelled before processing each file
                     backup.CheckPauseAndCancellation();
                     
+<<<<<<< HEAD
                     DateTime lastModified = File.GetLastWriteTime(file);
 
                     if (lastModified > lastBackupTime)
+=======
+                    if (lastModified > lastBackupTime || !File.Exists(destinationPath))
+>>>>>>> 7cef8fd (Add of the large file manager)
                     {
                         Console.WriteLine($"Fichier détecté : {file}");
 
@@ -84,12 +88,37 @@ namespace Easy_Save.Strategies
                         int encryptionTime = 0;
                         int transferTime = 0;
 
+<<<<<<< HEAD
                         var swa = Stopwatch.StartNew();
                         File.Copy(file, destinationPath, true);
                         swa.Stop();
                         transferTime = (int)swa.Elapsed.TotalMilliseconds;
                         
                         // Check for pause/cancel after file copy
+=======
+                        bool isLargeFile = LargeFileTransferManager.Instance.IsFileLarge(file, BackupRulesManager.Instance.LargeFileSizeThresholdKB);
+                        
+                        if (isLargeFile)
+                        {
+                            LargeFileTransferManager.Instance.WaitForLargeFileTransferAsync().Wait();
+                        }
+
+                        try
+                        {
+                            var swa = Stopwatch.StartNew();
+                            File.Copy(file, destinationPath, true);
+                            swa.Stop();
+                            transferTime = (int)swa.Elapsed.TotalMilliseconds;
+                        }
+                        finally
+                        {
+                            if (isLargeFile)
+                            {
+                                LargeFileTransferManager.Instance.ReleaseLargeFileTransfer();
+                            }
+                        }
+
+>>>>>>> 7cef8fd (Add of the large file manager)
                         backup.CheckPauseAndCancellation();
 
                         if (shouldEncrypt)

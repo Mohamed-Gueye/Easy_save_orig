@@ -36,7 +36,14 @@ namespace Easy_Save.Strategies
                 int totalFiles = files.Length;
                 int filesDone = 0;
 
+<<<<<<< HEAD
                 foreach (string file in files)
+=======
+                var priorityFiles = allFiles.Where(f => priorityExtensions.Contains(Path.GetExtension(f).ToLower())).ToList();
+                var nonPriorityFiles = allFiles.Except(priorityFiles).ToList();
+
+                void ProcessFile(string file)
+>>>>>>> 7cef8fd (Add of the large file manager)
                 {
                     // Check if paused or cancelled before processing each file
                     backup.CheckPauseAndCancellation();
@@ -80,10 +87,27 @@ namespace Easy_Save.Strategies
                     int encryptionTime = 0;
                     int transferTime = 0;
 
-                    var sw = Stopwatch.StartNew();
-                    File.Copy(file, destinationPath, true);
-                    sw.Stop();
-                    transferTime = (int)sw.Elapsed.TotalMilliseconds;
+                    bool isLargeFile = LargeFileTransferManager.Instance.IsFileLarge(file, BackupRulesManager.Instance.LargeFileSizeThresholdKB);
+                    
+                    if (isLargeFile)
+                    {
+                        LargeFileTransferManager.Instance.WaitForLargeFileTransferAsync().Wait();
+                    }
+
+                    try
+                    {
+                        var sw = Stopwatch.StartNew();
+                        File.Copy(file, destinationPath, true);
+                        sw.Stop();
+                        transferTime = (int)sw.Elapsed.TotalMilliseconds;
+                    }
+                    finally
+                    {
+                        if (isLargeFile)
+                        {
+                            LargeFileTransferManager.Instance.ReleaseLargeFileTransfer();
+                        }
+                    }
 
                     // Check for pause/cancel after file copy
                     backup.CheckPauseAndCancellation();
@@ -116,7 +140,22 @@ namespace Easy_Save.Strategies
 
                     logObserver.Update(backup, totalSize, transferTime, shouldEncrypt ? encryptionTime : 0, totalFiles);
                     filesDone++;
+<<<<<<< HEAD
                 }                // Set final state to COMPLETED if we get here without cancellation
+=======
+                }
+
+                foreach (var file in priorityFiles)
+                {
+                    ProcessFile(file);
+                }
+
+                foreach (var file in nonPriorityFiles)
+                {
+                    ProcessFile(file);
+                }
+
+>>>>>>> 7cef8fd (Add of the large file manager)
                 backup.State = Easy_Save.Model.Enum.BackupJobState.COMPLETED;
                 backup.Progress = "100%";
 

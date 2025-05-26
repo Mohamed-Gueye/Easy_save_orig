@@ -111,7 +111,11 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
+<<<<<<< HEAD
           "SelectedChildIndex": 10,
+=======
+          "SelectedChildIndex": 2,
+>>>>>>> 7cef8fd (Add of the large file manager)
           "Children": [
             {
               "$type": "Bookmark",
@@ -119,6 +123,94 @@
             },
             {
               "$type": "Document",
+<<<<<<< HEAD
+=======
+              "DocumentIndex": 2,
+              "Title": "config.json",
+              "DocumentMoniker": "C:\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\config.json",
+              "RelativeDocumentMoniker": "config.json",
+              "ToolTip": "C:\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\config.json",
+              "RelativeToolTip": "config.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAA3AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-05-25T16:15:24.323Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "C:\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAAWAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-16T07:44:51.748Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "PriorityFileManager.cs",
+              "DocumentMoniker": "C:\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\Model\\PriorityFile\\PriorityFileManager.cs",
+              "RelativeDocumentMoniker": "Model\\PriorityFile\\PriorityFileManager.cs",
+              "ToolTip": "C:\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\Model\\PriorityFile\\PriorityFileManager.cs",
+              "RelativeToolTip": "Model\\PriorityFile\\PriorityFileManager.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACEAAAAwAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-25T16:26:20.011Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "IncrementalBackupStrategy.cs",
+              "DocumentMoniker": "C:\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\Model\\Backup\\IncrementalBackupStrategy.cs",
+              "RelativeDocumentMoniker": "Model\\Backup\\IncrementalBackupStrategy.cs",
+              "ToolTip": "C:\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\Model\\Backup\\IncrementalBackupStrategy.cs",
+              "RelativeToolTip": "Model\\Backup\\IncrementalBackupStrategy.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAHkAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-25T15:50:15.972Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "BackupProcess.cs",
+              "DocumentMoniker": "C:\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\ViewModel\\Backup\\BackupProcess.cs",
+              "RelativeDocumentMoniker": "ViewModel\\Backup\\BackupProcess.cs",
+              "ToolTip": "C:\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\ViewModel\\Backup\\BackupProcess.cs",
+              "RelativeToolTip": "ViewModel\\Backup\\BackupProcess.cs",
+              "ViewState": "AgIAAIsAAAAAAAAAAAAYwMQAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-25T15:31:55.398Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "BackupRulesManager.cs",
+              "DocumentMoniker": "C:\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\Model\\BackupRulesManager.cs",
+              "RelativeDocumentMoniker": "Model\\BackupRulesManager.cs",
+              "ToolTip": "C:\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\Model\\BackupRulesManager.cs",
+              "RelativeToolTip": "Model\\BackupRulesManager.cs",
+              "ViewState": "AgIAAFUAAAAAAAAAAAAYwOsAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-25T16:30:02.159Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "CompleteBackupStrategy.cs",
+              "DocumentMoniker": "C:\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\Model\\Backup\\CompleteBackupStrategy.cs",
+              "RelativeDocumentMoniker": "Model\\Backup\\CompleteBackupStrategy.cs",
+              "ToolTip": "C:\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\Model\\Backup\\CompleteBackupStrategy.cs",
+              "RelativeToolTip": "Model\\Backup\\CompleteBackupStrategy.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAKgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-25T16:37:16.068Z"
+            },
+            {
+              "$type": "Document",
+>>>>>>> 7cef8fd (Add of the large file manager)
               "DocumentIndex": 8,
               "Title": "Main.cs",
               "DocumentMoniker": "C:\\EasySave\\Easy_save_orig-2\\Easy_save_orig\\View\\Main.cs",
