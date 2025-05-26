@@ -9,6 +9,7 @@ namespace Easy_Save.Model
 {
     public class BackupRulesManager
     {
+<<<<<<< HEAD
         public long MaxFileSize { get; set; } = 0;
         
         public List<string> RestrictedExtensions { get; set; } = new List<string>();
@@ -16,6 +17,14 @@ namespace Easy_Save.Model
         public List<string> BusinessSoftwareList { get; set; } = new List<string>();
         
         public string CryptoSoftPath { get; set; } = "";
+=======
+        public long MaxFileSize { get; set; } = 0;  
+        public List<string> RestrictedExtensions { get; set; } = new List<string>();
+        public List<string> BusinessSoftwareList { get; set; } = new List<string>();
+        public string CryptoSoftPath { get; set; } = "";
+        public List<string> PriorityExtensions { get; set; } = new List<string>();
+        public long LargeFileSizeThresholdKB { get; set; } = 1024; 
+>>>>>>> 7cef8fd (Add of the large file manager)
 
         private static BackupRulesManager? _instance;
         private static readonly object _lockObject = new object();
@@ -55,24 +64,26 @@ namespace Easy_Save.Model
                 string jsonContent = File.ReadAllText(configPath);
                 JsonDocument doc = JsonDocument.Parse(jsonContent);
 
+                var settings = new BackupRulesManager();
+
                 if (doc.RootElement.TryGetProperty("BusinessSettings", out JsonElement businessElement))
                 {
-                    var settings = new BackupRulesManager();
-
-                    if (businessElement.TryGetProperty("MaxFileSize", out JsonElement maxFileSize))
-                        settings.MaxFileSize = maxFileSize.GetInt64();
-
-                    if (businessElement.TryGetProperty("RestrictedExtensions", out JsonElement extensions))
+                    if (businessElement.TryGetProperty("MaxFileSize", out JsonElement maxSizeElement))
                     {
+<<<<<<< HEAD
                         settings.RestrictedExtensions = new List<string>();
                         foreach (var ext in extensions.EnumerateArray())
                         {
                             settings.RestrictedExtensions.Add(ext.GetString() ?? "");
                         }
+=======
+                        settings.MaxFileSize = maxSizeElement.GetInt64();
+>>>>>>> 7cef8fd (Add of the large file manager)
                     }
 
-                    if (businessElement.TryGetProperty("BusinessSoftwareList", out JsonElement softwareList))
+                    if (businessElement.TryGetProperty("LargeFileSizeThresholdKB", out JsonElement thresholdElement))
                     {
+<<<<<<< HEAD
                         settings.BusinessSoftwareList = new List<string>();
                         foreach (var software in softwareList.EnumerateArray())
                         {
@@ -82,28 +93,58 @@ namespace Easy_Save.Model
                                 settings.BusinessSoftwareList.Add(softwareName);
                             }
                         }
+=======
+                        settings.LargeFileSizeThresholdKB = thresholdElement.GetInt64();
+>>>>>>> 7cef8fd (Add of the large file manager)
                     }
-                    else if (businessElement.TryGetProperty("BusinessSoftware", out JsonElement softwareElement))
+
+                    if (businessElement.TryGetProperty("RestrictedExtensions", out JsonElement restrictedElement))
                     {
-                        string? software = softwareElement.GetString();
-                        if (!string.IsNullOrWhiteSpace(software))
+                        settings.RestrictedExtensions = new List<string>();
+                        foreach (var ext in restrictedElement.EnumerateArray())
                         {
-                            settings.BusinessSoftwareList.Add(software);
+                            settings.RestrictedExtensions.Add(ext.GetString() ?? "");
                         }
                     }
 
+<<<<<<< HEAD
                     if (businessElement.TryGetProperty("CryptoSoftPath", out JsonElement cryptoPath))
                         settings.CryptoSoftPath = cryptoPath.GetString() ?? "";
 
                     return settings;
+=======
+                    if (businessElement.TryGetProperty("BusinessSoftwareList", out JsonElement softwareElement))
+                    {
+                        settings.BusinessSoftwareList = new List<string>();
+                        foreach (var software in softwareElement.EnumerateArray())
+                        {
+                            settings.BusinessSoftwareList.Add(software.GetString() ?? "");
+                        }
+                    }
+
+                    if (businessElement.TryGetProperty("CryptoSoftPath", out JsonElement pathElement))
+                    {
+                        settings.CryptoSoftPath = pathElement.GetString() ?? "";
+                    }
+
+                    if (businessElement.TryGetProperty("PriorityExtensions", out JsonElement priorityElement))
+                    {
+                        settings.PriorityExtensions = new List<string>();
+                        foreach (var ext in priorityElement.EnumerateArray())
+                        {
+                            settings.PriorityExtensions.Add(ext.GetString() ?? "");
+                        }
+                    }
+>>>>>>> 7cef8fd (Add of the large file manager)
                 }
+
+                return settings;
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error loading backup rules settings: {ex.Message}");
+                Console.WriteLine($"Error loading backup rules: {ex.Message}");
+                return new BackupRulesManager();
             }
-
-            return new BackupRulesManager();
         }
 
         public bool IsAnyBusinessSoftwareRunning()
@@ -171,16 +212,17 @@ namespace Easy_Save.Model
             try
             {
                 string configPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "config.json");
+<<<<<<< HEAD
                 
                 JsonDocument existingDoc;
+=======
+                JsonDocument? existingDoc = null;
+
+>>>>>>> 7cef8fd (Add of the large file manager)
                 if (File.Exists(configPath))
                 {
                     string jsonContent = File.ReadAllText(configPath);
                     existingDoc = JsonDocument.Parse(jsonContent);
-                }
-                else
-                {
-                    existingDoc = JsonDocument.Parse("{}");
                 }
 
                 using (var stream = new MemoryStream())
@@ -189,13 +231,16 @@ namespace Easy_Save.Model
                     {
                         writer.WriteStartObject();
 
-                        using (JsonDocument doc = existingDoc)
+                        if (existingDoc != null)
                         {
-                            foreach (var property in doc.RootElement.EnumerateObject())
+                            using (JsonDocument doc = existingDoc)
                             {
-                                if (property.Name != "BusinessSettings")
+                                foreach (var property in doc.RootElement.EnumerateObject())
                                 {
-                                    property.WriteTo(writer);
+                                    if (property.Name != "BusinessSettings")
+                                    {
+                                        property.WriteTo(writer);
+                                    }
                                 }
                             }
                         }
@@ -204,7 +249,12 @@ namespace Easy_Save.Model
                         writer.WriteStartObject();
                         
                         writer.WriteNumber("MaxFileSize", MaxFileSize);
+<<<<<<< HEAD
                         
+=======
+                        writer.WriteNumber("LargeFileSizeThresholdKB", LargeFileSizeThresholdKB);
+
+>>>>>>> 7cef8fd (Add of the large file manager)
                         writer.WritePropertyName("RestrictedExtensions");
                         writer.WriteStartArray();
                         foreach (var ext in RestrictedExtensions)
@@ -222,19 +272,33 @@ namespace Easy_Save.Model
                         writer.WriteEndArray();
                         
                         writer.WriteString("CryptoSoftPath", CryptoSoftPath);
+<<<<<<< HEAD
                         
                         writer.WriteEndObject(); 
                         
                         writer.WriteEndObject(); 
+=======
+
+                        writer.WritePropertyName("PriorityExtensions");
+                        writer.WriteStartArray();
+                        foreach (var ext in PriorityExtensions)
+                        {
+                            writer.WriteStringValue(ext);
+                        }
+                        writer.WriteEndArray();
+
+                        writer.WriteEndObject();
+                        writer.WriteEndObject();
+>>>>>>> 7cef8fd (Add of the large file manager)
                     }
 
-                    var json = Encoding.UTF8.GetString(stream.ToArray());
+                    var json = System.Text.Encoding.UTF8.GetString(stream.ToArray());
                     File.WriteAllText(configPath, json);
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error saving backup rules settings: {ex.Message}");
+                Console.WriteLine($"Error saving backup rules: {ex.Message}");
             }
         }
 

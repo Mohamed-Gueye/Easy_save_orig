@@ -11,7 +11,6 @@ public class Backup
     public string Type { get; set; } = string.Empty;
     public string Progress { get; set; } = "0%";
     
-    // State management
     private BackupJobState _state = BackupJobState.READY;
     public BackupJobState State 
     { 
@@ -19,7 +18,6 @@ public class Backup
         set => _state = value; 
     }
     
-    // Controls for pause/resume
     private CancellationTokenSource? _cancellationTokenSource;
     private ManualResetEventSlim? _pauseEvent;
     
@@ -28,7 +26,7 @@ public class Backup
     
     public Backup()
     {
-        _pauseEvent = new ManualResetEventSlim(true); // Not paused initially
+        _pauseEvent = new ManualResetEventSlim(true); 
         _cancellationTokenSource = new CancellationTokenSource();
     }
     
@@ -39,12 +37,11 @@ public class Backup
     {
         if (_state == BackupJobState.PAUSED)
         {
-            _pauseEvent?.Set(); // Resume execution
+            _pauseEvent?.Set(); 
             _state = BackupJobState.RUNNING;
         }
         else if (_state == BackupJobState.READY || _state == BackupJobState.STOPPED)
         {
-            // Reset if needed
             Reset();
             _state = BackupJobState.RUNNING;
         }
@@ -57,7 +54,7 @@ public class Backup
     {
         if (_state == BackupJobState.RUNNING)
         {
-            _pauseEvent?.Reset(); // Pause execution
+            _pauseEvent?.Reset(); 
             _state = BackupJobState.PAUSED;
         }
     }
@@ -70,7 +67,7 @@ public class Backup
         if (_state == BackupJobState.RUNNING || _state == BackupJobState.PAUSED)
         {
             _cancellationTokenSource?.Cancel();
-            _pauseEvent?.Set(); // Prevent deadlock
+            _pauseEvent?.Set(); 
             _state = BackupJobState.STOPPED;
         }
     }
@@ -80,7 +77,7 @@ public class Backup
     /// </summary>
     public void CheckPauseAndCancellation()
     {
-        _pauseEvent?.Wait(); // Wait if paused
+        _pauseEvent?.Wait(); 
         _cancellationTokenSource?.Token.ThrowIfCancellationRequested();
     }
     
@@ -89,7 +86,6 @@ public class Backup
     /// </summary>
     public void Reset()
     {
-        // Dispose and recreate cancellation token
         if (_cancellationTokenSource != null)
         {
             if (!_cancellationTokenSource.IsCancellationRequested)
@@ -97,7 +93,6 @@ public class Backup
             _cancellationTokenSource = new CancellationTokenSource();
         }
         
-        // Reset pause event
         _pauseEvent?.Set();
         
         _state = BackupJobState.READY;

@@ -3,10 +3,73 @@
   "WorkspaceRootPath": "C:\\EasySave\\Easy_save_orig-2\\Easy_save_orig\\",
   "Documents": [
     {
+<<<<<<< HEAD
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\EasySave\\Easy_save_orig-2\\Easy_save_orig\\Program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+=======
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\Model\\BackupRulesManager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Model\\BackupRulesManager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\Model\\Backup\\IncrementalBackupStrategy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Model\\Backup\\IncrementalBackupStrategy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\Model\\Backup\\IBackupStrategy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Model\\Backup\\IBackupStrategy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\Model\\Backup\\CompleteBackupStrategy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Model\\Backup\\CompleteBackupStrategy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\Model\\Backup\\Backup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Model\\Backup\\Backup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\Model\\IO\\LargeFileTransferManager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Model\\IO\\LargeFileTransferManager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\Program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\config.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:config.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\ViewModel\\Backup\\BackupProcess.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:ViewModel\\Backup\\BackupProcess.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\Model\\PriorityFile\\PriorityFileManager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Model\\PriorityFile\\PriorityFileManager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\View\\MainWindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:View\\MainWindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\Model\\Status\\BackupProgressTracker.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Model\\Status\\BackupProgressTracker.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\Model\\Log\\LogEntry.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Model\\Log\\LogEntry.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\Model\\IO\\WriterManager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Model\\IO\\WriterManager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\Model\\Enum\\BackupJobState.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Model\\Enum\\BackupJobState.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+>>>>>>> 7cef8fd (Add of the large file manager)
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Projet_Software\\Easy_save_orig\\Easy_save_orig\\Model\\EncryptionHelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
@@ -111,7 +174,11 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
+<<<<<<< HEAD
           "SelectedChildIndex": 3,
+=======
+          "SelectedChildIndex": 6,
+>>>>>>> 7cef8fd (Add of the large file manager)
           "Children": [
             {
               "$type": "Bookmark",
@@ -119,6 +186,7 @@
             },
             {
               "$type": "Document",
+<<<<<<< HEAD
               "DocumentIndex": 6,
               "Title": "BackupManager.cs",
               "DocumentMoniker": "C:\\Projet_Software\\Easy_save_orig\\Easy_save_orig\\Model\\BackupManager.cs",
@@ -140,10 +208,48 @@
               "ViewState": "AgIAAG8AAAAAAAAAAAAAAJkAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-05-17T13:23:27.849Z"
+=======
+              "DocumentIndex": 2,
+              "Title": "IBackupStrategy.cs",
+              "DocumentMoniker": "C:\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\Model\\Backup\\IBackupStrategy.cs",
+              "RelativeDocumentMoniker": "Model\\Backup\\IBackupStrategy.cs",
+              "ToolTip": "C:\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\Model\\Backup\\IBackupStrategy.cs",
+              "RelativeToolTip": "Model\\Backup\\IBackupStrategy.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-26T12:21:52.579Z",
+              "EditorCaption": ""
+>>>>>>> 7cef8fd (Add of the large file manager)
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 4,
+              "Title": "Backup.cs",
+              "DocumentMoniker": "C:\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\Model\\Backup\\Backup.cs",
+              "RelativeDocumentMoniker": "Model\\Backup\\Backup.cs",
+              "ToolTip": "C:\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\Model\\Backup\\Backup.cs",
+              "RelativeToolTip": "Model\\Backup\\Backup.cs",
+              "ViewState": "AgIAAEgAAAAAAAAAAAAAAF8AAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-26T12:21:01.594Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "LargeFileTransferManager.cs",
+              "DocumentMoniker": "C:\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\Model\\IO\\LargeFileTransferManager.cs",
+              "RelativeDocumentMoniker": "Model\\IO\\LargeFileTransferManager.cs",
+              "ToolTip": "C:\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\Model\\IO\\LargeFileTransferManager.cs",
+              "RelativeToolTip": "Model\\IO\\LargeFileTransferManager.cs",
+              "ViewState": "AgIAABIAAAAAAAAAAAAAADEAAAA+AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-26T12:20:46.938Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\EasySave\\Easy_save_orig-2\\Easy_save_orig\\Program.cs",
               "RelativeDocumentMoniker": "Program.cs",
@@ -156,7 +262,168 @@
             },
             {
               "$type": "Document",
+<<<<<<< HEAD
               "DocumentIndex": 4,
+=======
+              "DocumentIndex": 1,
+              "Title": "IncrementalBackupStrategy.cs",
+              "DocumentMoniker": "C:\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\Model\\Backup\\IncrementalBackupStrategy.cs",
+              "RelativeDocumentMoniker": "Model\\Backup\\IncrementalBackupStrategy.cs",
+              "ToolTip": "C:\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\Model\\Backup\\IncrementalBackupStrategy.cs",
+              "RelativeToolTip": "Model\\Backup\\IncrementalBackupStrategy.cs",
+              "ViewState": "AgIAAH4AAAAAAAAAAAAAAGUAAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-25T15:50:15.972Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "BackupRulesManager.cs",
+              "DocumentMoniker": "C:\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\Model\\BackupRulesManager.cs",
+              "RelativeDocumentMoniker": "Model\\BackupRulesManager.cs",
+              "ToolTip": "C:\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\Model\\BackupRulesManager.cs",
+              "RelativeToolTip": "Model\\BackupRulesManager.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAABDAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-25T16:30:02.159Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "PriorityFileManager.cs",
+              "DocumentMoniker": "C:\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\Model\\PriorityFile\\PriorityFileManager.cs",
+              "RelativeDocumentMoniker": "Model\\PriorityFile\\PriorityFileManager.cs",
+              "ToolTip": "C:\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\Model\\PriorityFile\\PriorityFileManager.cs",
+              "RelativeToolTip": "Model\\PriorityFile\\PriorityFileManager.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACEAAAAwAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-25T16:26:20.011Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "CompleteBackupStrategy.cs",
+              "DocumentMoniker": "C:\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\Model\\Backup\\CompleteBackupStrategy.cs",
+              "RelativeDocumentMoniker": "Model\\Backup\\CompleteBackupStrategy.cs",
+              "ToolTip": "C:\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\Model\\Backup\\CompleteBackupStrategy.cs",
+              "RelativeToolTip": "Model\\Backup\\CompleteBackupStrategy.cs",
+              "ViewState": "AgIAAKgAAAAAAAAAAAAAAIcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-25T16:37:16.068Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "config.json",
+              "DocumentMoniker": "C:\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\config.json",
+              "RelativeDocumentMoniker": "config.json",
+              "ToolTip": "C:\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\config.json",
+              "RelativeToolTip": "config.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAA3AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-05-25T16:15:24.323Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "BackupProcess.cs",
+              "DocumentMoniker": "C:\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\ViewModel\\Backup\\BackupProcess.cs",
+              "RelativeDocumentMoniker": "ViewModel\\Backup\\BackupProcess.cs",
+              "ToolTip": "C:\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\ViewModel\\Backup\\BackupProcess.cs",
+              "RelativeToolTip": "ViewModel\\Backup\\BackupProcess.cs",
+              "ViewState": "AgIAAIsAAAAAAAAAAAAYwMQAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-25T15:31:55.398Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "BackupProgressTracker.cs",
+              "DocumentMoniker": "C:\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\Model\\Status\\BackupProgressTracker.cs",
+              "RelativeDocumentMoniker": "Model\\Status\\BackupProgressTracker.cs",
+              "ToolTip": "C:\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\Model\\Status\\BackupProgressTracker.cs",
+              "RelativeToolTip": "Model\\Status\\BackupProgressTracker.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-25T15:31:34.066Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "LogEntry.cs",
+              "DocumentMoniker": "C:\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\Model\\Log\\LogEntry.cs",
+              "RelativeDocumentMoniker": "Model\\Log\\LogEntry.cs",
+              "ToolTip": "C:\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\Model\\Log\\LogEntry.cs",
+              "RelativeToolTip": "Model\\Log\\LogEntry.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-25T15:31:32.85Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "WriterManager.cs",
+              "DocumentMoniker": "C:\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\Model\\IO\\WriterManager.cs",
+              "RelativeDocumentMoniker": "Model\\IO\\WriterManager.cs",
+              "ToolTip": "C:\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\Model\\IO\\WriterManager.cs",
+              "RelativeToolTip": "Model\\IO\\WriterManager.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-25T15:31:30.667Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "BackupJobState.cs",
+              "DocumentMoniker": "C:\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\Model\\Enum\\BackupJobState.cs",
+              "RelativeDocumentMoniker": "Model\\Enum\\BackupJobState.cs",
+              "ToolTip": "C:\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\Model\\Enum\\BackupJobState.cs",
+              "RelativeToolTip": "Model\\Enum\\BackupJobState.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-25T15:31:28.607Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "MainWindow.xaml.cs",
+              "DocumentMoniker": "C:\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\View\\MainWindow.xaml.cs",
+              "RelativeDocumentMoniker": "View\\MainWindow.xaml.cs",
+              "ToolTip": "C:\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\View\\MainWindow.xaml.cs",
+              "RelativeToolTip": "View\\MainWindow.xaml.cs",
+              "ViewState": "AgIAAD4EAAAAAAAAAAAYwGEEAABNAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-25T15:33:28.541Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "BackupManager.cs",
+              "DocumentMoniker": "C:\\Projet_Software\\Easy_save_orig\\Easy_save_orig\\Model\\BackupManager.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\Projet_Software\\Easy_save_orig\\Easy_save_orig\\Model\\BackupManager.cs",
+              "ToolTip": "C:\\Projet_Software\\Easy_save_orig\\Easy_save_orig\\Model\\BackupManager.cs",
+              "RelativeToolTip": "..\\..\\..\\Projet_Software\\Easy_save_orig\\Easy_save_orig\\Model\\BackupManager.cs",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-16T07:45:04.875Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "BackupProgressTracker.cs",
+              "DocumentMoniker": "C:\\Projet_Software\\Easy_save_orig\\Easy_save_orig\\Model\\BackupProgressTracker.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\Projet_Software\\Easy_save_orig\\Easy_save_orig\\Model\\BackupProgressTracker.cs",
+              "ToolTip": "C:\\Projet_Software\\Easy_save_orig\\Easy_save_orig\\Model\\BackupProgressTracker.cs",
+              "RelativeToolTip": "..\\..\\..\\Projet_Software\\Easy_save_orig\\Easy_save_orig\\Model\\BackupProgressTracker.cs",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-17T13:23:27.849Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+>>>>>>> 7cef8fd (Add of the large file manager)
               "Title": "BusinessSettings.cs",
               "DocumentMoniker": "C:\\Projet_Software\\Easy_save_orig\\Easy_save_orig\\Model\\BusinessSettings.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\Projet_Software\\Easy_save_orig\\Easy_save_orig\\Model\\BusinessSettings.cs",
@@ -168,7 +435,11 @@
             },
             {
               "$type": "Document",
+<<<<<<< HEAD
               "DocumentIndex": 3,
+=======
+              "DocumentIndex": 17,
+>>>>>>> 7cef8fd (Add of the large file manager)
               "Title": "Configuration.cs",
               "DocumentMoniker": "C:\\Projet_Software\\Easy_save_orig\\Easy_save_orig\\Model\\Configuration.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\Projet_Software\\Easy_save_orig\\Easy_save_orig\\Model\\Configuration.cs",
@@ -180,7 +451,11 @@
             },
             {
               "$type": "Document",
+<<<<<<< HEAD
               "DocumentIndex": 2,
+=======
+              "DocumentIndex": 16,
+>>>>>>> 7cef8fd (Add of the large file manager)
               "Title": "CustomConfiguration.cs",
               "DocumentMoniker": "C:\\Projet_Software\\Easy_save_orig\\Easy_save_orig\\Model\\CustomConfiguration.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\Projet_Software\\Easy_save_orig\\Easy_save_orig\\Model\\CustomConfiguration.cs",
@@ -192,7 +467,11 @@
             },
             {
               "$type": "Document",
+<<<<<<< HEAD
               "DocumentIndex": 1,
+=======
+              "DocumentIndex": 15,
+>>>>>>> 7cef8fd (Add of the large file manager)
               "Title": "EncryptionHelper.cs",
               "DocumentMoniker": "C:\\Projet_Software\\Easy_save_orig\\Easy_save_orig\\Model\\EncryptionHelper.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\Projet_Software\\Easy_save_orig\\Easy_save_orig\\Model\\EncryptionHelper.cs",
@@ -203,7 +482,11 @@
             },
             {
               "$type": "Document",
+<<<<<<< HEAD
               "DocumentIndex": 7,
+=======
+              "DocumentIndex": 21,
+>>>>>>> 7cef8fd (Add of the large file manager)
               "Title": "Backup.cs",
               "DocumentMoniker": "C:\\Projet_Software\\Easy_save_orig\\Easy_save_orig\\Model\\Backup.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\Projet_Software\\Easy_save_orig\\Easy_save_orig\\Model\\Backup.cs",
@@ -215,7 +498,11 @@
             },
             {
               "$type": "Document",
+<<<<<<< HEAD
               "DocumentIndex": 12,
+=======
+              "DocumentIndex": 26,
+>>>>>>> 7cef8fd (Add of the large file manager)
               "Title": "TranslationProcess.cs",
               "DocumentMoniker": "C:\\Projet_Software\\Easy_save_orig\\Easy_save_orig\\Controller\\TranslationProcess.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\Projet_Software\\Easy_save_orig\\Easy_save_orig\\Controller\\TranslationProcess.cs",
@@ -227,7 +514,11 @@
             },
             {
               "$type": "Document",
+<<<<<<< HEAD
               "DocumentIndex": 8,
+=======
+              "DocumentIndex": 22,
+>>>>>>> 7cef8fd (Add of the large file manager)
               "Title": "Main.cs",
               "DocumentMoniker": "C:\\EasySave\\Easy_save_orig-2\\Easy_save_orig\\View\\Main.cs",
               "RelativeDocumentMoniker": "View\\Main.cs",
@@ -239,7 +530,11 @@
             },
             {
               "$type": "Document",
+<<<<<<< HEAD
               "DocumentIndex": 9,
+=======
+              "DocumentIndex": 23,
+>>>>>>> 7cef8fd (Add of the large file manager)
               "Title": "LogObserver.cs",
               "DocumentMoniker": "C:\\Projet_Software\\Easy_save_orig\\Easy_save_orig\\Observer\\LogObserver.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\Projet_Software\\Easy_save_orig\\Easy_save_orig\\Observer\\LogObserver.cs",
@@ -251,7 +546,11 @@
             },
             {
               "$type": "Document",
+<<<<<<< HEAD
               "DocumentIndex": 13,
+=======
+              "DocumentIndex": 27,
+>>>>>>> 7cef8fd (Add of the large file manager)
               "Title": "StatusManager.cs",
               "DocumentMoniker": "C:\\Projet_Software\\Easy_save_orig\\Easy_save_orig\\Model\\StatusManager.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\Projet_Software\\Easy_save_orig\\Easy_save_orig\\Model\\StatusManager.cs",
@@ -263,7 +562,11 @@
             },
             {
               "$type": "Document",
+<<<<<<< HEAD
               "DocumentIndex": 11,
+=======
+              "DocumentIndex": 25,
+>>>>>>> 7cef8fd (Add of the large file manager)
               "Title": "TranslationManager.cs",
               "DocumentMoniker": "C:\\Projet_Software\\Easy_save_orig\\Easy_save_orig\\Model\\TranslationManager.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\Projet_Software\\Easy_save_orig\\Easy_save_orig\\Model\\TranslationManager.cs",
@@ -275,7 +578,11 @@
             },
             {
               "$type": "Document",
+<<<<<<< HEAD
               "DocumentIndex": 10,
+=======
+              "DocumentIndex": 24,
+>>>>>>> 7cef8fd (Add of the large file manager)
               "Title": "WriterManager.cs",
               "DocumentMoniker": "C:\\Projet_Software\\Easy_save_orig\\Easy_save_orig\\Model\\WriterManager.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\Projet_Software\\Easy_save_orig\\Easy_save_orig\\Model\\WriterManager.cs",
@@ -287,7 +594,11 @@
             },
             {
               "$type": "Document",
+<<<<<<< HEAD
               "DocumentIndex": 14,
+=======
+              "DocumentIndex": 28,
+>>>>>>> 7cef8fd (Add of the large file manager)
               "Title": "StatusEntry.cs",
               "DocumentMoniker": "C:\\Projet_Software\\Easy_save_orig\\Easy_save_orig\\Model\\StatusEntry.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\Projet_Software\\Easy_save_orig\\Easy_save_orig\\Model\\StatusEntry.cs",
@@ -299,7 +610,11 @@
             },
             {
               "$type": "Document",
+<<<<<<< HEAD
               "DocumentIndex": 15,
+=======
+              "DocumentIndex": 29,
+>>>>>>> 7cef8fd (Add of the large file manager)
               "Title": "ProcessMonitor.cs",
               "DocumentMoniker": "C:\\EasySave\\Easy_save_orig-2\\Easy_save_orig\\Model\\ProcessMonitor.cs",
               "RelativeDocumentMoniker": "Model\\ProcessMonitor.cs",
@@ -311,7 +626,11 @@
             },
             {
               "$type": "Document",
+<<<<<<< HEAD
               "DocumentIndex": 16,
+=======
+              "DocumentIndex": 30,
+>>>>>>> 7cef8fd (Add of the large file manager)
               "Title": "EncryptionSettings.cs",
               "DocumentMoniker": "C:\\Projet_Software\\Easy_save_orig\\Easy_save_orig\\Model\\EncryptionSettings.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\Projet_Software\\Easy_save_orig\\Easy_save_orig\\Model\\EncryptionSettings.cs",
@@ -323,7 +642,11 @@
             },
             {
               "$type": "Document",
+<<<<<<< HEAD
               "DocumentIndex": 17,
+=======
+              "DocumentIndex": 31,
+>>>>>>> 7cef8fd (Add of the large file manager)
               "Title": "LogEntry.cs",
               "DocumentMoniker": "C:\\Projet_Software\\Easy_save_orig\\Easy_save_orig\\Model\\LogEntry.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\Projet_Software\\Easy_save_orig\\Easy_save_orig\\Model\\LogEntry.cs",
@@ -335,7 +658,11 @@
             },
             {
               "$type": "Document",
+<<<<<<< HEAD
               "DocumentIndex": 18,
+=======
+              "DocumentIndex": 32,
+>>>>>>> 7cef8fd (Add of the large file manager)
               "Title": "LogManager.cs",
               "DocumentMoniker": "C:\\Projet_Software\\Easy_save_orig\\Easy_save_orig\\Model\\LogManager.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\Projet_Software\\Easy_save_orig\\Easy_save_orig\\Model\\LogManager.cs",
@@ -347,7 +674,11 @@
             },
             {
               "$type": "Document",
+<<<<<<< HEAD
               "DocumentIndex": 19,
+=======
+              "DocumentIndex": 33,
+>>>>>>> 7cef8fd (Add of the large file manager)
               "Title": "BackupProcess.cs",
               "DocumentMoniker": "C:\\Projet_Software\\Easy_save_orig\\Easy_save_orig\\Controller\\BackupProcess.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\Projet_Software\\Easy_save_orig\\Easy_save_orig\\Controller\\BackupProcess.cs",
@@ -359,7 +690,11 @@
             },
             {
               "$type": "Document",
+<<<<<<< HEAD
               "DocumentIndex": 20,
+=======
+              "DocumentIndex": 34,
+>>>>>>> 7cef8fd (Add of the large file manager)
               "Title": "IncrementalBackupStrategy.cs",
               "DocumentMoniker": "C:\\Projet_Software\\Easy_save_orig\\Easy_save_orig\\Strategies\\IncrementalBackupStrategy.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\Projet_Software\\Easy_save_orig\\Easy_save_orig\\Strategies\\IncrementalBackupStrategy.cs",
@@ -371,7 +706,11 @@
             },
             {
               "$type": "Document",
+<<<<<<< HEAD
               "DocumentIndex": 23,
+=======
+              "DocumentIndex": 37,
+>>>>>>> 7cef8fd (Add of the large file manager)
               "Title": "IBackupObsever.cs",
               "DocumentMoniker": "C:\\Projet_Software\\Easy_save_orig\\Easy_save_orig\\Interfaces\\IBackupObsever.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\Projet_Software\\Easy_save_orig\\Easy_save_orig\\Interfaces\\IBackupObsever.cs",
@@ -383,7 +722,11 @@
             },
             {
               "$type": "Document",
+<<<<<<< HEAD
               "DocumentIndex": 21,
+=======
+              "DocumentIndex": 35,
+>>>>>>> 7cef8fd (Add of the large file manager)
               "Title": "CompleteBackupStrategy.cs",
               "DocumentMoniker": "C:\\Projet_Software\\Easy_save_orig\\Easy_save_orig\\Strategies\\CompleteBackupStrategy.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\Projet_Software\\Easy_save_orig\\Easy_save_orig\\Strategies\\CompleteBackupStrategy.cs",
@@ -395,7 +738,11 @@
             },
             {
               "$type": "Document",
+<<<<<<< HEAD
               "DocumentIndex": 26,
+=======
+              "DocumentIndex": 40,
+>>>>>>> 7cef8fd (Add of the large file manager)
               "Title": "Easy_Save.AssemblyInfo.cs",
               "DocumentMoniker": "C:\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\obj\\Debug\\net8.0\\Easy_Save.AssemblyInfo.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\obj\\Debug\\net8.0\\Easy_Save.AssemblyInfo.cs",
@@ -407,7 +754,11 @@
             },
             {
               "$type": "Document",
+<<<<<<< HEAD
               "DocumentIndex": 22,
+=======
+              "DocumentIndex": 36,
+>>>>>>> 7cef8fd (Add of the large file manager)
               "Title": "IBackupStrategy.cs",
               "DocumentMoniker": "C:\\Projet_Software\\Easy_save_orig\\Easy_save_orig\\Interfaces\\IBackupStrategy.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\Projet_Software\\Easy_save_orig\\Easy_save_orig\\Interfaces\\IBackupStrategy.cs",
@@ -419,7 +770,11 @@
             },
             {
               "$type": "Document",
+<<<<<<< HEAD
               "DocumentIndex": 25,
+=======
+              "DocumentIndex": 39,
+>>>>>>> 7cef8fd (Add of the large file manager)
               "Title": "Easy_Save.AssemblyInfo.cs",
               "DocumentMoniker": "C:\\EasySave\\Easy_save_orig-2\\Easy_save_orig\\obj\\Release\\net8.0\\Easy_Save.AssemblyInfo.cs",
               "RelativeDocumentMoniker": "obj\\Release\\net8.0\\Easy_Save.AssemblyInfo.cs",
@@ -431,7 +786,11 @@
             },
             {
               "$type": "Document",
+<<<<<<< HEAD
               "DocumentIndex": 24,
+=======
+              "DocumentIndex": 38,
+>>>>>>> 7cef8fd (Add of the large file manager)
               "Title": "FileManager.cs",
               "DocumentMoniker": "C:\\EasySave\\Easy_save_orig-2\\Easy_save_orig\\CryptoSoft\\FileManager.cs",
               "RelativeDocumentMoniker": "CryptoSoft\\FileManager.cs",
@@ -443,7 +802,11 @@
             },
             {
               "$type": "Document",
+<<<<<<< HEAD
               "DocumentIndex": 27,
+=======
+              "DocumentIndex": 41,
+>>>>>>> 7cef8fd (Add of the large file manager)
               "Title": "config.json",
               "DocumentMoniker": "C:\\EasySave\\Easy_save_orig-2\\Easy_save_orig\\bin\\Debug\\net8.0\\config.json",
               "RelativeDocumentMoniker": "bin\\Debug\\net8.0\\config.json",
@@ -455,7 +818,11 @@
             },
             {
               "$type": "Document",
+<<<<<<< HEAD
               "DocumentIndex": 28,
+=======
+              "DocumentIndex": 42,
+>>>>>>> 7cef8fd (Add of the large file manager)
               "Title": "TranslationProcess.cs",
               "DocumentMoniker": "C:\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\Model\\TranslationProcess.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\Model\\TranslationProcess.cs",
@@ -467,7 +834,11 @@
             },
             {
               "$type": "Document",
+<<<<<<< HEAD
               "DocumentIndex": 29,
+=======
+              "DocumentIndex": 43,
+>>>>>>> 7cef8fd (Add of the large file manager)
               "Title": "CryptoSoft.csproj",
               "DocumentMoniker": "C:\\EasySave\\Easy_save_orig-2\\Easy_save_orig\\CryptoSoft\\CryptoSoft.csproj",
               "RelativeDocumentMoniker": "CryptoSoft\\CryptoSoft.csproj",
@@ -479,7 +850,11 @@
             },
             {
               "$type": "Document",
+<<<<<<< HEAD
               "DocumentIndex": 30,
+=======
+              "DocumentIndex": 44,
+>>>>>>> 7cef8fd (Add of the large file manager)
               "Title": "Easy_Save.csproj",
               "DocumentMoniker": "C:\\EasySave\\Easy_save_orig-2\\Easy_save_orig\\Easy_Save.csproj",
               "RelativeDocumentMoniker": "Easy_Save.csproj",
