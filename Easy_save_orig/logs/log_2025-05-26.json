@@ -358,5 +358,525 @@
     "TransferTime": 1,
     "EncryptionTime": 8,
     "FileCount": 3
+  },
+  {
+    "Timestamp": "2025-05-26T15:25:39.9424884+02:00",
+    "BackupName": "test",
+    "SourcePath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Tests\\TestOrigin2",
+    "DestinationPath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Tests\\TestDestination2",
+    "FileSize": 80,
+    "TransferTime": 1,
+    "EncryptionTime": 9,
+    "FileCount": 3
+  },
+  {
+    "Timestamp": "2025-05-26T15:25:41.9538228+02:00",
+    "BackupName": "test",
+    "SourcePath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Tests\\TestOrigin2",
+    "DestinationPath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Tests\\TestDestination2",
+    "FileSize": 80,
+    "TransferTime": 1,
+    "EncryptionTime": 2,
+    "FileCount": 3
+  },
+  {
+    "Timestamp": "2025-05-26T15:25:48.1884236+02:00",
+    "BackupName": "test",
+    "SourcePath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Tests\\TestOrigin2",
+    "DestinationPath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Tests\\TestDestination2",
+    "FileSize": 80,
+    "TransferTime": 0,
+    "EncryptionTime": 2,
+    "FileCount": 3
+  },
+  {
+    "Timestamp": "2025-05-26T15:26:02.3071563+02:00",
+    "BackupName": "test",
+    "SourcePath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Tests\\TestOrigin2",
+    "DestinationPath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Tests\\TestDestination2",
+    "FileSize": 80,
+    "TransferTime": 1,
+    "EncryptionTime": 1,
+    "FileCount": 3
+  },
+  {
+    "Timestamp": "2025-05-26T15:26:04.3262775+02:00",
+    "BackupName": "test",
+    "SourcePath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Tests\\TestOrigin2",
+    "DestinationPath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Tests\\TestDestination2",
+    "FileSize": 80,
+    "TransferTime": 1,
+    "EncryptionTime": 1,
+    "FileCount": 3
+  },
+  {
+    "Timestamp": "2025-05-26T15:26:06.4806206+02:00",
+    "BackupName": "test",
+    "SourcePath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Tests\\TestOrigin2",
+    "DestinationPath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Tests\\TestDestination2",
+    "FileSize": 80,
+    "TransferTime": 1,
+    "EncryptionTime": 1,
+    "FileCount": 3
+  },
+  {
+    "Timestamp": "2025-05-26T15:27:12.0189674+02:00",
+    "BackupName": "test",
+    "SourcePath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Tests\\TestOrigin2",
+    "DestinationPath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Tests\\TestDestination2",
+    "FileSize": 80,
+    "TransferTime": 1,
+    "EncryptionTime": 2,
+    "FileCount": 3
+  },
+  {
+    "Timestamp": "2025-05-26T15:27:13.1440077+02:00",
+    "BackupName": "test1",
+    "SourcePath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Tests\\TestOrigin",
+    "DestinationPath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Tests\\TestDestination",
+    "FileSize": 12,
+    "TransferTime": 0,
+    "EncryptionTime": 1,
+    "FileCount": 2
+  },
+  {
+    "Timestamp": "2025-05-26T15:27:14.0281411+02:00",
+    "BackupName": "test",
+    "SourcePath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Tests\\TestOrigin2",
+    "DestinationPath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Tests\\TestDestination2",
+    "FileSize": 80,
+    "TransferTime": 1,
+    "EncryptionTime": 2,
+    "FileCount": 3
+  },
+  {
+    "Timestamp": "2025-05-26T15:27:15.1558168+02:00",
+    "BackupName": "test1",
+    "SourcePath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Tests\\TestOrigin",
+    "DestinationPath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Tests\\TestDestination",
+    "FileSize": 12,
+    "TransferTime": 1,
+    "EncryptionTime": 2,
+    "FileCount": 2
+  },
+  {
+    "Timestamp": "2025-05-26T15:27:16.0438928+02:00",
+    "BackupName": "test",
+    "SourcePath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Tests\\TestOrigin2",
+    "DestinationPath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Tests\\TestDestination2",
+    "FileSize": 80,
+    "TransferTime": 1,
+    "EncryptionTime": 2,
+    "FileCount": 3
+  },
+  {
+    "Timestamp": "2025-05-26T15:27:50.8904889+02:00",
+    "BackupName": "test",
+    "SourcePath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Tests\\TestOrigin2",
+    "DestinationPath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Tests\\TestDestination2",
+    "FileSize": 80,
+    "TransferTime": 1,
+    "EncryptionTime": 1,
+    "FileCount": 3
+  },
+  {
+    "Timestamp": "2025-05-26T15:27:51.6815461+02:00",
+    "BackupName": "test1",
+    "SourcePath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Tests\\TestOrigin",
+    "DestinationPath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Tests\\TestDestination",
+    "FileSize": 12,
+    "TransferTime": 1,
+    "EncryptionTime": 2,
+    "FileCount": 2
+  },
+  {
+    "Timestamp": "2025-05-26T15:27:52.9044062+02:00",
+    "BackupName": "test",
+    "SourcePath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Tests\\TestOrigin2",
+    "DestinationPath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Tests\\TestDestination2",
+    "FileSize": 80,
+    "TransferTime": 1,
+    "EncryptionTime": 2,
+    "FileCount": 3
+  },
+  {
+    "Timestamp": "2025-05-26T15:27:53.6913915+02:00",
+    "BackupName": "test1",
+    "SourcePath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Tests\\TestOrigin",
+    "DestinationPath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Tests\\TestDestination",
+    "FileSize": 12,
+    "TransferTime": 0,
+    "EncryptionTime": 1,
+    "FileCount": 2
+  },
+  {
+    "Timestamp": "2025-05-26T15:27:54.9128208+02:00",
+    "BackupName": "test",
+    "SourcePath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Tests\\TestOrigin2",
+    "DestinationPath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Tests\\TestDestination2",
+    "FileSize": 80,
+    "TransferTime": 0,
+    "EncryptionTime": 2,
+    "FileCount": 3
+  },
+  {
+    "Timestamp": "2025-05-26T15:35:04.8015787+02:00",
+    "BackupName": "test",
+    "SourcePath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Tests\\TestOrigin2",
+    "DestinationPath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Tests\\TestDestination2",
+    "FileSize": 80,
+    "TransferTime": 1,
+    "EncryptionTime": 2,
+    "FileCount": 3
+  },
+  {
+    "Timestamp": "2025-05-26T15:35:05.5019266+02:00",
+    "BackupName": "test1",
+    "SourcePath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Tests\\TestOrigin",
+    "DestinationPath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Tests\\TestDestination",
+    "FileSize": 12,
+    "TransferTime": 1,
+    "EncryptionTime": 1,
+    "FileCount": 2
+  },
+  {
+    "Timestamp": "2025-05-26T15:35:06.5820795+02:00",
+    "BackupName": "test3",
+    "SourcePath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Tests\\TestOrigin3",
+    "DestinationPath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Tests\\TestDestination3",
+    "FileSize": 69793,
+    "TransferTime": 3,
+    "EncryptionTime": 38,
+    "FileCount": 7
+  },
+  {
+    "Timestamp": "2025-05-26T15:35:06.818272+02:00",
+    "BackupName": "test",
+    "SourcePath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Tests\\TestOrigin2",
+    "DestinationPath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Tests\\TestDestination2",
+    "FileSize": 80,
+    "TransferTime": 1,
+    "EncryptionTime": 1,
+    "FileCount": 3
+  },
+  {
+    "Timestamp": "2025-05-26T15:35:07.519552+02:00",
+    "BackupName": "test1",
+    "SourcePath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Tests\\TestOrigin",
+    "DestinationPath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Tests\\TestDestination",
+    "FileSize": 12,
+    "TransferTime": 1,
+    "EncryptionTime": 2,
+    "FileCount": 2
+  },
+  {
+    "Timestamp": "2025-05-26T15:35:08.6241514+02:00",
+    "BackupName": "test3",
+    "SourcePath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Tests\\TestOrigin3",
+    "DestinationPath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Tests\\TestDestination3",
+    "FileSize": 69793,
+    "TransferTime": 3,
+    "EncryptionTime": 15,
+    "FileCount": 7
+  },
+  {
+    "Timestamp": "2025-05-26T15:35:08.8243797+02:00",
+    "BackupName": "test",
+    "SourcePath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Tests\\TestOrigin2",
+    "DestinationPath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Tests\\TestDestination2",
+    "FileSize": 80,
+    "TransferTime": 1,
+    "EncryptionTime": 1,
+    "FileCount": 3
+  },
+  {
+    "Timestamp": "2025-05-26T15:35:10.6581534+02:00",
+    "BackupName": "test3",
+    "SourcePath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Tests\\TestOrigin3",
+    "DestinationPath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Tests\\TestDestination3",
+    "FileSize": 69793,
+    "TransferTime": 3,
+    "EncryptionTime": 14,
+    "FileCount": 7
+  },
+  {
+    "Timestamp": "2025-05-26T15:35:12.6994035+02:00",
+    "BackupName": "test3",
+    "SourcePath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Tests\\TestOrigin3",
+    "DestinationPath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Tests\\TestDestination3",
+    "FileSize": 69793,
+    "TransferTime": 3,
+    "EncryptionTime": 15,
+    "FileCount": 7
+  },
+  {
+    "Timestamp": "2025-05-26T15:35:14.7534743+02:00",
+    "BackupName": "test3",
+    "SourcePath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Tests\\TestOrigin3",
+    "DestinationPath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Tests\\TestDestination3",
+    "FileSize": 69793,
+    "TransferTime": 15,
+    "EncryptionTime": 15,
+    "FileCount": 7
+  },
+  {
+    "Timestamp": "2025-05-26T15:35:16.7896672+02:00",
+    "BackupName": "test3",
+    "SourcePath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Tests\\TestOrigin3",
+    "DestinationPath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Tests\\TestDestination3",
+    "FileSize": 69793,
+    "TransferTime": 3,
+    "EncryptionTime": 14,
+    "FileCount": 7
+  },
+  {
+    "Timestamp": "2025-05-26T15:35:18.8394084+02:00",
+    "BackupName": "test3",
+    "SourcePath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Tests\\TestOrigin3",
+    "DestinationPath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Tests\\TestDestination3",
+    "FileSize": 69793,
+    "TransferTime": 3,
+    "EncryptionTime": 28,
+    "FileCount": 7
+  },
+  {
+    "Timestamp": "2025-05-26T15:35:45.8533079+02:00",
+    "BackupName": "test",
+    "SourcePath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Tests\\TestOrigin2",
+    "DestinationPath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Tests\\TestDestination2",
+    "FileSize": 80,
+    "TransferTime": 0,
+    "EncryptionTime": 1,
+    "FileCount": 3
+  },
+  {
+    "Timestamp": "2025-05-26T15:35:47.8776767+02:00",
+    "BackupName": "test",
+    "SourcePath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Tests\\TestOrigin2",
+    "DestinationPath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Tests\\TestDestination2",
+    "FileSize": 80,
+    "TransferTime": 11,
+    "EncryptionTime": 1,
+    "FileCount": 3
+  },
+  {
+    "Timestamp": "2025-05-26T15:35:49.8862433+02:00",
+    "BackupName": "test",
+    "SourcePath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Tests\\TestOrigin2",
+    "DestinationPath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Tests\\TestDestination2",
+    "FileSize": 80,
+    "TransferTime": 1,
+    "EncryptionTime": 2,
+    "FileCount": 3
+  },
+  {
+    "Timestamp": "2025-05-26T15:35:51.9195466+02:00",
+    "BackupName": "test1",
+    "SourcePath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Tests\\TestOrigin",
+    "DestinationPath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Tests\\TestDestination",
+    "FileSize": 12,
+    "TransferTime": 1,
+    "EncryptionTime": 1,
+    "FileCount": 2
+  },
+  {
+    "Timestamp": "2025-05-26T15:35:53.9367433+02:00",
+    "BackupName": "test1",
+    "SourcePath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Tests\\TestOrigin",
+    "DestinationPath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Tests\\TestDestination",
+    "FileSize": 12,
+    "TransferTime": 1,
+    "EncryptionTime": 2,
+    "FileCount": 2
+  },
+  {
+    "Timestamp": "2025-05-26T15:35:55.9823118+02:00",
+    "BackupName": "test3",
+    "SourcePath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Tests\\TestOrigin3",
+    "DestinationPath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Tests\\TestDestination3",
+    "FileSize": 69793,
+    "TransferTime": 3,
+    "EncryptionTime": 1,
+    "FileCount": 7
+  },
+  {
+    "Timestamp": "2025-05-26T15:35:58.0183969+02:00",
+    "BackupName": "test3",
+    "SourcePath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Tests\\TestOrigin3",
+    "DestinationPath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Tests\\TestDestination3",
+    "FileSize": 69793,
+    "TransferTime": 13,
+    "EncryptionTime": 2,
+    "FileCount": 7
+  },
+  {
+    "Timestamp": "2025-05-26T15:36:00.0381696+02:00",
+    "BackupName": "test3",
+    "SourcePath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Tests\\TestOrigin3",
+    "DestinationPath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Tests\\TestDestination3",
+    "FileSize": 69793,
+    "TransferTime": 2,
+    "EncryptionTime": 1,
+    "FileCount": 7
+  },
+  {
+    "Timestamp": "2025-05-26T15:36:02.0552689+02:00",
+    "BackupName": "test3",
+    "SourcePath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Tests\\TestOrigin3",
+    "DestinationPath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Tests\\TestDestination3",
+    "FileSize": 69793,
+    "TransferTime": 2,
+    "EncryptionTime": 1,
+    "FileCount": 7
+  },
+  {
+    "Timestamp": "2025-05-26T15:36:04.0737367+02:00",
+    "BackupName": "test3",
+    "SourcePath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Tests\\TestOrigin3",
+    "DestinationPath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Tests\\TestDestination3",
+    "FileSize": 69793,
+    "TransferTime": 3,
+    "EncryptionTime": 1,
+    "FileCount": 7
+  },
+  {
+    "Timestamp": "2025-05-26T15:36:06.0903161+02:00",
+    "BackupName": "test3",
+    "SourcePath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Tests\\TestOrigin3",
+    "DestinationPath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Tests\\TestDestination3",
+    "FileSize": 69793,
+    "TransferTime": 3,
+    "EncryptionTime": 1,
+    "FileCount": 7
+  },
+  {
+    "Timestamp": "2025-05-26T15:36:08.1288676+02:00",
+    "BackupName": "test3",
+    "SourcePath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Tests\\TestOrigin3",
+    "DestinationPath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Tests\\TestDestination3",
+    "FileSize": 69793,
+    "TransferTime": 3,
+    "EncryptionTime": 18,
+    "FileCount": 7
+  },
+  {
+    "Timestamp": "2025-05-26T15:36:35.9680891+02:00",
+    "BackupName": "test",
+    "SourcePath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Tests\\TestOrigin2",
+    "DestinationPath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Tests\\TestDestination2",
+    "FileSize": 80,
+    "TransferTime": 0,
+    "EncryptionTime": 1,
+    "FileCount": 3
+  },
+  {
+    "Timestamp": "2025-05-26T15:36:37.9880618+02:00",
+    "BackupName": "test",
+    "SourcePath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Tests\\TestOrigin2",
+    "DestinationPath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Tests\\TestDestination2",
+    "FileSize": 80,
+    "TransferTime": 1,
+    "EncryptionTime": 2,
+    "FileCount": 3
+  },
+  {
+    "Timestamp": "2025-05-26T15:36:40.0042427+02:00",
+    "BackupName": "test",
+    "SourcePath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Tests\\TestOrigin2",
+    "DestinationPath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Tests\\TestDestination2",
+    "FileSize": 80,
+    "TransferTime": 1,
+    "EncryptionTime": 1,
+    "FileCount": 3
+  },
+  {
+    "Timestamp": "2025-05-26T15:36:42.0213722+02:00",
+    "BackupName": "test1",
+    "SourcePath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Tests\\TestOrigin",
+    "DestinationPath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Tests\\TestDestination",
+    "FileSize": 12,
+    "TransferTime": 1,
+    "EncryptionTime": 2,
+    "FileCount": 2
+  },
+  {
+    "Timestamp": "2025-05-26T15:36:44.0378554+02:00",
+    "BackupName": "test1",
+    "SourcePath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Tests\\TestOrigin",
+    "DestinationPath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Tests\\TestDestination",
+    "FileSize": 12,
+    "TransferTime": 1,
+    "EncryptionTime": 2,
+    "FileCount": 2
+  },
+  {
+    "Timestamp": "2025-05-26T15:36:46.0725821+02:00",
+    "BackupName": "test3",
+    "SourcePath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Tests\\TestOrigin3",
+    "DestinationPath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Tests\\TestDestination3",
+    "FileSize": 69793,
+    "TransferTime": 3,
+    "EncryptionTime": 1,
+    "FileCount": 7
+  },
+  {
+    "Timestamp": "2025-05-26T15:36:48.089423+02:00",
+    "BackupName": "test3",
+    "SourcePath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Tests\\TestOrigin3",
+    "DestinationPath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Tests\\TestDestination3",
+    "FileSize": 69793,
+    "TransferTime": 3,
+    "EncryptionTime": 1,
+    "FileCount": 7
+  },
+  {
+    "Timestamp": "2025-05-26T15:36:50.1044927+02:00",
+    "BackupName": "test3",
+    "SourcePath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Tests\\TestOrigin3",
+    "DestinationPath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Tests\\TestDestination3",
+    "FileSize": 69793,
+    "TransferTime": 2,
+    "EncryptionTime": 1,
+    "FileCount": 7
+  },
+  {
+    "Timestamp": "2025-05-26T15:36:52.1252555+02:00",
+    "BackupName": "test3",
+    "SourcePath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Tests\\TestOrigin3",
+    "DestinationPath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Tests\\TestDestination3",
+    "FileSize": 69793,
+    "TransferTime": 4,
+    "EncryptionTime": 1,
+    "FileCount": 7
+  },
+  {
+    "Timestamp": "2025-05-26T15:36:54.1413968+02:00",
+    "BackupName": "test3",
+    "SourcePath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Tests\\TestOrigin3",
+    "DestinationPath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Tests\\TestDestination3",
+    "FileSize": 69793,
+    "TransferTime": 3,
+    "EncryptionTime": 2,
+    "FileCount": 7
+  },
+  {
+    "Timestamp": "2025-05-26T15:36:56.1575824+02:00",
+    "BackupName": "test3",
+    "SourcePath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Tests\\TestOrigin3",
+    "DestinationPath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Tests\\TestDestination3",
+    "FileSize": 69793,
+    "TransferTime": 3,
+    "EncryptionTime": 1,
+    "FileCount": 7
+  },
+  {
+    "Timestamp": "2025-05-26T15:36:58.1955744+02:00",
+    "BackupName": "test3",
+    "SourcePath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Tests\\TestOrigin3",
+    "DestinationPath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Tests\\TestDestination3",
+    "FileSize": 69793,
+    "TransferTime": 3,
+    "EncryptionTime": 18,
+    "FileCount": 7
   }
 ]

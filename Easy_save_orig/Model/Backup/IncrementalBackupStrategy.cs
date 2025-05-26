@@ -18,13 +18,13 @@ namespace Easy_Save.Strategies
         {
             // Set the backup state to RUNNING at the start
             backup.State = Easy_Save.Model.Enum.BackupJobState.RUNNING;
-            
+
             try
             {
                 var encryptionManager = EncryptionManager.Instance;
                 Console.WriteLine($"[DEBUG] Extensions à chiffrer chargées : {string.Join(", ", encryptionManager.ExtensionsToEncrypt)}");
                 Console.WriteLine($"[DEBUG] Chemin CryptoSoft.exe : {encryptionManager.EncryptionExecutablePath}");
-                
+
                 // Check for cancellation before starting
                 backup.CheckPauseAndCancellation();
 
@@ -36,22 +36,17 @@ namespace Easy_Save.Strategies
                 List<string> copiedFiles = new();
 
                 foreach (string file in files)
-                {
-                    // Check if paused or cancelled before processing each file
+                {                    // Check if paused or cancelled before processing each file
                     backup.CheckPauseAndCancellation();
-                    
-<<<<<<< HEAD
-                    DateTime lastModified = File.GetLastWriteTime(file);
 
-                    if (lastModified > lastBackupTime)
-=======
+                    DateTime lastModified = File.GetLastWriteTime(file);
+                    string relativePath = Path.GetRelativePath(backup.SourceDirectory, file);
+                    string destinationPath = Path.Combine(backup.TargetDirectory, relativePath);
+
                     if (lastModified > lastBackupTime || !File.Exists(destinationPath))
->>>>>>> 7cef8fd (Add of the large file manager)
                     {
                         Console.WriteLine($"Fichier détecté : {file}");
 
-                        string relativePath = Path.GetRelativePath(backup.SourceDirectory, file);
-                        string destinationPath = Path.Combine(backup.TargetDirectory, relativePath);
                         string? destinationDir = Path.GetDirectoryName(destinationPath);
 
                         if (!Directory.Exists(destinationDir))
@@ -72,32 +67,23 @@ namespace Easy_Save.Strategies
                             DateTime.Now
                         );
                         statusManager.UpdateStatus(statusEntry);
-                        
+
                         // Update backup progress
                         backup.Progress = $"{(int)((copiedFiles.Count / (double)totalFiles) * 100)}%";
-                        
+
                         // Ajouter un délai de 2 secondes pour permettre de voir l'état ACTIVE
                         Thread.Sleep(2000);
-                        
+
                         // Check again for pause/cancel after the delay
                         backup.CheckPauseAndCancellation();
 
-                        string ext = Path.GetExtension(file).ToLower();
-                        bool shouldEncrypt = encryptionManager.ShouldEncryptFile(file);
+                        string ext = Path.GetExtension(file).ToLower(); bool shouldEncrypt = encryptionManager.ShouldEncryptFile(file);
 
                         int encryptionTime = 0;
                         int transferTime = 0;
 
-<<<<<<< HEAD
-                        var swa = Stopwatch.StartNew();
-                        File.Copy(file, destinationPath, true);
-                        swa.Stop();
-                        transferTime = (int)swa.Elapsed.TotalMilliseconds;
-                        
-                        // Check for pause/cancel after file copy
-=======
                         bool isLargeFile = LargeFileTransferManager.Instance.IsFileLarge(file, BackupRulesManager.Instance.LargeFileSizeThresholdKB);
-                        
+
                         if (isLargeFile)
                         {
                             LargeFileTransferManager.Instance.WaitForLargeFileTransferAsync().Wait();
@@ -118,7 +104,7 @@ namespace Easy_Save.Strategies
                             }
                         }
 
->>>>>>> 7cef8fd (Add of the large file manager)
+                        // Check for pause/cancel after file copy
                         backup.CheckPauseAndCancellation();
 
                         if (shouldEncrypt)
@@ -151,7 +137,7 @@ namespace Easy_Save.Strategies
                         copiedFiles.Add(file);
                     }
                 }
-                
+
                 // Set final state to COMPLETED if we get here without cancellation
                 backup.State = Easy_Save.Model.Enum.BackupJobState.COMPLETED;
                 backup.Progress = "100%";

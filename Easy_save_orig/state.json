@@ -1,24 +1,35 @@
 [
   {
     "Name": "test",
-<<<<<<< HEAD
     "SourcePath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Tests\\TestOrigin2\\Test_differential.txt",
     "DestinationPath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Tests\\TestDestination2\\Test_differential.txt",
-    "State": "COMPLETED",
-    "TotalFilesToCopy": 3,
-    "TotalFilesSize": 80,
-    "NbFilesLeftToDo": 0,
-    "Progression": 100,
-    "LastBackupDate": "2025-05-23T13:23:03.4058322+02:00"
-=======
-    "SourcePath": "C:\\Test\\Test\\Test_differential.txt",
-    "DestinationPath": "C:\\Test\\TestDestination\\Test_differential.txt",
     "State": "ACTIVE",
     "TotalFilesToCopy": 3,
-    "TotalFilesSize": 44058,
+    "TotalFilesSize": 80,
     "NbFilesLeftToDo": 1,
     "Progression": 66,
-    "LastBackupDate": "2025-05-26T14:19:42.222564+02:00"
->>>>>>> 7cef8fd (Add of the large file manager)
+    "LastBackupDate": "2025-05-26T15:36:37.9886913+02:00"
+  },
+  {
+    "Name": "test1",
+    "SourcePath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Tests\\TestOrigin\\test_1.txt",
+    "DestinationPath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Tests\\TestDestination\\test_1.txt",
+    "State": "COMPLETED",
+    "TotalFilesToCopy": 2,
+    "TotalFilesSize": 12,
+    "NbFilesLeftToDo": 0,
+    "Progression": 100,
+    "LastBackupDate": "2025-05-26T15:36:42.0219201+02:00"
+  },
+  {
+    "Name": "test3",
+    "SourcePath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Tests\\TestOrigin3\\CV Tom perez le tiec EN.pdf",
+    "DestinationPath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Tests\\TestDestination3\\CV Tom perez le tiec EN.pdf",
+    "State": "COMPLETED",
+    "TotalFilesToCopy": 7,
+    "TotalFilesSize": 69793,
+    "NbFilesLeftToDo": 0,
+    "Progression": 100,
+    "LastBackupDate": "2025-05-26T15:36:56.1582325+02:00"
   }
 ]

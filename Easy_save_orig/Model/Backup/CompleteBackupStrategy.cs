@@ -29,21 +29,17 @@ namespace Easy_Save.Strategies
                 Console.WriteLine($"[DEBUG] Chemin CryptoSoft.exe : {encryptionManager.EncryptionExecutablePath}");
 
                 // Check for cancellation before starting
-                backup.CheckPauseAndCancellation();
-
-                string[] files = Directory.GetFiles(backup.SourceDirectory, "*", SearchOption.AllDirectories);
+                backup.CheckPauseAndCancellation(); string[] files = Directory.GetFiles(backup.SourceDirectory, "*", SearchOption.AllDirectories);
                 long totalSize = files.Sum(f => new FileInfo(f).Length);
                 int totalFiles = files.Length;
                 int filesDone = 0;
 
-<<<<<<< HEAD
-                foreach (string file in files)
-=======
-                var priorityFiles = allFiles.Where(f => priorityExtensions.Contains(Path.GetExtension(f).ToLower())).ToList();
-                var nonPriorityFiles = allFiles.Except(priorityFiles).ToList();
+                // Get priority extensions from backup rules
+                var priorityExtensions = BackupRulesManager.Instance.PriorityExtensions ?? new List<string>();
+                var priorityFiles = files.Where(f => priorityExtensions.Contains(Path.GetExtension(f).ToLower())).ToList();
+                var nonPriorityFiles = files.Except(priorityFiles).ToList();
 
                 void ProcessFile(string file)
->>>>>>> 7cef8fd (Add of the large file manager)
                 {
                     // Check if paused or cancelled before processing each file
                     backup.CheckPauseAndCancellation();
@@ -88,7 +84,7 @@ namespace Easy_Save.Strategies
                     int transferTime = 0;
 
                     bool isLargeFile = LargeFileTransferManager.Instance.IsFileLarge(file, BackupRulesManager.Instance.LargeFileSizeThresholdKB);
-                    
+
                     if (isLargeFile)
                     {
                         LargeFileTransferManager.Instance.WaitForLargeFileTransferAsync().Wait();
@@ -134,28 +130,26 @@ namespace Easy_Save.Strategies
                         else
                         {
                             Console.WriteLine($"Erreur de chiffrement : {destinationPath} (code {encryptionTime})");
-                            continue;
+                            return; // Exit the ProcessFile function instead of continue
                         }
                     }
-
                     logObserver.Update(backup, totalSize, transferTime, shouldEncrypt ? encryptionTime : 0, totalFiles);
                     filesDone++;
-<<<<<<< HEAD
-                }                // Set final state to COMPLETED if we get here without cancellation
-=======
                 }
 
+                // Process priority files first
                 foreach (var file in priorityFiles)
                 {
                     ProcessFile(file);
                 }
 
+                // Then process non-priority files
                 foreach (var file in nonPriorityFiles)
                 {
                     ProcessFile(file);
                 }
 
->>>>>>> 7cef8fd (Add of the large file manager)
+                // Set final state to COMPLETED if we get here without cancellation
                 backup.State = Easy_Save.Model.Enum.BackupJobState.COMPLETED;
                 backup.Progress = "100%";
 

@@ -9,22 +9,12 @@ namespace Easy_Save.Model
 {
     public class BackupRulesManager
     {
-<<<<<<< HEAD
         public long MaxFileSize { get; set; } = 0;
-        
-        public List<string> RestrictedExtensions { get; set; } = new List<string>();
-        
-        public List<string> BusinessSoftwareList { get; set; } = new List<string>();
-        
-        public string CryptoSoftPath { get; set; } = "";
-=======
-        public long MaxFileSize { get; set; } = 0;  
         public List<string> RestrictedExtensions { get; set; } = new List<string>();
         public List<string> BusinessSoftwareList { get; set; } = new List<string>();
         public string CryptoSoftPath { get; set; } = "";
         public List<string> PriorityExtensions { get; set; } = new List<string>();
-        public long LargeFileSizeThresholdKB { get; set; } = 1024; 
->>>>>>> 7cef8fd (Add of the large file manager)
+        public long LargeFileSizeThresholdKB { get; set; } = 1024;
 
         private static BackupRulesManager? _instance;
         private static readonly object _lockObject = new object();
@@ -64,38 +54,16 @@ namespace Easy_Save.Model
                 string jsonContent = File.ReadAllText(configPath);
                 JsonDocument doc = JsonDocument.Parse(jsonContent);
 
-                var settings = new BackupRulesManager();
-
-                if (doc.RootElement.TryGetProperty("BusinessSettings", out JsonElement businessElement))
+                var settings = new BackupRulesManager(); if (doc.RootElement.TryGetProperty("BusinessSettings", out JsonElement businessElement))
                 {
                     if (businessElement.TryGetProperty("MaxFileSize", out JsonElement maxSizeElement))
                     {
-<<<<<<< HEAD
-                        settings.RestrictedExtensions = new List<string>();
-                        foreach (var ext in extensions.EnumerateArray())
-                        {
-                            settings.RestrictedExtensions.Add(ext.GetString() ?? "");
-                        }
-=======
                         settings.MaxFileSize = maxSizeElement.GetInt64();
->>>>>>> 7cef8fd (Add of the large file manager)
                     }
 
                     if (businessElement.TryGetProperty("LargeFileSizeThresholdKB", out JsonElement thresholdElement))
                     {
-<<<<<<< HEAD
-                        settings.BusinessSoftwareList = new List<string>();
-                        foreach (var software in softwareList.EnumerateArray())
-                        {
-                            string? softwareName = software.GetString();
-                            if (!string.IsNullOrWhiteSpace(softwareName))
-                            {
-                                settings.BusinessSoftwareList.Add(softwareName);
-                            }
-                        }
-=======
                         settings.LargeFileSizeThresholdKB = thresholdElement.GetInt64();
->>>>>>> 7cef8fd (Add of the large file manager)
                     }
 
                     if (businessElement.TryGetProperty("RestrictedExtensions", out JsonElement restrictedElement))
@@ -107,12 +75,6 @@ namespace Easy_Save.Model
                         }
                     }
 
-<<<<<<< HEAD
-                    if (businessElement.TryGetProperty("CryptoSoftPath", out JsonElement cryptoPath))
-                        settings.CryptoSoftPath = cryptoPath.GetString() ?? "";
-
-                    return settings;
-=======
                     if (businessElement.TryGetProperty("BusinessSoftwareList", out JsonElement softwareElement))
                     {
                         settings.BusinessSoftwareList = new List<string>();
@@ -135,7 +97,6 @@ namespace Easy_Save.Model
                             settings.PriorityExtensions.Add(ext.GetString() ?? "");
                         }
                     }
->>>>>>> 7cef8fd (Add of the large file manager)
                 }
 
                 return settings;
@@ -153,8 +114,8 @@ namespace Easy_Save.Model
         {
             if (BusinessSoftwareList.Count == 0)
                 return false;
-            
-            return BusinessSoftwareList.Any(software => 
+
+            return BusinessSoftwareList.Any(software =>
                 !string.IsNullOrWhiteSpace(software) && ProcessMonitor.IsProcessRunning(software));
         }
 
@@ -162,10 +123,10 @@ namespace Easy_Save.Model
         // Out: string? 
         // Description: Returns the name of the first running software package found.
         {
-            return BusinessSoftwareList.FirstOrDefault(software => 
+            return BusinessSoftwareList.FirstOrDefault(software =>
                 !string.IsNullOrWhiteSpace(software) && ProcessMonitor.IsProcessRunning(software));
         }
-        
+
 
         public bool AddBusinessSoftware(string softwareName)
         // In: softwareName (string)
@@ -174,17 +135,17 @@ namespace Easy_Save.Model
         {
             if (string.IsNullOrWhiteSpace(softwareName))
                 return false;
-                
+
             softwareName = softwareName.Trim();
-            
+
             if (BusinessSoftwareList.Any(s => s.Equals(softwareName, StringComparison.OrdinalIgnoreCase)))
                 return false;
-                
+
             BusinessSoftwareList.Add(softwareName);
             Save();
             return true;
         }
-        
+
 
         public bool RemoveBusinessSoftware(string softwareName)
         // In: softwareName (string)
@@ -193,13 +154,13 @@ namespace Easy_Save.Model
         {
             if (string.IsNullOrWhiteSpace(softwareName))
                 return false;
-                
+
             string? softwareToRemove = BusinessSoftwareList.FirstOrDefault(
                 s => s.Equals(softwareName, StringComparison.OrdinalIgnoreCase));
-                
+
             if (softwareToRemove == null)
                 return false;
-                
+
             BusinessSoftwareList.Remove(softwareToRemove);
             Save();
             return true;
@@ -212,13 +173,8 @@ namespace Easy_Save.Model
             try
             {
                 string configPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "config.json");
-<<<<<<< HEAD
-                
-                JsonDocument existingDoc;
-=======
                 JsonDocument? existingDoc = null;
 
->>>>>>> 7cef8fd (Add of the large file manager)
                 if (File.Exists(configPath))
                 {
                     string jsonContent = File.ReadAllText(configPath);
@@ -247,14 +203,9 @@ namespace Easy_Save.Model
 
                         writer.WritePropertyName("BusinessSettings");
                         writer.WriteStartObject();
-                        
                         writer.WriteNumber("MaxFileSize", MaxFileSize);
-<<<<<<< HEAD
-                        
-=======
                         writer.WriteNumber("LargeFileSizeThresholdKB", LargeFileSizeThresholdKB);
 
->>>>>>> 7cef8fd (Add of the large file manager)
                         writer.WritePropertyName("RestrictedExtensions");
                         writer.WriteStartArray();
                         foreach (var ext in RestrictedExtensions)
@@ -262,7 +213,7 @@ namespace Easy_Save.Model
                             writer.WriteStringValue(ext);
                         }
                         writer.WriteEndArray();
-                        
+
                         writer.WritePropertyName("BusinessSoftwareList");
                         writer.WriteStartArray();
                         foreach (var software in BusinessSoftwareList)
@@ -270,14 +221,7 @@ namespace Easy_Save.Model
                             writer.WriteStringValue(software);
                         }
                         writer.WriteEndArray();
-                        
                         writer.WriteString("CryptoSoftPath", CryptoSoftPath);
-<<<<<<< HEAD
-                        
-                        writer.WriteEndObject(); 
-                        
-                        writer.WriteEndObject(); 
-=======
 
                         writer.WritePropertyName("PriorityExtensions");
                         writer.WriteStartArray();
@@ -289,7 +233,6 @@ namespace Easy_Save.Model
 
                         writer.WriteEndObject();
                         writer.WriteEndObject();
->>>>>>> 7cef8fd (Add of the large file manager)
                     }
 
                     var json = System.Text.Encoding.UTF8.GetString(stream.ToArray());
@@ -309,4 +252,4 @@ namespace Easy_Save.Model
             return new List<string>(BusinessSoftwareList);
         }
     }
-} 
+}
