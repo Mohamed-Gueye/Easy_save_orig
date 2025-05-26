@@ -2,7 +2,6 @@
 using System.Threading;
 using Easy_Save.Model.Enum;
 
-namespace Easy_Save.Model;
 public class Backup
 {
     public string Name { get; set; } = string.Empty;

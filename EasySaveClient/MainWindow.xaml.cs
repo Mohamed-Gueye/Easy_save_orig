@@ -12,50 +12,48 @@ namespace EasySaveClient
 {
     public partial class MainWindow : Window
     {
+        public ObservableCollection<Backup> Jobs { get; set; } = new ObservableCollection<Backup>();
         private TcpClient? client;
         private NetworkStream? stream;
-        public ObservableCollection<Backup> Jobs { get; set; } = new();
-
         public MainWindow()
         {
             InitializeComponent();
-            DataContext = this;
-            BackupJobList.ItemsSource = Jobs;
-            ConnectToServer();
-            StartListeningForUpdates();
+            LoadBackups();                // Charge les sauvegardes enregistrées
+            StartListeningForUpdates();   // Reçoit les mises à jour du serveur
+            this.DataContext = this;
         }
 
-        private void ConnectToServer()
+        private void LoadBackups()
         {
-            try
-            {
-                client = new TcpClient("127.0.0.1", 12345);
-                stream = client.GetStream();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Erreur de connexion : " + ex.Message);
-            }
+            var backupList = Backup.Backup;
+            foreach (var backup in backupList)
+                Jobs.Add(backup);
         }
 
-        private void SendCommand(string command)
+        private void Play_Click(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                using TcpClient client = new TcpClient("127.0.0.1", 12345);
-                using NetworkStream stream = client.GetStream();
-                byte[] data = Encoding.UTF8.GetBytes(command);
-                stream.Write(data, 0, data.Length);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Erreur lors de l'envoi de la commande : " + ex.Message);
-            }
+            if (GetBackupFromSender(sender) is Backup backup)
+                backup.Play();
         }
 
-        private void Pause_Click(object sender, RoutedEventArgs e) => SendCommand("PAUSE");
-        private void Play_Click(object sender, RoutedEventArgs e) => SendCommand("PLAY");
-        private void Stop_Click(object sender, RoutedEventArgs e) => SendCommand("STOP");
+        private void Pause_Click(object sender, RoutedEventArgs e)
+        {
+            if (GetBackupFromSender(sender) is Backup backup)
+                backup.Pause();
+        }
+
+        private void Stop_Click(object sender, RoutedEventArgs e)
+        {
+            if (GetBackupFromSender(sender) is Backup backup)
+                backup.Stop();
+        }
+
+        private Backup? GetBackupFromSender(object sender)
+        {
+            if (sender is FrameworkElement fe && fe.DataContext is Backup backup)
+                return backup;
+            return null;
+        }
 
         private async void StartListeningForUpdates()
         {
@@ -78,7 +76,7 @@ namespace EasySaveClient
 
                         Application.Current.Dispatcher.Invoke(() =>
                         {
-                            var job = this.Jobs.FirstOrDefault(j => j.Name == jobName);
+                            var job = Jobs.FirstOrDefault(j => j.Name == jobName);
                             if (job != null)
                             {
                                 job.Progress = $"{progress}%";
@@ -90,7 +88,6 @@ namespace EasySaveClient
                                     _ => BackupJobState.READY
                                 };
                             }
-
                         });
                     }
                 }
@@ -101,5 +98,4 @@ namespace EasySaveClient
             }
         }
     }
-
 }

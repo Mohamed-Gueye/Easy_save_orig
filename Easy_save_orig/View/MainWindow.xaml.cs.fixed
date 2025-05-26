@@ -89,7 +89,7 @@ namespace Easy_Save.View
 
                 // Charger les paramètres du logiciel métier
                 LoadBackupRules();
-                // Ajouter un job fictif pour test ou charger tes vrais jobs ici#
+                // charger tes vrais jobs ici#
                 _backupJobs = backupProcess.GetAllBackup();
                 
 
