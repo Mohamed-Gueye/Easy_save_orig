@@ -1,35 +1,24 @@
 [
   {
-    "Name": "test",
-    "SourcePath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Tests\\TestOrigin2\\Test_differential.txt",
-    "DestinationPath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Tests\\TestDestination2\\Test_differential.txt",
+    "Name": "test_2",
+    "SourcePath": "C:\\TestBackup\\Source\\TestOrigin2\\test_2.txt",
+    "DestinationPath": "C:\\TestBackup\\Target\\TestOrigin2\\test_2.txt",
     "State": "ACTIVE",
-    "TotalFilesToCopy": 3,
-    "TotalFilesSize": 80,
-    "NbFilesLeftToDo": 1,
-    "Progression": 66,
-    "LastBackupDate": "2025-05-26T15:36:37.9886913+02:00"
-  },
-  {
-    "Name": "test1",
-    "SourcePath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Tests\\TestOrigin\\test_1.txt",
-    "DestinationPath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Tests\\TestDestination\\test_1.txt",
-    "State": "COMPLETED",
     "TotalFilesToCopy": 2,
-    "TotalFilesSize": 12,
-    "NbFilesLeftToDo": 0,
-    "Progression": 100,
-    "LastBackupDate": "2025-05-26T15:36:42.0219201+02:00"
+    "TotalFilesSize": 21,
+    "NbFilesLeftToDo": 1,
+    "Progression": 50,
+    "LastBackupDate": "2025-05-26T23:12:16.3969581+02:00"
   },
   {
-    "Name": "test3",
-    "SourcePath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Tests\\TestOrigin3\\CV Tom perez le tiec EN.pdf",
-    "DestinationPath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Tests\\TestDestination3\\CV Tom perez le tiec EN.pdf",
-    "State": "COMPLETED",
-    "TotalFilesToCopy": 7,
-    "TotalFilesSize": 69793,
-    "NbFilesLeftToDo": 0,
-    "Progression": 100,
-    "LastBackupDate": "2025-05-26T15:36:56.1582325+02:00"
+    "Name": "test",
+    "SourcePath": "C:\\TestBackup\\Source\\TestOrigin\\test_4.txt",
+    "DestinationPath": "C:\\TestBackup\\Target\\TestOrigin\\test_4.txt",
+    "State": "ACTIVE",
+    "TotalFilesToCopy": 5,
+    "TotalFilesSize": 287217,
+    "NbFilesLeftToDo": 1,
+    "Progression": 80,
+    "LastBackupDate": "2025-05-26T23:12:23.2902557+02:00"
   }
 ]

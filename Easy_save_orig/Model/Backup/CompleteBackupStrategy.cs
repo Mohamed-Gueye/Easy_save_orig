@@ -34,6 +34,9 @@ namespace Easy_Save.Strategies
                 int totalFiles = files.Length;
                 int filesDone = 0;
 
+                // Register priority files with the manager
+                PriorityFileManager.Instance.RegisterPriorityFiles(backup.Name, backup.SourceDirectory);
+
                 // Get priority extensions from backup rules
                 var priorityExtensions = BackupRulesManager.Instance.PriorityExtensions ?? new List<string>();
                 var priorityFiles = files.Where(f => priorityExtensions.Contains(Path.GetExtension(f).ToLower())).ToList();
@@ -143,15 +146,38 @@ namespace Easy_Save.Strategies
                     ProcessFile(file);
                 }
 
-                // Then process non-priority files
-                foreach (var file in nonPriorityFiles)
+                // Mark this backup as having processed its priority files
+                PriorityFileManager.Instance.MarkBackupAsProcessing(backup.Name);
+
+                // Only process non-priority files if allowed
+                if (PriorityFileManager.Instance.CanProcessNonPriorityFiles(backup.Name))
                 {
-                    ProcessFile(file);
+                    foreach (var file in nonPriorityFiles)
+                    {
+                        // Vérifier s'il y a de nouveaux fichiers prioritaires
+                        PriorityFileManager.Instance.CheckAndUpdatePriorityStatus(backup.Name, backup.SourceDirectory);
+                        
+                        // Si on ne peut plus traiter les fichiers non prioritaires, on sort de la boucle
+                        if (!PriorityFileManager.Instance.CanProcessNonPriorityFiles(backup.Name))
+                        {
+                            Console.WriteLine($"Sauvegarde '{backup.Name}' mise en pause : des fichiers prioritaires ont été détectés dans une autre sauvegarde.");
+                            break;
+                        }
+
+                        ProcessFile(file);
+                    }
+                }
+                else
+                {
+                    Console.WriteLine($"Sauvegarde '{backup.Name}' : traitement des fichiers non prioritaires reporté en raison de fichiers prioritaires en attente.");
                 }
 
                 // Set final state to COMPLETED if we get here without cancellation
                 backup.State = Easy_Save.Model.Enum.BackupJobState.COMPLETED;
                 backup.Progress = "100%";
+
+                // Clean up priority file tracking
+                PriorityFileManager.Instance.RemoveBackup(backup.Name);
 
                 // Mise à jour du statut dans le fichier state.json
                 var finalStatus = statusManager.GetAllStatuses().FirstOrDefault(s => s.Name == backup.Name);

@@ -127,33 +127,27 @@ namespace Easy_Save.Model
             }
         }
 
-        public async Task ExecuteAllBackupsAsync(bool isConcurrent = false, int maxConcurrency = 4)
-        // In: isConcurrent (bool), maxConcurrency (int)
-        // Out: Task
-        // Description: Executes all backups concurrently with optional concurrency limit.
+        public async Task ExecuteAllBackupsAsync(bool parallel = false, int maxConcurrency = 3)
         {
             if (!CanExecuteBackup())
             {
-                Console.WriteLine("Toutes les sauvegardes ont été annulées : logiciel métier détecté.");
+                Console.WriteLine("Impossible d'exécuter les sauvegardes : un logiciel métier est en cours d'exécution.");
                 return;
             }
 
+            // Reset the priority file manager before starting all backups
+            PriorityFileManager.Instance.Reset();
+
             currentJobAllowedToComplete = true;
 
-            var backupQueue = new Queue<Backup>(backups);
-
-            if (!isConcurrent)
+            if (!parallel)
             {
-                while (backupQueue.Count > 0)
+                foreach (var backup in backups)
                 {
-                    var backup = backupQueue.Dequeue();
-
-                    if (backupQueue.Count > 0 && !CanExecuteBackup())
+                    if (!currentJobAllowedToComplete)
                     {
-                        Console.WriteLine("Les sauvegardes restantes ont été annulées : logiciel métier détecté.");
                         break;
                     }
-
                     ExecuteBackup(backup.Name);
                 }
             }
