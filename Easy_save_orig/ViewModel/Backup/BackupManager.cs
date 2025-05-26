@@ -142,6 +142,12 @@ namespace Easy_Save.Model
 
             var backupQueue = new Queue<Backup>(backups);
 
+            // Force all backups to execute regardless of last backup time
+            foreach (var backup in backups)
+            {
+                backup.ForceBackup = true;
+            }
+
             if (!isConcurrent)
             {
                 while (backupQueue.Count > 0)
@@ -174,6 +180,12 @@ namespace Easy_Save.Model
                 });
 
                 await Task.WhenAll(tasks);
+            }
+
+            // Reset force flag after execution
+            foreach (var backup in backups)
+            {
+                backup.ForceBackup = false;
             }
 
             currentJobAllowedToComplete = false;

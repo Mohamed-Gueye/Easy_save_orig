@@ -37,68 +37,92 @@ namespace Easy_Save.Strategies
                     backup.CheckPauseAndCancellation();
 
                     DateTime lastModified = File.GetLastWriteTime(file);
-                    if (lastModified <= lastBackupTime) continue;
-
-                    string ext = Path.GetExtension(file).ToLower();
-                    bool isPriority = priorityExtensions.Contains(ext);
-
-                    if (!isPriority && PriorityFileManager.Instance.HasPendingPriorityFiles())
-                    {
-                        while (PriorityFileManager.Instance.HasPendingPriorityFiles())
-                        {
-                            Thread.Sleep(100);
-                        }
-                    }
-
                     string relativePath = Path.GetRelativePath(backup.SourceDirectory, file);
                     string destinationPath = Path.Combine(backup.TargetDirectory, relativePath);
-                    string? destinationDir = Path.GetDirectoryName(destinationPath);
-
-                    if (!Directory.Exists(destinationDir))
+                    
+                    // Copy file if it's been modified since last backup OR if it doesn't exist in destination
+                    if (lastModified > lastBackupTime || !File.Exists(destinationPath))
                     {
-                        Directory.CreateDirectory(destinationDir);
-                    }
+                        string ext = Path.GetExtension(file).ToLower();
+                        bool isPriority = priorityExtensions.Contains(ext);
 
-                    var statusEntry = new StatusEntry(
-                        backup.Name,
-                        file,
-                        destinationPath,
-                        "ACTIVE",
-                        totalFiles,
-                        totalSize,
-                        totalFiles - copiedFiles.Count,
-                        (int)((copiedFiles.Count / (double)totalFiles) * 100),
-                        DateTime.Now
-                    );
-                    statusManager.UpdateStatus(statusEntry);
+                        if (!isPriority && PriorityFileManager.Instance.HasPendingPriorityFiles())
+                        {
+                            while (PriorityFileManager.Instance.HasPendingPriorityFiles())
+                            {
+                                Thread.Sleep(100);
+                            }
+                        }
 
-                    backup.Progress = $"{(int)((copiedFiles.Count / (double)totalFiles) * 100)}%";
+                        string? destinationDir = Path.GetDirectoryName(destinationPath);
 
-                    Thread.Sleep(2000);
+                        if (!Directory.Exists(destinationDir))
+                        {
+                            Directory.CreateDirectory(destinationDir);
+                        }
 
-                    backup.CheckPauseAndCancellation();
+                        var statusEntry = new StatusEntry(
+                            backup.Name,
+                            file,
+                            destinationPath,
+                            "ACTIVE",
+                            totalFiles,
+                            totalSize,
+                            totalFiles - copiedFiles.Count,
+                            (int)((copiedFiles.Count / (double)totalFiles) * 100),
+                            DateTime.Now
+                        );
+                        statusManager.UpdateStatus(statusEntry);
 
-                    int encryptionTime = 0;
-                    int transferTime = 0;
+                        backup.Progress = $"{(int)((copiedFiles.Count / (double)totalFiles) * 100)}%";
 
-                    var swa = Stopwatch.StartNew();
-                    File.Copy(file, destinationPath, true);
-                    swa.Stop();
-                    transferTime = (int)swa.Elapsed.TotalMilliseconds;
+                        Thread.Sleep(2000);
 
-                    backup.CheckPauseAndCancellation();
+                        backup.CheckPauseAndCancellation();
 
-                    if (encryptionManager.ShouldEncryptFile(file))
-                    {
-                        encryptionTime = encryptionManager.EncryptFile(destinationPath);
-                    }
+                        int encryptionTime = 0;
+                        int transferTime = 0;
 
-                    logObserver.Update(backup, totalSize, transferTime, encryptionTime, totalFiles);
-                    copiedFiles.Add(file);
+                        var swa = Stopwatch.StartNew();
+                        File.Copy(file, destinationPath, true);
+                        swa.Stop();
+                        transferTime = (int)swa.Elapsed.TotalMilliseconds;
 
-                    if (isPriority)
-                    {
-                        PriorityFileManager.Instance.Decrement();
+                        backup.CheckPauseAndCancellation();
+
+                        if (encryptionManager.ShouldEncryptFile(file))
+                        {
+                            encryptionTime = encryptionManager.EncryptFile(destinationPath);
+
+                            if (encryptionTime >= 0)
+                            {
+                                string decryptedPath = Path.Combine(
+                                    Path.GetDirectoryName(destinationPath)!,
+                                    Path.GetFileNameWithoutExtension(destinationPath) + "_decrypted" + Path.GetExtension(destinationPath)
+                                );
+
+                                File.Copy(destinationPath, decryptedPath, true);
+                                int decryptTime = encryptionManager.EncryptFile(decryptedPath);
+
+                                if (decryptTime >= 0)
+                                    Console.WriteLine($"Déchiffrement effectué → {decryptedPath}");
+                                else
+                                    Console.WriteLine($"Erreur de déchiffrement pour : {decryptedPath}");
+                            }
+                            else
+                            {
+                                Console.WriteLine($"Erreur de chiffrement : {destinationPath} (code {encryptionTime})");
+                                continue;
+                            }
+                        }
+
+                        logObserver.Update(backup, totalSize, transferTime, encryptionTime, totalFiles);
+                        copiedFiles.Add(file);
+
+                        if (isPriority)
+                        {
+                            PriorityFileManager.Instance.Decrement();
+                        }
                     }
                 }
 

@@ -31,3 +31,13 @@ C:\Projet_Software\Easy_save_orig\Easy_save_orig\CryptoSoft\obj\Debug\net8.0\Cry
 C:\Projet_Software\Easy_save_orig\Easy_save_orig\CryptoSoft\obj\Debug\net8.0\refint\CryptoSoft.dll
 C:\Projet_Software\Easy_save_orig\Easy_save_orig\CryptoSoft\obj\Debug\net8.0\CryptoSoft.pdb
 C:\Projet_Software\Easy_save_orig\Easy_save_orig\CryptoSoft\obj\Debug\net8.0\ref\CryptoSoft.dll
+C:\projet_sauvegarde\Easy_save_orig\Easy_save_orig\CryptoSoft\bin\Debug\net8.0\CryptoSoft.deps.json
+C:\projet_sauvegarde\Easy_save_orig\Easy_save_orig\CryptoSoft\bin\Debug\net8.0\CryptoSoft.dll
+C:\projet_sauvegarde\Easy_save_orig\Easy_save_orig\CryptoSoft\bin\Debug\net8.0\CryptoSoft.pdb
+C:\projet_sauvegarde\Easy_save_orig\Easy_save_orig\CryptoSoft\obj\Debug\net8.0\CryptoSoft.GeneratedMSBuildEditorConfig.editorconfig
+C:\projet_sauvegarde\Easy_save_orig\Easy_save_orig\CryptoSoft\obj\Debug\net8.0\CryptoSoft.csproj.CoreCompileInputs.cache
+C:\projet_sauvegarde\Easy_save_orig\Easy_save_orig\CryptoSoft\obj\Debug\net8.0\CryptoSoft.sourcelink.json
+C:\projet_sauvegarde\Easy_save_orig\Easy_save_orig\CryptoSoft\obj\Debug\net8.0\CryptoSoft.dll
+C:\projet_sauvegarde\Easy_save_orig\Easy_save_orig\CryptoSoft\obj\Debug\net8.0\refint\CryptoSoft.dll
+C:\projet_sauvegarde\Easy_save_orig\Easy_save_orig\CryptoSoft\obj\Debug\net8.0\CryptoSoft.pdb
+C:\projet_sauvegarde\Easy_save_orig\Easy_save_orig\CryptoSoft\obj\Debug\net8.0\ref\CryptoSoft.dll

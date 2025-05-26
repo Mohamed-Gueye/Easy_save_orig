@@ -1,24 +1,13 @@
 [
   {
-    "Name": "test_2",
-    "SourcePath": "C:\\TestBackup\\Source\\TestOrigin2\\test_2.txt",
-    "DestinationPath": "C:\\TestBackup\\Target\\TestOrigin3\\test_2.txt",
-    "State": "READY",
-    "TotalFilesToCopy": 2,
-    "TotalFilesSize": 21,
-    "NbFilesLeftToDo": 2,
-    "Progression": 0,
-    "LastBackupDate": "2025-05-25T18:41:02.570032+02:00"
-  },
-  {
     "Name": "test",
-    "SourcePath": "C:\\TestBackup\\Source\\TestOrigin\\test_4.txt",
-    "DestinationPath": "C:\\TestBackup\\Target\\TestOrigin2\\test_4.txt",
-    "State": "COMPLETED",
-    "TotalFilesToCopy": 5,
-    "TotalFilesSize": 287217,
-    "NbFilesLeftToDo": 0,
-    "Progression": 100,
-    "LastBackupDate": "2025-05-25T18:42:16.8322947+02:00"
+    "SourcePath": "C:\\Test\\Test\\Test_differential.txt",
+    "DestinationPath": "C:\\Test\\TestDestination\\Test_differential.txt",
+    "State": "ACTIVE",
+    "TotalFilesToCopy": 3,
+    "TotalFilesSize": 44058,
+    "NbFilesLeftToDo": 1,
+    "Progression": 66,
+    "LastBackupDate": "2025-05-26T13:58:57.0360218+02:00"
   }
 ]

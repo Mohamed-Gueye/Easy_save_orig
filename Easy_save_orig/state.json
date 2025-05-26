@@ -1,13 +1,24 @@
 [
   {
     "Name": "test",
-    "SourcePath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Tests\\TestOrigin2\\Test_differential.txt",
-    "DestinationPath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Tests\\TestDestination2\\Test_differential.txt",
+    "SourcePath": "C:\\Test\\Test\\Test_differential.txt",
+    "DestinationPath": "C:\\Test\\TestDestination\\Test_differential.txt",
+    "State": "ACTIVE",
+    "TotalFilesToCopy": 3,
+    "TotalFilesSize": 44058,
+    "NbFilesLeftToDo": 1,
+    "Progression": 66,
+    "LastBackupDate": "2025-05-26T13:55:06.0417092+02:00"
+  },
+  {
+    "Name": "test_2",
+    "SourcePath": "C:\\Test\\Test\\Test_differential.txt",
+    "DestinationPath": "C:\\Test\\TestDestination2\\Test_differential.txt",
     "State": "COMPLETED",
     "TotalFilesToCopy": 3,
-    "TotalFilesSize": 80,
+    "TotalFilesSize": 44058,
     "NbFilesLeftToDo": 0,
     "Progression": 100,
-    "LastBackupDate": "2025-05-23T13:23:03.4058322+02:00"
+    "LastBackupDate": "2025-05-26T13:55:04.437719+02:00"
   }
 ]

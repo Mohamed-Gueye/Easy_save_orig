@@ -10,6 +10,7 @@ public class Backup
     public string TargetDirectory { get; set; } = string.Empty;
     public string Type { get; set; } = string.Empty;
     public string Progress { get; set; } = "0%";
+    public bool ForceBackup { get; set; } = false;
     
     // State management
     private BackupJobState _state = BackupJobState.READY;

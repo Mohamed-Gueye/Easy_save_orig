@@ -4,7 +4,7 @@
 winexe
 C#
 .cs
-C:\Projet_Software\Easy_save_orig\Easy_save_orig\obj\Release\net8.0-windows\
+C:\projet_sauvegarde\Easy_save_orig\Easy_save_orig\obj\Release\net8.0-windows\
 Easy_Save
 none
 false
@@ -13,7 +13,7 @@ TRACE;RELEASE;NET;NET8_0;NETCOREAPP
 1-487866684
 
 27-627503852
-208-1526330202
+2081456711920
 View\MainWindow.xaml;
 
 True
