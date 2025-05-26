@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 using Easy_Save.Model.Enum;
 
@@ -24,7 +25,9 @@ public class Backup
     
     public CancellationToken CancellationToken => 
         (_cancellationTokenSource ?? (_cancellationTokenSource = new CancellationTokenSource())).Token;
-    
+
+    public static IEnumerable<object> ?AllBackup { get; set; }
+
     public Backup()
     {
         _pauseEvent = new ManualResetEventSlim(true); // Not paused initially
