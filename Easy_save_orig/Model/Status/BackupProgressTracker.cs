@@ -32,7 +32,7 @@ namespace Easy_Save.Model
         // Out: Task
         // Description: Executes a backup while reporting progress asynchronously.
         {
-            StatusEntry currentStatus = null;
+            StatusEntry? currentStatus = null;
             
             progressTimer.Elapsed += (sender, e) => 
             {
@@ -82,7 +82,7 @@ namespace Easy_Save.Model
                 try
                 {
                     string currentBackupName = backup.Name;
-                    StatusEntry currentStatus = null;
+                    StatusEntry? currentStatus = null;
                     
                     progressTimer.Elapsed += null; 
                     progressTimer.Elapsed += (sender, e) => 
@@ -127,7 +127,7 @@ namespace Easy_Save.Model
             return successCount;
         }
         
-        private StatusEntry GetBackupStatus(string backupName)
+        private StatusEntry? GetBackupStatus(string backupName)
         // In: backupName (string)
         // Out: StatusEntry 
         // Description: Retrieves the backup status from the state file by name.
@@ -137,7 +137,7 @@ namespace Easy_Save.Model
                 if (File.Exists(stateFilePath))
                 {
                     string json = File.ReadAllText(stateFilePath);
-                    List<StatusEntry> statusEntries = JsonSerializer.Deserialize<List<StatusEntry>>(json);
+                    List<StatusEntry>? statusEntries = JsonSerializer.Deserialize<List<StatusEntry>>(json);
                     
                     if (statusEntries != null)
                     {

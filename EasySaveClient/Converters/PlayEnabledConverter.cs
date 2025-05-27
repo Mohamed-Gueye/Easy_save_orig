@@ -3,13 +3,15 @@ using System.Globalization;
 using System.Windows.Data;
 using Easy_Save.Model.Enum;
 
-public class PlayEnabledConverter : IValueConverter
+namespace EasySaveClient.Converters
 {
-    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    public class PlayEnabledConverter : IValueConverter
     {
-        return value is BackupJobState state &&
-               (state == BackupJobState.PAUSED || state == BackupJobState.STOPPED || state == BackupJobState.READY);
-    }
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return value is BackupJobState state && state != BackupJobState.RUNNING;
+        }
 
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => throw new NotImplementedException();
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => throw new NotImplementedException();
+    }
 }

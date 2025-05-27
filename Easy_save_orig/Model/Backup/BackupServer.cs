@@ -4,7 +4,9 @@ using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
+
 namespace Easy_Save.Model.BackupServer
 {
        public class BackupServer
@@ -49,27 +51,60 @@ namespace Easy_Save.Model.BackupServer
                 }
             }
 
-            private void BroadcastProgress()
-            {
-                TcpListener listener = new TcpListener(IPAddress.Any, 12346);
-                listener.Start();
+        private List<TcpClient> connectedClients = new();
 
+        private void BroadcastProgress()
+        {
+            TcpListener listener = new TcpListener(IPAddress.Any, 12346);
+            listener.Start();
+            Console.WriteLine("Serveur de diffusion prêt (port 12346)");
+
+            Task.Run(() =>
+            {
                 while (true)
                 {
-                    using TcpClient client = listener.AcceptTcpClient();
-                    using NetworkStream stream = client.GetStream();
-
-                    foreach (var job in _jobs)
+                    TcpClient client = listener.AcceptTcpClient();
+                    lock (connectedClients)
                     {
-                        string update = $"{job.Name}|{job.Progress}|{job.State}";
-                        byte[] data = Encoding.UTF8.GetBytes(update);
-                        stream.Write(data, 0, data.Length);
+                        connectedClients.Add(client);
                     }
-
-                    System.Threading.Thread.Sleep(1000); // Limit refresh rate
+                    Console.WriteLine("Client connecté !");
                 }
+            });
+
+            while (true)
+            {
+                string updates = string.Join(";", _jobs.Select(job =>
+                    $"{job.Name}|{job.Progress}|{job.State}"));
+
+                byte[] data = Encoding.UTF8.GetBytes(updates);
+
+                lock (connectedClients)
+                {
+                    for (int i = connectedClients.Count - 1; i >= 0; i--)
+                    {
+                        try
+                        {
+                            var client = connectedClients[i];
+                            if (!client.Connected) throw new Exception();
+
+                            NetworkStream stream = client.GetStream();
+                            stream.Write(data, 0, data.Length);
+                        }
+                        catch
+                        {
+                            connectedClients.RemoveAt(i);
+                            Console.WriteLine("Client déconnecté.");
+                        }
+                    }
+                }
+
+                Thread.Sleep(1000); // 1 seconde entre chaque diffusion
             }
         }
+
     }
+}
+    
 
 
