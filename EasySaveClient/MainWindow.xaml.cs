@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using Easy_Save.Model;
 using Easy_Save.Model.Enum;
+using Easy_Save.Model.IO;
 
 namespace EasySaveClient
 {
@@ -26,9 +27,28 @@ namespace EasySaveClient
 
         private void LoadBackups()
         {
-            var backupList = Backup.AllBackup;
-            foreach (var backup in backupList)
-                Jobs.Add((Backup)backup);
+            var statusManager = new StatusManager();
+            var statuses = statusManager.GetAllStatuses();
+
+            Jobs.Clear();
+
+            foreach (var entry in statuses)
+            {
+                Jobs.Add(new Backup
+                {
+                    Name = entry.Name,
+                    SourceDirectory = entry.SourcePath,
+                    TargetDirectory = entry.DestinationPath,
+                    Progress = $"{entry.Progression}%",
+                    State = entry.State switch
+                    {
+                        "Running" => BackupJobState.RUNNING,
+                        "Paused" => BackupJobState.PAUSED,
+                        "Stopped" => BackupJobState.STOPPED,
+                        _ => BackupJobState.READY
+                    }
+                });
+            }
         }
 
         private void Play_Click(object sender, RoutedEventArgs e)
