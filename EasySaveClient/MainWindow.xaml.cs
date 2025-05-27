@@ -13,6 +13,7 @@ namespace EasySaveClient
     public partial class MainWindow : Window
     {
         public ObservableCollection<Backup> Jobs { get; set; } = new ObservableCollection<Backup>();
+
         private TcpClient? client;
         private NetworkStream? stream;
         public MainWindow()
@@ -25,9 +26,9 @@ namespace EasySaveClient
 
         private void LoadBackups()
         {
-            var backupList = Backup.Backup;
+            var backupList = Backup.AllBackup;
             foreach (var backup in backupList)
-                Jobs.Add(backup);
+                Jobs.Add((Backup)backup);
         }
 
         private void Play_Click(object sender, RoutedEventArgs e)

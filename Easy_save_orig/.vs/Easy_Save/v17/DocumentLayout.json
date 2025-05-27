@@ -3,24 +3,56 @@
   "WorkspaceRootPath": "C:\\Users\\DELL\\Desktop\\Easy_save_orig\\Easy_save_orig\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{D027B833-4B9A-4777-AAC9-B25A7CF4CAA5}|..\\EasySaveClient\\EasySaveClient.csproj|c:\\users\\dell\\desktop\\easy_save_orig\\easysaveclient\\app.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D027B833-4B9A-4777-AAC9-B25A7CF4CAA5}|..\\EasySaveClient\\EasySaveClient.csproj|c:\\users\\dell\\desktop\\easy_save_orig\\easysaveclient\\app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9DBAEB9C-D95B-40FB-B727-4DB8818B9652}|Easy_Save.csproj|c:\\users\\dell\\desktop\\easy_save_orig\\easy_save_orig\\view\\mainwindow.xaml.cs.fixed||{8B382828-6202-11D1-8870-0000F87579D2}",
-      "RelativeMoniker": "D:0:0:{9DBAEB9C-D95B-40FB-B727-4DB8818B9652}|Easy_Save.csproj|solutionrelative:view\\mainwindow.xaml.cs.fixed||{8B382828-6202-11D1-8870-0000F87579D2}"
+      "AbsoluteMoniker": "D:0:0:{D027B833-4B9A-4777-AAC9-B25A7CF4CAA5}|..\\EasySaveClient\\EasySaveClient.csproj|c:\\users\\dell\\desktop\\easy_save_orig\\easysaveclient\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{9DBAEB9C-D95B-40FB-B727-4DB8818B9652}|Easy_Save.csproj|c:\\users\\dell\\desktop\\easy_save_orig\\easy_save_orig\\model\\backup\\backup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{9DBAEB9C-D95B-40FB-B727-4DB8818B9652}|Easy_Save.csproj|solutionrelative:model\\backup\\backup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{D027B833-4B9A-4777-AAC9-B25A7CF4CAA5}|..\\EasySaveClient\\EasySaveClient.csproj|c:\\users\\dell\\desktop\\easy_save_orig\\easysaveclient\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{D027B833-4B9A-4777-AAC9-B25A7CF4CAA5}|..\\EasySaveClient\\EasySaveClient.csproj|c:\\users\\dell\\desktop\\easy_save_orig\\easysaveclient\\app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D027B833-4B9A-4777-AAC9-B25A7CF4CAA5}|..\\EasySaveClient\\EasySaveClient.csproj|c:\\users\\dell\\desktop\\easy_save_orig\\easysaveclient\\app.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{D027B833-4B9A-4777-AAC9-B25A7CF4CAA5}|..\\EasySaveClient\\EasySaveClient.csproj|c:\\users\\dell\\desktop\\easy_save_orig\\easysaveclient\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9DBAEB9C-D95B-40FB-B727-4DB8818B9652}|Easy_Save.csproj|c:\\users\\dell\\desktop\\easy_save_orig\\easy_save_orig\\model\\backup\\backupserver.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9DBAEB9C-D95B-40FB-B727-4DB8818B9652}|Easy_Save.csproj|solutionrelative:model\\backup\\backupserver.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9DBAEB9C-D95B-40FB-B727-4DB8818B9652}|Easy_Save.csproj|c:\\users\\dell\\desktop\\easy_save_orig\\easy_save_orig\\model\\status\\statusmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9DBAEB9C-D95B-40FB-B727-4DB8818B9652}|Easy_Save.csproj|solutionrelative:model\\status\\statusmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9DBAEB9C-D95B-40FB-B727-4DB8818B9652}|Easy_Save.csproj|c:\\users\\dell\\desktop\\easy_save_orig\\easy_save_orig\\model\\log\\logmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9DBAEB9C-D95B-40FB-B727-4DB8818B9652}|Easy_Save.csproj|solutionrelative:model\\log\\logmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9DBAEB9C-D95B-40FB-B727-4DB8818B9652}|Easy_Save.csproj|c:\\users\\dell\\desktop\\easy_save_orig\\easy_save_orig\\model\\log\\logentry.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9DBAEB9C-D95B-40FB-B727-4DB8818B9652}|Easy_Save.csproj|solutionrelative:model\\log\\logentry.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9DBAEB9C-D95B-40FB-B727-4DB8818B9652}|Easy_Save.csproj|c:\\users\\dell\\desktop\\easy_save_orig\\easy_save_orig\\model\\io\\writermanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9DBAEB9C-D95B-40FB-B727-4DB8818B9652}|Easy_Save.csproj|solutionrelative:model\\io\\writermanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9DBAEB9C-D95B-40FB-B727-4DB8818B9652}|Easy_Save.csproj|c:\\users\\dell\\desktop\\easy_save_orig\\easy_save_orig\\model\\enum\\backupjobstate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9DBAEB9C-D95B-40FB-B727-4DB8818B9652}|Easy_Save.csproj|solutionrelative:model\\enum\\backupjobstate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9DBAEB9C-D95B-40FB-B727-4DB8818B9652}|Easy_Save.csproj|c:\\users\\dell\\desktop\\easy_save_orig\\easy_save_orig\\view\\mainwindow.xaml.cs.fixed||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{9DBAEB9C-D95B-40FB-B727-4DB8818B9652}|Easy_Save.csproj|solutionrelative:view\\mainwindow.xaml.cs.fixed||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9DBAEB9C-D95B-40FB-B727-4DB8818B9652}|Easy_Save.csproj|c:\\users\\dell\\desktop\\easy_save_orig\\easy_save_orig\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9DBAEB9C-D95B-40FB-B727-4DB8818B9652}|Easy_Save.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9DBAEB9C-D95B-40FB-B727-4DB8818B9652}|Easy_Save.csproj|c:\\users\\dell\\desktop\\easy_save_orig\\easy_save_orig\\view\\main.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9DBAEB9C-D95B-40FB-B727-4DB8818B9652}|Easy_Save.csproj|solutionrelative:view\\main.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -30,37 +62,24 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "Backup.cs",
-              "DocumentMoniker": "C:\\Users\\DELL\\Desktop\\Easy_save_orig\\Easy_save_orig\\Model\\Backup\\Backup.cs",
-              "RelativeDocumentMoniker": "Model\\Backup\\Backup.cs",
-              "ToolTip": "C:\\Users\\DELL\\Desktop\\Easy_save_orig\\Easy_save_orig\\Model\\Backup\\Backup.cs",
-              "RelativeToolTip": "Model\\Backup\\Backup.cs",
-              "ViewState": "AgIAAFoAAAAAAAAAAAAiwGoAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-25T13:30:50.018Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
               "Title": "App.xaml.cs",
               "DocumentMoniker": "C:\\Users\\DELL\\Desktop\\Easy_save_orig\\EasySaveClient\\App.xaml.cs",
               "RelativeDocumentMoniker": "..\\EasySaveClient\\App.xaml.cs",
               "ToolTip": "C:\\Users\\DELL\\Desktop\\Easy_save_orig\\EasySaveClient\\App.xaml.cs",
               "RelativeToolTip": "..\\EasySaveClient\\App.xaml.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAcwBgAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-05-24T13:52:03.77Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "App.xaml",
               "DocumentMoniker": "C:\\Users\\DELL\\Desktop\\Easy_save_orig\\EasySaveClient\\App.xaml",
               "RelativeDocumentMoniker": "..\\EasySaveClient\\App.xaml",
@@ -72,7 +91,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 4,
               "Title": "MainWindow.xaml",
               "DocumentMoniker": "C:\\Users\\DELL\\Desktop\\Easy_save_orig\\EasySaveClient\\MainWindow.xaml",
               "RelativeDocumentMoniker": "..\\EasySaveClient\\MainWindow.xaml",
@@ -84,29 +103,139 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 0,
               "Title": "MainWindow.xaml.cs",
               "DocumentMoniker": "C:\\Users\\DELL\\Desktop\\Easy_save_orig\\EasySaveClient\\MainWindow.xaml.cs",
               "RelativeDocumentMoniker": "..\\EasySaveClient\\MainWindow.xaml.cs",
               "ToolTip": "C:\\Users\\DELL\\Desktop\\Easy_save_orig\\EasySaveClient\\MainWindow.xaml.cs",
               "RelativeToolTip": "..\\EasySaveClient\\MainWindow.xaml.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAbAAAAAAAAAA==",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAAABQAAAAiAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-05-24T13:43:27.943Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 5,
+              "Title": "BackupServer.cs",
+              "DocumentMoniker": "C:\\Users\\DELL\\Desktop\\Easy_save_orig\\Easy_save_orig\\Model\\Backup\\BackupServer.cs",
+              "RelativeDocumentMoniker": "Model\\Backup\\BackupServer.cs",
+              "ToolTip": "C:\\Users\\DELL\\Desktop\\Easy_save_orig\\Easy_save_orig\\Model\\Backup\\BackupServer.cs",
+              "RelativeToolTip": "Model\\Backup\\BackupServer.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-25T17:26:49.891Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Backup.cs",
+              "DocumentMoniker": "C:\\Users\\DELL\\Desktop\\Easy_save_orig\\Easy_save_orig\\Model\\Backup\\Backup.cs",
+              "RelativeDocumentMoniker": "Model\\Backup\\Backup.cs",
+              "ToolTip": "C:\\Users\\DELL\\Desktop\\Easy_save_orig\\Easy_save_orig\\Model\\Backup\\Backup.cs",
+              "RelativeToolTip": "Model\\Backup\\Backup.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-25T13:30:50.018Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "StatusManager.cs",
+              "DocumentMoniker": "C:\\Users\\DELL\\Desktop\\Easy_save_orig\\Easy_save_orig\\Model\\Status\\StatusManager.cs",
+              "RelativeDocumentMoniker": "Model\\Status\\StatusManager.cs",
+              "ToolTip": "C:\\Users\\DELL\\Desktop\\Easy_save_orig\\Easy_save_orig\\Model\\Status\\StatusManager.cs",
+              "RelativeToolTip": "Model\\Status\\StatusManager.cs",
+              "ViewState": "AgIAADEAAAAAAAAAAAAkwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-26T12:54:39.195Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "LogManager.cs",
+              "DocumentMoniker": "C:\\Users\\DELL\\Desktop\\Easy_save_orig\\Easy_save_orig\\Model\\Log\\LogManager.cs",
+              "RelativeDocumentMoniker": "Model\\Log\\LogManager.cs",
+              "ToolTip": "C:\\Users\\DELL\\Desktop\\Easy_save_orig\\Easy_save_orig\\Model\\Log\\LogManager.cs",
+              "RelativeToolTip": "Model\\Log\\LogManager.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACoAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-26T08:11:50.095Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "LogEntry.cs",
+              "DocumentMoniker": "C:\\Users\\DELL\\Desktop\\Easy_save_orig\\Easy_save_orig\\Model\\Log\\LogEntry.cs",
+              "RelativeDocumentMoniker": "Model\\Log\\LogEntry.cs",
+              "ToolTip": "C:\\Users\\DELL\\Desktop\\Easy_save_orig\\Easy_save_orig\\Model\\Log\\LogEntry.cs",
+              "RelativeToolTip": "Model\\Log\\LogEntry.cs",
+              "ViewState": "AgIAACYAAAAAAAAAAAAUwCkAAAAkAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-26T08:11:37.991Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "BackupJobState.cs",
+              "DocumentMoniker": "C:\\Users\\DELL\\Desktop\\Easy_save_orig\\Easy_save_orig\\Model\\Enum\\BackupJobState.cs",
+              "RelativeDocumentMoniker": "Model\\Enum\\BackupJobState.cs",
+              "ToolTip": "C:\\Users\\DELL\\Desktop\\Easy_save_orig\\Easy_save_orig\\Model\\Enum\\BackupJobState.cs",
+              "RelativeToolTip": "Model\\Enum\\BackupJobState.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-26T08:11:07.969Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "WriterManager.cs",
+              "DocumentMoniker": "C:\\Users\\DELL\\Desktop\\Easy_save_orig\\Easy_save_orig\\Model\\IO\\WriterManager.cs",
+              "RelativeDocumentMoniker": "Model\\IO\\WriterManager.cs",
+              "ToolTip": "C:\\Users\\DELL\\Desktop\\Easy_save_orig\\Easy_save_orig\\Model\\IO\\WriterManager.cs",
+              "RelativeToolTip": "Model\\IO\\WriterManager.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-26T08:11:21.292Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
               "Title": "MainWindow.xaml.cs.fixed",
               "DocumentMoniker": "C:\\Users\\DELL\\Desktop\\Easy_save_orig\\Easy_save_orig\\View\\MainWindow.xaml.cs.fixed",
               "RelativeDocumentMoniker": "View\\MainWindow.xaml.cs.fixed",
               "ToolTip": "C:\\Users\\DELL\\Desktop\\Easy_save_orig\\Easy_save_orig\\View\\MainWindow.xaml.cs.fixed",
               "RelativeToolTip": "View\\MainWindow.xaml.cs.fixed",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAEUEAAAJAAAAAAAAAA==",
+              "ViewState": "AgIAADkAAAAAAAAAAAAAAFsAAAATAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
-              "WhenOpened": "2025-05-24T01:21:11.664Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-24T01:21:11.664Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\DELL\\Desktop\\Easy_save_orig\\Easy_save_orig\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "C:\\Users\\DELL\\Desktop\\Easy_save_orig\\Easy_save_orig\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-25T17:31:53.924Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "Main.cs",
+              "DocumentMoniker": "C:\\Users\\DELL\\Desktop\\Easy_save_orig\\Easy_save_orig\\View\\Main.cs",
+              "RelativeDocumentMoniker": "View\\Main.cs",
+              "ToolTip": "C:\\Users\\DELL\\Desktop\\Easy_save_orig\\Easy_save_orig\\View\\Main.cs",
+              "RelativeToolTip": "View\\Main.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAuwAcAAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-25T16:37:26.889Z"
             }
           ]
         }

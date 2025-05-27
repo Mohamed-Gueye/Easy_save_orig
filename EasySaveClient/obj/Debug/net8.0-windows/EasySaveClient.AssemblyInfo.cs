@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("EasySaveClient")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6e1cfc3caed38a32e63b6a36462263c5b93e725f")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5cecc76c2edbfe5f46695efa6c7bd7a719a765b3")]
 [assembly: System.Reflection.AssemblyProductAttribute("EasySaveClient")]
 [assembly: System.Reflection.AssemblyTitleAttribute("EasySaveClient")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
