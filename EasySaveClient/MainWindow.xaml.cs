@@ -68,29 +68,36 @@ namespace EasySaveClient
                 {
                     int bytes = await stream.ReadAsync(buffer, 0, buffer.Length);
                     string update = Encoding.UTF8.GetString(buffer, 0, bytes);
-                    var parts = update.Split('|');
-                    if (parts.Length == 3)
-                    {
-                        string jobName = parts[0];
-                        int progress = int.Parse(parts[1]);
-                        string status = parts[2];
 
-                        Application.Current.Dispatcher.Invoke(() =>
+                    // Plusieurs jobs peuvent être séparés par ';'
+                    var jobUpdates = update.Split(';');
+
+                    Application.Current.Dispatcher.Invoke(() =>
+                    {
+                        foreach (var jobUpdate in jobUpdates)
                         {
-                            var job = Jobs.FirstOrDefault(j => j.Name == jobName);
-                            if (job != null)
+                            var parts = jobUpdate.Split('|');
+                            if (parts.Length == 3)
                             {
-                                job.Progress = $"{progress}%";
-                                job.State = status switch
+                                string jobName = parts[0];
+                                if (!int.TryParse(parts[1], out int progress)) continue;
+                                string status = parts[2];
+
+                                var job = Jobs.FirstOrDefault(j => j.Name == jobName);
+                                if (job != null)
                                 {
-                                    "Paused" => BackupJobState.PAUSED,
-                                    "Running" => BackupJobState.RUNNING,
-                                    "Stopped" => BackupJobState.STOPPED,
-                                    _ => BackupJobState.READY
-                                };
+                                    job.Progress = $"{progress}%";
+                                    job.State = status switch
+                                    {
+                                        "Paused" => BackupJobState.PAUSED,
+                                        "Running" => BackupJobState.RUNNING,
+                                        "Stopped" => BackupJobState.STOPPED,
+                                        _ => BackupJobState.READY
+                                    };
+                                }
                             }
-                        });
-                    }
+                        }
+                    });
                 }
             }
             catch (Exception ex)
@@ -98,5 +105,6 @@ namespace EasySaveClient
                 MessageBox.Show("Erreur de réception des mises à jour : " + ex.Message);
             }
         }
+
     }
 }
