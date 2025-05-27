@@ -8,6 +8,17 @@
     "TotalFilesSize": 69793,
     "NbFilesLeftToDo": 0,
     "Progression": 100,
-    "LastBackupDate": "2025-05-27T21:36:13.8004522+02:00"
+    "LastBackupDate": "2025-05-27T22:05:52.2721597+02:00"
+  },
+  {
+    "Name": "test2",
+    "SourcePath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Tests\\TestOrigin\\test_1.txt",
+    "DestinationPath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Tests\\TestDestination\\test_1.txt",
+    "State": "READY",
+    "TotalFilesToCopy": 2,
+    "TotalFilesSize": 12,
+    "NbFilesLeftToDo": 2,
+    "Progression": 0,
+    "LastBackupDate": "2025-05-27T22:05:28.0046441+02:00"
   }
 ]

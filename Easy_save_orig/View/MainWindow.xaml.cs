@@ -281,7 +281,8 @@ namespace Easy_Save.View
                     mainGrid.Children.Add(pathsPanel);                    // Grid pour la barre de progression et les boutons (caché par défaut)
                     Grid progressGrid = new Grid
                     {
-                        Name = $"progressGrid_{backup.Name}",
+                        // Utilisez un ID sans caractères spéciaux pour éviter les erreurs de nommage WPF
+                        Name = $"progressGrid{backup.Name.Replace("_", "").Replace(" ", "")}",
                         Margin = new Thickness(0, 5, 0, 0),
                         Visibility = Visibility.Collapsed  // Caché par défaut
                     };
@@ -303,7 +304,7 @@ namespace Easy_Save.View
                     // Barre de progression réelle
                     ProgressBar progressBar = new ProgressBar
                     {
-                        Name = $"progressBar_{backup.Name}",
+                        Name = $"progressBar{backup.Name.Replace("_", "").Replace(" ", "")}",
                         Value = 0,
                         Maximum = 100,
                         Background = Brushes.Transparent,
@@ -315,7 +316,7 @@ namespace Easy_Save.View
                     // Texte du pourcentage au centre
                     TextBlock percentageText = new TextBlock
                     {
-                        Name = $"percentageText_{backup.Name}",
+                        Name = $"percentageText{backup.Name.Replace("_", "").Replace(" ", "")}",
                         Text = "0%",
                         Foreground = Brushes.White,
                         HorizontalAlignment = HorizontalAlignment.Center,
@@ -334,7 +335,7 @@ namespace Easy_Save.View
                     // Bouton Pause/Play
                     Button pausePlayButton = new Button
                     {
-                        Name = $"btnPausePlay_{backup.Name}",
+                        Name = $"btnPausePlay{backup.Name.Replace("_", "").Replace(" ", "")}",
                         Width = 35,
                         Height = 25,
                         Background = new SolidColorBrush(Color.FromRgb(0, 124, 128)),
@@ -354,7 +355,7 @@ namespace Easy_Save.View
                     // Bouton Stop
                     Button stopButton = new Button
                     {
-                        Name = $"btnStop_{backup.Name}",
+                        Name = $"btnStop{backup.Name.Replace("_", "").Replace(" ", "")}",
                         Width = 35,
                         Height = 25,
                         Background = new SolidColorBrush(Color.FromRgb(0, 124, 128)),
@@ -1247,22 +1248,22 @@ namespace Easy_Save.View
 
         private ProgressBar FindProgressBar(string backupName)
         {
-            return FindNamedElement<ProgressBar>($"progressBar_{backupName}");
+            return FindNamedElement<ProgressBar>($"progressBar{backupName.Replace("_", "").Replace(" ", "")}");
         }
 
         private TextBlock FindPercentageText(string backupName)
         {
-            return FindNamedElement<TextBlock>($"percentageText_{backupName}");
+            return FindNamedElement<TextBlock>($"percentageText{backupName.Replace("_", "").Replace(" ", "")}");
         }
 
         private Button FindPausePlayButton(string backupName)
         {
-            return FindNamedElement<Button>($"btnPausePlay_{backupName}");
+            return FindNamedElement<Button>($"btnPausePlay{backupName.Replace("_", "").Replace(" ", "")}");
         }
 
         private Button FindStopButton(string backupName)
         {
-            return FindNamedElement<Button>($"btnStop_{backupName}");
+            return FindNamedElement<Button>($"btnStop{backupName.Replace("_", "").Replace(" ", "")}");
         }
 
         private T FindNamedElement<T>(string name) where T : FrameworkElement
@@ -1315,7 +1316,7 @@ namespace Easy_Save.View
 
         private Grid FindProgressGrid(string backupName)
         {
-            return FindNamedElement<Grid>($"progressGrid_{backupName}");
+            return FindNamedElement<Grid>($"progressGrid{backupName.Replace("_", "").Replace(" ", "")}");
         }
 
         #endregion
