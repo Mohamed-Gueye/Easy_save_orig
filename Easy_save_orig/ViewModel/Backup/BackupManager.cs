@@ -23,6 +23,10 @@ namespace Easy_Save.Model
         private readonly ConcurrentDictionary<string, bool> runningJobs = new ConcurrentDictionary<string, bool>();
         private readonly ConcurrentDictionary<string, bool> pausedJobs = new ConcurrentDictionary<string, bool>();
 
+        // Événements pour notifier l'interface utilisateur
+        public event EventHandler<BackupPausedEventArgs>? BackupPaused;
+        public event EventHandler<BackupResumedEventArgs>? BackupResumed;
+
         public BackupManager()
         // Description: Initializes the BackupManager and loads status/log observers.
         {
@@ -46,6 +50,8 @@ namespace Easy_Save.Model
             foreach (var job in runningJobs.Where(j => j.Value))
             {
                 PauseBackup(job.Key);
+                // Déclencher l'événement pour notifier l'interface utilisateur
+                BackupPaused?.Invoke(this, new BackupPausedEventArgs(job.Key, softwareName));
             }
         }
 
@@ -55,6 +61,8 @@ namespace Easy_Save.Model
             foreach (var job in pausedJobs.Where(j => j.Value))
             {
                 ResumeBackup(job.Key);
+                // Déclencher l'événement pour notifier l'interface utilisateur
+                BackupResumed?.Invoke(this, new BackupResumedEventArgs(job.Key, softwareName));
             }
         }
 
@@ -67,7 +75,7 @@ namespace Easy_Save.Model
                 {
                     backup.Pause();
                     pausedJobs[name] = true;
-                    
+
                     // Mettre à jour le statut
                     var status = statusManager.GetAllStatuses().FirstOrDefault(s => s.Name == name);
                     if (status != null)
@@ -88,7 +96,7 @@ namespace Easy_Save.Model
                 {
                     backup.Resume();
                     pausedJobs[name] = false;
-                    
+
                     // Mettre à jour le statut
                     var status = statusManager.GetAllStatuses().FirstOrDefault(s => s.Name == name);
                     if (status != null)
@@ -273,6 +281,31 @@ namespace Easy_Save.Model
                     statusManager.RemoveStatus(status.Name);
                 }
             }
+        }
+    }
+
+    // Classes d'événements pour notifier l'interface utilisateur
+    public class BackupPausedEventArgs : EventArgs
+    {
+        public string BackupName { get; }
+        public string SoftwareName { get; }
+
+        public BackupPausedEventArgs(string backupName, string softwareName)
+        {
+            BackupName = backupName;
+            SoftwareName = softwareName;
+        }
+    }
+
+    public class BackupResumedEventArgs : EventArgs
+    {
+        public string BackupName { get; }
+        public string SoftwareName { get; }
+
+        public BackupResumedEventArgs(string backupName, string softwareName)
+        {
+            BackupName = backupName;
+            SoftwareName = softwareName;
         }
     }
 }

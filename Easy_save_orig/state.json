@@ -1,13 +1,13 @@
 [
   {
     "Name": "test",
-    "SourcePath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Tests\\TestOrigin3\\Cover_Letter_Tom_PEREZ_LE_TIEC_Universit\u00E9_Complutense_de_Madrid_EN.pdf",
-    "DestinationPath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Tests\\TestDestination3\\Cover_Letter_Tom_PEREZ_LE_TIEC_Universit\u00E9_Complutense_de_Madrid_EN.pdf",
-    "State": "ACTIVE",
+    "SourcePath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Tests\\TestOrigin3\\CV Tom perez le tiec EN.pdf",
+    "DestinationPath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Tests\\TestDestination3\\CV Tom perez le tiec EN.pdf",
+    "State": "COMPLETED",
     "TotalFilesToCopy": 7,
     "TotalFilesSize": 69793,
-    "NbFilesLeftToDo": 3,
-    "Progression": 57,
-    "LastBackupDate": "2025-05-27T16:56:14.5364327+02:00"
+    "NbFilesLeftToDo": 0,
+    "Progression": 100,
+    "LastBackupDate": "2025-05-27T21:36:13.8004522+02:00"
   }
 ]

@@ -81,6 +81,10 @@ namespace Easy_Save.View
                 // Abonnement aux événements de changement de langue
                 translationManager.LanguageChanged += TranslationManager_LanguageChanged;
 
+                // S'abonner aux événements du BackupManager pour les notifications de pause/reprise
+                backupProcess.BackupManager.BackupPaused += BackupManager_BackupPaused;
+                backupProcess.BackupManager.BackupResumed += BackupManager_BackupResumed;
+
                 // Actualiser l'interface utilisateur
                 UpdateUILanguage();
                 RefreshBackupList();
@@ -1312,6 +1316,34 @@ namespace Easy_Save.View
         private Grid FindProgressGrid(string backupName)
         {
             return FindNamedElement<Grid>($"progressGrid_{backupName}");
+        }
+
+        #endregion
+
+        #region BackupManager Event Handlers
+
+        private void BackupManager_BackupPaused(object sender, BackupPausedEventArgs e)
+        {
+            // Exécuter dans le thread de l'interface utilisateur
+            Dispatcher.Invoke(() =>
+            {
+                string message = translationManager.GetUITranslation("business.software.paused")
+                    .Replace("{0}", e.SoftwareName);
+
+                MessageBox.Show(message, "Easy Save", MessageBoxButton.OK, MessageBoxImage.Information);
+            });
+        }
+
+        private void BackupManager_BackupResumed(object sender, BackupResumedEventArgs e)
+        {
+            // Exécuter dans le thread de l'interface utilisateur
+            Dispatcher.Invoke(() =>
+            {
+                string message = translationManager.GetUITranslation("business.software.resumed")
+                    .Replace("{0}", e.SoftwareName);
+
+                MessageBox.Show(message, "Easy Save", MessageBoxButton.OK, MessageBoxImage.Information);
+            });
         }
 
         #endregion
