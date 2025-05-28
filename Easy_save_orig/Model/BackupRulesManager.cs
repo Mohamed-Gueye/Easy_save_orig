@@ -244,5 +244,17 @@ namespace Easy_Save.Model
         {
             return new List<string>(BusinessSoftwareList);
         }
+
+        public bool IsPriorityFile(string filePath)
+        // In: filePath (string)
+        // Out: bool
+        // Description: Checks if a file should be treated as priority based on its extension.
+        {
+            if (string.IsNullOrWhiteSpace(filePath))
+                return false;
+
+            string extension = Path.GetExtension(filePath).ToLowerInvariant();
+            return !RestrictedExtensions.Contains(extension);
+        }
     }
 } 
