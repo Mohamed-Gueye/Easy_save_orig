@@ -13,6 +13,7 @@ using Easy_Save.Model;
 using Easy_Save.Model.Status;
 using System.Text.Json;
 using System.Windows.Threading;
+using Easy_Save.Network;
 
 namespace Easy_Save.View
 {
@@ -34,16 +35,14 @@ namespace Easy_Save.View
         private readonly TranslationManager translationManager;
 
         // Gestionnaire de progression des sauvegardes
-        private readonly BackupProgressTracker progressTracker;
-
-        // Jeton d'annulation pour les opérations de sauvegarde
+        private readonly BackupProgressTracker progressTracker;        // Jeton d'annulation pour les opérations de sauvegarde
         private CancellationTokenSource? cancellationTokenSource;
-
-        // Mode d'exécution des sauvegardes (true = concurrent, false = séquentiel)
-        private bool isConcurrentExecution = false;
 
         // Nom de la sauvegarde actuellement en cours d'exécution
         private string? currentRunningBackup = null;
+
+        private RemoteServer remoteServer;
+        private bool broadcastingEnabled = false;
 
         public MainWindow()
         {
@@ -53,7 +52,7 @@ namespace Easy_Save.View
             backupProcess = new BackupProcess();
 
             // Use the current directory for config path instead of a hardcoded path
-            configPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "config.json");
+            configPath = Path.Combine(Directory.GetCurrentDirectory(), "config.json");
 
             translationManager = TranslationManager.Instance;
 
@@ -81,17 +80,93 @@ namespace Easy_Save.View
                 // Abonnement aux événements de changement de langue
                 translationManager.LanguageChanged += TranslationManager_LanguageChanged;
 
+                // S'abonner aux événements du BackupManager pour les notifications de pause/reprise
+                backupProcess.BackupManager.BackupPaused += BackupManager_BackupPaused;
+                backupProcess.BackupManager.BackupResumed += BackupManager_BackupResumed;
+
                 // Actualiser l'interface utilisateur
                 UpdateUILanguage();
                 RefreshBackupList();
 
                 // Charger les paramètres du logiciel métier
                 LoadBackupRules();
+
+                // Initialiser la valeur de bande passante
+                RefreshBandwidthThresholdValue();
+
+                // Initialiser le serveur distant mais ne pas le démarrer
+                remoteServer = new RemoteServer(backupProcess);
+                broadcastingEnabled = false;
+                btnToggleServer.Content = "Start Server";
+                serverStatusIndicator.Fill = Brushes.Gray;
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Error initializing application: {ex.Message}\n\nStack Trace: {ex.StackTrace}",
                     "Initialization Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void ToggleBroadcasting()
+        {
+            try
+            {
+                if (!broadcastingEnabled)
+                {
+                    if (remoteServer == null)
+                    {
+                        remoteServer = new RemoteServer(backupProcess);
+                        remoteServer.Start();
+                    }
+                    else if (!remoteServer.IsRunning)
+                    {
+                        remoteServer.Start();
+                    }
+                    broadcastingEnabled = true;
+                    btnToggleServer.Content = "Stop Server";
+                    serverStatusIndicator.Fill = Brushes.Green;
+                }
+                else
+                {
+                    if (remoteServer != null)
+                    {
+                        remoteServer.Stop();
+                    }
+                    broadcastingEnabled = false;
+                    btnToggleServer.Content = "Start Server";
+                    serverStatusIndicator.Fill = Brushes.Gray;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error toggling server: {ex.Message}");
+            }
+        }
+
+        private void BtnToggleServer_Click(object sender, RoutedEventArgs e)
+        {
+            ToggleBroadcasting();
+        }
+
+        private void UpdateBackupProgressServer(string backupName, int percentage)
+        {
+            try
+            {
+                var progressBar = FindProgressBar(backupName);
+                var percentageText = FindPercentageText(backupName);
+
+                if (progressBar != null) progressBar.Value = percentage;
+                if (percentageText != null) percentageText.Text = $"{percentage}%";
+
+                // Broadcast to client
+                if (broadcastingEnabled && remoteServer != null)
+                {
+                    remoteServer.BroadcastProgress(backupName, percentage);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error updating progress for {backupName}: {ex.Message}");
             }
         }
 
@@ -157,18 +232,25 @@ namespace Easy_Save.View
             btnQuit.Content = translationManager.GetUITranslation("menu.quit");
 
             // Menu langue
-            txtLanguage.Text = translationManager.GetUITranslation("menu.language");
-
-            // Menu mode d'exécution
-            txtExecutionMode.Text = translationManager.GetUITranslation("menu.execution_mode");
-            rbSequential.Content = translationManager.GetUITranslation("execution.sequential");
-            rbConcurrent.Content = translationManager.GetUITranslation("execution.concurrent");
-
-            // Menu paramètres métier
+            txtLanguage.Text = translationManager.GetUITranslation("menu.language");            // Menu paramètres métier
             txtBusinessSettings.Text = translationManager.GetUITranslation("business.settings");
+
+            // Menu extensions prioritaires  
+            txtPriorityExtensions.Text = translationManager.GetUITranslation("priority.extensions");            // Menu paramètres de bande passante
+            txtBandwidthSettings.Text = translationManager.GetUITranslation("bandwidth.settings");
+            txtBandwidthThreshold.Text = translationManager.GetUITranslation("bandwidth.threshold");
+            txtBandwidthHint.Text = translationManager.GetUITranslation("bandwidth.threshold.hint");
+            // Conserver le signe "+" comme contenu du bouton
+            btnUpdateBandwidthThreshold.Content = "+";
+
+            // Rafraîchir la valeur actuelle de la bande passante
+            RefreshBandwidthThresholdValue();
 
             // Rafraîchir la liste des logiciels métier
             RefreshBusinessSoftwareList();
+
+            // Rafraîchir la liste des extensions prioritaires
+            RefreshPriorityExtensionsList();
 
             // Liste des sauvegardes
             txtListTitle.Text = translationManager.GetUITranslation("list.title");
@@ -277,7 +359,8 @@ namespace Easy_Save.View
                     mainGrid.Children.Add(pathsPanel);                    // Grid pour la barre de progression et les boutons (caché par défaut)
                     Grid progressGrid = new Grid
                     {
-                        Name = $"progressGrid_{backup.Name}",
+                        // Utilisez un ID sans caractères spéciaux pour éviter les erreurs de nommage WPF
+                        Name = $"progressGrid{backup.Name.Replace("_", "").Replace(" ", "")}",
                         Margin = new Thickness(0, 5, 0, 0),
                         Visibility = Visibility.Collapsed  // Caché par défaut
                     };
@@ -299,7 +382,7 @@ namespace Easy_Save.View
                     // Barre de progression réelle
                     ProgressBar progressBar = new ProgressBar
                     {
-                        Name = $"progressBar_{backup.Name}",
+                        Name = $"progressBar{backup.Name.Replace("_", "").Replace(" ", "")}",
                         Value = 0,
                         Maximum = 100,
                         Background = Brushes.Transparent,
@@ -311,7 +394,7 @@ namespace Easy_Save.View
                     // Texte du pourcentage au centre
                     TextBlock percentageText = new TextBlock
                     {
-                        Name = $"percentageText_{backup.Name}",
+                        Name = $"percentageText{backup.Name.Replace("_", "").Replace(" ", "")}",
                         Text = "0%",
                         Foreground = Brushes.White,
                         HorizontalAlignment = HorizontalAlignment.Center,
@@ -330,7 +413,7 @@ namespace Easy_Save.View
                     // Bouton Pause/Play
                     Button pausePlayButton = new Button
                     {
-                        Name = $"btnPausePlay_{backup.Name}",
+                        Name = $"btnPausePlay{backup.Name.Replace("_", "").Replace(" ", "")}",
                         Width = 35,
                         Height = 25,
                         Background = new SolidColorBrush(Color.FromRgb(0, 124, 128)),
@@ -350,7 +433,7 @@ namespace Easy_Save.View
                     // Bouton Stop
                     Button stopButton = new Button
                     {
-                        Name = $"btnStop_{backup.Name}",
+                        Name = $"btnStop{backup.Name.Replace("_", "").Replace(" ", "")}",
                         Width = 35,
                         Height = 25,
                         Background = new SolidColorBrush(Color.FromRgb(0, 124, 128)),
@@ -364,10 +447,24 @@ namespace Easy_Save.View
                     stopButton.Click += StopButton_Click;
 
                     Grid.SetColumn(stopButton, 2);
-                    progressGrid.Children.Add(stopButton);
-
-                    Grid.SetRow(progressGrid, 2);
+                    progressGrid.Children.Add(stopButton); Grid.SetRow(progressGrid, 2);
                     mainGrid.Children.Add(progressGrid);
+
+                    // Status text for showing backup state (priority coordination, etc.)
+                    TextBlock statusText = new TextBlock
+                    {
+                        Name = $"statusText{backup.Name.Replace("_", "").Replace(" ", "")}",
+                        Text = "Ready",
+                        Foreground = Brushes.LightGray,
+                        FontSize = 10,
+                        FontStyle = FontStyles.Italic,
+                        HorizontalAlignment = HorizontalAlignment.Center,
+                        Margin = new Thickness(0, 5, 0, 0),
+                        Visibility = Visibility.Collapsed  // Hidden by default, shown when needed
+                    };
+
+                    Grid.SetRow(statusText, 3);
+                    mainGrid.Children.Add(statusText);
 
                     border.Child = mainGrid;
                     backupListPanel.Children.Add(border);
@@ -455,36 +552,78 @@ namespace Easy_Save.View
             btnCreate.IsEnabled = false;
 
             // Afficher la barre de progression et les boutons de contrôle
-            ShowHideBackupProgress(backupName, true);
-
-            // Activer les boutons de contrôle de la sauvegarde
+            ShowHideBackupProgress(backupName, true);            // Activer les boutons de contrôle de la sauvegarde
             EnableBackupControls(backupName, true);
+
+            // Set current backup as running
+            currentRunningBackup = backupName;
+            UpdateBackupStatusText(backupName, "Running");
+            
+            // Notifier les clients que la sauvegarde démarre
+            if (broadcastingEnabled && remoteServer != null)
+            {
+                remoteServer.BroadcastBackupStarted(backupName);
+            }
 
             try
             {
                 // Créer un nouveau jeton d'annulation
-                cancellationTokenSource = new CancellationTokenSource();
-
-                // Initialiser le suivi de progression
-                var progress = new Progress<(int Current, int Total)>(progressData =>
+                cancellationTokenSource = new CancellationTokenSource();                // Obtenir la sauvegarde et connecter directement l'événement de progression
+                var backup = backupProcess.GetAllBackup().FirstOrDefault(b => b.Name == backupName);
+                if (backup != null)
                 {
-                    // Utiliser le Dispatcher pour mettre à jour l'UI depuis un thread d'arrière-plan
-                    Dispatcher.Invoke(() =>
-                    {
-                        // Mise à jour de la barre de progression intégrée
-                        UpdateBackupProgress(backupName, progressData.Current);
-                    });
-                });
+                    // Handler pour la progression
+                    Action<int> progressHandler = null;
 
-                // Exécuter la sauvegarde
-                await progressTracker.ExecuteBackupWithProgressAsync(backupName, progress, cancellationTokenSource.Token);
+                    // Handler pour l'initialisation du tracker
+                    Action<ByteProgressTracker> trackerInitHandler = (tracker) =>
+                    {
+                        progressHandler = (percentage) =>
+                        {
+                            Dispatcher.Invoke(() =>
+                            {
+                                UpdateBackupProgress(backupName, percentage);
+                            });
+                        };
+                        tracker.ProgressChanged += progressHandler;
+                    };
+
+                    // Exécuter la sauvegarde de manière asynchrone
+                    await Task.Run(() =>
+                    {
+                        // Connecter l'événement d'initialisation du tracker
+                        backup.ProgressTrackerInitialized += trackerInitHandler;
+
+                        try
+                        {
+                            backupProcess.ExecuteBackup(backupName);
+                        }
+                        finally
+                        {
+                            // Déconnecter les événements
+                            backup.ProgressTrackerInitialized -= trackerInitHandler;
+                            if (backup.ProgressTracker != null && progressHandler != null)
+                            {
+                                backup.ProgressTracker.ProgressChanged -= progressHandler;
+                            }
+                        }
+                    }, cancellationTokenSource.Token);
+                }
 
                 if (!cancellationTokenSource.Token.IsCancellationRequested)
                 {
                     // Vérifier l'état final de la sauvegarde dans le fichier state.json
-                    var statusEntry = GetCurrentBackupStatus(backupName);
-                    if (statusEntry != null && statusEntry.State == "COMPLETED")
+                    var statusEntry = GetCurrentBackupStatus(backupName); if (statusEntry != null && statusEntry.State == "COMPLETED")
                     {
+                        // Update status to completed
+                        UpdateBackupStatusText(backupName, "Completed");
+                        
+                        // Notifier les clients que la sauvegarde est terminée
+                        if (broadcastingEnabled && remoteServer != null)
+                        {
+                            remoteServer.BroadcastBackupCompleted(backupName);
+                        }
+
                         // Afficher un message de succès uniquement si la sauvegarde est bien marquée comme terminée
                         MessageBox.Show(
                             translationManager.GetFormattedUITranslation("backup.complete", backupName),
@@ -523,6 +662,12 @@ namespace Easy_Save.View
                         statusManager.UpdateStatus(statusEntry);
                     }
                 }
+                
+                // Notifier les clients que la sauvegarde a été arrêtée
+                if (broadcastingEnabled && remoteServer != null)
+                {
+                    remoteServer.BroadcastBackupStopped(backupName);
+                }
             }
             catch (Exception ex)
             {
@@ -532,6 +677,12 @@ namespace Easy_Save.View
                     "EasySave",
                     MessageBoxButton.OK,
                     MessageBoxImage.Error);
+                    
+                // Notifier les clients que la sauvegarde a été arrêtée en cas d'erreur
+                if (broadcastingEnabled && remoteServer != null)
+                {
+                    remoteServer.BroadcastBackupStopped(backupName);
+                }
             }
             finally
             {
@@ -545,10 +696,12 @@ namespace Easy_Save.View
                 ShowHideBackupProgress(backupName, false);
 
                 // Désactiver les boutons de contrôle de la sauvegarde
-                EnableBackupControls(backupName, false);
-
-                // Réinitialiser la barre de progression
+                EnableBackupControls(backupName, false);                // Réinitialiser la barre de progression et le statut
                 UpdateBackupProgress(backupName, 0);
+                UpdateBackupStatusText(backupName, "Ready");
+
+                // Clear current running backup
+                currentRunningBackup = null;
             }
         }
 
@@ -581,7 +734,7 @@ namespace Easy_Save.View
             {                // Créer un nouveau jeton d'annulation
                 cancellationTokenSource = new CancellationTokenSource();
 
-                Console.WriteLine($"Executing all backups in {(isConcurrentExecution ? "concurrent" : "sequential")} mode");
+                Console.WriteLine("Executing all backups in concurrent mode with priority file management");
 
                 // Afficher les barres de progression pour toutes les sauvegardes
                 foreach (var backup in backups)
@@ -599,24 +752,8 @@ namespace Easy_Save.View
                         // Mettre à jour la barre de progression intégrée pour chaque backup
                         UpdateBackupProgress(progressData.BackupName, progressData.Current);
                     });
-                });
-
-                // Exécuter toutes les sauvegardes avec le mode choisi par l'utilisateur
-                int successCount;
-                if (isConcurrentExecution)
-                {
-                    // Utiliser le mode concurrent
-                    successCount = await Task.Run(() =>
-                    {
-                        backupProcess.RunAllBackups(true);
-                        return backups.Count; // Considérer toutes les sauvegardes comme réussies pour simplifier
-                    });
-                }
-                else
-                {
-                    // Utiliser le mode séquentiel avec suivi de la progression
-                    successCount = await progressTracker.ExecuteAllBackupsWithProgressAsync(progress, cancellationTokenSource.Token);
-                }
+                });                // Exécuter toutes les sauvegardes avec le nouveau système de progression
+                int successCount = await progressTracker.ExecuteAllBackupsWithProgressAsync(progress, cancellationTokenSource.Token);
                 if (cancellationTokenSource.Token.IsCancellationRequested)
                 {
                     // L'opération a été annulée par l'utilisateur
@@ -856,15 +993,6 @@ namespace Easy_Save.View
             translationManager.LoadTranslation("en");
             languageMenuOverlay.Visibility = Visibility.Collapsed;
         }
-        private void ExecutionMode_Changed(object sender, RoutedEventArgs e)
-        {
-            if (sender is RadioButton radioButton)
-            {
-                isConcurrentExecution = radioButton.Name == "rbConcurrent";
-                Console.WriteLine($"Execution mode changed to: {(isConcurrentExecution ? "Concurrent" : "Sequential")}");
-            }
-        }
-
         private void LoadBackupRules()
         {
             try
@@ -902,6 +1030,81 @@ namespace Easy_Save.View
             }
         }
 
+        private void RefreshPriorityExtensionsList()
+        {
+            // Effacer la liste actuelle
+            priorityExtensionsListPanel.Children.Clear();
+
+            // Récupérer la liste des extensions prioritaires
+            var priorityExtensions = backupProcess.GetPriorityExtensionsList();
+
+            // Si la liste est vide, afficher un message
+            if (priorityExtensions.Count == 0)
+            {
+                TextBlock emptyMessage = new TextBlock
+                {
+                    Text = translationManager.GetUITranslation("priority.extensions.list.empty"),
+                    TextWrapping = TextWrapping.Wrap,
+                    HorizontalAlignment = HorizontalAlignment.Center,
+                    VerticalAlignment = VerticalAlignment.Center,
+                    FontSize = 12,
+                    Margin = new Thickness(5),
+                    Foreground = Brushes.White
+                };
+
+                priorityExtensionsListPanel.Children.Add(emptyMessage);
+            }
+            else
+            {
+                // Ajouter chaque extension prioritaire à la liste
+                foreach (var extension in priorityExtensions)
+                {
+                    Grid grid = new Grid();
+
+                    // Définir les colonnes
+                    grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
+                    grid.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
+
+                    // Texte de l'extension
+                    TextBlock textBlock = new TextBlock
+                    {
+                        Text = extension,
+                        Foreground = Brushes.White,
+                        VerticalAlignment = VerticalAlignment.Center
+                    };
+                    Grid.SetColumn(textBlock, 0);
+                    grid.Children.Add(textBlock);
+
+                    // Bouton de suppression
+                    Button deleteButton = new Button
+                    {
+                        Content = "×",
+                        Width = 20,
+                        Height = 20,
+                        Margin = new Thickness(5, 0, 0, 0),
+                        Background = Brushes.IndianRed,
+                        Foreground = Brushes.White,
+                        FontWeight = FontWeights.Bold,
+                        Tag = extension
+                    };
+                    deleteButton.Click += BtnRemovePriorityExtension_Click;
+                    Grid.SetColumn(deleteButton, 1);
+                    grid.Children.Add(deleteButton);
+
+                    // Ajouter le Grid à l'intérieur d'une Border avec un style
+                    Border border = new Border
+                    {
+                        Child = grid,
+                        Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#007C80"),
+                        CornerRadius = new CornerRadius(5),
+                        Padding = new Thickness(10, 5, 10, 5),
+                        Margin = new Thickness(0, 2, 0, 2)
+                    };
+
+                    priorityExtensionsListPanel.Children.Add(border);
+                }
+            }
+        }
         private void RefreshBusinessSoftwareList()
         {
             // Effacer la liste actuelle
@@ -1087,6 +1290,186 @@ namespace Easy_Save.View
             }
         }
 
+        private void BtnAddPriorityExtension_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                // Récupérer l'extension prioritaire
+                string extension = txtPriorityExtension.Text.Trim();
+
+                if (string.IsNullOrWhiteSpace(extension))
+                {
+                    MessageBox.Show(
+                        translationManager.GetUITranslation("priority.extension.name_required"),
+                        "EasySave",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Warning);
+                    return;
+                }
+
+                // Ajouter l'extension prioritaire
+                bool added = backupProcess.AddPriorityExtension(extension);
+
+                if (added)
+                {
+                    // Vider le champ de texte
+                    txtPriorityExtension.Text = string.Empty;
+
+                    // Rafraîchir la liste des extensions prioritaires
+                    RefreshPriorityExtensionsList();
+
+                    // Afficher un message de confirmation
+                    MessageBox.Show(
+                        translationManager.GetFormattedUITranslation("priority.extension.added", extension),
+                        "EasySave",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Information);
+                }
+                else
+                {
+                    // Afficher un message d'erreur
+                    MessageBox.Show(
+                        translationManager.GetFormattedUITranslation("priority.extension.already_exists", extension),
+                        "EasySave",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Warning);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    $"Error: {ex.Message}",
+                    "EasySave",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+            }
+        }
+
+        private void TxtPriorityExtension_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                BtnAddPriorityExtension_Click(sender, new RoutedEventArgs());
+            }
+        }
+
+        private void BtnRemovePriorityExtension_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                // Récupérer le bouton et l'extension prioritaire
+                Button button = sender as Button;
+                string extension = button?.Tag as string;
+
+                if (string.IsNullOrEmpty(extension))
+                    return;
+
+                // Demander confirmation
+                MessageBoxResult result = MessageBox.Show(
+                    translationManager.GetFormattedUITranslation("priority.extension.delete_confirm", extension),
+                    "EasySave",
+                    MessageBoxButton.YesNo,
+                    MessageBoxImage.Question);
+
+                if (result != MessageBoxResult.Yes)
+                    return;
+
+                // Supprimer l'extension prioritaire
+                bool removed = backupProcess.RemovePriorityExtension(extension);
+
+                if (removed)
+                {
+                    // Rafraîchir la liste des extensions prioritaires
+                    RefreshPriorityExtensionsList();
+
+                    // Afficher un message de confirmation
+                    MessageBox.Show(
+                        translationManager.GetFormattedUITranslation("priority.extension.removed", extension),
+                        "EasySave",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Information);
+                }
+                else
+                {
+                    // Afficher un message d'erreur
+                    MessageBox.Show(
+                        translationManager.GetFormattedUITranslation("priority.extension.not_found", extension),
+                        "EasySave",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Warning);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    $"Error: {ex.Message}",
+                    "EasySave",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+            }
+        }
+        private void RefreshBandwidthThresholdValue()
+        {
+            long currentThreshold = backupProcess.GetBandwidthThreshold();
+            txtBandwidthThresholdValue.Text = currentThreshold.ToString();
+        }
+
+        private void BtnUpdateBandwidthThreshold_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                string thresholdText = txtBandwidthThresholdValue.Text.Trim();
+
+                if (string.IsNullOrWhiteSpace(thresholdText))
+                {
+                    MessageBox.Show(
+                        translationManager.GetUITranslation("bandwidth.threshold.invalid"),
+                        "EasySave",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Warning);
+                    return;
+                }
+
+                if (!long.TryParse(thresholdText, out long threshold) || threshold < 1)
+                {
+                    MessageBox.Show(
+                        translationManager.GetUITranslation("bandwidth.threshold.invalid"),
+                        "EasySave",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Warning);
+                    return;
+                }
+
+                bool updated = backupProcess.UpdateBandwidthThreshold(threshold);
+
+                if (updated)
+                {
+                    RefreshBandwidthThresholdValue();
+                    MessageBox.Show(
+                        translationManager.GetFormattedUITranslation("bandwidth.threshold.updated", threshold.ToString()),
+                        "EasySave",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Information);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    $"Error: {ex.Message}",
+                    "EasySave",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+            }
+        }
+
+        private void TxtBandwidthThreshold_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                BtnUpdateBandwidthThreshold_Click(sender, new RoutedEventArgs());
+            }
+        }
+
         private Model.Status.StatusEntry GetCurrentBackupStatus(string backupName)
         {
             try
@@ -1121,17 +1504,43 @@ namespace Easy_Save.View
                     var backup = backupProcess.GetBackup(backupName);
                     if (backup != null)
                     {
+                        // Check if backup is paused for priority coordination
+                        if (backup.State == Easy_Save.Model.Enum.BackupJobState.PAUSED_FOR_PRIORITY)
+                        {
+                            MessageBox.Show(
+                                translationManager.GetUITranslation("priority.files.paused") ??
+                                "This backup is paused due to priority file coordination and cannot be manually resumed until priority processing is complete.",
+                                "EasySave",
+                                MessageBoxButton.OK,
+                                MessageBoxImage.Information);
+                            return;
+                        }
+
                         if (backup.State == Easy_Save.Model.Enum.BackupJobState.RUNNING)
                         {
                             // Mettre en pause
                             backup.Pause();
                             button.Content = "▶"; // Icône Play
+                            UpdateBackupStatusText(backupName, "Paused (manual)");
+                            
+                            // Notifier les clients que la sauvegarde est en pause
+                            if (broadcastingEnabled && remoteServer != null)
+                            {
+                                remoteServer.BroadcastBackupPaused(backupName);
+                            }
                         }
                         else if (backup.State == Easy_Save.Model.Enum.BackupJobState.PAUSED)
                         {
                             // Reprendre
                             backup.Play();
                             button.Content = "⏸"; // Icône Pause
+                            UpdateBackupStatusText(backupName, "Running");
+                            
+                            // Notifier les clients que la sauvegarde a repris
+                            if (broadcastingEnabled && remoteServer != null)
+                            {
+                                remoteServer.BroadcastBackupStarted(backupName);
+                            }
                         }
                     }
                 }
@@ -1152,32 +1561,32 @@ namespace Easy_Save.View
             {
                 try
                 {
-                    var backup = backupProcess.GetBackup(backupName);
-                    if (backup != null)
+                    // Utiliser la nouvelle méthode StopBackup du BackupProcess
+                    backupProcess.StopBackup(backupName);
+
+                    // Annuler également l'opération via le token de cancellation si c'est la sauvegarde courante                    if (currentRunningBackup == backupName)
                     {
-                        // Arrêter la sauvegarde
-                        backup.Stop();
-
-                        // Annuler également l'opération via le token de cancellation si c'est la sauvegarde courante
-                        if (currentRunningBackup == backupName)
-                        {
-                            cancellationTokenSource?.Cancel();
-                        }
-
-                        // Mettre à jour immédiatement le statut dans le fichier state.json
-                        var statusManager = new Easy_Save.Model.IO.StatusManager();
-                        var statusEntry = GetCurrentBackupStatus(backupName);
-                        if (statusEntry != null)
-                        {
-                            statusEntry.State = "STOPPED";
-                            statusManager.UpdateStatus(statusEntry);
-                        }                        // Cacher la barre de progression et désactiver les boutons de contrôle
-                        ShowHideBackupProgress(backupName, false);
-                        EnableBackupControls(backupName, false);
-
-                        // Réinitialiser la barre de progression
-                        UpdateBackupProgress(backupName, 0);
+                        cancellationTokenSource?.Cancel();
                     }
+
+                    // Clear status text
+                    UpdateBackupStatusText(backupName, "");
+
+                    // Cacher la barre de progression et désactiver les boutons de contrôle
+                    ShowHideBackupProgress(backupName, false);
+                    EnableBackupControls(backupName, false);
+
+                    // Réinitialiser la barre de progression et le texte de statut
+                    UpdateBackupProgress(backupName, 0);
+                    UpdateBackupStatusText(backupName, "Ready");
+                    
+                    // Notifier les clients que la sauvegarde a été arrêtée
+                    if (broadcastingEnabled && remoteServer != null)
+                    {
+                        remoteServer.BroadcastBackupStopped(backupName);
+                    }
+
+                    Console.WriteLine($"Stop button clicked for backup: {backupName}");
                 }
                 catch (Exception ex)
                 {
@@ -1207,6 +1616,9 @@ namespace Easy_Save.View
                 {
                     percentageText.Text = $"{percentage}%";
                 }
+                
+                // Également mettre à jour le serveur pour propager aux clients
+                UpdateBackupProgressServer(backupName, percentage);
             }
             catch (Exception ex)
             {
@@ -1243,22 +1655,22 @@ namespace Easy_Save.View
 
         private ProgressBar FindProgressBar(string backupName)
         {
-            return FindNamedElement<ProgressBar>($"progressBar_{backupName}");
+            return FindNamedElement<ProgressBar>($"progressBar{backupName.Replace("_", "").Replace(" ", "")}");
         }
 
         private TextBlock FindPercentageText(string backupName)
         {
-            return FindNamedElement<TextBlock>($"percentageText_{backupName}");
+            return FindNamedElement<TextBlock>($"percentageText{backupName.Replace("_", "").Replace(" ", "")}");
         }
 
         private Button FindPausePlayButton(string backupName)
         {
-            return FindNamedElement<Button>($"btnPausePlay_{backupName}");
+            return FindNamedElement<Button>($"btnPausePlay{backupName.Replace("_", "").Replace(" ", "")}");
         }
 
         private Button FindStopButton(string backupName)
         {
-            return FindNamedElement<Button>($"btnStop_{backupName}");
+            return FindNamedElement<Button>($"btnStop{backupName.Replace("_", "").Replace(" ", "")}");
         }
 
         private T FindNamedElement<T>(string name) where T : FrameworkElement
@@ -1308,10 +1720,153 @@ namespace Easy_Save.View
                 Console.WriteLine($"Error showing/hiding progress for {backupName}: {ex.Message}");
             }
         }
-
         private Grid FindProgressGrid(string backupName)
         {
-            return FindNamedElement<Grid>($"progressGrid_{backupName}");
+            return FindNamedElement<Grid>($"progressGrid{backupName.Replace("_", "").Replace(" ", "")}");
+        }
+
+        #endregion
+
+        #region BackupManager Event Handlers
+
+        private void BackupManager_BackupPaused(object sender, BackupPausedEventArgs e)
+        {
+            // Exécuter dans le thread de l'interface utilisateur
+            Dispatcher.Invoke(() =>
+            {
+                // Update UI visual indicators for paused backup
+                UpdateBackupPauseIndicator(e.BackupName, true, e.SoftwareName);
+
+                // Show appropriate message based on pause reason
+                string message;
+                if (e.SoftwareName.Contains("Priority files"))
+                {
+                    message = translationManager.GetUITranslation("priority.files.paused")
+                        ?? $"Backup '{e.BackupName}' paused due to priority file coordination";
+                }
+                else
+                {
+                    message = translationManager.GetUITranslation("business.software.paused")
+                        ?.Replace("{0}", e.SoftwareName)
+                        ?? $"Backup '{e.BackupName}' paused due to business software: {e.SoftwareName}";
+                }
+
+                // Show status in UI rather than intrusive message box for priority coordination
+                if (e.SoftwareName.Contains("Priority files"))
+                {
+                    UpdateBackupStatusText(e.BackupName, "Paused for priority files");
+                }
+                else
+                {
+                    MessageBox.Show(message, "Easy Save", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+            });
+        }
+
+        private void BackupManager_BackupResumed(object sender, BackupResumedEventArgs e)
+        {
+            // Exécuter dans le thread de l'interface utilisateur
+            Dispatcher.Invoke(() =>
+            {
+                // Update UI visual indicators for resumed backup
+                UpdateBackupPauseIndicator(e.BackupName, false, "");
+
+                // Show appropriate message based on resume reason
+                string message;
+                if (e.SoftwareName.Contains("Priority coordination"))
+                {
+                    message = translationManager.GetUITranslation("priority.files.resumed")
+                        ?? $"Backup '{e.BackupName}' resumed - priority coordination complete";
+                    UpdateBackupStatusText(e.BackupName, "Running");
+                }
+                else
+                {
+                    message = translationManager.GetUITranslation("business.software.resumed")
+                        ?.Replace("{0}", e.SoftwareName)
+                        ?? $"Backup '{e.BackupName}' resumed - business software stopped: {e.SoftwareName}";
+                    MessageBox.Show(message, "Easy Save", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+            });
+        }
+
+        private void UpdateBackupPauseIndicator(string backupName, bool isPaused, string reason)
+        {
+            try
+            {
+                var pausePlayButton = FindPausePlayButton(backupName);
+                if (pausePlayButton != null)
+                {
+                    if (isPaused)
+                    {
+                        pausePlayButton.Content = "⏸⚠"; // Pause icon with warning for priority/business pause
+                        if (reason.Contains("Priority files"))
+                        {
+                            pausePlayButton.ToolTip = "Paused due to priority file coordination";
+                            pausePlayButton.Background = new SolidColorBrush(Color.FromRgb(255, 165, 0)); // Orange for priority
+                        }
+                        else
+                        {
+                            pausePlayButton.ToolTip = $"Paused due to business software: {reason}";
+                            pausePlayButton.Background = new SolidColorBrush(Color.FromRgb(255, 69, 0)); // Red-orange for business software
+                        }
+                    }
+                    else
+                    {
+                        pausePlayButton.Content = "⏸"; // Normal pause icon
+                        pausePlayButton.ToolTip = null;
+                        pausePlayButton.Background = new SolidColorBrush(Color.FromRgb(0, 124, 128)); // Default color
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error updating pause indicator for {backupName}: {ex.Message}");
+            }
+        }
+
+        private void UpdateBackupStatusText(string backupName, string status)
+        {
+            try
+            {
+                // Find a status text element to update
+                var statusText = FindNamedElement<TextBlock>($"statusText{backupName.Replace("_", "").Replace(" ", "")}");
+                if (statusText != null)
+                {
+                    statusText.Text = status;
+
+                    // Show status text when there's something important to display
+                    if (status.Contains("priority") || status.Contains("Paused") || status.Contains("business"))
+                    {
+                        statusText.Visibility = Visibility.Visible;
+                    }
+                    else if (status.Contains("Running") || status.Contains("Ready"))
+                    {
+                        statusText.Visibility = Visibility.Collapsed;
+                    }
+
+                    // Set appropriate colors based on status type
+                    if (status.Contains("priority"))
+                    {
+                        statusText.Foreground = Brushes.Orange;
+                    }
+                    else if (status.Contains("Running"))
+                    {
+                        statusText.Foreground = Brushes.LightGreen;
+                    }
+                    else if (status.Contains("business"))
+                    {
+                        statusText.Foreground = Brushes.Red;
+                    }
+                    else
+                    {
+                        statusText.Foreground = Brushes.LightGray;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error updating status text for {backupName}: {ex.Message}");
+            }
         }
 
         #endregion

@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Easy_Save", "Easy_Save.cspr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryptoSoft", "CryptoSoft\CryptoSoft.csproj", "{BAC4FBE7-A2C8-413A-88D5-FB6A0F3E4BE3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Easy_save_client", "..\Easy_save_client\Easy_save_client.csproj", "{C2A9576D-7DE9-44A6-91A3-BC48574EAFD9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,6 +43,18 @@ Global
 		{BAC4FBE7-A2C8-413A-88D5-FB6A0F3E4BE3}.Release|x64.Build.0 = Release|Any CPU
 		{BAC4FBE7-A2C8-413A-88D5-FB6A0F3E4BE3}.Release|x86.ActiveCfg = Release|Any CPU
 		{BAC4FBE7-A2C8-413A-88D5-FB6A0F3E4BE3}.Release|x86.Build.0 = Release|Any CPU
+		{C2A9576D-7DE9-44A6-91A3-BC48574EAFD9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C2A9576D-7DE9-44A6-91A3-BC48574EAFD9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C2A9576D-7DE9-44A6-91A3-BC48574EAFD9}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{C2A9576D-7DE9-44A6-91A3-BC48574EAFD9}.Debug|x64.Build.0 = Debug|Any CPU
+		{C2A9576D-7DE9-44A6-91A3-BC48574EAFD9}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{C2A9576D-7DE9-44A6-91A3-BC48574EAFD9}.Debug|x86.Build.0 = Debug|Any CPU
+		{C2A9576D-7DE9-44A6-91A3-BC48574EAFD9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C2A9576D-7DE9-44A6-91A3-BC48574EAFD9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C2A9576D-7DE9-44A6-91A3-BC48574EAFD9}.Release|x64.ActiveCfg = Release|Any CPU
+		{C2A9576D-7DE9-44A6-91A3-BC48574EAFD9}.Release|x64.Build.0 = Release|Any CPU
+		{C2A9576D-7DE9-44A6-91A3-BC48574EAFD9}.Release|x86.ActiveCfg = Release|Any CPU
+		{C2A9576D-7DE9-44A6-91A3-BC48574EAFD9}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

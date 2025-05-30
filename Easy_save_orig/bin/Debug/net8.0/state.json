@@ -1,13 +1,1 @@
-[
-  {
-    "Name": "test",
-    "SourcePath": "C:\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\Tests\\Test",
-    "DestinationPath": "C:\\projet_sauvegarde\\Easy_save_orig\\Easy_save_orig\\Tests\\TestDestination",
-    "State": "END",
-    "TotalFilesToCopy": 2,
-    "TotalFilesSize": 49,
-    "NbFilesLeftToDo": 0,
-    "Progression": 100,
-    "LastBackupDate": "2025-05-16T11:08:58.4831051+02:00"
-  }
-]
+[]

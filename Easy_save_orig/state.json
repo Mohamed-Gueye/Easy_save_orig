@@ -1,24 +1,35 @@
 [
   {
-    "Name": "test_2",
-    "SourcePath": "C:\\TestBackup\\Source\\TestOrigin2\\test_2.txt",
-    "DestinationPath": "C:\\TestBackup\\Target\\TestOrigin2\\test_2.txt",
-    "State": "ACTIVE",
-    "TotalFilesToCopy": 2,
-    "TotalFilesSize": 21,
-    "NbFilesLeftToDo": 1,
-    "Progression": 50,
-    "LastBackupDate": "2025-05-26T23:12:16.3969581+02:00"
+    "Name": "v2",
+    "SourcePath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Tests\\TestVideoOrigin2\\P1020396.MP4",
+    "DestinationPath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Tests\\TestVideoDestination2\\P1020396.MP4",
+    "State": "COMPLETED",
+    "TotalFilesToCopy": 3,
+    "TotalFilesSize": 7825378778,
+    "NbFilesLeftToDo": 0,
+    "Progression": 100,
+    "LastBackupDate": "2025-05-30T23:42:31.6561083+02:00"
   },
   {
-    "Name": "test",
-    "SourcePath": "C:\\TestBackup\\Source\\TestOrigin\\test_4.txt",
-    "DestinationPath": "C:\\TestBackup\\Target\\TestOrigin\\test_4.txt",
+    "Name": "txt",
+    "SourcePath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Tests\\TestOrigin\\test_1 - Copie.txt",
+    "DestinationPath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Tests\\TestDestination\\test_1 - Copie.txt",
     "State": "ACTIVE",
     "TotalFilesToCopy": 5,
-    "TotalFilesSize": 287217,
+    "TotalFilesSize": 92,
+    "NbFilesLeftToDo": 4,
+    "Progression": 21,
+    "LastBackupDate": "2025-05-30T23:43:10.2292184+02:00"
+  },
+  {
+    "Name": "pdf",
+    "SourcePath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Tests\\TestOrigin3\\CV Tom perez le tiec EN.pdf",
+    "DestinationPath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Tests\\TestDestination3\\CV Tom perez le tiec EN.pdf",
+    "State": "ACTIVE",
+    "TotalFilesToCopy": 7,
+    "TotalFilesSize": 69793,
     "NbFilesLeftToDo": 1,
-    "Progression": 80,
-    "LastBackupDate": "2025-05-26T23:12:23.2902557+02:00"
+    "Progression": 13,
+    "LastBackupDate": "2025-05-30T23:43:13.4284659+02:00"
   }
 ]

@@ -14,7 +14,7 @@ namespace Easy_Save.Strategies
 {
     public class CompleteBackupStrategy : IBackupStrategy
     {
-        public void MakeBackup(Backup backup, StatusManager statusManager, LogObserver logObserver)
+        public void MakeBackup(Backup backup, StatusManager statusManager, LogObserver logObserver, CancellationToken cancellationToken = default)
         // In: backup (Backup), statusManager (StatusManager), logObserver (LogObserver)
         // Out: void
         // Description: Executes a full backup by copying all files from source to destination.
@@ -26,13 +26,14 @@ namespace Easy_Save.Strategies
             {
                 var encryptionManager = EncryptionManager.Instance;
                 Console.WriteLine($"[DEBUG] Extensions à chiffrer chargées : {string.Join(", ", encryptionManager.ExtensionsToEncrypt)}");
-                Console.WriteLine($"[DEBUG] Chemin CryptoSoft.exe : {encryptionManager.EncryptionExecutablePath}");
-
-                // Check for cancellation before starting
+                Console.WriteLine($"[DEBUG] Chemin CryptoSoft.exe : {encryptionManager.EncryptionExecutablePath}");                // Check for cancellation before starting
                 backup.CheckPauseAndCancellation(); string[] files = Directory.GetFiles(backup.SourceDirectory, "*", SearchOption.AllDirectories);
                 long totalSize = files.Sum(f => new FileInfo(f).Length);
                 int totalFiles = files.Length;
                 int filesDone = 0;
+
+                // Initialize byte-based progress tracker
+                backup.InitializeProgressTracker(totalSize);
 
                 // Register priority files with the manager
                 PriorityFileManager.Instance.RegisterPriorityFiles(backup.Name, backup.SourceDirectory);
@@ -44,6 +45,9 @@ namespace Easy_Save.Strategies
 
                 void ProcessFile(string file)
                 {
+                    // Check if cancelled via external CancellationToken
+                    cancellationToken.ThrowIfCancellationRequested();
+
                     // Check if paused or cancelled before processing each file
                     backup.CheckPauseAndCancellation();
 
@@ -56,7 +60,8 @@ namespace Easy_Save.Strategies
                     if (!Directory.Exists(destinationDir))
                     {
                         Directory.CreateDirectory(destinationDir);
-                    }
+                    }                    // Get current progress percentage from tracker
+                    int currentProgress = backup.ProgressTracker?.ProgressPercentage ?? 0;
 
                     var statusEntry = new StatusEntry(
                         backup.Name,
@@ -66,18 +71,13 @@ namespace Easy_Save.Strategies
                         totalFiles,
                         totalSize,
                         totalFiles - filesDone,
-                        (int)((filesDone / (double)totalFiles) * 100),
+                        currentProgress,
                         DateTime.Now
                     );
                     statusManager.UpdateStatus(statusEntry);
 
-                    // Update backup progress
-                    backup.Progress = $"{(int)((filesDone / (double)totalFiles) * 100)}%";
-
-                    // Ajouter un délai de 2 secondes pour permettre de voir l'état ACTIVE
-                    Thread.Sleep(2000);
-
-                    // Check again for pause/cancel after the delay
+                    // Check for pause/cancel before file operation
+                    cancellationToken.ThrowIfCancellationRequested();
                     backup.CheckPauseAndCancellation();
 
                     string ext = Path.GetExtension(file).ToLower();
@@ -92,11 +92,17 @@ namespace Easy_Save.Strategies
                     {
                         LargeFileTransferManager.Instance.WaitForLargeFileTransferAsync().Wait();
                     }
-
                     try
                     {
                         var sw = Stopwatch.StartNew();
-                        File.Copy(file, destinationPath, true);
+
+                        // Use progress-aware file copy instead of simple File.Copy
+                        long bytesCopied = ProgressAwareFileCopy.CopyFileWithProgress(
+                            file,
+                            destinationPath,
+                            (bytes) => backup.ProgressTracker?.AddCopiedBytes(bytes)
+                        );
+
                         sw.Stop();
                         transferTime = (int)sw.Elapsed.TotalMilliseconds;
                     }
@@ -143,33 +149,51 @@ namespace Easy_Save.Strategies
                 // Process priority files first
                 foreach (var file in priorityFiles)
                 {
+                    cancellationToken.ThrowIfCancellationRequested();
                     ProcessFile(file);
+                }                // Mark this backup as having processed its priority files
+                PriorityFileManager.Instance.MarkBackupAsProcessing(backup.Name);                // Only process non-priority files if allowed
+                // Wait until we can process non-priority files
+                while (!PriorityFileManager.Instance.CanProcessNonPriorityFiles(backup.Name))
+                {
+                    Console.WriteLine($"Sauvegarde '{backup.Name}' en attente : des fichiers prioritaires sont en cours de traitement dans une autre sauvegarde.");
+                    backup.State = Easy_Save.Model.Enum.BackupJobState.PAUSED_FOR_PRIORITY;
+
+                    // Attendre un délai avant de revérifier
+                    Thread.Sleep(1000);
+                    Console.WriteLine($"Revérification pour sauvegarde '{backup.Name}'...");
+                    cancellationToken.ThrowIfCancellationRequested();
                 }
 
-                // Mark this backup as having processed its priority files
-                PriorityFileManager.Instance.MarkBackupAsProcessing(backup.Name);
+                // On peut maintenant traiter les fichiers non-prioritaires
+                Console.WriteLine($"Sauvegarde '{backup.Name}' commence/reprend le traitement des fichiers non-prioritaires.");
+                backup.State = Easy_Save.Model.Enum.BackupJobState.RUNNING;
 
-                // Only process non-priority files if allowed
-                if (PriorityFileManager.Instance.CanProcessNonPriorityFiles(backup.Name))
+                foreach (var file in nonPriorityFiles)
                 {
-                    foreach (var file in nonPriorityFiles)
+                    cancellationToken.ThrowIfCancellationRequested();
+                    // Vérifier s'il y a de nouveaux fichiers prioritaires
+                    PriorityFileManager.Instance.CheckAndUpdatePriorityStatus(backup.Name, backup.SourceDirectory);
+
+                    // Si on ne peut plus traiter les fichiers non prioritaires, attendre
+                    while (!PriorityFileManager.Instance.CanProcessNonPriorityFiles(backup.Name))
                     {
-                        // Vérifier s'il y a de nouveaux fichiers prioritaires
-                        PriorityFileManager.Instance.CheckAndUpdatePriorityStatus(backup.Name, backup.SourceDirectory);
-                        
-                        // Si on ne peut plus traiter les fichiers non prioritaires, on sort de la boucle
-                        if (!PriorityFileManager.Instance.CanProcessNonPriorityFiles(backup.Name))
-                        {
-                            Console.WriteLine($"Sauvegarde '{backup.Name}' mise en pause : des fichiers prioritaires ont été détectés dans une autre sauvegarde.");
-                            break;
-                        }
+                        Console.WriteLine($"Sauvegarde '{backup.Name}' mise en pause : des fichiers prioritaires ont été détectés dans une autre sauvegarde.");
+                        backup.State = Easy_Save.Model.Enum.BackupJobState.PAUSED_FOR_PRIORITY;
 
-                        ProcessFile(file);
+                        // Attendre un délai avant de revérifier
+                        Thread.Sleep(1000);
+                        Console.WriteLine($"Revérification pour sauvegarde '{backup.Name}'...");
+                        cancellationToken.ThrowIfCancellationRequested();
                     }
-                }
-                else
-                {
-                    Console.WriteLine($"Sauvegarde '{backup.Name}' : traitement des fichiers non prioritaires reporté en raison de fichiers prioritaires en attente.");
+
+                    // Si on arrive ici, on peut reprendre
+                    if (backup.State == Easy_Save.Model.Enum.BackupJobState.PAUSED_FOR_PRIORITY)
+                    {
+                        Console.WriteLine($"Sauvegarde '{backup.Name}' reprend le traitement des fichiers non-prioritaires.");
+                        backup.State = Easy_Save.Model.Enum.BackupJobState.RUNNING;
+                    }
+                    ProcessFile(file);
                 }
 
                 // Set final state to COMPLETED if we get here without cancellation

@@ -1,17 +1,12 @@
 {
   "ExpandedNodes": [
     "",
-    "\\Controller",
-    "\\Interfaces",
+    "\\CryptoSoft",
     "\\Model",
-    "\\Observer",
-    "\\Strategies",
+    "\\Model\\Backup",
+    "\\Network",
     "\\View"
   ],
-<<<<<<< HEAD
-  "SelectedNode": "\\Model\\EncryptionHelper.cs",
-=======
-  "SelectedNode": "\\Model\\BackupRulesManager.cs",
->>>>>>> 7cef8fd (Add of the large file manager)
+  "SelectedNode": "\\Program.cs",
   "PreviewInSolutionExplorer": false
 }

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using Easy_Save.Model.Status;
 
 namespace Easy_Save.Model.IO
@@ -61,6 +62,17 @@ namespace Easy_Save.Model.IO
             {
                 _entries.RemoveAll(e => e.Name == name);
                 WriterManager.Instance.WriteJson(_entries, _filePath);
+            }
+        }
+
+        public StatusEntry? GetStatusByName(string name)
+        // In: name (string)
+        // Out: StatusEntry?
+        // Description: Returns the status entry for the given backup name, or null if not found.
+        {
+            lock (statusLock)
+            {
+                return _entries.FirstOrDefault(e => e.Name == name);
             }
         }
     }

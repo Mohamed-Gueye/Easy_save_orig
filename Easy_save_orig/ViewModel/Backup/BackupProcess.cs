@@ -9,7 +9,10 @@ namespace Easy_Save.Controller
     public class BackupProcess
     {
         private readonly BackupManager backupManager;
-        
+
+        // Property to expose BackupManager for event subscription
+        public BackupManager BackupManager => backupManager;
+
         public long MaxFileSize { get; set; } = 0;
         public string[] RestrictedExtensions { get; set; } = Array.Empty<string>();
         public List<string> BusinessSoftwareList { get; set; } = new List<string>();
@@ -23,7 +26,7 @@ namespace Easy_Save.Controller
             backupManager = new BackupManager();
             LoadBackupRules();
         }
-        
+
         private void LoadBackupRules()
         // In: none
         // Out: void
@@ -35,7 +38,7 @@ namespace Easy_Save.Controller
             RestrictedExtensions = settings.RestrictedExtensions.ToArray();
             CryptoSoftPath = settings.CryptoSoftPath;
         }
-        
+
         public bool AddBusinessSoftware(string softwareName)
         // In: softwareName (string)
         // Out: bool (true if software added successfully)
@@ -43,18 +46,18 @@ namespace Easy_Save.Controller
         {
             if (string.IsNullOrWhiteSpace(softwareName))
                 return false;
-                
+
             var settings = BackupRulesManager.Instance;
             bool added = settings.AddBusinessSoftware(softwareName);
-            
+
             if (added)
             {
                 BusinessSoftwareList = new List<string>(settings.BusinessSoftwareList);
             }
-            
+
             return added;
         }
-        
+
         public bool RemoveBusinessSoftware(string softwareName)
         // In: softwareName (string)
         // Out: bool (true if software removed successfully)
@@ -62,23 +65,72 @@ namespace Easy_Save.Controller
         {
             if (string.IsNullOrWhiteSpace(softwareName))
                 return false;
-                
+
             var settings = BackupRulesManager.Instance;
             bool removed = settings.RemoveBusinessSoftware(softwareName);
-            
+
             if (removed)
             {
                 BusinessSoftwareList = new List<string>(settings.BusinessSoftwareList);
             }
-            
+
             return removed;
         }
-        
+
         public List<string> GetBusinessSoftwareList()
         // Out: List<string> 
         // Description: Returns a copy of the current list of software packages.
         {
             return new List<string>(BusinessSoftwareList);
+        }
+
+        public bool AddPriorityExtension(string extension)
+        // In: extension (string)
+        // Out: bool (true if extension added successfully)
+        // Description: Adds a priority extension to the settings.
+        {
+            if (string.IsNullOrWhiteSpace(extension))
+                return false;
+
+            var settings = BackupRulesManager.Instance;
+            return settings.AddPriorityExtension(extension);
+        }
+
+        public bool RemovePriorityExtension(string extension)
+        // In: extension (string)
+        // Out: bool (true if extension removed successfully)
+        // Description: Removes a priority extension from the settings.
+        {
+            if (string.IsNullOrWhiteSpace(extension))
+                return false;
+
+            var settings = BackupRulesManager.Instance;
+            return settings.RemovePriorityExtension(extension);
+        }
+
+        public List<string> GetPriorityExtensionsList()
+        // Out: List<string> 
+        // Description: Returns a copy of the current list of priority extensions.
+        {
+            var settings = BackupRulesManager.Instance;
+            return new List<string>(settings.PriorityExtensions);
+        }
+
+        public bool UpdateBandwidthThreshold(long thresholdKB)
+        // In: thresholdKB (long)
+        // Out: bool (true if threshold updated successfully)
+        // Description: Updates the bandwidth threshold for large files.
+        {
+            var settings = BackupRulesManager.Instance;
+            return settings.UpdateLargeFileSizeThreshold(thresholdKB);
+        }
+
+        public long GetBandwidthThreshold()
+        // Out: long
+        // Description: Returns the current bandwidth threshold in KB.
+        {
+            var settings = BackupRulesManager.Instance;
+            return settings.GetLargeFileSizeThreshold();
         }
 
         public void CreateBackup(string name, string src, string dest, string type)
@@ -125,7 +177,6 @@ namespace Easy_Save.Controller
                 Console.WriteLine($"Impossible to create backup : {ex.Message}");
             }
         }
-
         public void ExecuteBackup(string name)
         // In: name (string)
         // Out: void
@@ -138,8 +189,16 @@ namespace Easy_Save.Controller
                 Console.WriteLine($"The business software '{runningSoftware}' is running. Backup execution is blocked.");
                 return;
             }
-            
+
             backupManager.ExecuteBackup(name);
+        }
+
+        public void StopBackup(string name)
+        // In: name (string)
+        // Out: void
+        // Description: Stops the specified backup if it's currently running.
+        {
+            backupManager.StopBackup(name);
         }
 
         public void RunAllBackups()
@@ -165,7 +224,7 @@ namespace Easy_Save.Controller
         {
             return backupManager.GetAllBackup();
         }
-        
+
         public Backup? GetBackup(string name)
         // In: name (string)
         // Out: Backup?
@@ -173,7 +232,7 @@ namespace Easy_Save.Controller
         {
             if (string.IsNullOrEmpty(name))
                 return null;
-                
+
             var allBackups = GetAllBackup();
             return allBackups.FirstOrDefault(b => b.Name == name);
         }

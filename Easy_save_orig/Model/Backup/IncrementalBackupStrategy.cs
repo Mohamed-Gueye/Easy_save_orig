@@ -14,7 +14,7 @@ namespace Easy_Save.Strategies
 {
     public class IncrementalBackupStrategy : IBackupStrategy
     {
-        public void MakeBackup(Backup backup, StatusManager statusManager, LogObserver logObserver)
+        public void MakeBackup(Backup backup, StatusManager statusManager, LogObserver logObserver, CancellationToken cancellationToken = default)
         {
             // Set the backup state to RUNNING at the start
             backup.State = Easy_Save.Model.Enum.BackupJobState.RUNNING;
@@ -26,45 +26,51 @@ namespace Easy_Save.Strategies
                 Console.WriteLine($"[DEBUG] Chemin CryptoSoft.exe : {encryptionManager.EncryptionExecutablePath}");
 
                 // Check for cancellation before starting
-                backup.CheckPauseAndCancellation();
+                cancellationToken.ThrowIfCancellationRequested();
+                backup.CheckPauseAndCancellation(); DateTime lastBackupTime = statusManager.GetLastBackupDate(backup.Name);
+                string[] allFiles = Directory.GetFiles(backup.SourceDirectory, "*", SearchOption.AllDirectories);
 
-                DateTime lastBackupTime = statusManager.GetLastBackupDate(backup.Name);
+                // Calculate files that actually need to be copied (only new/modified files)
+                var filesToCopy = allFiles.Where(f =>
+                    File.GetLastWriteTime(f) > lastBackupTime ||
+                    !File.Exists(Path.Combine(backup.TargetDirectory, Path.GetRelativePath(backup.SourceDirectory, f)))
+                ).ToList();
 
-                string[] files = Directory.GetFiles(backup.SourceDirectory, "*", SearchOption.AllDirectories);
-                long totalSize = files.Sum(f => new FileInfo(f).Length);
-                int totalFiles = files.Length;
+                long totalSize = filesToCopy.Sum(f => new FileInfo(f).Length);
+                int totalFiles = filesToCopy.Count; // Use actual files to copy count
                 List<string> copiedFiles = new();
+
+                // Initialize byte-based progress tracker
+                backup.InitializeProgressTracker(totalSize);
 
                 // Register priority files with the manager
                 PriorityFileManager.Instance.RegisterPriorityFiles(backup.Name, backup.SourceDirectory);
 
-                // Get priority extensions and separate files
+                // Get priority extensions and separate files (only from files that need copying)
                 var priorityExtensions = BackupRulesManager.Instance.PriorityExtensions ?? new List<string>();
-                var priorityFiles = files
-                    .Where(f => priorityExtensions.Contains(Path.GetExtension(f).ToLower()) &&
-                               (File.GetLastWriteTime(f) > lastBackupTime || !File.Exists(Path.Combine(backup.TargetDirectory, Path.GetRelativePath(backup.SourceDirectory, f)))))
+                var priorityFiles = filesToCopy
+                    .Where(f => priorityExtensions.Contains(Path.GetExtension(f).ToLower()))
                     .ToList();
-                var nonPriorityFiles = files
-                    .Where(f => !priorityExtensions.Contains(Path.GetExtension(f).ToLower()) &&
-                               (File.GetLastWriteTime(f) > lastBackupTime || !File.Exists(Path.Combine(backup.TargetDirectory, Path.GetRelativePath(backup.SourceDirectory, f)))))
+                var nonPriorityFiles = filesToCopy
+                    .Where(f => !priorityExtensions.Contains(Path.GetExtension(f).ToLower()))
                     .ToList();
 
                 // Process priority files first
                 foreach (var file in priorityFiles)
                 {
                     // Check if paused or cancelled before processing each file
+                    cancellationToken.ThrowIfCancellationRequested();
                     backup.CheckPauseAndCancellation();
 
                     Console.WriteLine($"Fichier détecté : {file}");
 
                     string relativePath = Path.GetRelativePath(backup.SourceDirectory, file);
                     string destinationPath = Path.Combine(backup.TargetDirectory, relativePath);
-                    string? destinationDir = Path.GetDirectoryName(destinationPath);
-
-                    if (!Directory.Exists(destinationDir))
+                    string? destinationDir = Path.GetDirectoryName(destinationPath); if (!Directory.Exists(destinationDir))
                     {
                         Directory.CreateDirectory(destinationDir);
-                    }
+                    }                    // Get current progress percentage from tracker
+                    int currentProgress = backup.ProgressTracker?.ProgressPercentage ?? 0;
 
                     // Créer une entrée de statut ACTIVE
                     var statusEntry = new StatusEntry(
@@ -75,18 +81,13 @@ namespace Easy_Save.Strategies
                         totalFiles,
                         totalSize,
                         totalFiles - copiedFiles.Count,
-                        (int)((copiedFiles.Count / (double)totalFiles) * 100),
+                        currentProgress,
                         DateTime.Now
                     );
                     statusManager.UpdateStatus(statusEntry);
 
-                    // Update backup progress
-                    backup.Progress = $"{(int)((copiedFiles.Count / (double)totalFiles) * 100)}%";
-
-                    // Ajouter un délai de 2 secondes pour permettre de voir l'état ACTIVE
-                    Thread.Sleep(2000);
-
-                    // Check again for pause/cancel after the delay
+                    // Check for pause/cancel before file operation
+                    cancellationToken.ThrowIfCancellationRequested();
                     backup.CheckPauseAndCancellation();
 
                     string ext = Path.GetExtension(file).ToLower();
@@ -105,7 +106,14 @@ namespace Easy_Save.Strategies
                     try
                     {
                         var sw = Stopwatch.StartNew();
-                        File.Copy(file, destinationPath, true);
+
+                        // Use progress-aware file copy instead of simple File.Copy
+                        long bytesCopied = ProgressAwareFileCopy.CopyFileWithProgress(
+                            file,
+                            destinationPath,
+                            (bytes) => backup.ProgressTracker?.AddCopiedBytes(bytes)
+                        );
+
                         sw.Stop();
                         transferTime = (int)sw.Elapsed.TotalMilliseconds;
                         copiedFiles.Add(file);
@@ -145,115 +153,143 @@ namespace Easy_Save.Strategies
                     }
 
                     logObserver.Update(backup, totalSize, transferTime, shouldEncrypt ? encryptionTime : 0, totalFiles);
+                }                // Mark this backup as having processed its priority files
+                PriorityFileManager.Instance.MarkBackupAsProcessing(backup.Name);                // Only process non-priority files if allowed
+                // Wait until we can process non-priority files
+                while (!PriorityFileManager.Instance.CanProcessNonPriorityFiles(backup.Name))
+                {
+                    Console.WriteLine($"Sauvegarde '{backup.Name}' en attente : des fichiers prioritaires sont en cours de traitement dans une autre sauvegarde.");
+                    backup.State = Easy_Save.Model.Enum.BackupJobState.PAUSED_FOR_PRIORITY;
+
+                    // Attendre un délai avant de revérifier
+                    Thread.Sleep(1000);
+                    Console.WriteLine($"Revérification pour sauvegarde '{backup.Name}'...");
+                    cancellationToken.ThrowIfCancellationRequested();
                 }
 
-                // Mark this backup as having processed its priority files
-                PriorityFileManager.Instance.MarkBackupAsProcessing(backup.Name);
+                // On peut maintenant traiter les fichiers non-prioritaires
+                Console.WriteLine($"Sauvegarde '{backup.Name}' commence/reprend le traitement des fichiers non-prioritaires.");
+                backup.State = Easy_Save.Model.Enum.BackupJobState.RUNNING;
 
-                // Only process non-priority files if allowed
-                if (PriorityFileManager.Instance.CanProcessNonPriorityFiles(backup.Name))
+                foreach (var file in nonPriorityFiles)
                 {
-                    foreach (var file in nonPriorityFiles)
+                    // Vérifier s'il y a de nouveaux fichiers prioritaires
+                    PriorityFileManager.Instance.CheckAndUpdatePriorityStatus(backup.Name, backup.SourceDirectory);
+
+                    // Si on ne peut plus traiter les fichiers non prioritaires, attendre
+                    while (!PriorityFileManager.Instance.CanProcessNonPriorityFiles(backup.Name))
                     {
-                        // Vérifier s'il y a de nouveaux fichiers prioritaires
-                        PriorityFileManager.Instance.CheckAndUpdatePriorityStatus(backup.Name, backup.SourceDirectory);
-                        
-                        // Si on ne peut plus traiter les fichiers non prioritaires, on sort de la boucle
-                        if (!PriorityFileManager.Instance.CanProcessNonPriorityFiles(backup.Name))
-                        {
-                            Console.WriteLine($"Sauvegarde '{backup.Name}' mise en pause : des fichiers prioritaires ont été détectés dans une autre sauvegarde.");
-                            break;
-                        }
+                        Console.WriteLine($"Sauvegarde '{backup.Name}' mise en pause : des fichiers prioritaires ont été détectés dans une autre sauvegarde.");
+                        backup.State = Easy_Save.Model.Enum.BackupJobState.PAUSED_FOR_PRIORITY;
 
-                        // Check if paused or cancelled before processing each file
-                        backup.CheckPauseAndCancellation();
+                        // Attendre un délai avant de revérifier
+                        Thread.Sleep(1000);
+                        Console.WriteLine($"Revérification pour sauvegarde '{backup.Name}'...");
+                        cancellationToken.ThrowIfCancellationRequested();
+                    }
 
-                        Console.WriteLine($"Fichier détecté : {file}");
+                    // Si on arrive ici, on peut reprendre
+                    if (backup.State == Easy_Save.Model.Enum.BackupJobState.PAUSED_FOR_PRIORITY)
+                    {
+                        Console.WriteLine($"Sauvegarde '{backup.Name}' reprend le traitement des fichiers non-prioritaires.");
+                        backup.State = Easy_Save.Model.Enum.BackupJobState.RUNNING;
+                    }
 
-                        string relativePath = Path.GetRelativePath(backup.SourceDirectory, file);
-                        string destinationPath = Path.Combine(backup.TargetDirectory, relativePath);
-                        string? destinationDir = Path.GetDirectoryName(destinationPath);
+                    // Check if paused or cancelled before processing each file
+                    cancellationToken.ThrowIfCancellationRequested();
+                    backup.CheckPauseAndCancellation();
 
-                        if (!Directory.Exists(destinationDir))
-                        {
-                            Directory.CreateDirectory(destinationDir);
-                        }
+                    Console.WriteLine($"Fichier détecté : {file}");
 
-                        var statusEntry = new StatusEntry(
-                            backup.Name,
+                    string relativePath = Path.GetRelativePath(backup.SourceDirectory, file);
+                    string destinationPath = Path.Combine(backup.TargetDirectory, relativePath);
+                    string? destinationDir = Path.GetDirectoryName(destinationPath);
+
+                    if (!Directory.Exists(destinationDir))
+                    {
+                        Directory.CreateDirectory(destinationDir);
+                    }                    // Get current progress percentage from tracker
+                    int currentProgress = backup.ProgressTracker?.ProgressPercentage ?? 0;
+
+                    var statusEntry = new StatusEntry(
+                        backup.Name,
+                        file,
+                        destinationPath,
+                        "ACTIVE",
+                        totalFiles,
+                        totalSize,
+                        totalFiles - copiedFiles.Count,
+                        currentProgress,
+                        DateTime.Now
+                    );
+                    statusManager.UpdateStatus(statusEntry);
+
+                    // Check for pause/cancel before file operation
+                    cancellationToken.ThrowIfCancellationRequested();
+                    backup.CheckPauseAndCancellation();
+
+                    string ext = Path.GetExtension(file).ToLower();
+                    bool shouldEncrypt = encryptionManager.ShouldEncryptFile(file);
+
+                    int encryptionTime = 0;
+                    int transferTime = 0;
+
+                    bool isLargeFile = LargeFileTransferManager.Instance.IsFileLarge(file, BackupRulesManager.Instance.LargeFileSizeThresholdKB);
+
+                    if (isLargeFile)
+                    {
+                        LargeFileTransferManager.Instance.WaitForLargeFileTransferAsync().Wait();
+                    }
+                    try
+                    {
+                        var sw = Stopwatch.StartNew();
+
+                        // Use progress-aware file copy instead of simple File.Copy
+                        long bytesCopied = ProgressAwareFileCopy.CopyFileWithProgress(
                             file,
                             destinationPath,
-                            "ACTIVE",
-                            totalFiles,
-                            totalSize,
-                            totalFiles - copiedFiles.Count,
-                            (int)((copiedFiles.Count / (double)totalFiles) * 100),
-                            DateTime.Now
+                            (bytes) => backup.ProgressTracker?.AddCopiedBytes(bytes)
                         );
-                        statusManager.UpdateStatus(statusEntry);
 
-                        backup.Progress = $"{(int)((copiedFiles.Count / (double)totalFiles) * 100)}%";
-
-                        Thread.Sleep(2000);
-                        backup.CheckPauseAndCancellation();
-
-                        string ext = Path.GetExtension(file).ToLower();
-                        bool shouldEncrypt = encryptionManager.ShouldEncryptFile(file);
-
-                        int encryptionTime = 0;
-                        int transferTime = 0;
-
-                        bool isLargeFile = LargeFileTransferManager.Instance.IsFileLarge(file, BackupRulesManager.Instance.LargeFileSizeThresholdKB);
-
+                        sw.Stop();
+                        transferTime = (int)sw.Elapsed.TotalMilliseconds;
+                        copiedFiles.Add(file);
+                    }
+                    finally
+                    {
                         if (isLargeFile)
                         {
-                            LargeFileTransferManager.Instance.WaitForLargeFileTransferAsync().Wait();
+                            LargeFileTransferManager.Instance.ReleaseLargeFileTransfer();
                         }
-
-                        try
-                        {
-                            var sw = Stopwatch.StartNew();
-                            File.Copy(file, destinationPath, true);
-                            sw.Stop();
-                            transferTime = (int)sw.Elapsed.TotalMilliseconds;
-                            copiedFiles.Add(file);
-                        }
-                        finally
-                        {
-                            if (isLargeFile)
-                            {
-                                LargeFileTransferManager.Instance.ReleaseLargeFileTransfer();
-                            }
-                        }
-
-                        if (shouldEncrypt)
-                        {
-                            encryptionTime = encryptionManager.EncryptFile(destinationPath);
-
-                            if (encryptionTime >= 0)
-                            {
-                                string decryptedPath = Path.Combine(
-                                    Path.GetDirectoryName(destinationPath)!,
-                                    Path.GetFileNameWithoutExtension(destinationPath) + "_decrypted" + Path.GetExtension(destinationPath)
-                                );
-
-                                File.Copy(destinationPath, decryptedPath, true);
-                                int decryptTime = encryptionManager.EncryptFile(decryptedPath);
-
-                                if (decryptTime >= 0)
-                                    Console.WriteLine($"Déchiffrement effectué → {decryptedPath}");
-                                else
-                                    Console.WriteLine($"Erreur de déchiffrement pour : {decryptedPath}");
-                            }
-                            else
-                            {
-                                Console.WriteLine($"Erreur de chiffrement : {destinationPath} (code {encryptionTime})");
-                                continue;
-                            }
-                        }
-
-                        logObserver.Update(backup, totalSize, transferTime, shouldEncrypt ? encryptionTime : 0, totalFiles);
                     }
+
+                    if (shouldEncrypt)
+                    {
+                        encryptionTime = encryptionManager.EncryptFile(destinationPath);
+
+                        if (encryptionTime >= 0)
+                        {
+                            string decryptedPath = Path.Combine(
+                                Path.GetDirectoryName(destinationPath)!,
+                                Path.GetFileNameWithoutExtension(destinationPath) + "_decrypted" + Path.GetExtension(destinationPath)
+                            );
+
+                            File.Copy(destinationPath, decryptedPath, true);
+                            int decryptTime = encryptionManager.EncryptFile(decryptedPath);
+
+                            if (decryptTime >= 0)
+                                Console.WriteLine($"Déchiffrement effectué → {decryptedPath}");
+                            else
+                                Console.WriteLine($"Erreur de déchiffrement pour : {decryptedPath}");
+                        }
+                        else
+                        {
+                            Console.WriteLine($"Erreur de chiffrement : {destinationPath} (code {encryptionTime})");
+                            continue;
+                        }
+                    }
+
+                    logObserver.Update(backup, totalSize, transferTime, shouldEncrypt ? encryptionTime : 0, totalFiles);
                 }
 
                 // Clean up priority file tracking

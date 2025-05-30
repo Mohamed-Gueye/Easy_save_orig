@@ -1,7 +1,30 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\EasySave\\Easy_save_orig-2\\Easy_save_orig\\",
-  "Documents": [],
+  "WorkspaceRootPath": "C:\\Projet_Software\\Easy_save_orig\\Easy_save_orig\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{C2A9576D-7DE9-44A6-91A3-BC48574EAFD9}|..\\Easy_save_client\\Easy_save_client.csproj|c:\\projet_software\\easy_save_orig\\easy_save_client\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9DBAEB9C-D95B-40FB-B727-4DB8818B9652}|Easy_Save.csproj|c:\\projet_software\\easy_save_orig\\easy_save_orig\\view\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{9DBAEB9C-D95B-40FB-B727-4DB8818B9652}|Easy_Save.csproj|solutionrelative:view\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9DBAEB9C-D95B-40FB-B727-4DB8818B9652}|Easy_Save.csproj|c:\\projet_software\\easy_save_orig\\easy_save_orig\\view\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9DBAEB9C-D95B-40FB-B727-4DB8818B9652}|Easy_Save.csproj|solutionrelative:view\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9DBAEB9C-D95B-40FB-B727-4DB8818B9652}|Easy_Save.csproj|c:\\projet_software\\easy_save_orig\\easy_save_orig\\network\\remoteserver.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9DBAEB9C-D95B-40FB-B727-4DB8818B9652}|Easy_Save.csproj|solutionrelative:network\\remoteserver.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C2A9576D-7DE9-44A6-91A3-BC48574EAFD9}|..\\Easy_save_client\\Easy_save_client.csproj|c:\\projet_software\\easy_save_orig\\easy_save_client\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9DBAEB9C-D95B-40FB-B727-4DB8818B9652}|Easy_Save.csproj|c:\\projet_software\\easy_save_orig\\easy_save_orig\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9DBAEB9C-D95B-40FB-B727-4DB8818B9652}|Easy_Save.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -9,11 +32,83 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": -1,
+          "SelectedChildIndex": 4,
           "Children": [
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "MainWindow.xaml.cs",
+              "DocumentMoniker": "C:\\Projet_Software\\Easy_save_orig\\Easy_save_orig\\View\\MainWindow.xaml.cs",
+              "RelativeDocumentMoniker": "View\\MainWindow.xaml.cs",
+              "ToolTip": "C:\\Projet_Software\\Easy_save_orig\\Easy_save_orig\\View\\MainWindow.xaml.cs",
+              "RelativeToolTip": "View\\MainWindow.xaml.cs",
+              "ViewState": "AgIAAGUAAAAAAAAAAAAAAJEAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-29T21:57:25.291Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "MainWindow.xaml",
+              "DocumentMoniker": "C:\\Projet_Software\\Easy_save_orig\\Easy_save_orig\\View\\MainWindow.xaml",
+              "RelativeDocumentMoniker": "View\\MainWindow.xaml",
+              "ToolTip": "C:\\Projet_Software\\Easy_save_orig\\Easy_save_orig\\View\\MainWindow.xaml",
+              "RelativeToolTip": "View\\MainWindow.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-05-29T21:56:25.432Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "RemoteServer.cs",
+              "DocumentMoniker": "C:\\Projet_Software\\Easy_save_orig\\Easy_save_orig\\Network\\RemoteServer.cs",
+              "RelativeDocumentMoniker": "Network\\RemoteServer.cs",
+              "ToolTip": "C:\\Projet_Software\\Easy_save_orig\\Easy_save_orig\\Network\\RemoteServer.cs",
+              "RelativeToolTip": "Network\\RemoteServer.cs",
+              "ViewState": "AgIAAFEAAAAAAAAAAAAAAG8AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-29T21:53:34.701Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "MainWindow.xaml",
+              "DocumentMoniker": "C:\\Projet_Software\\Easy_save_orig\\Easy_save_client\\MainWindow.xaml",
+              "RelativeDocumentMoniker": "..\\Easy_save_client\\MainWindow.xaml",
+              "ToolTip": "C:\\Projet_Software\\Easy_save_orig\\Easy_save_client\\MainWindow.xaml",
+              "RelativeToolTip": "..\\Easy_save_client\\MainWindow.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-05-29T21:52:23.466Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "MainWindow.xaml.cs",
+              "DocumentMoniker": "C:\\Projet_Software\\Easy_save_orig\\Easy_save_client\\MainWindow.xaml.cs",
+              "RelativeDocumentMoniker": "..\\Easy_save_client\\MainWindow.xaml.cs",
+              "ToolTip": "C:\\Projet_Software\\Easy_save_orig\\Easy_save_client\\MainWindow.xaml.cs",
+              "RelativeToolTip": "..\\Easy_save_client\\MainWindow.xaml.cs",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAYwEUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-29T21:52:23.189Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Projet_Software\\Easy_save_orig\\Easy_save_orig\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "C:\\Projet_Software\\Easy_save_orig\\Easy_save_orig\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-28T13:08:42.1Z"
             }
           ]
         }

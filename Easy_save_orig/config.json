@@ -6,12 +6,12 @@
     "StatusFilePath": "states/status.json",
     "LogFilePath": "logs/log.json",
     "SaveListFilePath": "backups/saves.json"
-  },
-  "BusinessSettings": {
+  },  "BusinessSettings": {
     "MaxFileSize": 0,
     "RestrictedExtensions": [],
     "BusinessSoftware": "",
-    "CryptoSoftPath": "C:\\EasySave\\Easy_save_orig-2\\Easy_save_orig\\CryptoSoft\\CryptoSoft.exe"
+    "CryptoSoftPath": "C:\\EasySave\\Easy_save_orig-2\\Easy_save_orig\\CryptoSoft\\CryptoSoft.exe",
+    "PriorityExtensions": [".pdf"]
   },
   "EncryptionSettings": {
     "EncryptionEnabled": true,

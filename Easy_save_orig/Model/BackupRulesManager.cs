@@ -166,6 +166,67 @@ namespace Easy_Save.Model
             return true;
         }
 
+        public bool AddPriorityExtension(string extension)
+        // In: extension (string)
+        // Out: bool
+        // Description: Adds an extension to the priority list if not already present.
+        {
+            if (string.IsNullOrWhiteSpace(extension))
+                return false;
+
+            extension = extension.Trim().ToLower();
+
+            // Ensure extension starts with a dot
+            if (!extension.StartsWith("."))
+                extension = "." + extension;
+
+            if (PriorityExtensions.Any(e => e.Equals(extension, StringComparison.OrdinalIgnoreCase)))
+                return false;
+
+            PriorityExtensions.Add(extension);
+            Save();
+            return true;
+        }
+
+        public bool RemovePriorityExtension(string extension)
+        // In: extension (string)
+        // Out: bool
+        // Description: Removes an extension from the priority list if it exists.
+        {
+            if (string.IsNullOrWhiteSpace(extension))
+                return false;
+
+            string? extensionToRemove = PriorityExtensions.FirstOrDefault(
+                e => e.Equals(extension, StringComparison.OrdinalIgnoreCase));
+
+            if (extensionToRemove == null)
+                return false;
+
+            PriorityExtensions.Remove(extensionToRemove);
+            Save();
+            return true;
+        }
+
+        public bool UpdateLargeFileSizeThreshold(long thresholdKB)
+        // In: thresholdKB (long)
+        // Out: bool (true if threshold updated successfully)
+        // Description: Updates the large file size threshold and saves the configuration.
+        {
+            if (thresholdKB < 1)
+                return false;
+
+            LargeFileSizeThresholdKB = thresholdKB;
+            Save();
+            return true;
+        }
+
+        public long GetLargeFileSizeThreshold()
+        // Out: long
+        // Description: Returns the current large file size threshold in KB.
+        {
+            return LargeFileSizeThresholdKB;
+        }
+
         public void Save()
         // Out: void
         // Description: Saves the current backup rules settings to config.json.
@@ -244,7 +305,6 @@ namespace Easy_Save.Model
                 Console.WriteLine($"Error saving backup rules: {ex.Message}");
             }
         }
-
         public List<string> GetBusinessSoftwareList()
         // Out: List<string>
         // Description: Returns a copy of the list of software packages.

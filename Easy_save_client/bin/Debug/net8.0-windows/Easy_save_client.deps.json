@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v8.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v8.0": {
+      "Easy_save_client/1.0.0": {
+        "runtime": {
+          "Easy_save_client.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Easy_save_client/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
