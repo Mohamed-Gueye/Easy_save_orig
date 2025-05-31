@@ -1,13 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "Yu0xyUE752w=",
+  "dgSpecHash": "jFH5hSkjNSM=",
   "success": true,
-  "projectFilePath": "C:\\Users\\tompe\\Downloads\\Easy_save_orig - Copie\\Easy_save_orig\\Easy_save_orig\\Easy_Save.csproj",
+  "projectFilePath": "C:\\Projet_Software\\Easy_save_orig\\Easy_save_orig\\Easy_Save.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\tompe\\.nuget\\packages\\microsoft.net.illink.tasks\\8.0.15\\microsoft.net.illink.tasks.8.0.15.nupkg.sha512",
-    "C:\\Users\\tompe\\.nuget\\packages\\microsoft.netcore.app.runtime.win-x64\\8.0.15\\microsoft.netcore.app.runtime.win-x64.8.0.15.nupkg.sha512",
-    "C:\\Users\\tompe\\.nuget\\packages\\microsoft.windowsdesktop.app.runtime.win-x64\\8.0.15\\microsoft.windowsdesktop.app.runtime.win-x64.8.0.15.nupkg.sha512",
-    "C:\\Users\\tompe\\.nuget\\packages\\microsoft.aspnetcore.app.runtime.win-x64\\8.0.15\\microsoft.aspnetcore.app.runtime.win-x64.8.0.15.nupkg.sha512"
+    "C:\\Users\\maxim\\.nuget\\packages\\microsoft.net.illink.tasks\\8.0.15\\microsoft.net.illink.tasks.8.0.15.nupkg.sha512",
+    "C:\\Users\\maxim\\.nuget\\packages\\microsoft.netcore.app.runtime.win-x64\\8.0.15\\microsoft.netcore.app.runtime.win-x64.8.0.15.nupkg.sha512",
+    "C:\\Users\\maxim\\.nuget\\packages\\microsoft.windowsdesktop.app.runtime.win-x64\\8.0.15\\microsoft.windowsdesktop.app.runtime.win-x64.8.0.15.nupkg.sha512",
+    "C:\\Users\\maxim\\.nuget\\packages\\microsoft.aspnetcore.app.runtime.win-x64\\8.0.15\\microsoft.aspnetcore.app.runtime.win-x64.8.0.15.nupkg.sha512"
   ],
   "logs": []
 }

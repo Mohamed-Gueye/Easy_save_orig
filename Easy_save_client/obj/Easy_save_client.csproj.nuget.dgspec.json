@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\tompe\\Downloads\\Easy_save_orig - Copie\\Easy_save_orig\\Easy_save_client\\Easy_save_client.csproj": {}
+    "C:\\Projet_Software\\Easy_save_orig\\Easy_save_client\\Easy_save_client.csproj": {}
   },
   "projects": {
-    "C:\\Users\\tompe\\Downloads\\Easy_save_orig - Copie\\Easy_save_orig\\Easy_save_client\\Easy_save_client.csproj": {
+    "C:\\Projet_Software\\Easy_save_orig\\Easy_save_client\\Easy_save_client.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\tompe\\Downloads\\Easy_save_orig - Copie\\Easy_save_orig\\Easy_save_client\\Easy_save_client.csproj",
+        "projectUniqueName": "C:\\Projet_Software\\Easy_save_orig\\Easy_save_client\\Easy_save_client.csproj",
         "projectName": "Easy_save_client",
-        "projectPath": "C:\\Users\\tompe\\Downloads\\Easy_save_orig - Copie\\Easy_save_orig\\Easy_save_client\\Easy_save_client.csproj",
-        "packagesPath": "C:\\Users\\tompe\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\tompe\\Downloads\\Easy_save_orig - Copie\\Easy_save_orig\\Easy_save_client\\obj\\",
+        "projectPath": "C:\\Projet_Software\\Easy_save_orig\\Easy_save_client\\Easy_save_client.csproj",
+        "packagesPath": "C:\\Users\\maxim\\.nuget\\packages\\",
+        "outputPath": "C:\\Projet_Software\\Easy_save_orig\\Easy_save_client\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\tompe\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\maxim\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -50,6 +50,14 @@
       "frameworks": {
         "net8.0-windows7.0": {
           "targetAlias": "net8.0-windows",
+          "dependencies": {
+            "Microsoft.NET.ILLink.Tasks": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[8.0.15, )",
+              "autoReferenced": true
+            }
+          },
           "imports": [
             "net461",
             "net462",
@@ -61,6 +69,20 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Runtime.win-x64",
+              "version": "[8.0.15, 8.0.15]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Runtime.win-x64",
+              "version": "[8.0.15, 8.0.15]"
+            },
+            {
+              "name": "Microsoft.WindowsDesktop.App.Runtime.win-x64",
+              "version": "[8.0.15, 8.0.15]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
@@ -70,6 +92,11 @@
             }
           },
           "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.203/PortableRuntimeIdentifierGraph.json"
+        }
+      },
+      "runtimes": {
+        "win-x64": {
+          "#import": []
         }
       }
     }

@@ -247,18 +247,6 @@ namespace Easy_save_client
             }
         }
 
-        private void BtnDeleteSingle_Click(object sender, RoutedEventArgs e)
-        {
-            if (sender is not Button button || button.Tag is not BackupInfo backup) return;
-
-            var result = MessageBox.Show($"Are you sure you want to delete the backup '{backup.Name}'?",
-                                        "Delete Backup", MessageBoxButton.YesNo, MessageBoxImage.Question);
-
-            if (result == MessageBoxResult.Yes)
-            {
-                SendCommandForBackup("DELETE", backup);
-            }
-        }
         private async void BtnExecuteAll_Click(object sender, RoutedEventArgs e)
         {
             if (writer == null || client == null || !client.Connected)

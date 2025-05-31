@@ -1,0 +1,7 @@
+C:\Projet_Software\Easy_save_orig\Easy_save_client.pdb
+C:\Projet_Software\Easy_save_orig\D3DCompiler_47_cor3.dll
+C:\Projet_Software\Easy_save_orig\PenImc_cor3.dll
+C:\Projet_Software\Easy_save_orig\PresentationNative_cor3.dll
+C:\Projet_Software\Easy_save_orig\vcruntime140_cor3.dll
+C:\Projet_Software\Easy_save_orig\wpfgfx_cor3.dll
+C:\Projet_Software\Easy_save_orig\Easy_save_client.exe

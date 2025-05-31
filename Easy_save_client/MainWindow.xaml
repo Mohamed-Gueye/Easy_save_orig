@@ -146,15 +146,6 @@
 								FontWeight="Bold"
 								Click="BtnStopSingle_Click"
 								Tag="{Binding}"/>
-						<Button Content="🗑"
-								Width="30"
-								Height="25"
-								Margin="2"
-								Background="#9C27B0"
-								Foreground="White"
-								FontWeight="Bold"
-								Click="BtnDeleteSingle_Click"
-								Tag="{Binding}"/>
 					</StackPanel>
 				</StackPanel>
 			</Border>
