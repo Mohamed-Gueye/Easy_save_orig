@@ -13,7 +13,8 @@ using Easy_Save.Strategies;
 using Easy_Save.Model.Enum;
 
 namespace Easy_Save.Model
-{    public class BackupManager
+{
+    public class BackupManager
     {
         private List<Backup> backups = new();
         private readonly StatusManager statusManager;
@@ -85,12 +86,13 @@ namespace Easy_Save.Model
                         status.State = "PAUSED";
                         statusManager.UpdateStatus(status);
                     }
-                    
+
                     // Déclencher l'événement de changement d'état
                     BackupStateChanged?.Invoke(this, new BackupStateChangedEventArgs(name, backup.State));
                 }
             }
-        }        public void ResumeBackup(string name)
+        }
+        public void ResumeBackup(string name)
         {
             if (pausedJobs.TryGetValue(name, out bool isPaused) && isPaused)
             {
@@ -108,7 +110,7 @@ namespace Easy_Save.Model
                         status.State = "ACTIVE";
                         statusManager.UpdateStatus(status);
                     }
-                    
+
                     // Déclencher les événements de changement d'état
                     BackupStateChanged?.Invoke(this, new BackupStateChangedEventArgs(name, backup.State));
                     BackupResumed?.Invoke(this, new BackupResumedEventArgs(name, "Manual resume"));
@@ -141,7 +143,7 @@ namespace Easy_Save.Model
                     status.State = "STOPPED";
                     statusManager.UpdateStatus(status);
                 }
-                
+
                 // Déclencher l'événement de changement d'état
                 BackupStateChanged?.Invoke(this, new BackupStateChangedEventArgs(name, backup.State));
 
@@ -188,7 +190,8 @@ namespace Easy_Save.Model
             }
 
             return true;
-        }        public void ExecuteBackup(string name)
+        }
+        public void ExecuteBackup(string name)
         // In: name (string)
         // Out: void
         // Description: Executes a single backup by name if it is valid and not currently running.
@@ -228,10 +231,10 @@ namespace Easy_Save.Model
 
             // Mark the job as running
             runningJobs[name] = true;
-            
+
             // Mettre à jour l'état de la sauvegarde
             backup.State = BackupJobState.RUNNING;
-            
+
             // Déclencher l'événement de changement d'état
             BackupStateChanged?.Invoke(this, new BackupStateChangedEventArgs(name, backup.State));
 
@@ -250,7 +253,7 @@ namespace Easy_Save.Model
                 {
                     var statusManager = new StatusManager();
                     var logObserver = new LogObserver();
-                    new CompleteBackupStrategy().MakeBackup(backup, statusManager, logObserver, cts.Token);
+                    new IncrementalBackupStrategy().MakeBackup(backup, statusManager, logObserver, cts.Token);
                     Console.WriteLine($"Sauvegarde différentielle '{backup.Name}' terminée avec succès");
                 }
                 else
@@ -267,30 +270,30 @@ namespace Easy_Save.Model
                     status.Progression = 100;
                     statusManager.UpdateStatus(status);
                 }
-                
+
                 // Mettre à jour l'état de la sauvegarde
                 backup.State = BackupJobState.COMPLETED;
-                
+
                 // Déclencher l'événement de changement d'état pour la complétion
                 BackupStateChanged?.Invoke(this, new BackupStateChangedEventArgs(name, backup.State));
             }
             catch (OperationCanceledException)
             {
                 Console.WriteLine($"Sauvegarde '{name}' annulée.");
-                
+
                 // Si la sauvegarde a été annulée, mettre à jour son état
                 backup.State = BackupJobState.STOPPED;
-                
+
                 // Déclencher l'événement de changement d'état pour l'annulation
                 BackupStateChanged?.Invoke(this, new BackupStateChangedEventArgs(name, backup.State));
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Erreur lors de l'exécution de la sauvegarde '{name}': {ex.Message}");
-                
+
                 // En cas d'erreur, considérer la sauvegarde comme arrêtée
                 backup.State = BackupJobState.STOPPED;
-                
+
                 // Déclencher l'événement de changement d'état pour l'erreur
                 BackupStateChanged?.Invoke(this, new BackupStateChangedEventArgs(name, backup.State));
             }

@@ -1,35 +1,13 @@
 [
   {
-    "Name": "v2",
-    "SourcePath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Tests\\TestVideoOrigin2\\P1020396.MP4",
-    "DestinationPath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Tests\\TestVideoDestination2\\P1020396.MP4",
-    "State": "COMPLETED",
-    "TotalFilesToCopy": 3,
-    "TotalFilesSize": 7825378778,
-    "NbFilesLeftToDo": 0,
-    "Progression": 100,
-    "LastBackupDate": "2025-05-30T23:42:31.6561083+02:00"
-  },
-  {
     "Name": "txt",
-    "SourcePath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Tests\\TestOrigin\\test_1 - Copie.txt",
-    "DestinationPath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Tests\\TestDestination\\test_1 - Copie.txt",
+    "SourcePath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Tests\\TestOrigin\\Test_differential.txt",
+    "DestinationPath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Tests\\TestDestination\\Test_differential.txt",
     "State": "ACTIVE",
     "TotalFilesToCopy": 5,
     "TotalFilesSize": 92,
-    "NbFilesLeftToDo": 4,
-    "Progression": 21,
-    "LastBackupDate": "2025-05-30T23:43:10.2292184+02:00"
-  },
-  {
-    "Name": "pdf",
-    "SourcePath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Tests\\TestOrigin3\\CV Tom perez le tiec EN.pdf",
-    "DestinationPath": "C:\\EasySave\\Easy_save_orig-3\\Easy_save_orig\\Easy_save_orig\\Tests\\TestDestination3\\CV Tom perez le tiec EN.pdf",
-    "State": "ACTIVE",
-    "TotalFilesToCopy": 7,
-    "TotalFilesSize": 69793,
     "NbFilesLeftToDo": 1,
-    "Progression": 13,
-    "LastBackupDate": "2025-05-30T23:43:13.4284659+02:00"
+    "Progression": 64,
+    "LastBackupDate": "2025-05-31T11:28:39.393022+02:00"
   }
 ]
