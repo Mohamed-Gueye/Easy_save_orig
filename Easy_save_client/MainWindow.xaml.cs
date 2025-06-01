@@ -124,14 +124,12 @@ namespace Easy_save_client
                                 {
                                     backup.State = state;
 
-                                    // Si la sauvegarde est terminée ou arrêtée, mettre à jour la progression
                                     if (state == "COMPLETED")
                                     {
                                         backup.Progress = 100;
                                     }
                                     else if (state == "STOPPED")
                                     {
-                                        // Réinitialiser la progression si la sauvegarde est arrêtée
                                         backup.Progress = 0;
                                     }
                                 }
@@ -195,7 +193,6 @@ namespace Easy_save_client
                 string message = $"{command}|{backup.Name}";
                 await writer.WriteLineAsync(message);
 
-                // Mettre à jour visuellement l'état en attendant la confirmation du serveur
                 switch (command)
                 {
                     case "START":
@@ -268,10 +265,8 @@ namespace Easy_save_client
             {
                 try
                 {
-                    // Envoyer la commande START_ALL au serveur
                     await writer.WriteLineAsync("START_ALL|ALL");
 
-                    // Mettre à jour visuellement l'état des backups
                     foreach (var backup in backups)
                     {
                         backup.State = "PENDING...";
@@ -301,7 +296,6 @@ namespace Easy_save_client
             client?.Close();
             client = null;
 
-            // Effacer la liste des sauvegardes
             Dispatcher.Invoke(() => backups.Clear());
         }
     }

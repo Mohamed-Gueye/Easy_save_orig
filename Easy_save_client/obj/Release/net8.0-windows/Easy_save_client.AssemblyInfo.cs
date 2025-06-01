@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Easy_save_client")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+48dfeef8b7608d5ab0422cf54520163ce224562f")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+80e184f2fc85cfe6fe796614b1a94bacf4d0b4f0")]
 [assembly: System.Reflection.AssemblyProductAttribute("Easy_save_client")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Easy_save_client")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
