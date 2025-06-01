@@ -6,6 +6,8 @@ using Easy_Save.Model.Status;
 
 namespace Easy_Save.Model.IO
 {
+    // Description: Manages reading, writing, and updating backup status entries to a persistent JSON file.
+    //              Thread-safe using lock to synchronize access to shared status list.
     public class StatusManager
     {
         private readonly string _filePath = "state.json";
@@ -13,6 +15,8 @@ namespace Easy_Save.Model.IO
         private static readonly object statusLock = new();
 
         public StatusManager()
+        // In: none
+        // Out: StatusManager instance
         // Description: Initializes the status manager and loads existing status entries from file.
         {
             _entries = WriterManager.Instance.LoadJson<List<StatusEntry>>(_filePath) ?? new List<StatusEntry>();
@@ -21,7 +25,7 @@ namespace Easy_Save.Model.IO
         public DateTime GetLastBackupDate(string backupName)
         // In: backupName (string)
         // Out: DateTime
-        // Description: Returns the last backup time for the specified backup name.
+        // Description: Returns the last backup time for the specified backup name, or DateTime.MinValue if not found.
         {
             lock (statusLock)
             {
@@ -33,7 +37,7 @@ namespace Easy_Save.Model.IO
         public void UpdateStatus(StatusEntry newEntry)
         // In: newEntry (StatusEntry)
         // Out: void
-        // Description: Updates the status entry for the given backup name.
+        // Description: Updates the status entry for the given backup name, writing the updated list to disk.
         {
             lock (statusLock)
             {
@@ -44,8 +48,9 @@ namespace Easy_Save.Model.IO
         }
 
         public List<StatusEntry> GetAllStatuses()
+        // In: none
         // Out: List<StatusEntry>
-        // Description: Returns all stored backup status entries.
+        // Description: Returns a new list containing all stored backup status entries.
         {
             lock (statusLock)
             {
@@ -56,7 +61,7 @@ namespace Easy_Save.Model.IO
         public void RemoveStatus(string name)
         // In: name (string)
         // Out: void
-        // Description: Removes the status entry for the given backup name.
+        // Description: Removes the status entry for the given backup name and saves changes to file.
         {
             lock (statusLock)
             {
@@ -67,8 +72,8 @@ namespace Easy_Save.Model.IO
 
         public StatusEntry? GetStatusByName(string name)
         // In: name (string)
-        // Out: StatusEntry?
-        // Description: Returns the status entry for the given backup name, or null if not found.
+        // Out: StatusEntry? (nullable)
+        // Description: Retrieves the status entry for the given backup name, or null if not found.
         {
             lock (statusLock)
             {

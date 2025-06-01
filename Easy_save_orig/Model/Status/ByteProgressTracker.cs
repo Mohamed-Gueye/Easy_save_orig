@@ -3,9 +3,8 @@ using System.Threading;
 
 namespace Easy_Save.Model.Status
 {
-    /// <summary>
-    /// Tracks byte-level progress for backup operations
-    /// </summary>
+    // Description: Tracks the byte-level progress of a backup operation.
+    // Notes: Thread-safe using lock; also provides update throttling via time interval.
     public class ByteProgressTracker
     {
         private long _totalBytes;
@@ -13,7 +12,7 @@ namespace Easy_Save.Model.Status
         private readonly object _lockObject = new object();
         private int _lastReportedPercentage = -1;
         private DateTime _lastUpdateTime = DateTime.MinValue;
-        private const int UPDATE_INTERVAL_MS = 50; // Force update every 50ms
+        private const int UPDATE_INTERVAL_MS = 50; // Update throttling interval (ms)
 
         public long TotalBytes
         {
@@ -26,6 +25,7 @@ namespace Easy_Save.Model.Status
             get { lock (_lockObject) { return _copiedBytes; } }
             private set { lock (_lockObject) { _copiedBytes = value; } }
         }
+
         public int ProgressPercentage
         {
             get
@@ -37,15 +37,23 @@ namespace Easy_Save.Model.Status
             }
         }
 
+        // Out: Event (Action<int>)
+        // Description: Raised when progress percentage changes or throttled update is due.
         public event Action<int>? ProgressChanged;
 
         public ByteProgressTracker(long totalBytes)
+        // In: totalBytes (long)
+        // Out: ByteProgressTracker instance
+        // Description: Initializes a new tracker with total bytes to be copied.
         {
             TotalBytes = totalBytes;
             _copiedBytes = 0;
         }
 
         public void Reset(long totalBytes)
+        // In: totalBytes (long)
+        // Out: void
+        // Description: Resets the tracker with new total bytes and zero progress.
         {
             lock (_lockObject)
             {
@@ -54,7 +62,11 @@ namespace Easy_Save.Model.Status
             }
             ProgressChanged?.Invoke(0);
         }
+
         public void AddCopiedBytes(long bytes)
+        // In: bytes (long)
+        // Out: void
+        // Description: Adds bytes to the progress and triggers update if percentage or time interval has changed.
         {
             int newPercentage;
             bool shouldUpdate = false;
@@ -65,7 +77,6 @@ namespace Easy_Save.Model.Status
                 _copiedBytes += bytes;
                 newPercentage = ProgressPercentage;
 
-                // Update if percentage changed OR if enough time has passed
                 shouldUpdate = (newPercentage != _lastReportedPercentage) ||
                               ((now - _lastUpdateTime).TotalMilliseconds >= UPDATE_INTERVAL_MS);
 
@@ -76,13 +87,16 @@ namespace Easy_Save.Model.Status
                 }
             }
 
-            // Trigger event if we should update
             if (shouldUpdate)
             {
                 ProgressChanged?.Invoke(newPercentage);
             }
         }
+
         public void SetCopiedBytes(long bytes)
+        // In: bytes (long)
+        // Out: void
+        // Description: Sets the number of copied bytes and triggers a progress update if required.
         {
             int newPercentage;
             bool shouldUpdate = false;
@@ -93,7 +107,6 @@ namespace Easy_Save.Model.Status
                 _copiedBytes = Math.Min(bytes, _totalBytes);
                 newPercentage = ProgressPercentage;
 
-                // Update if percentage changed OR if enough time has passed
                 shouldUpdate = (newPercentage != _lastReportedPercentage) ||
                               ((now - _lastUpdateTime).TotalMilliseconds >= UPDATE_INTERVAL_MS);
 
@@ -104,7 +117,6 @@ namespace Easy_Save.Model.Status
                 }
             }
 
-            // Trigger event if we should update
             if (shouldUpdate)
             {
                 ProgressChanged?.Invoke(newPercentage);

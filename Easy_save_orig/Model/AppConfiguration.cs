@@ -4,14 +4,16 @@ using System.Text.Json;
 
 namespace Easy_Save.Model
 {
+    // Description: Manages application configuration and directory paths using a thread-safe Singleton pattern.
+    //              Supports persistent config file loading and fallback handling on error.
     public class AppConfiguration
     {
-        // General configuration paths
+        // Publicly configured paths
         public string LogFilePath { get; set; }
         public string StatusFilePath { get; set; }
         public string SaveListFilePath { get; set; }
-        
-        // Application data paths
+
+        // Internally resolved application paths
         public string AppDataPath { get; private set; } = string.Empty;
         public string BackupConfigPath { get; private set; } = string.Empty;
         public string LogPath { get; private set; } = string.Empty;
@@ -19,13 +21,14 @@ namespace Easy_Save.Model
 
         private static readonly string configFileName = "config.json";
         private static readonly string defaultBasePath = Path.Combine(AppContext.BaseDirectory, "data");
-        
+
         private static AppConfiguration? _instance;
         private static readonly object _lockObject = new object();
-        
+
         public static AppConfiguration Instance
+        // In: none
         // Out: AppConfiguration
-        // Description: Singleton instance accessor with lazy loading and thread safety.
+        // Description: Provides singleton access to the configuration instance (thread-safe).
         {
             get
             {
@@ -44,8 +47,9 @@ namespace Easy_Save.Model
         }
 
         public static AppConfiguration LoadConfig()
+        // In: none
         // Out: AppConfiguration
-        // Description: Loads the configuration from config.json or creates a default one if not present.
+        // Description: Loads configuration from file or creates default config with fallback directory creation.
         {
             string configPath = Path.Combine(AppContext.BaseDirectory, configFileName);
 
@@ -72,30 +76,32 @@ namespace Easy_Save.Model
         }
 
         public void SaveConfig()
+        // In: none
         // Out: void
-        // Description: Saves the current configuration values into config.json file.
+        // Description: Saves the current configuration to disk in config.json format.
         {
             string configPath = Path.Combine(AppContext.BaseDirectory, configFileName);
             File.WriteAllText(configPath, JsonSerializer.Serialize(this, new JsonSerializerOptions { WriteIndented = true }));
         }
-        
+
         public void SetupDirectoryPaths()
+        // In: none
         // Out: void
-        // Description: Initializes and ensures the directory structure for application data.
+        // Description: Initializes application-specific directories, with fallback handling on failure.
         {
             try
             {
                 AppDataPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "EasySave");
-                
+
                 if (!Directory.Exists(AppDataPath))
                 {
                     Directory.CreateDirectory(AppDataPath);
                 }
-                
+
                 BackupConfigPath = Path.Combine(AppDataPath, "backups");
                 LogPath = Path.Combine(AppDataPath, "logs");
                 StatePath = Path.Combine(AppDataPath, "states");
-                
+
                 EnsureDirectoryExists(BackupConfigPath);
                 EnsureDirectoryExists(LogPath);
                 EnsureDirectoryExists(StatePath);
@@ -103,13 +109,13 @@ namespace Easy_Save.Model
             catch (Exception ex)
             {
                 Console.WriteLine($"Error in configuration setup: {ex.Message}");
-                
+
                 string baseDir = AppDomain.CurrentDomain.BaseDirectory;
                 AppDataPath = baseDir;
                 BackupConfigPath = Path.Combine(baseDir, "backups");
                 LogPath = Path.Combine(baseDir, "logs");
                 StatePath = Path.Combine(baseDir, "states");
-                
+
                 try
                 {
                     EnsureDirectoryExists(BackupConfigPath);
@@ -126,11 +132,11 @@ namespace Easy_Save.Model
                 }
             }
         }
-        
+
         private static void EnsureDirectoryExists(string path)
         // In: path (string)
         // Out: void
-        // Description: Ensures a directory exists at the specified path, creating it if necessary.
+        // Description: Creates the directory if it does not exist.
         {
             if (!Directory.Exists(path))
             {

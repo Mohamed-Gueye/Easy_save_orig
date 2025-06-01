@@ -25,23 +25,21 @@ namespace Easy_Save.Model
         private readonly ConcurrentDictionary<string, bool> pausedJobs = new ConcurrentDictionary<string, bool>();
         private readonly ConcurrentDictionary<string, CancellationTokenSource> backupCancellationTokens = new ConcurrentDictionary<string, CancellationTokenSource>();
 
-        // Événements pour notifier l'interface utilisateur
         public event EventHandler<BackupPausedEventArgs>? BackupPaused;
         public event EventHandler<BackupResumedEventArgs>? BackupResumed;
         public event EventHandler<BackupStateChangedEventArgs>? BackupStateChanged;
 
         public BackupManager()
-        // Description: Initializes the BackupManager and loads status/log observers.
+        // Out: /
+        // Description: Initializes the backup manager, sets up process watchers and cleans orphan statuses.
         {
             statusManager = new StatusManager();
             logObserver = new LogObserver();
             processWatcher = ProcessWatcher.Instance;
 
-            // S'abonner aux événements du ProcessWatcher
             processWatcher.BusinessSoftwareStarted += OnBusinessSoftwareStarted;
             processWatcher.BusinessSoftwareStopped += OnBusinessSoftwareStopped;
 
-            // Démarrer la surveillance des processus
             processWatcher.StartWatching();
 
             CleanOrphanStatuses();
@@ -49,27 +47,26 @@ namespace Easy_Save.Model
 
         private void OnBusinessSoftwareStarted(object sender, string softwareName)
         {
-            // Mettre en pause toutes les sauvegardes en cours
             foreach (var job in runningJobs.Where(j => j.Value))
             {
                 PauseBackup(job.Key);
-                // Déclencher l'événement pour notifier l'interface utilisateur
                 BackupPaused?.Invoke(this, new BackupPausedEventArgs(job.Key, softwareName));
             }
         }
 
         private void OnBusinessSoftwareStopped(object sender, string softwareName)
         {
-            // Reprendre toutes les sauvegardes en pause
             foreach (var job in pausedJobs.Where(j => j.Value))
             {
                 ResumeBackup(job.Key);
-                // Déclencher l'événement pour notifier l'interface utilisateur
                 BackupResumed?.Invoke(this, new BackupResumedEventArgs(job.Key, softwareName));
             }
         }
 
         public void PauseBackup(string name)
+        // In: name (string)
+        // Out: void
+        // Description: Pauses the backup job with the given name and updates its status.
         {
             if (runningJobs.TryGetValue(name, out bool isRunning) && isRunning)
             {
@@ -79,7 +76,6 @@ namespace Easy_Save.Model
                     backup.Pause();
                     pausedJobs[name] = true;
 
-                    // Mettre à jour le statut
                     var status = statusManager.GetAllStatuses().FirstOrDefault(s => s.Name == name);
                     if (status != null)
                     {
@@ -87,23 +83,23 @@ namespace Easy_Save.Model
                         statusManager.UpdateStatus(status);
                     }
 
-                    // Déclencher l'événement de changement d'état
                     BackupStateChanged?.Invoke(this, new BackupStateChangedEventArgs(name, backup.State));
                 }
             }
         }
         public void ResumeBackup(string name)
+        // In: name (string)
+        // Out: void
+        // Description: Resumes a paused backup job if business software is no longer running.
         {
             if (pausedJobs.TryGetValue(name, out bool isPaused) && isPaused)
             {
                 var backup = backups.FirstOrDefault(b => b.Name == name);
                 if (backup != null && !BackupRulesManager.Instance.IsAnyBusinessSoftwareRunning())
                 {
-                    // Utiliser Play() au lieu de Resume() pour changer l'état correctement
                     backup.Play();
                     pausedJobs[name] = false;
 
-                    // Mettre à jour le statut
                     var status = statusManager.GetAllStatuses().FirstOrDefault(s => s.Name == name);
                     if (status != null)
                     {
@@ -111,7 +107,6 @@ namespace Easy_Save.Model
                         statusManager.UpdateStatus(status);
                     }
 
-                    // Déclencher les événements de changement d'état
                     BackupStateChanged?.Invoke(this, new BackupStateChangedEventArgs(name, backup.State));
                     BackupResumed?.Invoke(this, new BackupResumedEventArgs(name, "Manual resume"));
                 }
@@ -119,24 +114,23 @@ namespace Easy_Save.Model
         }
 
         public void StopBackup(string name)
+        // In: name (string)
+        // Out: void
+        // Description: Stops the backup job and cancels its associated token. Updates status to STOPPED.
         {
             var backup = backups.FirstOrDefault(b => b.Name == name);
             if (backup != null)
             {
-                // Arrêter la sauvegarde via la méthode Stop()
                 backup.Stop();
 
-                // Annuler également via le CancellationTokenSource
                 if (backupCancellationTokens.TryGetValue(name, out var tokenSource))
                 {
                     tokenSource.Cancel();
                 }
 
-                // Mettre à jour les états
                 runningJobs[name] = false;
                 pausedJobs[name] = false;
 
-                // Mettre à jour le statut
                 var status = statusManager.GetAllStatuses().FirstOrDefault(s => s.Name == name);
                 if (status != null)
                 {
@@ -144,7 +138,6 @@ namespace Easy_Save.Model
                     statusManager.UpdateStatus(status);
                 }
 
-                // Déclencher l'événement de changement d'état
                 BackupStateChanged?.Invoke(this, new BackupStateChangedEventArgs(name, backup.State));
 
                 Console.WriteLine($"Backup '{name}' has been stopped.");
@@ -211,7 +204,6 @@ namespace Easy_Save.Model
                 return;
             }
 
-            // Réinitialiser l'état de la sauvegarde dans le StatusManager avant de commencer
             var existingStatus = statusManager.GetAllStatuses().FirstOrDefault(s => s.Name == name);
             if (existingStatus != null)
             {
@@ -229,16 +221,12 @@ namespace Easy_Save.Model
                 backupCancellationTokens[name] = cts;
             }
 
-            // Mark the job as running
             runningJobs[name] = true;
 
-            // Mettre à jour l'état de la sauvegarde
             backup.State = BackupJobState.RUNNING;
 
-            // Déclencher l'événement de changement d'état
             BackupStateChanged?.Invoke(this, new BackupStateChangedEventArgs(name, backup.State));
 
-            // Execute the backup
             try
             {
                 backup.Play();
@@ -261,7 +249,6 @@ namespace Easy_Save.Model
                     Console.WriteLine($"Type de sauvegarde '{backup.Type}' non reconnu.");
                 }
 
-                // Mettre à jour le statut après l'exécution réussie
                 var status = statusManager.GetAllStatuses().FirstOrDefault(s => s.Name == name);
                 if (status != null)
                 {
@@ -271,40 +258,36 @@ namespace Easy_Save.Model
                     statusManager.UpdateStatus(status);
                 }
 
-                // Mettre à jour l'état de la sauvegarde
                 backup.State = BackupJobState.COMPLETED;
 
-                // Déclencher l'événement de changement d'état pour la complétion
                 BackupStateChanged?.Invoke(this, new BackupStateChangedEventArgs(name, backup.State));
             }
             catch (OperationCanceledException)
             {
                 Console.WriteLine($"Sauvegarde '{name}' annulée.");
 
-                // Si la sauvegarde a été annulée, mettre à jour son état
                 backup.State = BackupJobState.STOPPED;
 
-                // Déclencher l'événement de changement d'état pour l'annulation
                 BackupStateChanged?.Invoke(this, new BackupStateChangedEventArgs(name, backup.State));
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Erreur lors de l'exécution de la sauvegarde '{name}': {ex.Message}");
 
-                // En cas d'erreur, considérer la sauvegarde comme arrêtée
                 backup.State = BackupJobState.STOPPED;
 
-                // Déclencher l'événement de changement d'état pour l'erreur
                 BackupStateChanged?.Invoke(this, new BackupStateChangedEventArgs(name, backup.State));
             }
             finally
             {
-                // Mark the job as not running
                 runningJobs[name] = false;
             }
         }
 
         public async Task ExecuteAllBackupsAsync(bool parallel = false, int maxConcurrency = 3)
+        // In: parallel (bool), maxConcurrency (int)
+        // Out: Task
+        // Description: Executes all backups either sequentially or in parallel with optional concurrency limit.
         {
             if (!CanExecuteBackup())
             {
@@ -312,7 +295,6 @@ namespace Easy_Save.Model
                 return;
             }
 
-            // Reset the priority file manager before starting all backups
             PriorityFileManager.Instance.Reset();
 
             currentJobAllowedToComplete = true;
@@ -381,13 +363,16 @@ namespace Easy_Save.Model
         }
     }
 
-    // Classes d'événements pour notifier l'interface utilisateur
     public class BackupPausedEventArgs : EventArgs
+    // Description: Event arguments for when a backup is paused due to business software activity.
     {
         public string BackupName { get; }
         public string SoftwareName { get; }
 
         public BackupPausedEventArgs(string backupName, string softwareName)
+        // In: backupName (string), softwareName (string)
+        // Out: /
+        // Description: Initializes a new instance with the backup and software name.
         {
             BackupName = backupName;
             SoftwareName = softwareName;
@@ -395,11 +380,15 @@ namespace Easy_Save.Model
     }
 
     public class BackupResumedEventArgs : EventArgs
+    // Description: Event arguments for when a paused backup is resumed.
     {
         public string BackupName { get; }
         public string SoftwareName { get; }
 
         public BackupResumedEventArgs(string backupName, string softwareName)
+        // In: backupName (string), softwareName (string)
+        // Out: /
+        // Description: Initializes a new instance with the backup and software name.
         {
             BackupName = backupName;
             SoftwareName = softwareName;
@@ -407,11 +396,15 @@ namespace Easy_Save.Model
     }
 
     public class BackupStateChangedEventArgs : EventArgs
+    // Description: Event arguments for when the backup state changes.
     {
         public string BackupName { get; }
         public BackupJobState NewState { get; }
 
         public BackupStateChangedEventArgs(string backupName, BackupJobState newState)
+        // In: backupName (string), newState (BackupJobState)
+        // Out: /
+        // Description: Initializes a new instance with the backup name and new state.
         {
             BackupName = backupName;
             NewState = newState;

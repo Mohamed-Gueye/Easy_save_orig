@@ -1,35 +1,35 @@
 using System;
 using System.IO;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace Easy_Save.Model.IO
 {
     /// <summary>
-    /// File copy utility with real-time byte progress tracking
+    /// Provides file copying functionality with byte-level progress reporting.
     /// </summary>
     public static class ProgressAwareFileCopy
     {
-        private const int BufferSize = 2 * 1024; // 2KB buffer for more frequent updates
+        // Small buffer (2KB) allows frequent progress updates during copy.
+        private const int BufferSize = 2 * 1024;
 
-        /// <summary>
-        /// Copy a file with real-time progress updates based on bytes copied (synchronous version)
-        /// </summary>
-        /// <param name="sourceFile">Source file path</param>
-        /// <param name="destinationFile">Destination file path</param>
-        /// <param name="progressCallback">Callback to report bytes copied</param>
-        /// <returns>Total bytes copied</returns>
+        // In: sourceFile (string), destinationFile (string), progressCallback (Action<long>)
+        // Out: long
+        // Description: Copies a file from source to destination, reporting progress via a callback on each chunk copied.
         public static long CopyFileWithProgress(
             string sourceFile,
             string destinationFile,
             Action<long> progressCallback)
         {
-            using var sourceStream = new FileStream(sourceFile, FileMode.Open, FileAccess.Read, FileShare.Read, BufferSize, FileOptions.SequentialScan);
-            using var destinationStream = new FileStream(destinationFile, FileMode.Create, FileAccess.Write, FileShare.None, BufferSize, FileOptions.SequentialScan);
+            using var sourceStream = new FileStream(
+                sourceFile, FileMode.Open, FileAccess.Read,
+                FileShare.Read, BufferSize, FileOptions.SequentialScan);
 
-            // Check file size to determine if we should add delay for small files
+            using var destinationStream = new FileStream(
+                destinationFile, FileMode.Create, FileAccess.Write,
+                FileShare.None, BufferSize, FileOptions.SequentialScan);
+
             long fileSize = sourceStream.Length;
-            const long TenMB = 10 * 1024 * 1024; // 10MB threshold
+            const long TenMB = 10 * 1024 * 1024;
 
             var buffer = new byte[BufferSize];
             long totalBytesCopied = 0;
@@ -40,13 +40,13 @@ namespace Easy_Save.Model.IO
                 destinationStream.Write(buffer, 0, bytesRead);
                 totalBytesCopied += bytesRead;
 
-                // Report progress for each buffer written
+                // Notifies how many bytes were just copied
                 progressCallback?.Invoke(bytesRead);
 
-                // Add delay only for files smaller than 10MB for better visibility
+                // Optional delay for smaller files to better visualize progress (mainly for UI feedback)
                 if (fileSize < TenMB)
                 {
-                    System.Threading.Thread.Sleep(500);
+                    Thread.Sleep(500); // Sleep 0.5s for visibility
                 }
             }
 

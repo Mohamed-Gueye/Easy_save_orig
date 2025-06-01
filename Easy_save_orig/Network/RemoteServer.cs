@@ -14,6 +14,9 @@ using Easy_Save.Model.Enum;
 namespace Easy_Save.Network
 {
     public class RemoteServer
+    // In: process (BackupProcess)
+    // Out: /
+    // Description: Initializes the RemoteServer, sets up event listeners for backup state changes, and starts a timer to monitor backup statuses.
     {
         private TcpListener listener;
         private readonly List<TcpClient> clients = new();
@@ -28,47 +31,48 @@ namespace Easy_Save.Network
         {
             backupProcess = process;
 
-            // S'abonner aux événements du BackupManager pour être notifié des changements
             backupProcess.BackupManager.BackupPaused += BackupManager_BackupPaused;
             backupProcess.BackupManager.BackupResumed += BackupManager_BackupResumed;
 
-            // Démarrer un timer pour vérifier régulièrement l'état des sauvegardes
-            var timer = new System.Timers.Timer(1000); // vérifier toutes les secondes
+            var timer = new System.Timers.Timer(1000); 
             timer.Elapsed += (sender, e) => CheckBackupStates();
             timer.Start();
         }
 
         private void BackupManager_BackupPaused(object sender, BackupPausedEventArgs e)
+        // In: sender (object), e (BackupPausedEventArgs)
+        // Out: void
+        // Description: Event handler that broadcasts a pause notification for a backup.
         {
-            // Notifier les clients que la sauvegarde a été mise en pause
             BroadcastBackupPaused(e.BackupName);
         }
 
         private void BackupManager_BackupResumed(object sender, BackupResumedEventArgs e)
+        // In: sender (object), e (BackupResumedEventArgs)
+        // Out: void
+        // Description: Event handler that broadcasts a resume notification for a backup.
         {
-            // Notifier les clients que la sauvegarde a repris
             BroadcastBackupStarted(e.BackupName);
         }
 
         private void CheckBackupStates()
+        // Out: void
+        // Description: Periodically checks the state of all backups and broadcasts any changes to connected clients.
+        // Notes: Handles state transitions and updates progress tracking subscriptions.
         {
             var backups = backupProcess.GetAllBackup();
 
             foreach (var backup in backups)
             {
-                // Si nous n'avons pas encore enregistré cet état ou s'il a changé
                 if (!lastKnownStates.TryGetValue(backup.Name, out var lastState) || lastState != backup.State)
                 {
-                    // Mettre à jour l'état connu
                     lastKnownStates[backup.Name] = backup.State;
 
-                    // Notifier les clients du changement
                     switch (backup.State)
                     {
                         case BackupJobState.RUNNING:
                             BroadcastBackupStarted(backup.Name);
 
-                            // S'abonner à l'événement de progression si ce n'est pas déjà fait
                             if (!progressHandlers.ContainsKey(backup.Name) && backup.ProgressTracker != null)
                             {
                                 Action<int> progressHandler = (percentage) =>
@@ -88,7 +92,6 @@ namespace Easy_Save.Network
                         case BackupJobState.STOPPED:
                             BroadcastBackupStopped(backup.Name);
 
-                            // Se désabonner de l'événement de progression
                             if (progressHandlers.TryGetValue(backup.Name, out var handler))
                             {
                                 if (backup.ProgressTracker != null)
@@ -102,7 +105,6 @@ namespace Easy_Save.Network
                         case BackupJobState.COMPLETED:
                             BroadcastBackupCompleted(backup.Name);
 
-                            // Se désabonner de l'événement de progression
                             if (progressHandlers.TryGetValue(backup.Name, out var completedHandler))
                             {
                                 if (backup.ProgressTracker != null)
@@ -115,7 +117,6 @@ namespace Easy_Save.Network
                     }
                 }
 
-                // Vérifier si on doit s'abonner à la progression
                 if (backup.State == BackupJobState.RUNNING &&
                     !progressHandlers.ContainsKey(backup.Name) &&
                     backup.ProgressTracker != null)
@@ -131,6 +132,9 @@ namespace Easy_Save.Network
         }
 
         public void Start(int port = 9000)
+        // In: port (int)
+        // Out: void
+        // Description: Starts the TCP server and begins listening for incoming client connections on the specified port.
         {
             if (listener != null) return;
 
@@ -141,6 +145,8 @@ namespace Easy_Save.Network
         }
 
         public void Stop()
+        // Out: void
+        // Description: Stops the TCP server, cancels listening, and disconnects all active clients.
         {
             try
             {
@@ -162,6 +168,9 @@ namespace Easy_Save.Network
         }
 
         private async Task ListenForClientsAsync(CancellationToken token)
+        // In: token (CancellationToken)
+        // Out: Task
+        // Description: Asynchronously listens for incoming TCP clients and handles them in parallel.
         {
             try
             {
@@ -177,7 +186,6 @@ namespace Easy_Save.Network
             }
             catch (OperationCanceledException)
             {
-                // Server stopped
             }
             catch (Exception ex)
             {
@@ -186,6 +194,10 @@ namespace Easy_Save.Network
         }
 
         private async Task HandleClientAsync(TcpClient client, CancellationToken token)
+        // In: client (TcpClient), token (CancellationToken)
+        // Out: Task
+        // Description: Handles communication with a connected client, processes backup commands, and reports state changes.
+        // Notes: Uses TCP stream for command/response exchange with basic command parsing.
         {
             using var stream = client.GetStream();
             using var reader = new StreamReader(stream);
@@ -195,13 +207,11 @@ namespace Easy_Save.Network
             {
                 await writer.WriteLineAsync("CONNECTED");
 
-                // Send initial list of backups
                 var backups = backupProcess.GetAllBackup();
                 foreach (var backup in backups)
                 {
                     await writer.WriteLineAsync($"BACKUP|{backup.Name}|{backup.Type}|{backup.SourceDirectory}|{backup.TargetDirectory}");
 
-                    // Envoyer également l'état actuel des sauvegardes existantes
                     string state = "READY";
                     if (backup.State == BackupJobState.RUNNING)
                         state = "RUNNING";
@@ -225,7 +235,7 @@ namespace Easy_Save.Network
                     if (parts.Length < 1) continue;
 
                     string cmd = parts[0];
-                    string name = parts.Length > 1 ? parts[1] : "";// Traiter les commandes de manière asynchrone pour ne pas bloquer la boucle de lecture
+                    string name = parts.Length > 1 ? parts[1] : "";
                     _ = Task.Run(async () =>
                     {
                         try
@@ -241,18 +251,10 @@ namespace Easy_Save.Network
                                         BroadcastBackupStarted(backup.Name);
                                     }
 
-                                    // Exécuter toutes les sauvegardes en parallèle, tout en respectant les contraintes
                                     try
                                     {
-                                        // Utilise true pour l'exécution concurrente mais limitée
-                                        // Cela préservera les fonctionnalités de priorité de fichiers,
-                                        // de limitation pour les gros fichiers et de blocage lors de l'exécution 
-                                        // des logiciels métier (business software)
                                         await Task.Run(() => backupProcess.RunAllBackups(true));
 
-                                        // Aucun besoin de gérer les sauvegardes individuellement
-                                        // car le backupProcess.RunAllBackups va s'assurer que chaque sauvegarde
-                                        // respecte les règles définies et met à jour son état correctement
                                     }
                                     catch (Exception ex)
                                     {
@@ -263,7 +265,6 @@ namespace Easy_Save.Network
                                     Console.WriteLine($"Client requested to start backup: {name}");
                                     BroadcastBackupStarted(name);
                                     await Task.Run(() => backupProcess.ExecuteBackup(name));
-                                    // Vérifier l'état final après l'exécution
                                     var statusManager = new Easy_Save.Model.IO.StatusManager();
                                     var status = statusManager.GetStatusByName(name);
                                     if (status != null && status.State == "COMPLETED")
@@ -284,7 +285,6 @@ namespace Easy_Save.Network
                                 case "STOP":
                                     Console.WriteLine($"Client requested to stop backup: {name}");
                                     backupProcess.StopBackup(name);
-                                    // Forcer la remise à zéro de la progression
                                     BroadcastProgress(name, 0);
                                     BroadcastBackupStopped(name);
                                     break;
@@ -311,6 +311,9 @@ namespace Easy_Save.Network
         }
 
         public void Broadcast(string message)
+        // In: message (string)
+        // Out: void
+        // Description: Sends a message to all connected clients. Removes clients that fail during transmission.
         {
             lock (clients)
             {
@@ -331,33 +334,50 @@ namespace Easy_Save.Network
         }
 
         public void BroadcastProgress(string backupName, int percentage)
+        // In: backupName (string), percentage (int)
+        // Out: void
+        // Description: Sends a progress update message for the specified backup to all clients.
         {
             Broadcast($"PROGRESS|{backupName}|{percentage}");
         }
 
         public void BroadcastBackupState(string backupName, string state)
+        // In: backupName (string), state (string)
+        // Out: void
+        // Description: Sends a state update message for the specified backup to all clients.
         {
             Broadcast($"STATE|{backupName}|{state}");
         }
 
         public void BroadcastBackupStarted(string backupName)
+        // In: backupName (string)
+        // Out: void
+        // Description: Notifies all clients that the specified backup has started.
         {
             BroadcastBackupState(backupName, "RUNNING");
         }
 
         public void BroadcastBackupPaused(string backupName)
+        // In: backupName (string)
+        // Out: void
+        // Description: Notifies all clients that the specified backup has been paused.
         {
             BroadcastBackupState(backupName, "PAUSED");
         }
 
         public void BroadcastBackupStopped(string backupName)
+        // In: backupName (string)
+        // Out: void
+        // Description: Notifies all clients that the specified backup has stopped and resets its progress.
         {
-            // Lorsqu'une sauvegarde est arrêtée, on réinitialise sa progression à 0
             BroadcastProgress(backupName, 0);
             BroadcastBackupState(backupName, "STOPPED");
         }
 
         public void BroadcastBackupCompleted(string backupName)
+        // In: backupName (string)
+        // Out: void
+        // Description: Notifies all clients that the specified backup has completed.
         {
             BroadcastBackupState(backupName, "COMPLETED");
         }

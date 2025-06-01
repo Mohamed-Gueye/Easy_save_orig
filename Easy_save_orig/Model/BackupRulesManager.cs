@@ -176,7 +176,6 @@ namespace Easy_Save.Model
 
             extension = extension.Trim().ToLower();
 
-            // Ensure extension starts with a dot
             if (!extension.StartsWith("."))
                 extension = "." + extension;
 

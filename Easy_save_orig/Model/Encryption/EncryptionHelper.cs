@@ -1,4 +1,3 @@
-using System.Diagnostics;
 using System;
 using CryptoSoft;
 
@@ -6,24 +5,27 @@ namespace Easy_Save.Model
 {
     public static class EncryptionHelper
     {
+        // In: 
+        //   - sourceFilePath (string): path to the file that needs to be encrypted
+        //   - key (string): encryption key to use
+        //   - cryptoSoftPath (string): unused in current implementation (legacy param)
+        // Out: int (result code from CryptoService; <0 if error)
+        // Description: Uses the CryptoSoft library to encrypt the specified file with a key. Instead of launching an external process, it calls CryptoService directly.
         public static int EncryptFile(string sourceFilePath, string key, string cryptoSoftPath)
-        // In: sourceFilePath (string), key (string), cryptoSoftPath (string) - Noter que cryptoSoftPath n'est plus utilisé directement
-        // Out: int
-        // Description: Utilise la classe CryptoService pour chiffrer le fichier donné avec la clé spécifiée.
         {
-            Console.WriteLine($"[CryptoSoft] Appel sur : {sourceFilePath} avec clé : {key}");
+            Console.WriteLine($"[CryptoSoft] Encrypting: {sourceFilePath} with key: {key}");
 
             try
             {
-                // Utilise directement la classe CryptoService au lieu d'appeler un processus externe
+                // Using direct method call instead of shelling out to an executable (better performance and control)
                 int result = CryptoService.EncryptFile(sourceFilePath, key);
-                Console.WriteLine($"[CryptoSoft] Résultat = {result}");
+                Console.WriteLine($"[CryptoSoft] Result = {result}");
                 return result;
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"[CryptoSoft] Erreur : {ex.Message}");
-                return -99;
+                Console.WriteLine($"[CryptoSoft] Error: {ex.Message}");
+                return -99; // Custom code to indicate unexpected failure
             }
         }
     }

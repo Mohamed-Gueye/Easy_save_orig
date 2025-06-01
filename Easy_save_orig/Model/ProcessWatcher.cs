@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace Easy_Save.Model
 {
+    // Description: Singleton class responsible for monitoring business software processes in the background.
     public class ProcessWatcher
     {
         private static ProcessWatcher? _instance;
@@ -16,6 +17,7 @@ namespace Easy_Save.Model
         private bool _isWatching = false;
         private CancellationTokenSource? _cancellationTokenSource;
 
+        // Events to notify when a business software starts or stops
         public event EventHandler<string>? BusinessSoftwareStarted;
         public event EventHandler<string>? BusinessSoftwareStopped;
 
@@ -25,6 +27,8 @@ namespace Easy_Save.Model
         }
 
         public static ProcessWatcher Instance
+        // Out: ProcessWatcher
+        // Description: Provides thread-safe singleton access to the ProcessWatcher instance.
         {
             get
             {
@@ -40,6 +44,8 @@ namespace Easy_Save.Model
         }
 
         public void StartWatching()
+        // Out: void
+        // Description: Starts background monitoring of configured business software using a periodic task loop.
         {
             if (_isWatching)
                 return;
@@ -48,7 +54,7 @@ namespace Easy_Save.Model
             _cancellationTokenSource = new CancellationTokenSource();
             var token = _cancellationTokenSource.Token;
 
-            // Initialize process states
+            // Initialize state for each software
             foreach (var software in _rulesManager.BusinessSoftwareList)
             {
                 if (!string.IsNullOrWhiteSpace(software))
@@ -58,17 +64,20 @@ namespace Easy_Save.Model
                 }
             }
 
+            // Launch asynchronous monitoring task
             Task.Run(async () =>
             {
                 while (!token.IsCancellationRequested)
                 {
                     CheckProcesses();
-                    await Task.Delay(1000, token); // Check every second
+                    await Task.Delay(1000, token); // Polling interval: 1 second
                 }
             }, token);
         }
 
         public void StopWatching()
+        // Out: void
+        // Description: Stops the background process monitoring.
         {
             if (!_isWatching)
                 return;
@@ -78,6 +87,8 @@ namespace Easy_Save.Model
         }
 
         private void CheckProcesses()
+        // Out: void
+        // Description: Checks for changes in the running state of each configured business software and triggers events.
         {
             foreach (var software in _rulesManager.BusinessSoftwareList)
             {
@@ -87,7 +98,7 @@ namespace Easy_Save.Model
                 bool wasRunning = _processStates.ContainsKey(software) && _processStates[software];
                 bool isRunning = ProcessMonitor.IsProcessRunning(software);
 
-                // If state changed
+                // Detect state change
                 if (wasRunning != isRunning)
                 {
                     _processStates[software] = isRunning;

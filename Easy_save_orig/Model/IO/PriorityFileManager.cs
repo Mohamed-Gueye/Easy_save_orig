@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Easy_Save.Model.IO
 {
-    // Event arguments for priority status changes
+    // EventArgs subclass used for signaling backup priority status changes
     public class PriorityStatusChangedEventArgs : EventArgs
     {
         public string BackupName { get; }
@@ -29,6 +29,7 @@ namespace Easy_Save.Model.IO
         PriorityFiles
     }
 
+    // Manages coordination between backup processes when priority files are detected
     public class PriorityFileManager
     {
         private static PriorityFileManager? _instance;
@@ -39,7 +40,6 @@ namespace Easy_Save.Model.IO
         private readonly ConcurrentDictionary<string, SemaphoreSlim> _backupSemaphores;
         private readonly SemaphoreSlim _globalCoordinationSemaphore;
 
-        // Events for UI notifications
         public event EventHandler<PriorityStatusChangedEventArgs>? PriorityStatusChanged;
 
         private PriorityFileManager()
@@ -52,6 +52,8 @@ namespace Easy_Save.Model.IO
         }
 
         public static PriorityFileManager Instance
+        // Out: PriorityFileManager
+        // Description: Singleton accessor for PriorityFileManager
         {
             get
             {
@@ -67,6 +69,9 @@ namespace Easy_Save.Model.IO
         }
 
         public void RegisterPriorityFiles(string backupName, string sourceDirectory)
+        // In: backupName (string), sourceDirectory (string)
+        // Out: void
+        // Description: Detects priority files in the source directory and registers them for coordination.
         {
             var priorityExtensions = BackupRulesManager.Instance.PriorityExtensions;
             if (priorityExtensions == null || !priorityExtensions.Any())
@@ -88,10 +93,8 @@ namespace Easy_Save.Model.IO
             _backupProcessingStatus.AddOrUpdate(backupName, false, (_, _) => false);
             GetOrCreateSemaphore(backupName);
 
-            // Notify about priority status change
             PriorityStatusChanged?.Invoke(this, new PriorityStatusChangedEventArgs(backupName, hasPriorityFiles));
 
-            // Si on trouve des fichiers prioritaires, on coordonne avec les autres sauvegardes
             if (hasPriorityFiles)
             {
                 Task.Run(() => CoordinatePriorityExecution());
@@ -99,16 +102,20 @@ namespace Easy_Save.Model.IO
         }
 
         private SemaphoreSlim GetOrCreateSemaphore(string backupName)
+        // In: backupName (string)
+        // Out: SemaphoreSlim
+        // Description: Ensures each backup has a dedicated semaphore for synchronization.
         {
             return _backupSemaphores.GetOrAdd(backupName, _ => new SemaphoreSlim(1, 1));
         }
 
         private async Task CoordinatePriorityExecution()
+        // Out: Task
+        // Description: Coordinates execution when multiple backups involve priority files using global semaphore.
         {
             await _globalCoordinationSemaphore.WaitAsync();
             try
             {
-                // Pause all non-priority backups
                 var tasksToNotify = new List<Task>();
 
                 foreach (var kvp in _backupHasPriorityFiles)
@@ -118,7 +125,6 @@ namespace Easy_Save.Model.IO
 
                     if (!hasPriorityFiles && _backupProcessingStatus.GetValueOrDefault(backupName, false))
                     {
-                        // This backup should be paused
                         tasksToNotify.Add(NotifyBackupPause(backupName, PauseReason.PriorityFiles));
                     }
                 }
@@ -132,6 +138,9 @@ namespace Easy_Save.Model.IO
         }
 
         private async Task NotifyBackupPause(string backupName, PauseReason reason)
+        // In: backupName (string), reason (PauseReason)
+        // Out: Task
+        // Description: Notifies a specific backup to pause due to coordination constraints.
         {
             var semaphore = GetOrCreateSemaphore(backupName);
             await semaphore.WaitAsync();
@@ -146,6 +155,8 @@ namespace Easy_Save.Model.IO
             }
         }
         public bool HasPendingPriorityFiles()
+        // Out: bool
+        // Description: Checks if any priority files are still pending in active backups.
         {
             var result = _priorityFilesByBackup.Any(kvp =>
                 kvp.Value.Any() && _backupHasPriorityFiles.GetValueOrDefault(kvp.Key, false));
@@ -163,19 +174,20 @@ namespace Easy_Save.Model.IO
         }
 
         public async Task<bool> WaitForPriorityCoordinationAsync(string backupName)
+        // In: backupName (string)
+        // Out: Task<bool>
+        // Description: Waits for permission to process backup depending on priority file conditions.
         {
             var semaphore = GetOrCreateSemaphore(backupName);
             await semaphore.WaitAsync();
             try
             {
-                // If this backup has priority files, it can proceed
                 if (_backupHasPriorityFiles.GetValueOrDefault(backupName, false))
                 {
                     _backupProcessingStatus.AddOrUpdate(backupName, true, (_, _) => true);
                     return true;
                 }
 
-                // If no priority files exist anywhere, non-priority backups can proceed
                 if (!HasPendingPriorityFiles())
                 {
                     _backupProcessingStatus.AddOrUpdate(backupName, true, (_, _) => true);
@@ -183,7 +195,6 @@ namespace Easy_Save.Model.IO
                     return true;
                 }
 
-                // This backup should wait
                 return false;
             }
             finally
@@ -193,6 +204,9 @@ namespace Easy_Save.Model.IO
         }
 
         public async Task MarkBackupAsProcessingAsync(string backupName)
+        // In: backupName (string)
+        // Out: Task
+        // Description: Marks a backup as actively processing.
         {
             var semaphore = GetOrCreateSemaphore(backupName);
             await semaphore.WaitAsync();
@@ -207,6 +221,9 @@ namespace Easy_Save.Model.IO
         }
 
         public void MarkBackupAsProcessing(string backupName)
+        // In: backupName (string)
+        // Out: void
+        // Description: Synchronous version to mark a backup as processing.
         {
             var semaphore = GetOrCreateSemaphore(backupName);
             semaphore.Wait();
@@ -220,11 +237,12 @@ namespace Easy_Save.Model.IO
             }
         }
         public async Task RemoveBackupAsync(string backupName)
+        // In: backupName (string)
+        // Out: Task
+        // Description: Cleans up and removes all internal tracking for the given backup.
         {
-            // Check if the semaphore exists before trying to use it
             if (!_backupSemaphores.TryGetValue(backupName, out var semaphore))
             {
-                // If no semaphore exists, just clean up the dictionaries
                 _priorityFilesByBackup.TryRemove(backupName, out _);
                 _backupProcessingStatus.TryRemove(backupName, out _);
                 _backupHasPriorityFiles.TryRemove(backupName, out _);
@@ -237,24 +255,19 @@ namespace Easy_Save.Model.IO
                 _priorityFilesByBackup.TryRemove(backupName, out _);
                 _backupProcessingStatus.TryRemove(backupName, out _);
                 _backupHasPriorityFiles.TryRemove(backupName, out _);
-                // Remove and dispose the semaphore (but don't release it afterward)
                 if (_backupSemaphores.TryRemove(backupName, out var removedSemaphore))
                 {
-                    // Release once before disposing to balance the WaitAsync call above
                     removedSemaphore.Release();
                     removedSemaphore.Dispose();
                 }
 
                 Console.WriteLine($"[DEBUG] Removed backup {backupName}, checking for waiting backups");
-                // Check if we can resume other backups
                 await CheckAndResumeWaitingBackupsAsync();
 
-                // Force notify all waiting backups to check their status
                 await ForceCheckAllBackupsAsync();
             }
             catch
             {
-                // If an exception occurs and we still have the semaphore, release it
                 if (_backupSemaphores.ContainsKey(backupName))
                 {
                     semaphore.Release();
@@ -263,11 +276,13 @@ namespace Easy_Save.Model.IO
             }
         }
         public void RemoveBackup(string backupName)
+        // In: backupName (string)
+        // Out: void
+        // Description: Synchronously removes all references and semaphores associated with a backup.
+        // Notes: Uses a semaphore per backup to ensure safe concurrent access. Launches async follow-up to coordinate backups.
         {
-            // Check if the semaphore exists before trying to use it
             if (!_backupSemaphores.TryGetValue(backupName, out var semaphore))
             {
-                // If no semaphore exists, just clean up the dictionaries
                 _priorityFilesByBackup.TryRemove(backupName, out _);
                 _backupProcessingStatus.TryRemove(backupName, out _);
                 _backupHasPriorityFiles.TryRemove(backupName, out _);
@@ -280,16 +295,13 @@ namespace Easy_Save.Model.IO
                 _priorityFilesByBackup.TryRemove(backupName, out _);
                 _backupProcessingStatus.TryRemove(backupName, out _);
                 _backupHasPriorityFiles.TryRemove(backupName, out _);
-                // Remove and dispose the semaphore (but don't release it afterward)
                 if (_backupSemaphores.TryRemove(backupName, out var removedSemaphore))
                 {
-                    // Release once before disposing to balance the Wait call above
                     removedSemaphore.Release();
                     removedSemaphore.Dispose();
                 }
 
                 Console.WriteLine($"[DEBUG] Removed backup {backupName} (sync), checking for waiting backups");
-                // Check if we can resume other backups (synchronous version)
                 Task.Run(async () =>
                 {
                     await CheckAndResumeWaitingBackupsAsync();
@@ -298,7 +310,6 @@ namespace Easy_Save.Model.IO
             }
             catch
             {
-                // If an exception occurs and we still have the semaphore, release it
                 if (_backupSemaphores.ContainsKey(backupName))
                 {
                     semaphore.Release();
@@ -307,12 +318,14 @@ namespace Easy_Save.Model.IO
             }
         }
         private async Task CheckAndResumeWaitingBackupsAsync()
+        // Out: Task
+        // Description: Checks if non-priority backups can be resumed and notifies them accordingly.
+        // Notes: Called when priority files are processed or removed. Avoids race conditions via local locking.
         {
             Console.WriteLine($"[DEBUG] CheckAndResumeWaitingBackupsAsync called");
             if (!HasPendingPriorityFiles())
             {
                 Console.WriteLine($"[DEBUG] No pending priority files, resuming non-priority backups");
-                // Resume all paused non-priority backups
                 var resumeTasks = new List<Task>();
 
                 foreach (var kvp in _backupProcessingStatus)
@@ -336,6 +349,9 @@ namespace Easy_Save.Model.IO
         }
 
         private async Task NotifyBackupResume(string backupName)
+        // In: backupName (string)
+        // Out: Task
+        // Description: Marks a backup as resumable and triggers a status event.
         {
             var semaphore = GetOrCreateSemaphore(backupName);
             await semaphore.WaitAsync();
@@ -351,6 +367,9 @@ namespace Easy_Save.Model.IO
         }
 
         public async Task MarkPriorityFileProcessedAsync(string backupName, string filePath)
+        // In: backupName (string), filePath (string)
+        // Out: Task
+        // Description: Removes a file from the list of priority files and triggers resume logic if none remain.
         {
             var semaphore = GetOrCreateSemaphore(backupName);
             await semaphore.WaitAsync();
@@ -360,7 +379,6 @@ namespace Easy_Save.Model.IO
                 {
                     priorityFiles.Remove(filePath);
 
-                    // If no more priority files in this backup, update status
                     if (!priorityFiles.Any())
                     {
                         _backupHasPriorityFiles.AddOrUpdate(backupName, false, (_, _) => false);
@@ -375,6 +393,9 @@ namespace Easy_Save.Model.IO
         }
 
         public bool IsFilePriority(string filePath)
+        // In: filePath (string)
+        // Out: bool
+        // Description: Checks if a given file has a priority extension based on current rules.
         {
             var priorityExtensions = BackupRulesManager.Instance.PriorityExtensions;
             if (priorityExtensions == null || !priorityExtensions.Any())
@@ -385,6 +406,9 @@ namespace Easy_Save.Model.IO
         }
 
         public void Reset()
+        // Out: void
+        // Description: Clears all internal tracking and releases all semaphores.
+        // Notes: Use with caution. Should be called only on full system reset.
         {
             _globalCoordinationSemaphore.Wait();
             try
@@ -393,7 +417,6 @@ namespace Easy_Save.Model.IO
                 _backupProcessingStatus.Clear();
                 _backupHasPriorityFiles.Clear();
 
-                // Dispose all semaphores
                 foreach (var semaphore in _backupSemaphores.Values)
                 {
                     semaphore.Dispose();
@@ -407,18 +430,23 @@ namespace Easy_Save.Model.IO
         }
 
         public bool CanProcessNonPriorityFiles(string backupName)
+        // In: backupName (string)
+        // Out: bool
+        // Description: Returns true if a backup can process non-priority files, i.e., if no priority conflict exists.
         {
-            // Si cette sauvegarde a des fichiers prioritaires, on la laisse continuer
             if (_backupHasPriorityFiles.GetValueOrDefault(backupName, false))
             {
                 return true;
             }
 
-            // Sinon, on vérifie s'il y a des fichiers prioritaires en attente dans d'autres sauvegardes
             return !HasPendingPriorityFiles();
         }
 
         public async Task CheckAndUpdatePriorityStatusAsync(string backupName, string sourceDirectory)
+        // In: backupName (string), sourceDirectory (string)
+        // Out: Task
+        // Description: Scans directory for priority files and updates tracking state accordingly.
+        // Notes: Uses per-backup semaphores to ensure thread-safe updates.
         {
             var priorityExtensions = BackupRulesManager.Instance.PriorityExtensions;
             if (priorityExtensions == null || !priorityExtensions.Any())
@@ -439,7 +467,6 @@ namespace Easy_Save.Model.IO
                 _backupHasPriorityFiles.AddOrUpdate(backupName, hasPriorityFiles, (_, _) => hasPriorityFiles);
                 _priorityFilesByBackup.AddOrUpdate(backupName, priorityFiles, (_, _) => priorityFiles);
 
-                // Notify if status changed
                 if (previousStatus != hasPriorityFiles)
                 {
                     PriorityStatusChanged?.Invoke(this, new PriorityStatusChangedEventArgs(backupName, hasPriorityFiles));
@@ -461,27 +488,31 @@ namespace Easy_Save.Model.IO
         }
 
         public void CheckAndUpdatePriorityStatus(string backupName, string sourceDirectory)
+        // In: backupName (string), sourceDirectory (string)
+        // Out: void
+        // Description: Fire-and-forget wrapper around the async version of priority file check.
+        // Notes: Runs async task in the background to avoid blocking the caller.
         {
             Task.Run(async () => await CheckAndUpdatePriorityStatusAsync(backupName, sourceDirectory));
         }
 
         private async Task ForceCheckAllBackupsAsync()
+        // Out: Task
+        // Description: Re-evaluates all backups and resumes them if conditions allow (no priority conflict).
+        // Notes: Called after backup removal or completion.
         {
             Console.WriteLine($"[DEBUG] ForceCheckAllBackupsAsync called");
 
-            // Get all backups that are currently tracked
             var allBackupNames = _backupProcessingStatus.Keys.ToList();
 
             foreach (var backupName in allBackupNames)
             {
-                // Check if this backup should be able to process non-priority files
                 bool canProcess = CanProcessNonPriorityFiles(backupName);
                 bool isCurrentlyProcessing = _backupProcessingStatus.GetValueOrDefault(backupName, false);
                 bool hasPriorityFiles = _backupHasPriorityFiles.GetValueOrDefault(backupName, false);
 
                 Console.WriteLine($"[DEBUG] Backup {backupName}: canProcess={canProcess}, isProcessing={isCurrentlyProcessing}, hasPriority={hasPriorityFiles}");
 
-                // If backup can process but isn't currently processing and doesn't have priority files
                 if (canProcess && !isCurrentlyProcessing && !hasPriorityFiles)
                 {
                     Console.WriteLine($"[DEBUG] Force resuming backup: {backupName}");

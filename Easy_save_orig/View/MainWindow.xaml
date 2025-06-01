@@ -123,7 +123,6 @@
         </Window.Resources>
 
         <Grid>
-                <!-- Contenu principal -->
                 <Grid Margin="20">
                         <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="250"
@@ -131,7 +130,6 @@
                                 <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
 
-                        <!-- Bouton Paramètres en haut à gauche -->
                         <Button x:Name="btnSettings"
                                 Content="⚙"
                                 Style="{StaticResource SettingsButtonStyle}"
@@ -141,7 +139,6 @@
                                 Click="BtnSettings_Click"
                                 FontSize="20"/>
 
-                        <!-- Menu latéral avec les boutons -->
                         <StackPanel Grid.Column="0"
                                     VerticalAlignment="Center"
                                     HorizontalAlignment="Center">
@@ -189,9 +186,7 @@
                                         Click="BtnQuit_Click"/>
                         </StackPanel>
 
-                        <!-- Conteneur principal pour les différentes vues -->
                         <Grid Grid.Column="1">
-                                <!-- Vue Liste (par défaut) -->
                                 <Border x:Name="listView"
                                         Background="#EFFFFF"
                                         CornerRadius="20"
@@ -215,13 +210,11 @@
                                                               VerticalScrollBarVisibility="Auto"
                                                               HorizontalScrollBarVisibility="Auto">
                                                         <StackPanel x:Name="backupListPanel">
-                                                                <!-- Liste de backups générée dynamiquement -->
                                                         </StackPanel>
                                                 </ScrollViewer>
                                         </Grid>
                                 </Border>
 
-                                <!-- Vue Création (masquée par défaut) -->
                                 <Border x:Name="createView"
                                         Background="#EFFFFF"
                                         CornerRadius="20"
@@ -319,7 +312,6 @@
                         </Grid>
                 </Grid>
 
-                <!-- Menu de sélection de langue (en overlay) -->
                 <Grid x:Name="languageMenuOverlay"
                       Visibility="Collapsed"
                       Background="#33000000"
@@ -384,7 +376,6 @@
                         Enter an extension (e.g. .pdf, .doc) that will be processed with priority during backups.
                                         </TextBlock>
 
-                                        <!-- Liste des extensions prioritaires -->
                                         <Border Background="#336666"
                                                 CornerRadius="5"
                                                 Margin="10,5,10,10"
@@ -392,7 +383,6 @@
                                                 <ScrollViewer VerticalScrollBarVisibility="Auto">
                                                         <StackPanel x:Name="priorityExtensionsListPanel"
                                                                     Margin="5">
-                                                                <!-- Liste générée dynamiquement -->
                                                         </StackPanel>
                                                 </ScrollViewer>
                                         </Border>
@@ -430,7 +420,6 @@
                         Enter the process name (e.g. calc) that will block backup execution.
                                         </TextBlock>
 
-                                        <!-- Liste des logiciels métier -->
                                         <Border Background="#336666"
                                                 CornerRadius="5"
                                                 Margin="10,5,10,10"
@@ -438,7 +427,6 @@
                                                 <ScrollViewer VerticalScrollBarVisibility="Auto">
                                                         <StackPanel x:Name="businessSoftwareListPanel"
                                                                     Margin="5">
-                                                                <!-- Liste générée dynamiquement -->
                                                         </StackPanel>
                                                 </ScrollViewer>
                                         </Border>

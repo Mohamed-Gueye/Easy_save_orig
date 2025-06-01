@@ -3,6 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace Easy_Save.Model.Status
 {
+    // Description: Represents a snapshot of the backup job's state for UI or persistence (JSON-serializable).
     public class StatusEntry
     {
         [JsonPropertyName("Name")]
@@ -32,10 +33,19 @@ namespace Easy_Save.Model.Status
         [JsonPropertyName("LastBackupDate")]
         public DateTime LastBackupDate { get; set; }
 
-        public StatusEntry(string name, string sourcePath, string destinationPath, string state, int totalFilesToCopy, long totalFilesSize, int nbFilesLeftToDo, int progression, DateTime lastBackupDate)
-        // In: All thz status data (string, int, long, DateTime)
-        // Out: /
-        // Description: Initializes a status entry representing the state of a backup job.
+        public StatusEntry(
+            string name,
+            string sourcePath,
+            string destinationPath,
+            string state,
+            int totalFilesToCopy,
+            long totalFilesSize,
+            int nbFilesLeftToDo,
+            int progression,
+            DateTime lastBackupDate)
+        // In: name (string), sourcePath (string), destinationPath (string), state (string), totalFilesToCopy (int), totalFilesSize (long), nbFilesLeftToDo (int), progression (int), lastBackupDate (DateTime)
+        // Out: StatusEntry instance
+        // Description: Initializes a new backup status entry for tracking job metadata and progress.
         {
             Name = name;
             SourcePath = sourcePath;

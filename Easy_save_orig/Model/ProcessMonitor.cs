@@ -4,6 +4,7 @@ using System.Linq;
 
 namespace Easy_Save.Model
 {
+    // Description: Utility class to check whether a specific process is running.
     public class ProcessMonitor
     {
         public static bool IsProcessRunning(string processName)
@@ -14,6 +15,7 @@ namespace Easy_Save.Model
             if (string.IsNullOrWhiteSpace(processName))
                 return false;
 
+            // Remove ".exe" if included
             if (processName.EndsWith(".exe", StringComparison.OrdinalIgnoreCase))
                 processName = processName.Substring(0, processName.Length - 4);
 
@@ -29,4 +31,4 @@ namespace Easy_Save.Model
             }
         }
     }
-} 
+}

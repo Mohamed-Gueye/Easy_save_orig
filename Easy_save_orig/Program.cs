@@ -65,7 +65,6 @@ class Program
             }
             catch (ObjectDisposedException)
             {
-                // Already disposed — ignore
             }
 
             _mutex.Dispose();

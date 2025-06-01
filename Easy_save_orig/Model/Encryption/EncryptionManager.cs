@@ -16,9 +16,10 @@ namespace Easy_Save.Model
         private static EncryptionManager? _instance;
         private static readonly object _lockObject = new object();
 
-        public static EncryptionManager Instance
+        // In: none
         // Out: EncryptionManager
-        // Description: Singleton instance accessor with lazy loading and thread safety.
+        // Description: Thread-safe singleton accessor using lazy initialization. Ensures there's only one global instance.
+        public static EncryptionManager Instance
         {
             get
             {
@@ -36,64 +37,51 @@ namespace Easy_Save.Model
             }
         }
 
-        public static EncryptionManager Load()
+        // In: none
         // Out: EncryptionManager
-        // Description: Loads encryption settings from the config.json file or returns defaults.
+        // Description: Loads settings from config.json. Supports both legacy flat format and newer "EncryptionSettings" block.
+        public static EncryptionManager Load()
         {
             try
             {
                 string configPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "config.json");
                 if (!File.Exists(configPath))
-                {
                     return new EncryptionManager();
-                }
 
                 string jsonContent = File.ReadAllText(configPath);
                 JsonDocument doc = JsonDocument.Parse(jsonContent);
 
                 var settings = new EncryptionManager();
 
-                // Load from root level properties (legacy format)
-                if (doc.RootElement.TryGetProperty("extensionsToEncrypt", out JsonElement extsElement))
+                // Legacy support: flat JSON properties
+                if (doc.RootElement.TryGetProperty("extensionsToEncrypt", out var extsElement))
                 {
-                    settings.ExtensionsToEncrypt = new List<string>();
-                    foreach (var ext in extsElement.EnumerateArray())
-                    {
-                        settings.ExtensionsToEncrypt.Add(ext.GetString() ?? "");
-                    }
+                    settings.ExtensionsToEncrypt = extsElement.EnumerateArray()
+                        .Select(ext => ext.GetString() ?? "")
+                        .ToList();
                 }
 
-                if (doc.RootElement.TryGetProperty("encryptionExecutablePath", out JsonElement exePath))
-                {
+                if (doc.RootElement.TryGetProperty("encryptionExecutablePath", out var exePath))
                     settings.EncryptionExecutablePath = exePath.GetString() ?? "";
-                }
 
-                if (doc.RootElement.TryGetProperty("key", out JsonElement keyElement))
-                {
+                if (doc.RootElement.TryGetProperty("key", out var keyElement))
                     settings.EncryptionKey = keyElement.GetString() ?? "";
-                }
 
-                // Try to load from EncryptionSettings section (new format)
-                if (doc.RootElement.TryGetProperty("EncryptionSettings", out JsonElement encryptionElement))
+                // Modern format: nested EncryptionSettings block
+                if (doc.RootElement.TryGetProperty("EncryptionSettings", out var encryptionElement))
                 {
-                    if (encryptionElement.TryGetProperty("EncryptionEnabled", out JsonElement enabledElement))
-                    {
+                    if (encryptionElement.TryGetProperty("EncryptionEnabled", out var enabledElement))
                         settings.EncryptionEnabled = enabledElement.GetBoolean();
+
+                    if (encryptionElement.TryGetProperty("EncryptExtensions", out var extensionsElement))
+                    {
+                        settings.ExtensionsToEncrypt = extensionsElement.EnumerateArray()
+                            .Select(ext => ext.GetString() ?? "")
+                            .ToList();
                     }
 
-                    if (encryptionElement.TryGetProperty("EncryptExtensions", out JsonElement extensionsElement))
-                    {
-                        settings.ExtensionsToEncrypt = new List<string>();
-                        foreach (var ext in extensionsElement.EnumerateArray())
-                        {
-                            settings.ExtensionsToEncrypt.Add(ext.GetString() ?? "");
-                        }
-                    }
-
-                    if (encryptionElement.TryGetProperty("EncryptionKey", out JsonElement encKeyElement))
-                    {
+                    if (encryptionElement.TryGetProperty("EncryptionKey", out var encKeyElement))
                         settings.EncryptionKey = encKeyElement.GetString() ?? "";
-                    }
                 }
 
                 return settings;
@@ -105,10 +93,10 @@ namespace Easy_Save.Model
             }
         }
 
-        public static EncryptionManager Load(string path)
         // In: path (string)
         // Out: EncryptionManager
-        // Description: Loads encryption settings from the specified JSON configuration file.
+        // Description: Loads encryption settings from a specific file path (used for testing or alternate profiles).
+        public static EncryptionManager Load(string path)
         {
             try
             {
@@ -124,81 +112,64 @@ namespace Easy_Save.Model
             }
         }
 
-        public void Save()
+        // In: none
         // Out: void
-        // Description: Saves the current encryption settings to config.json.
+        // Description: Saves encryption settings to config.json, supporting both modern and legacy formats for compatibility.
+        public void Save()
         {
             try
             {
                 string configPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "config.json");
-                
-                JsonDocument existingDoc;
-                if (File.Exists(configPath))
-                {
-                    string jsonContent = File.ReadAllText(configPath);
-                    existingDoc = JsonDocument.Parse(jsonContent);
-                }
-                else
-                {
-                    existingDoc = JsonDocument.Parse("{}");
-                }
 
-                using (var stream = new MemoryStream())
+                JsonDocument existingDoc = File.Exists(configPath)
+                    ? JsonDocument.Parse(File.ReadAllText(configPath))
+                    : JsonDocument.Parse("{}");
+
+                using var stream = new MemoryStream();
+                using (var writer = new Utf8JsonWriter(stream, new JsonWriterOptions { Indented = true }))
                 {
-                    using (var writer = new Utf8JsonWriter(stream, new JsonWriterOptions { Indented = true }))
+                    writer.WriteStartObject();
+
+                    // Preserve unrelated fields from existing config
+                    foreach (var property in existingDoc.RootElement.EnumerateObject())
                     {
-                        writer.WriteStartObject();
-
-                        using (JsonDocument doc = existingDoc)
+                        if (property.Name != "EncryptionSettings" &&
+                            property.Name != "extensionsToEncrypt" &&
+                            property.Name != "encryptionExecutablePath" &&
+                            property.Name != "key")
                         {
-                            foreach (var property in doc.RootElement.EnumerateObject())
-                            {
-                                if (property.Name != "EncryptionSettings" && 
-                                    property.Name != "extensionsToEncrypt" && 
-                                    property.Name != "encryptionExecutablePath" && 
-                                    property.Name != "key")
-                                {
-                                    property.WriteTo(writer);
-                                }
-                            }
+                            property.WriteTo(writer);
                         }
-
-                        // Write new EncryptionSettings section
-                        writer.WritePropertyName("EncryptionSettings");
-                        writer.WriteStartObject();
-                        
-                        writer.WriteBoolean("EncryptionEnabled", EncryptionEnabled);
-                        
-                        writer.WritePropertyName("EncryptExtensions");
-                        writer.WriteStartArray();
-                        foreach (var ext in ExtensionsToEncrypt)
-                        {
-                            writer.WriteStringValue(ext);
-                        }
-                        writer.WriteEndArray();
-                        
-                        writer.WriteString("EncryptionKey", EncryptionKey);
-                        
-                        writer.WriteEndObject();
-
-                        // Write legacy format for backward compatibility
-                        writer.WritePropertyName("extensionsToEncrypt");
-                        writer.WriteStartArray();
-                        foreach (var ext in ExtensionsToEncrypt)
-                        {
-                            writer.WriteStringValue(ext);
-                        }
-                        writer.WriteEndArray();
-                        
-                        writer.WriteString("encryptionExecutablePath", EncryptionExecutablePath);
-                        writer.WriteString("key", EncryptionKey);
-                        
-                        writer.WriteEndObject();
                     }
 
-                    var json = System.Text.Encoding.UTF8.GetString(stream.ToArray());
-                    File.WriteAllText(configPath, json);
+                    // New format block
+                    writer.WritePropertyName("EncryptionSettings");
+                    writer.WriteStartObject();
+                    writer.WriteBoolean("EncryptionEnabled", EncryptionEnabled);
+
+                    writer.WritePropertyName("EncryptExtensions");
+                    writer.WriteStartArray();
+                    foreach (var ext in ExtensionsToEncrypt)
+                        writer.WriteStringValue(ext);
+                    writer.WriteEndArray();
+
+                    writer.WriteString("EncryptionKey", EncryptionKey);
+                    writer.WriteEndObject();
+
+                    // Legacy format (backward compatibility)
+                    writer.WritePropertyName("extensionsToEncrypt");
+                    writer.WriteStartArray();
+                    foreach (var ext in ExtensionsToEncrypt)
+                        writer.WriteStringValue(ext);
+                    writer.WriteEndArray();
+
+                    writer.WriteString("encryptionExecutablePath", EncryptionExecutablePath);
+                    writer.WriteString("key", EncryptionKey);
+
+                    writer.WriteEndObject();
                 }
+
+                File.WriteAllText(configPath, System.Text.Encoding.UTF8.GetString(stream.ToArray()));
             }
             catch (Exception ex)
             {
@@ -206,26 +177,26 @@ namespace Easy_Save.Model
             }
         }
 
-        public bool ShouldEncryptFile(string filePath)
         // In: filePath (string)
         // Out: bool
-        // Description: Determines if a file should be encrypted based on its extension.
+        // Description: Returns true if the file extension matches a known encryptable extension and encryption is enabled.
+        public bool ShouldEncryptFile(string filePath)
         {
             if (!EncryptionEnabled || string.IsNullOrEmpty(filePath))
                 return false;
-                
+
             string ext = Path.GetExtension(filePath).ToLower();
             return ExtensionsToEncrypt.Any(e => e.Equals(ext, StringComparison.OrdinalIgnoreCase));
         }
 
-        public int EncryptFile(string filePath)
         // In: filePath (string)
         // Out: int
-        // Description: Encrypts the specified file using the configured settings.
+        // Description: Encrypts the given file using current settings. Returns result code from helper.
+        public int EncryptFile(string filePath)
         {
             if (string.IsNullOrEmpty(EncryptionExecutablePath) || string.IsNullOrEmpty(EncryptionKey))
                 return -1;
-                
+
             return EncryptionHelper.EncryptFile(filePath, EncryptionKey, EncryptionExecutablePath);
         }
     }
